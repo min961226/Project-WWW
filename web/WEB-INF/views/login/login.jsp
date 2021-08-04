@@ -16,6 +16,7 @@
 		<script src="assets/js/html5shiv.min.js"></script>
 		<script src="assets/js/respond.min.js"></script>
 	<![endif]-->
+	<script type="text/javascript"> function goReplace(str) { location.replace(str); } </script>
 </head>
 
 <body>
@@ -26,9 +27,9 @@
                 <div class="account-box">
                     <div class="account-wrapper">
                         <div class="account-logo">
-                            <a href="/WEB-INF/views/common/main.jsp"/><img src="assets/img/logo2.png" alt="Preadmin"></a>
+                            <a href="../login/main.jsp"/><img src="assets/img/logo2.png" alt="Preadmin"></a>
                         </div>
-                        <form action="../common/main.jsp">
+				<form action ="main.jsp">
                             <div class="form-group form-focus">
                                 <label class="control-label" name="">Username or Email</label>
                                 <input class="form-control floating" type="text">

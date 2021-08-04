@@ -28,7 +28,7 @@
   	<url-pattern>/*</url-pattern>
   </filter-mapping> -->
   
-  <!-- <error-page>
+  <error-page>
   	<error-code>403</error-code>
   	<location>/WEB-INF/views/common/error403.jsp</location>
   </error-page>
@@ -39,6 +39,6 @@
   <error-page>
   	<error-code>500</error-code>
   	<location>/WEB-INF/views/common/error500.jsp</location>
-  </error-page> -->
+  </error-page>
   
 </web-app>
