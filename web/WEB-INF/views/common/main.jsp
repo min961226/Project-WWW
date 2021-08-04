@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 
@@ -17,23 +20,15 @@
     <link rel="stylesheet" type="text/css" href="assets/plugins/morris/morris.css">
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <!-- <script>
-        $(document).ready(function() {
-            $(".header").load("www/header.html");
-            $(".sidebar").load("www/navbar.html");
-        });
-    </script> -->
-    <!--[if lt IE 9]>
-		<script src="assets/js/html5shiv.min.js"></script>
-		<script src="assets/js/respond.min.js"></script>
-	<![endif]-->
+  
+   
 </head>
 
 <body>
     <div class="main-wrapper">
          <div class="header">
             <div class="header-left">
-                <a href="index.html" class="logo">
+                <a href="main.jsp" class="logo">
                     <img src="assets/img/www_icon.png" width="40" height="40" alt="">
                 </a>
             </div>
@@ -143,8 +138,6 @@
                 </div>
             </div>
         </div>
-		<!-- <div class="header"></div>
-        <div class="sidebar"></div> -->
         <div class="page-wrapper">
             <div class="content container-fluid">
                 <div class="row">
