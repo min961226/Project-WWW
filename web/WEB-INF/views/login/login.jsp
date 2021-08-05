@@ -6,8 +6,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
     <title>Preadmin - Bootstrap Admin Template</title>
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
     <link href="https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600,700" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.min.css">
@@ -16,7 +16,7 @@
 		<script src="assets/js/html5shiv.min.js"></script>
 		<script src="assets/js/respond.min.js"></script>
 	<![endif]-->
-	<script type="text/javascript"> function goReplace(str) { location.replace(str); } </script>
+	<!-- <script type="text/javascript"> function goReplace(str) { location.replace(str); } </script> -->
 </head>
 
 <body>
@@ -27,12 +27,12 @@
                 <div class="account-box">
                     <div class="account-wrapper">
                         <div class="account-logo">
-                            <a href="../login/main.jsp"/><img src="assets/img/logo2.png" alt="Preadmin"></a>
+                            <a href="index.jsp"><img src="assets/img/logo2.png" alt="Preadmin"></a>
                         </div>
-				<form action ="main.jsp">
+                        <form id="loginForm" action="${ pageContext.servletContext.contextPath }/member/login" method="post">
                             <div class="form-group form-focus">
-                                <label class="control-label" name="">Username or Email</label>
-                                <input class="form-control floating" type="text">
+                                <label class="control-label">Username or Email</label>
+                                <input class="form-control floating" type="text" name="id">
                             </div>
                             <div class="form-group form-focus">
                                 <label class="control-label">Password</label>
@@ -50,9 +50,9 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript" src="assets/js/jquery-3.2.1.min.js"></script>
+    <!-- <script type="text/javascript" src="assets/js/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="assets/js/app.js"></script>
+    <script type="text/javascript" src="assets/js/app.js"></script> -->
 </body>
 
 </html>
