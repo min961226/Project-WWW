@@ -11,14 +11,14 @@
     <title>Preadmin - Bootstrap Admin Template</title>
     <link href="https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/fullcalendar.min.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/dataTables.bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/select2.min.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap-datetimepicker.min.css">
-    <link rel="stylesheet" type="text/css" href="assets/plugins/morris/morris.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/fullcalendar.min.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" type="text/css" href="../assets/plugins/morris/morris.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   
    
@@ -29,7 +29,7 @@
          <div class="header">
             <div class="header-left">
                 <a href="main.jsp" class="logo">
-                    <img src="assets/img/www_icon.png" width="40" height="40" alt="">
+                    <img src="../assets/img/www_icon.png" width="40" height="40" alt="">
                 </a>
             </div>
             <div class="page-title-box pull-left">

@@ -13,9 +13,13 @@ import javax.servlet.http.HttpSession;
 public class MemberLoginServlet extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String path = "/WEB-INF/views/common/main.jsp";
-		request.getRequestDispatcher(path).forward(request, response);
-
+		
+		System.out.println("연결 성공!!");
+		
+		System.out.println(request.getParameter("id"));
+		
+		request.getRequestDispatcher("/WEB-INF/views/common/error-404.jsp").forward(request, response);
+		
 	}
 
 }
