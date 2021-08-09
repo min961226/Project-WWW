@@ -1,11 +1,11 @@
 package com.qs.www.welfare.model.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
 import com.qs.www.welfare.model.dao.WelfareDAO;
+
 import static com.qs.www.common.mybatis.Template.getSqlSession;
 
 public class WelfareService {
@@ -20,12 +20,12 @@ public class WelfareService {
 		
 		SqlSession session = getSqlSession();
 		
-		List<String> welfareList = new ArrayList<>();
-		
-		welfareList = new ArrayList<>()
+		List<String> welfareList = welfareDAO.checkWelfareList(session);
 		
 		
-		return null;
+		session.close();
+
+		return welfareList;
 	}
 
 }
