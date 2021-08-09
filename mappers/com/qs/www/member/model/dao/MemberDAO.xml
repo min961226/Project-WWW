@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="MemberDAO">
-	<!-- <resultMap type="com.qs.www.member.model.dto.MemberDTO" id="memberResultMap">
+	<resultMap type="com.qs.www.member.model.dto.MemberDTO" id="memberResultMap">
 		<id property="memberNo" column="MEMBER_NO"/>
 		<result property="memberId" column="MEMBER_ID"/>
 		<result property="password" column="PASSWORD"/>
@@ -22,7 +22,7 @@
 		<result property="jobCode" column="JOB_CODE"/>
 		<result property="appWorkType" column="APP_WORK_TYPE"/>
 		<result property="workCode" column="WORK_CODE"/>
-		<result property="remainingHoliday" column="PASSWORD"/>
+		<result property="remainingHoliday" column="REMAINING_HOLIDAY"/>
 	</resultMap>
 		
 	<select id="selectEncryptedPwd" resultType="java.lang.String">
@@ -59,34 +59,5 @@
           FROM TBL_MEMBER A
          WHERE A.ENT_YN = 'Y'
            AND A.MEMBER_ID = #{ memberId }
-	</select> -->
-	
-	<resultMap type="com.qs.www.member.model.dto.MemberDTO" id="memberResultMap">
-		<id property="no" column="MEMBER_NO"/>
-		<result property="id" column="MEMBER_ID"/>
-		<result property="pwd" column="MEMBER_WPD"/>
-		<result property="nickname" column="NICKNAME"/>
-		<result property="phone" column="PHONE"/>
-		<result property="email" column="EMAIL"/>
-		<result property="address" column="ADDRESS"/>
-		<result property="enrollDate" column="ENROLL_DATE"/>
-		<result property="role" column="MEMBER_ROLE"/>
-		<result property="status" column="MEMBER_STATUS"/>
-	</resultMap>
-	
-	<select id="selectEncryptedPwd" resultType="java.lang.String">
-        SELECT
-               A.MEMBER_PWD
-          FROM TBL_MEMBER A
-         WHERE A.MEMBER_STATUS = 'Y'
-           AND A.MEMBER_ID = #{ id }
-	</select>
-	
-	<select id="selectLoginMember" resultMap="memberResultMap">
-        SELECT
-               A.*
-          FROM TBL_MEMBER A
-         WHERE A.MEMBER_STATUS = 'Y'
-           AND A.MEMBER_ID = #{ id }
 	</select>
 </mapper>

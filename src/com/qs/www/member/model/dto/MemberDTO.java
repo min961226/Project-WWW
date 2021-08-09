@@ -166,6 +166,7 @@ public class MemberDTO implements Serializable {
 		return questionAnswer;
 	}
 
+
 	public void setQuestionAnswer(String questionAnswer) {
 		this.questionAnswer = questionAnswer;
 	}

@@ -11,7 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 public class SelectMypageServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("마이페이지");
+		
+		request.getRequestDispatcher("/WEB-INF/views/mypage/info.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -26,9 +26,13 @@ public class MemberService {
 		
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		
-		if(passwordEncoder.matches(requestMember.getPwd(), encPwd)) {
+		if(encPwd.equals(requestMember.getPassword())) {
 			loginMember = memberDAO.selectLoginMember(session, requestMember);
 		}
+		
+//		if(passwordEncoder.matches(requestMember.getPassword(), encPwd)) {
+//			loginMember = memberDAO.selectLoginMember(session, requestMember);
+//		}
 		
 		session.close();
 		
