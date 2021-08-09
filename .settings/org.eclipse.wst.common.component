@@ -5,6 +5,7 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/log4j"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/resources"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/mappers"/>
         <property name="context-root" value="WWW"/>
         <property name="java-output-path" value="/WWW/web/WEB-INF/classes"/>
     </wb-module>
