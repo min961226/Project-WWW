@@ -24,8 +24,8 @@ public class LoginServlet extends HttpServlet {
 		System.out.println(memberPwd);
 		
 		MemberDTO requestMember = new MemberDTO();
-		requestMember.setId(memberId);
-		requestMember.setPwd(memberPwd);
+		requestMember.setMemberId(memberId);
+		requestMember.setPassword(memberPwd);
 		
 		MemberService memberService = new MemberService();
 		

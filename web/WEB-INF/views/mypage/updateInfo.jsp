@@ -23,17 +23,16 @@
                     </div>
 
                     <div class="col-xs-5 text-right m-b-30">
-                        <a href="${ pageContext.servletContext.contextPath }/mypage/info/update" class="btn btn-primary rounded">프로필 수정</a>
+                        <a href="edit-profile.html" class="btn btn-primary rounded"><i class="fa fa-plus"></i> Edit Profile</a>
                     </div>
                 </div>
-                
                 <div class="card-box">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="profile-view">
                                 <div class="profile-img-wrap">
                                     <div class="profile-img">
-                                        <a href="#"><img class="avatar" src="${ pageContext.servletContext.contextPath }/assets/img/user-06.jpg" alt=""></a>
+                                        <a href="#"><img class="avatar" src="${ pageContext.servletContext.contextPath }/assets/img/user.jpg" alt=""></a>
                                     </div>
                                 </div>
                                 <div class="profile-basic">
