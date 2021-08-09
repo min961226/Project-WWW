@@ -66,9 +66,8 @@ public class InsertWorkingSystemScheduleServlet extends HttpServlet {
 		reportDTO.setDocumentNo(4);
 		reportDTO.setReportNote(changeReason);
 		
-		ScheduleService scheduleService = new ScheduleService();
-		
-		int result = scheduleService.applyWorkingSystem(memberWorkLogDTO);
+		ScheduleService scheduleService = new ScheduleService();		
+		int result = scheduleService.applyWorkingSystem(reportDTO);
 		
 		System.out.println(result);
 		
