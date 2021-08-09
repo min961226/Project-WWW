@@ -19,8 +19,6 @@
 	<mappers>
 		<mapper resource="com/qs/www/member/model/dao/MemberDAO.xml"/>
 
-		<mapper resource="com/qs/www/member/model/dao/BoardDAO.xml"/>
-
 
 		<mapper resource="com/qs/www/schedule/model/dao/ScheduleDAO.xml"/>
 
