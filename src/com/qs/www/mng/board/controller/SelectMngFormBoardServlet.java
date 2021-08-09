@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 public class SelectMngFormBoardServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("서식게시판 관리");
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

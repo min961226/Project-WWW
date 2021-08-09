@@ -39,7 +39,7 @@
              , A.CREATED_DATE
          FROM TBL_NOTICE A
          JOIN TBL_MEMBER B ON (A.NOTICE_WRITER_MEMBER_NO = B.MEMBER_NO)
-        WHERE A.NOTICE_STATUS = 'Y'
+        WHERE A.NOTICE_STATUS = 'N'
         ORDER BY A.NOTICE_NO DESC
 	</select>
 	
