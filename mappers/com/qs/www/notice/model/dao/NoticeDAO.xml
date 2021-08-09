@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="NoticeDAO">
+	<resultMap type="com.qs.www.mng.board.model.dto.NoticeDTO" id="noticeResultMap">
+		<id property="no" column="NOTICE_NO"/>
+		<result property="title" column="NOTICE_TITLE"/>
+		<result property="body" column="NOTICE_BODY"/>
+		<result property="writerMemberNo" column="NOTICE_WRITER_MEMBER_NO"/>
+		<result property="count" column="NOTICE_COUNT"/>
+		<result property="createdDate" column="CREATED_DATE"/>
+		<result property="status" column="NOTICE_STATUS"/>
+	
+		<association property="writer" resultMap="memberResultMap"/>
+	</resultMap>
+	
+	<resultMap type="com.qs.www.member.model.dto.MemberDTO" id="memberResultMap">
+		<id property="no" column="MEMBER_NO"/>
+		<result property="id" column="MEMBER_ID"/>
+		<result property="pwd" column="MEMBER_PWD"/>
+		<result property="nickname" column="NICKNAME"/>
+		<result property="phone" column="PHONE"/>
+		<result property="email" column="EMAIL"/>
+		<result property="address" column="ADDRESS"/>
+		<result property="enrollDate" column="ENROLL_DATE"/>
+		<result property="role" column="MEMBER_ROLE"/>
+		<result property="status" column="MEMBER_STATUS"/>
+	</resultMap>
+
+	<select id="selectAllNoticeList" resultMap="noticeResultMap">
+        SELECT /* comqs.www.mng.board.model.dao.NoticeDAO#selectAllNoticeList() */
+               A.NOTICE_NO
+             , A.NOTICE_TITLE
+             , A.NOTICE_BODY
+             , A.NOTICE_WRITER_MEMBER_NO
+             , B.NICKNAME
+             , A.NOTICE_COUNT
+             , A.CREATED_DATE
+         FROM TBL_NOTICE A
+         JOIN TBL_MEMBER B ON (A.NOTICE_WRITER_MEMBER_NO = B.MEMBER_NO)
+        WHERE A.NOTICE_STATUS = 'Y'
+        ORDER BY A.NOTICE_NO DESC
+	</select>
+	
+</mapper>
+	
+	
+  
