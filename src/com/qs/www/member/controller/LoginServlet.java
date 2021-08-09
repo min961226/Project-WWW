@@ -20,9 +20,6 @@ public class LoginServlet extends HttpServlet {
 		String memberId = request.getParameter("memberId");
 		String memberPwd = request.getParameter("memberPwd");
 		
-		System.out.println(memberId);
-		System.out.println(memberPwd);
-		
 		MemberDTO requestMember = new MemberDTO();
 		requestMember.setMemberId(memberId);
 		requestMember.setPassword(memberPwd);
@@ -34,8 +31,6 @@ public class LoginServlet extends HttpServlet {
 		if(loginMember != null) {
 			HttpSession session = request.getSession();
 			session.setAttribute("loginMember", loginMember);
-			
-			System.out.println(loginMember);
 			
 			response.sendRedirect(request.getContextPath());
 		} else {

@@ -29,7 +29,7 @@
         SELECT /* com.qs.www.member.model.dao.MemberDAO#selectEncryptedPwd() */
                A.PASSWORD
           FROM TBL_MEMBER A
-         WHERE A.ENT_YN = 'Y'
+         WHERE A.ENT_YN = 'N'
            AND A.MEMBER_ID = #{ memberId }
 	</select>
 	
@@ -57,7 +57,7 @@
              , A.WORK_CODE
              , A.REMAINING_HOLIDAY
           FROM TBL_MEMBER A
-         WHERE A.ENT_YN = 'Y'
+         WHERE A.ENT_YN = 'N'
            AND A.MEMBER_ID = #{ memberId }
 	</select>
 </mapper>
