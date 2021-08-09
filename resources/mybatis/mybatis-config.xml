@@ -17,8 +17,6 @@
 	</environments>
 	
 	<mappers>
-		<mapper resource="com/greedy/jsp/member/model/dao/MemberDAO.xml"/>
-		<mapper resource="com/greedy/jsp/notice/model/dao/NoticeDAO.xml"/>
-		<mapper resource="com/greedy/jsp/board/model/dao/BoardDAO.xml"/>
+		<mapper resource="com/qs/www/member/model/dao/MemberDAO.xml"/>
 	</mappers>
 </configuration>
