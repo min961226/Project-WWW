@@ -35,9 +35,6 @@ public class InsertWorkingSystemScheduleServlet extends HttpServlet {
 		
 		System.out.println("InsertWorkingSystemScheduleServlet = 근무신청 서블렛으로 이동");
 		
-//		HttpSession session = request.getSession();
-//		MemberDTO loginMember = (MemberDTO) session.getAttribute("loginMember");
-		
 		int documentNo = 4;			//근무신청서의 문서번호는 4번이다.		
 		int workNo = Integer.parseInt(request.getParameter("workNo"));
 		int approverLine = Integer.parseInt(request.getParameter("approverLine"));
@@ -51,9 +48,12 @@ public class InsertWorkingSystemScheduleServlet extends HttpServlet {
 		}
 		
 		/* 1. 상신테이블(TBL_REPORT)에 상신문서 insert */
+		HttpSession session = request.getSession();
+		
 		ReportDTO reportDTO = new ReportDTO();
+		reportDTO.setMemberNo(((MemberDTO) session.getAttribute("loginMember")).getMemberNo());
 		//reportDTO.setMemberNo(loginMember.getMemberNo());
-		reportDTO.setMemberNo(4);
+		//reportDTO.setMemberNo(4);
 		reportDTO.setDocumentNo(documentNo);
 		reportDTO.setReportNote(changeReason);
 		System.out.println("InsertWorkingSystemScheduleServlet의 reportDTO : " + reportDTO);
@@ -96,7 +96,7 @@ public class InsertWorkingSystemScheduleServlet extends HttpServlet {
 //			priority++;
 //		}		
 //		System.out.println(result2);		
-//		if(result2 > 0 ) { 여기서부터 다음거 시작이지
+//		if(result2 > 0 )
 		
 		
 		/* 3-1. 결재라인선택한 번호로, 결재자들의 결재자사번을 받아오기 */
