@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="NoticeDAO">
+	<resultMap type="com.qs.www.board.model.dto.NoticeDTO" id="noticeResultMap">
+		<id property="no" column="BOARD_NO"/>
+		<result property="title" column="BOARD_TITLE"/>
+		<result property="member" column="MEMBER_NO"/>
+		<result property="type" column="BOARD_TYPE"/>
+		<result property="count" column="BOARD_COUNT"/>
+		<result property="body" column="BOARD_BODY"/>
+		<result property="delete" column="DELETE_YN"/>	
+		<result property="created" column="CREATED_DATE"/>	
+		<result property="modified" column="MODIFIED_DATE"/>	
+		
+	</resultMap>
+	
+	<select id="selectAllNoticeList" resultMap="noticeResultMap">
+        SELECT /* com.qs.www.board.model.dao.NoticeDAO#selectAllNoticeList() */
+               A.BOARD_NO
+             , A.BOARD_TITLE
+             , A.MEMBER_NO
+             , A.BOARD_TYPE
+             , B.BOARD_COUNT
+             , A.BOARD_BODY
+             , A.DELETE_YN
+             , A.CREATED_DATE
+             , A.MODIFIED_DATE
+         FROM TBL_BOARD A
+	</select>
+
+</mapper>
