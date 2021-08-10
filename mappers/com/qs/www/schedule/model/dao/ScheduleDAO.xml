@@ -1,15 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.qs.www.schedule.model.dao.ScheduleDAO">
-
-	<resultMap type="com.qs.www.schedule.model.dto.ReportDTO" id="memberWorkLogResultMap">
-		<id/>
-	</resultMap>
+<mapper namespace="ScheduleDAO">
 	
 	<insert id="applyWorkingSystem">
 	INSERT /* com.qs.www.schedule.model.dao.ScheduleDAO#applyWorkingSystem() */
-	       TBL_REPORT A
-	  INTO 
+	  INTO TBL_REPORT A
+	(
+	  A.REPORT_NO
+	, A.REPORT_DATE
+	, A.MEMBER_NO
+	, A.DOCUMENT_NO
+	, A.REPORT_NOTE
+	, A.REPORT_STATUS
+	)
+	VALUES
+	(
+	  SEQ_REPORT_NO.NEXTVAL
+	, SYSDATE
+	, #{ memberNo }
+	, #{ documentNo }
+	, #{ reportNote }
+	, DEFAULT
+	)
 	</insert>
 
 </mapper>
