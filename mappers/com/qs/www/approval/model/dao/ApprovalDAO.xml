@@ -8,11 +8,25 @@
 		<result property="workType" column="WORK_TYPE"/>
 		<result property="memberNo" column="MEMBER_NO"/>
 	</resultMap>
+	
+	<resultMap type="com.qs.www.approval.model.dto.ApproverDTO" id="approverResultMap">
+		<result property="memberNo" column="MEMBER_NO"/>
+		<result property="lineNo" column="LINE_NO"/>
+		<result property="ApproverName" column="APPROVER_NAME"/>
+		<result property="ApproverType" column="APPROVER_TYPE"/>
+		<result property="priority" column="PRIORITY"/>
+	</resultMap>
 <select id="selectApprovalLine" resultMap="approvalLineResultMap">
 SELECT /* com.qs.www.approval.model.dao.ApprovalDAO#selectApprovalLine()*/
 		   A.*
 	  FROM TBL_APPROVER_LINE A
 	 WHERE A.MEMBER_NO = #{ no }
+</select>
+<select id="selectApprover" resultMap="approverResultMap">
+SELECT /* com.qs.www.approval.model.dao.ApprovalDAO#selectApprovalLine()*/
+		   A.*
+	  FROM TBL_APPROVER A
+	 WHERE A.LINE_NO = #{ lineNo }
 </select>
 </mapper>
 	    
