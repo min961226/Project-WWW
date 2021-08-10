@@ -30,11 +30,11 @@
                             </div>
                             <div class="form-group">
                                 <label>부서</label>
-                                <input class="form-control" type="text">
+                                <input class="form-control" type="text" value= "${deptName}">
                             </div>
                             <div class="form-group">
                                 <label>직위</label>
-                                <input class="form-control" type="text">
+                                <input class="form-control" type="text" value= "${jobName}">
                             </div>
                             <div class="form-group">
                                 <label>신청자</label>

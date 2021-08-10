@@ -9,6 +9,11 @@
 <link rel="shortcut icon" type="image/x-icon" href="${ pageContext.servletContext.contextPath }/assets/img/favicon.png">
 <title>Wonderful Welfare Workspace</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+	$goBack.onclick = function(){
+		location.href ="${ pageContext.servletContext.contextPath }";
+	}
+</script>
 </head>
 
 <body>
@@ -24,21 +29,21 @@
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
                         <form>
-                            <div class="form-group">
-                                <label>직원 번호</label>
+                             <div class="form-group">
+                                <label>직원 ID</label>
                                 <input class="form-control" type="text" value= "${memberNo}" readonly="readonly"/>
                             </div>
                             <div class="form-group">
                                 <label>부서</label>
-                                <input class="form-control" type="text">
+                                <input class="form-control" type="text" value= "${deptName}">
                             </div>
                             <div class="form-group">
                                 <label>직위</label>
-                                <input class="form-control" type="text">
+                                <input class="form-control" type="text" value= "${jobName}">
                             </div>
                             <div class="form-group">
                                 <label>신청자</label>
-                                <input class="form-control" type="text">
+                                <input class="form-control" type="text" value= "${name}">
                             </div>
                             <div class="form-group">
                                 <label>회의실명</label>
@@ -83,8 +88,8 @@
                                 
                             </div>
                             <div class="m-t-20 text-center">
-                                <button class="btn btn-primary btn-lg">신청 완료</button>
-                                <button class="btn btn-primary btn-lg">돌아가기</button>
+                                <button class="btn btn-primary btn-lg" type="submit">신청 완료</button>
+                                <input id="goBack" type="reset" value="돌아가기" class="btn btn-primary btn-lg">
                             </div>
                         </form>
                     </div>

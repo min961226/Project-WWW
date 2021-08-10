@@ -28,15 +28,16 @@ public class SelectedWelfareServlet extends HttpServlet {
 		String deptCode = ((MemberDTO) session.getAttribute("loginMember")).getDeptCode();
 		String jobCode = ((MemberDTO) session.getAttribute("loginMember")).getJobCode();
 		String name = ((MemberDTO) session.getAttribute("loginMember")).getName();
-		System.out.println(deptCode);
-		System.out.println(jobCode);
 		String deptName = welfareService.selectDeptName(deptCode);
 		String jobName = welfareService.selectJobName(jobCode);
+
+		System.out.println(deptCode);
+		System.out.println(jobCode);
 		System.out.println(memberNo);
 		System.out.println(name);
-		
 		System.out.println(deptName);
 		System.out.println(jobName);
+		
 		request.setAttribute("memberNo", memberNo);
 		request.setAttribute("deptName", deptName);
 		request.setAttribute("jobName", jobName);
