@@ -20,20 +20,14 @@ public class SelectMypageServlet extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		
-		MemberDTO loginMember = (MemberDTO) session.getAttribute("loginMember");
-		String memberId = loginMember.getMemberId();
+		String memberId = ((MemberDTO) session.getAttribute("loginMember")).getMemberId();
 		
 		MypageService mypageService = new MypageService();
-		
 		MemberInfoDTO memberInfo = mypageService.selectInfo(memberId);
-		System.out.println(memberInfo);
 		
-//		request.setAttribute(memberInfo);
 		
+		
+		session.setAttribute("memberInfo", memberInfo);
 		request.getRequestDispatcher("/WEB-INF/views/mypage/info.jsp").forward(request, response);
-	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 	}
 }
