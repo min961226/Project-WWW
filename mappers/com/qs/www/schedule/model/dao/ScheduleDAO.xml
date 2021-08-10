@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ScheduleDAO">
 	
-	<insert id="applyWorkingSystem">
+	<insert id="applyWorkingSystem" parameterType="com.qs.www.schedule.model.dto.ReportDTO">
 	INSERT /* com.qs.www.schedule.model.dao.ScheduleDAO#applyWorkingSystem() */
 	  INTO TBL_REPORT A
 	(
@@ -24,7 +24,7 @@
 	)
 	</insert>
 	
-	<insert id="applyWorkingSystemItemContent">
+	<insert id="applyWorkingSystemItemContent" parameterType="com.qs.www.schedule.model.dto.WorkingDocumentItemDTO">
 	INSERT
 	  INTO TBL_ITEM_CONTENT A
 	(
@@ -42,13 +42,13 @@
 	)
 	</insert>
 	
-	<insert id="applyWorkingSystemItemContent">
+	<insert id="applyWorkingSystemApprover" parameterType="com.qs.www.schedule.model.dto.ApproverPerReportDTO">
 	INSERT
-	  INTO TBL_APPROVER_PER_REPORT
+	  INTO TBL_APPROVER_PER_REPORT A
 	(
 	  A.REPORT_NO
 	, A.MEMBER_NO
-	, A.PRIROTY
+	, A.PRIORTY
 	, A.APPROVER_TYPE
 	)
 	VALUES
