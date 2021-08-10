@@ -23,5 +23,23 @@
 	, DEFAULT
 	)
 	</insert>
+	
+	<insert id="applyWorkingSystemItemContent">
+	INSERT
+	  INTO TBL_ITEM_CONTENT A
+	(
+	  A.REPORT_NO
+	, A.DOCUMENT_NO
+	, A.PRIORITY
+	, A.ITEM_CONTENT
+	)
+	VALUES
+	(
+	  #{ reportNo }
+	, #{ documentNo }
+	, #{ priority }
+	, #{ itemContent }
+	)
+	</insert>
 
 </mapper>
