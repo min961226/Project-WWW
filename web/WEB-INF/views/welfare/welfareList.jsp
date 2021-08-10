@@ -70,6 +70,10 @@
 									<label class="control-label col-lg-2">Default select</label>
 									<div class="col-lg-10">
 										<select class="form-control">
+
+											<c:forEach items="${ welfareList }" var="welfare">
+												<option><c:out value="${ welfare.name }" /></option>
+											</c:forEach>
 											<option>-- Select --</option>
 											<option>Option 1</option>
 											<option>Option 2</option>
