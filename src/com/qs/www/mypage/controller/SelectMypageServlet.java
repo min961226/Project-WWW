@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.qs.www.member.model.dto.MemberDTO;
+import com.qs.www.mypage.model.dto.MemberInfoDTO;
 import com.qs.www.mypage.model.service.MypageService;
 
 @WebServlet("/mypage/info/select")
@@ -24,7 +25,8 @@ public class SelectMypageServlet extends HttpServlet {
 		
 		MypageService mypageService = new MypageService();
 		
-		MemberDTO memberInfo = mypageService.selectInfo();
+		MemberInfoDTO memberInfo = mypageService.selectInfo(memberId);
+		System.out.println(memberInfo);
 		
 //		request.setAttribute(memberInfo);
 		

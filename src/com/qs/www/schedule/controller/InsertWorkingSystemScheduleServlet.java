@@ -36,17 +36,17 @@ public class InsertWorkingSystemScheduleServlet extends HttpServlet {
 		
 		String workType = "";
 		if(workNo > 5) {
-			workType = "표준근무제";
-		} else {
 			workType = "커스텀근무제";
+		} else {
+			workType = "표준근무제";
 		}
 		
-		System.out.println(workNo);
-		System.out.println(workType);
-		System.out.println(approverLine);
-		System.out.println(startDay);
-		System.out.println(endDay);
-		System.out.println(changeReason);
+		System.out.println("workNo : " + workNo);
+		System.out.println("근무제타입 : " + workType);
+		System.out.println("결재라인 : " + approverLine);
+		System.out.println("시작일 : " + startDay);
+		System.out.println("종료일 : " + endDay);
+		System.out.println("변경사유 : " + changeReason);
 		
 //		HttpSession session = request.getSession();
 //		int memberNo = (Integer) session.getAttribute("memberNo");
@@ -65,6 +65,7 @@ public class InsertWorkingSystemScheduleServlet extends HttpServlet {
 		reportDTO.setMemberNo(4);
 		reportDTO.setDocumentNo(4);
 		reportDTO.setReportNote(changeReason);
+		System.out.println("InsertWorkingSystemScheduleServlet의 reportDTO : " + reportDTO);
 		
 		ScheduleService scheduleService = new ScheduleService();		
 		int result = scheduleService.applyWorkingSystem(reportDTO);
