@@ -1,102 +1,97 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 
 <head>
 <meta charset="UTF-8">
-<link rel="shortcut icon" type="image/x-icon" href="${ pageContext.servletContext.contextPath }/assets/img/favicon.png">
+<link rel="shortcut icon" type="image/x-icon"
+	href="${ pageContext.servletContext.contextPath }/assets/img/favicon.png">
 <title>Wonderful Welfare Workspace</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
-	$goBack.onclick = function(){
-		location.href ="${ pageContext.servletContext.contextPath }";
+	$goBack.onclick = function() {
+		location.href = "${ pageContext.servletContext.contextPath }";
 	}
 </script>
 </head>
 
 <body>
-   <div class="main-wrapper">
-		<jsp:include page="../common/navbar.jsp"/>
-         <div class="page-wrapper">
-            <div class="content container-fluid">
-                <div class="row">
-                    <div class="col-md-8 col-md-offset-2">
-                        <h4 class="page-title">경조사 신청서</h4>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-8 col-md-offset-2">
-                        <form>
-                             <div class="form-group">
-                                <label>직원 ID</label>
-                                <input class="form-control" type="text" value= "${memberNo}" readonly="readonly"/>
-                            </div>
-                            <div class="form-group">
-                                <label>부서</label>
-                                <input class="form-control" type="text" value= "${deptName}">
-                            </div>
-                            <div class="form-group">
-                                <label>직위</label>
-                                <input class="form-control" type="text" value= "${jobName}">
-                            </div>
-                            <div class="form-group">
-                                <label>신청자</label>
-                                <input class="form-control" type="text" value= "${name}">
-                            </div>
-                            <div class="form-group">
-                                <label>회의실명</label>
-                                <input class="form-control" type="text">
-                            </div>
-                            <div class="form-group">
-                                <label>이용인원</label>
-                                <input class="form-control" type="text">
-                            </div>
-                            <div class="form-group">
-                                <label>이용 시간</label>
-                                <select class="select">
-                                    <option>Select</option>
-                                    <option>2014.07.28 (목) 09:00</option>
-                                    <option>Fashion</option>
-                                    <option>Books</option>
-                                    <option>Toys</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>이용 종료 시간</label>
-                                <select class="select">
-                                    <option>Select</option>
-                                    <option>2014.07.28 (목) 10:30</option>
-                                    <option>Fashion</option>
-                                    <option>Books</option>
-                                    <option>Toys</option>
-                                </select>
-                            </div>
-                           
-                            <div class="form-group">
-                                <label>회의 목적</label>
-                                <textarea cols="30" rows="6" class="form-control"></textarea>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label>파일첨부</label>
-                                <div>
-                                    <input class="form-control" type="file">
-                                    <small class="help-block">파일 최대 사이즈: 50 MB. 허용된 확장자: jpg, gif, png. </small>
-                                </div>
-                                
-                            </div>
-                            <div class="m-t-20 text-center">
-                                <button class="btn btn-primary btn-lg" type="submit">신청 완료</button>
-                                <input id="goBack" type="reset" value="돌아가기" class="btn btn-primary btn-lg">
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="main-wrapper">
+		<jsp:include page="../common/navbar.jsp" />
+		<div class="page-wrapper">
+			<div class="content container-fluid">
+				<div class="row">
+					<div class="col-md-8 col-md-offset-2">
+						<h4 class="page-title">자기개발비 신청서</h4>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-8 col-md-offset-2">
+						<form name = "insertSelfDev" action="${ pageContext.servletContext.contextPath }/welfare/selfDevelopment/insert" method="POST">
+							<div class="form-group">
+								<label>직원 ID</label> <input class="form-control" type="text"
+									value="${memberNo}" readonly="readonly" />
+							</div>
+							<div class="form-group">
+								<label>부서</label> <input name ="deptName" class="form-control" type="text" value="${deptName}">
+							</div>
+							<div class="form-group">
+								<label>직위</label> <input name ="jobName"  class="form-control" type="text" value="${jobName}">
+							</div>
+							<div class="form-group">
+								<label>신청자</label> <input name ="name" class="form-control" type="text"	value="${name}">
+							</div>
+							<div class="form-group" >
+								<label>결재선 지정</label>
+								<select name="approverLine" class="form-control">
+									<option>-- 결재선 지정 --</option>
+									<c:forEach items="${ requestScope.approverLine }" var="approverLine">
+										<option><c:out value="${ approverLine }" /></option>
+									</c:forEach>
+								</select>
+							</div>
+							<div class="form-group">
+								<label>자기개발비 사용일자</label> <input name="date" class="form-control" type="date">
+							</div>
+							<div class="form-group">
+								<label>신청 목적</label> <select name="selfDevList"
+									class="form-control">
+									<option>-- 자기개발비 신청 가능 목록 --</option>
+									<c:forEach items="${ requestScope.selfDevList }" var="selfDevList">
+										<option><c:out value="${ selfDevList }" /></option>
+									</c:forEach>
+								</select>
+							</div>
+
+							<div class="form-group">
+								<label>신청 내용</label>
+								<textarea name="selfDevInfo" cols="30" rows="6" class="form-control"></textarea>
+							</div>
+
+							<div class="form-group">
+								<label>영수증 첨부</label>
+								<div>
+									<input class="form-control" type="file"> <small
+										class="help-block">파일 최대 사이즈: 50 MB. 허용된 확장자: jpg,
+										gif, png. </small>
+								</div>
+
+							</div>
+							<div class="m-t-20 text-center">
+								<button class="btn btn-primary btn-lg" type="submit">신청
+									완료</button>
+								<input id="goBack" type="reset" value="돌아가기"
+									class="btn btn-primary btn-lg">
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 
 </html>
