@@ -19,4 +19,9 @@ public class ApprovalDAO {
 		return session.selectList("ApprovalDAO.selectApprover", lineNo);
 	}
 
+	public String selectReportNum(SqlSession session) {
+		
+		return session.selectOne("ApprovalDAO.selectReportNum");
+	}
+
 }

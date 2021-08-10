@@ -22,8 +22,6 @@ public class ApprovalService {
 		SqlSession session = getSqlSession();
 
 		List<ApprovalLineDTO> lineList = approvalDAO.selectApprovalLine(session, no);
-		
-		System.out.println(lineList);
 
 		session.close();
 
@@ -34,12 +32,21 @@ public class ApprovalService {
 		SqlSession session = getSqlSession();
 
 		List<ApproverDTO> approverList = approvalDAO.selectApprover(session, lineNo);
-		
-		System.out.println(approverList);
 
 		session.close();
 
 		return approverList;
+	}
+
+	public String selectReportNum() {
+		SqlSession session = getSqlSession();
+
+		String reportNum = approvalDAO.selectReportNum(session);
+		
+
+		session.close();
+
+		return reportNum;
 	}
 
 }
