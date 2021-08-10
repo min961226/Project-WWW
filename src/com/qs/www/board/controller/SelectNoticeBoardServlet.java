@@ -19,13 +19,13 @@ public class SelectNoticeBoardServlet extends HttpServlet {
 		
 		List<NoticeDTO> noticeList = new NoticeService().selectAllNoticeList();
 		
-		
+		System.out.println(noticeList);
 		String path = "";
 		if(noticeList != null) {
-			path = "/WEB-INF/views/notice/noticeList.jsp";
+			path = "/WEB-INF/views/board/noticeBoard.jsp";
 			request.setAttribute("noticeList", noticeList);
 		} else {
-			path = "/WEB-INF/views/common/failed.jsp";
+			path = "/WEB-INF/views/common/error-404.jsp";
 			request.setAttribute("message", "공지사항 조회 실패!");
 		}
 		
