@@ -39,7 +39,7 @@
 											</c:forEach>
 										</select>
 										<br>
-						<button class="btn btn-primary" type="submit">신청하기</button>
+						<button class="btn btn-primary" type="submit">신청하기1</button>
 									</div>
 								</div>
 							</form>
