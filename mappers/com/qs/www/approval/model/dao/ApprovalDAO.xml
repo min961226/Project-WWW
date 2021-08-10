@@ -1,4 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ApprovalDAO">
+
+	<resultMap type="com.qs.www.approval.model.dto.ApprovalLineDTO" id="approvalLineResultMap">
+		<result property="lineNo" column="LINE_NO"/>
+		<result property="lineName" column="LINE_NAME"/>
+		<result property="workType" column="WORK_TYPE"/>
+		<result property="memberNo" column="MEMBER_NO"/>
+	</resultMap>
+<select id="selectApprovalLine" resultMap="approvalLineResultMap">
+SELECT /* com.qs.www.approval.model.dao.ApprovalDAO#selectApprovalLine()*/
+		   A.*
+	  FROM TBL_APPROVER_LINE A
+	 WHERE A.MEMBER_NO = #{ no }
+</select>
 </mapper>
+	    
