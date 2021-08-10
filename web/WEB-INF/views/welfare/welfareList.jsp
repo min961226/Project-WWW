@@ -27,19 +27,18 @@
 					<div class="col-lg-12">
 						<div class="card-box">
 							<h4 class="card-title">복지 신청 가능 목록</h4>
-							<form class="form-horizontal" action="/welfare/list/select">
+							<form class="form-horizontal" action="${ pageContext.servletContext.contextPath }/welfare/list/selected">
 								<div class="form-group">
 									<label class="control-label col-lg-2">신청 복지 선택</label>
 									<div class="col-lg-10" align="center">
-										<select class="form-control">
+										<select name="selectedWelfare" class="form-control">
 											<option>-- 복지 신청 가능 목록 --</option>
-											<c:forEach items="${ requestScope.welfareList }"
-												var="welfare">
+											<c:forEach items="${ requestScope.welfareList }" var="welfare">
 												<option><c:out value="${ welfare }" /></option>
 											</c:forEach>
 										</select>
 										<br>
-						<button class="btn btn-primary" type="submit">신청하기1</button>
+										<button class="btn btn-primary" type="submit">신청하기</button>
 									</div>
 								</div>
 							</form>
