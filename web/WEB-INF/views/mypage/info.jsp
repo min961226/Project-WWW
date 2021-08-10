@@ -27,8 +27,8 @@
                 </div>
                 <div class="row">
                 	<div class="col-md-2">
-                		<div class="edit-profile-img" align="center">
-                			<img class="call-avatar" src="${ pageContext.servletContext.contextPath }/assets/img/user.jpg" alt="">
+                		<div class="author-img-wrap" align="center">
+                			<img class="img-responsive img-circle" src="${ pageContext.servletContext.contextPath }/assets/img/user.jpg" alt="">
                         </div>
                 	</div>
                 	
