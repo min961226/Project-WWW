@@ -22,7 +22,7 @@
              , A.BOARD_TITLE
              , A.MEMBER_NO
              , A.BOARD_TYPE
-             , B.BOARD_COUNT
+             , A.BOARD_COUNT
              , A.BOARD_BODY
              , A.DELETE_YN
              , A.CREATED_DATE

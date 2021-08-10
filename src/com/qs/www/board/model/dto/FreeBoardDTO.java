@@ -1,6 +1,9 @@
 package com.qs.www.board.model.dto;
 
-public class FreeBoardDTO {
+import java.awt.Image;
+import java.io.Serializable;
+
+public class FreeBoardDTO implements Serializable {
 	
 	private int no;
 	private String title;

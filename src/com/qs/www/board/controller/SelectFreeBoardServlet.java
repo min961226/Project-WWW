@@ -17,11 +17,9 @@ public class SelectFreeBoardServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		
 		List<FreeBoardDTO> freeboardList = new FreeBoardService().selectAllFreeList();
 		
-		
-		
+		System.out.println(freeboardList);
 		String path = "";
 		if(freeboardList != null) {
 			path = "/WEB-INF/views/board/freeBoardList.jsp";
