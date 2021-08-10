@@ -35,7 +35,7 @@
 									<div class="col-sm-6">
 										<label>결재 분류</label>
 										<div class="col-md-12">
-											<select class="form-control">
+											<select class="form-control" name="documentNo">
 												<option value=1>일반기안문</option>
 												<option value=2>일반품의서</option>
 												<option value=3>일반결의서</option>

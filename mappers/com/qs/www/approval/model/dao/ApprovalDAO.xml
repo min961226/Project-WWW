@@ -2,31 +2,45 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ApprovalDAO">
 
-	<resultMap type="com.qs.www.approval.model.dto.ApprovalLineDTO" id="approvalLineResultMap">
-		<result property="lineNo" column="LINE_NO"/>
-		<result property="lineName" column="LINE_NAME"/>
-		<result property="workType" column="WORK_TYPE"/>
-		<result property="memberNo" column="MEMBER_NO"/>
+	<resultMap
+		type="com.qs.www.approval.model.dto.ApprovalLineDTO"
+		id="approvalLineResultMap">
+		<result property="lineNo" column="LINE_NO" />
+		<result property="lineName" column="LINE_NAME" />
+		<result property="workType" column="WORK_TYPE" />
+		<result property="memberNo" column="MEMBER_NO" />
 	</resultMap>
-	
-	<resultMap type="com.qs.www.approval.model.dto.ApproverDTO" id="approverResultMap">
-		<result property="memberNo" column="MEMBER_NO"/>
-		<result property="lineNo" column="LINE_NO"/>
-		<result property="ApproverName" column="APPROVER_NAME"/>
-		<result property="ApproverType" column="APPROVER_TYPE"/>
-		<result property="priority" column="PRIORITY"/>
+
+	<resultMap type="com.qs.www.approval.model.dto.ApproverDTO"
+		id="approverResultMap">
+		<result property="memberNo" column="MEMBER_NO" />
+		<result property="lineNo" column="LINE_NO" />
+		<result property="ApproverName" column="APPROVER_NAME" />
+		<result property="ApproverType" column="APPROVER_TYPE" />
+		<result property="priority" column="PRIORITY" />
 	</resultMap>
-<select id="selectApprovalLine" resultMap="approvalLineResultMap">
-SELECT /* com.qs.www.approval.model.dao.ApprovalDAO#selectApprovalLine()*/
-		   A.*
-	  FROM TBL_APPROVER_LINE A
-	 WHERE A.MEMBER_NO = #{ no }
-</select>
-<select id="selectApprover" resultMap="approverResultMap">
-SELECT /* com.qs.www.approval.model.dao.ApprovalDAO#selectApprovalLine()*/
-		   A.*
-	  FROM TBL_APPROVER A
-	 WHERE A.LINE_NO = #{ lineNo }
-</select>
+	<select id="selectApprovalLine"
+		resultMap="approvalLineResultMap">
+		SELECT /* com.qs.www.approval.model.dao.ApprovalDAO#selectApprovalLine()*/
+		A.*
+		FROM TBL_APPROVER_LINE A
+		WHERE A.MEMBER_NO = #{ no }
+	</select>
+	<select id="selectApprover" resultMap="approverResultMap">
+		SELECT /* com.qs.www.approval.model.dao.ApprovalDAO#selectApprovalLine()*/
+		A.*
+		FROM TBL_APPROVER A
+		WHERE A.LINE_NO = #{ lineNo }
+	</select>
+
+	<select id="selectReportNum" resultType="java.lang.String">
+		SELECT
+		LAST_NUMBER
+		FROM USER_SEQUENCES
+		WHERE
+		SEQUENCE_NAME = 'SEQ_REPORT_NO';
+	</select>
+
+
 </mapper>
 	    
