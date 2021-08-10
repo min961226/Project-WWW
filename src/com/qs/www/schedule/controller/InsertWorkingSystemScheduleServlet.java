@@ -115,7 +115,13 @@ public class InsertWorkingSystemScheduleServlet extends HttpServlet {
 		List<String> approverList = new ArrayList<>();
 		
 		
+		
 		/* 3-2. 상신별결재자(TBL_APPROVER_PER_REPORT)에 insert */
+		
+		
+		
+		
+		/* 4. 사원별근무제변경이력 확인 */
 		java.sql.Date startDay = java.sql.Date.valueOf(request.getParameter("startDay"));
 		java.sql.Date endDay = java.sql.Date.valueOf(request.getParameter("endDay"));
 		//int memberNo = (Integer) session.getAttribute("memberNo");
