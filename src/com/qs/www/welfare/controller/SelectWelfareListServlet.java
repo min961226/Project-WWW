@@ -31,6 +31,8 @@ public class SelectWelfareListServlet extends HttpServlet {
 					break;
 				case "경조사신청서":
 					System.out.println("경조사신청서");
+					request.getRequestDispatcher("/WEB-INF/views/welfare/welfareList.jsp").forward(request, response);
+
 					break;
 				case "자기개발비신청서":
 					System.out.println("자기개발비신청서");
