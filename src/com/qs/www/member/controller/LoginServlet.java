@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import com.qs.www.member.model.dto.MemberDTO;
 import com.qs.www.member.model.service.MemberService;
+import com.qs.www.mypage.model.dto.MemberInfoDTO;
 
 @WebServlet("/member/login")
 public class LoginServlet extends HttpServlet {

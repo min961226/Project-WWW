@@ -19,12 +19,13 @@
 	<mappers>
 		<mapper resource="com/qs/www/member/model/dao/MemberDAO.xml"/>
 
-
-
-
-
+		<mapper resource="com/qs/www/mypage/model/dao/MypageDAO.xml"/>
 
 		<mapper resource="com/qs/www/welfare/model/dao/WelfareDAO.xml"/>
+    
+    <mapper resource="com/qs/www/schedule/model/dao/ScheduleDAO.xml"/>
+    
+
 
 	</mappers>
 </configuration>
