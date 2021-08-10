@@ -25,8 +25,8 @@
                     <div class="col-md-8 col-md-offset-2">
                         <form>
                             <div class="form-group">
-                                <label>직원 ID</label>
-                                <input class="form-control" type="text" value="USER-0001" readonly="">
+                                <label>직원 번호</label>
+                                <input class="form-control" type="text" value= "${memberNo}" readonly="readonly"/>
                             </div>
                             <div class="form-group">
                                 <label>부서</label>

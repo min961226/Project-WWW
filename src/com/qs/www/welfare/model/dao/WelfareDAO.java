@@ -12,4 +12,12 @@ public class WelfareDAO {
 		return session.selectList("WelfareDAO.selectWelfareList");
 	}
 
+	public String selectDeptName(SqlSession session, String deptCode) {
+		return session.selectOne("WelfareDAO.selecDeptName",deptCode);
+	}
+
+	public String selectJobName(SqlSession session, String jobCode) {
+		return session.selectOne("WelfareDAO.selectJobName",jobCode);
+	}
+
 }

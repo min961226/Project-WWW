@@ -26,7 +26,7 @@
                         <form>
                             <div class="form-group">
                                 <label>직원 ID</label>
-                                <input class="form-control" type="text" value="USER-0001" readonly="">
+                                 <input class="form-control" type="text" value= "${memberNo}" readonly="readonly"/>
                             </div>
                             <div class="form-group">
                                 <label>부서</label>
