@@ -22,38 +22,15 @@ public class SelectWelfareListServlet extends HttpServlet {
 		WelfareService welfareService = new WelfareService();
 		List<String> welfareList = welfareService.checkWelfareList();
 		System.out.println(welfareList);
-		if (welfareList.size() > 0) {
-			for (int i = 0; i < welfareList.size(); i++) {
-				switch (welfareList.get(i)) {
-				case "야간교통비신청서":
-					System.out.println("야간교통비신청서");
-					request.getRequestDispatcher("/WEB-INF/views/welfare/welfareList.jsp").forward(request, response);
-					break;
-				case "경조사신청서":
-					System.out.println("경조사신청서");
-					request.getRequestDispatcher("/WEB-INF/views/welfare/welfareList.jsp").forward(request, response);
-
-					break;
-				case "자기개발비신청서":
-					System.out.println("자기개발비신청서");
-					break;
-				case "기숙사입주신청서":
-					System.out.println("기숙사입주신청서");
-
-					break;
-				case "회의실예약신청서":
-					System.out.println("회의실예약신청서");
-					break;
-				case "노트북대여신청서":
-					System.out.println("노트북대여신청서");
-					break;
-				default:
-					break;
-				}
+		String path = "";
+			if(welfareList != null) {
+				path = "/WEB-INF/views/welfare/welfareList.jsp";
+				request.setAttribute("welfareList", welfareList);
+			} else {
+				path = "/WEB-INF/views/common/error-404.jsp";
+				request.setAttribute("message", "복지 목록조회 실패!");
 			}
-		} else {
-			System.out.println("로그인 실패");
-		}
+			request.getRequestDispatcher(path).forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
