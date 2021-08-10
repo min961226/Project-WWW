@@ -1,11 +1,11 @@
 package com.qs.www.mypage.model.service;
 
+import static com.qs.www.common.mybatis.Template.getSqlSession;
+
 import org.apache.ibatis.session.SqlSession;
 
-import com.qs.www.member.model.dto.MemberDTO;
 import com.qs.www.mypage.model.dao.MypageDAO;
-
-import static com.qs.www.common.mybatis.Template.getSqlSession;
+import com.qs.www.mypage.model.dto.MemberInfoDTO;
 
 public class MypageService {
 	
@@ -15,11 +15,11 @@ public class MypageService {
 		mypageDAO = new MypageDAO();
 	}
 
-	public MemberDTO selectInfo() {
+	public MemberInfoDTO selectInfo(String memberId) {
 		
 		SqlSession session = getSqlSession();
 		
-		MemberDTO memberInfo = mypageDAO.selectInfo(session);
+		MemberInfoDTO memberInfo = mypageDAO.selectInfo(session, memberId);
 		
 		session.close();
 		

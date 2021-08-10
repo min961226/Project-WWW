@@ -2,11 +2,11 @@ package com.qs.www.mypage.model.dao;
 
 import org.apache.ibatis.session.SqlSession;
 
-import com.qs.www.member.model.dto.MemberDTO;
+import com.qs.www.mypage.model.dto.MemberInfoDTO;
 
 public class MypageDAO {
 
-	public MemberDTO selectInfo(SqlSession session) {	
-		return null;
+	public MemberInfoDTO selectInfo(SqlSession session, String memberId) {	
+		return session.selectOne("selectInfo", memberId);
 	}
 }
