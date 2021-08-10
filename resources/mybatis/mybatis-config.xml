@@ -24,10 +24,11 @@
 		<mapper resource="com/qs/www/welfare/model/dao/WelfareDAO.xml"/>
 
     
+
     
      	<mapper resource="com/qs/www/board/model/dao/NoticeDAO.xml"/>
-     	
      	<mapper resource="com/qs/www/board/model/dao/FreeDAO.xml"/>
+     	<mapper resource="com/qs/www/board/model/dao/FormDAO.xml"/>
     
     
     

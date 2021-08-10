@@ -3,16 +3,30 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="FreeDAO">
-
-	<resultMap type="com.qs.www.board.model.dto.FreeBoardDTO" id="generalBoardResultMap">
+	<resultMap type="com.qs.www.board.model.dto.FreeBoardDTO" id="freeResultMap">
 		<id property="no" column="BOARD_NO"/>
 		<result property="title" column="BOARD_TITLE"/>
+		<result property="member" column="MEMBER_NO"/>
+		<result property="type" column="BOARD_TYPE"/>
+		<result property="count" column="BOARD_COUNT"/>
+		<result property="body" column="BOARD_BODY"/>
+		<result property="delete" column="DELETE_YN"/>	
+		<result property="created" column="CREATED_DATE"/>	
+		<result property="modified" column="MODIFIED_DATE"/>	
+		
 	</resultMap>
-	
-		<select id="selectAllFreeList" resultMap="generalBoardResultMap">
-         SELECT /* com.qs.www.board.model.dao.FreeBoardDAO#selectAllFreeList() */
+	<select id="selectAllFreeList" resultMap="freeResultMap">
+        SELECT /* com.qs.www.board.model.dao.FreeBoardDAO#selectAllFreeList() */
                A.BOARD_NO
              , A.BOARD_TITLE
-             FROM TBL_BOARD A
-		</select>
+             , A.MEMBER_NO
+             , A.BOARD_TYPE
+             , A.BOARD_COUNT
+             , A.BOARD_BODY
+             , A.DELETE_YN
+             , A.CREATED_DATE
+             , A.MODIFIED_DATE
+         FROM TBL_BOARD A
+	</select>
+
 </mapper>
