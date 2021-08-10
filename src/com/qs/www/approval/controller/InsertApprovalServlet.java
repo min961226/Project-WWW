@@ -37,7 +37,7 @@ public class InsertApprovalServlet extends HttpServlet {
 		int memberNo = ((MemberDTO) request.getSession().getAttribute("loginMember")).getMemberNo();
 		String note = request.getParameter("note");
 		
-		String reportNum = new ApprovalService().selectReportNum();
+		int reportNum = new ApprovalService().selectReportNum();
 		System.out.println("두구두둑두굳굳구두굳굳구 : " + reportNum );
 		
 		ReportDTO report = new ReportDTO();

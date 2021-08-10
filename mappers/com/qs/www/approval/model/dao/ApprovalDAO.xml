@@ -36,19 +36,10 @@
 	</select>
 
 	<select id="selectReportNum" resultType="_int">
-
 		SELECT
-
-		LAST_NUMBER
-
-		FROM
-
-		USER_SEQUENCES
-
-		WHERE
-
-		SEQUENCE_NAME = 'SEQ_REPORT_NO'
-
+		       LAST_NUMBER
+		  FROM USER_SEQUENCES
+		 WHERE SEQUENCE_NAME = 'SEQ_REPORT_NO'
 	</select>
 
 
