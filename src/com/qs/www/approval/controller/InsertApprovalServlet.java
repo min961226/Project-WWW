@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.qs.www.approval.model.dto.ApprovalLineDTO;
+import com.qs.www.approval.model.dto.ApproverDTO;
 import com.qs.www.approval.model.service.ApprovalService;
 import com.qs.www.member.model.dto.MemberDTO;
 
@@ -32,9 +33,9 @@ public class InsertApprovalServlet extends HttpServlet {
 		System.out.println(name);
 		
 		int lineNo = Integer.parseInt(request.getParameter("line"));
-		System.out.println(lineNo);
 		
-//		List<ApprovalLineDTO> lineList = new ApprovalService().selectApprovalLine(no);
+		List<ApproverDTO> approverList = new ApprovalService().selectApprover(lineNo);
+		System.out.println(approverList);
 	}
 	
 	
