@@ -113,14 +113,14 @@ public class InsertWorkingSystemScheduleServlet extends HttpServlet {
 		approverList.add(approverDTO);
 		
 		int result3 = 0;
-//		for(ApproverDTO approver : approverList) {
-//			ApproverPerReportDTO approverPerReportDTO = new ApproverPerReportDTO();
-//			approverPerReportDTO.setReportNo(2); //일단 하드코딩
-//			approverPerReportDTO.setMemberNo(approver.getMemberNo());
-//			approverPerReportDTO.setPriority(approver.getPriority());
-//			
-//			result3 = scheduleService.applyWorkingSystemApprover(approverPerReportDTO);
-//		}
+		for(ApproverDTO approver : approverList) {
+			ApproverPerReportDTO approverPerReportDTO = new ApproverPerReportDTO();
+			approverPerReportDTO.setReportNo(2); //일단 하드코딩
+			approverPerReportDTO.setMemberNo(approver.getMemberNo());
+			approverPerReportDTO.setPriority(approver.getPriority());
+			
+			result3 = scheduleService.applyWorkingSystemApprover(approverPerReportDTO);
+		}
 //		System.out.println(result3);
 //		if(result3 > 0) {
 		
@@ -147,13 +147,13 @@ public class InsertWorkingSystemScheduleServlet extends HttpServlet {
 		
 		
 		
-		if(result > 0) {
-			System.out.println("상신성공");
-			String path = "";
-			response.sendRedirect(request.getContextPath());
-		} else {
-			System.out.println("상신실패");
-		}
+//		if(result4 > 0) {
+//			System.out.println("상신성공");
+//			String path = "";
+//			response.sendRedirect(request.getContextPath());
+//		} else {
+//			System.out.println("상신실패");
+//		}
 		
 	}
 }

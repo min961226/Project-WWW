@@ -4,7 +4,7 @@
 
 	<resultMap type="com.qs.www.welfare.model.dto.WelfareListDTO" id="welfareResultMap">
 		<result property="welfareName" column="DOCUMENT_NAME"/>
-	</resultMap>
+	</resultMap> 
 <select id="selectWelfareList" resultType="java.lang.String">
 	SELECT /* com.qs.www.welfare.model.dao.WelfareDAO#checkWelfareList()*/
 		   DOCUMENT_NAME
