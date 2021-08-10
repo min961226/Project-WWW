@@ -28,7 +28,7 @@
 					<div class="col-lg-12">
 						
 
-							<form class="form-horizontal" action="#">
+							<form class="form-horizontal" action="${ pageContext.servletContext.contextPath }/approval/insert" method="post">
 
 
 								<div class="form-group">
@@ -36,10 +36,9 @@
 										<label>결재 분류</label>
 										<div class="col-md-12">
 											<select class="form-control">
-												<option>-- 결재분류를 선택해주세요 --</option>
-												<option>일반기안문</option>
-												<option>일반품의서</option>
-												<option>일반결의서</option>
+												<option value=1>일반기안문</option>
+												<option value=2>일반품의서</option>
+												<option value=3>일반결의서</option>
 											</select>
 										</div>
 									</div>
@@ -47,7 +46,7 @@
 									<div class="col-sm-6">
 										<label>결재 제목</label>
 										<div class="col-md-12">
-											<input type="password" class="form-control">
+											<input type="text" name="title" class="form-control">
 										</div>
 									</div>
 								</div>
@@ -64,13 +63,11 @@
 									<div class="col-sm-6">
 										<label>결재라인</label>
 										<div class="col-md-12">
-											<select class="form-control">
-												<option>-- Select --</option>
-												<option>Option 1</option>
-												<option>Option 2</option>
-												<option>Option 3</option>
-												<option>Option 4</option>
-												<option>Option 5</option>
+											<select class="form-control" name="line">
+												<option value=0>-- 결재라인을 선택해주세요 --</option>
+												<c:forEach var="line" items="${ requestScope.lineList }">
+												<option value= ${ line.lineNo }>${ line.lineName }</option>
+												</c:forEach>
 											</select>
 										</div>
 									</div>
@@ -101,7 +98,7 @@
 								<div class="col-sm-12">
 									<label>내용</label>
 									<div class="col-lg-12">
-										<textarea rows="8" cols="5" class="form-control"
+										<textarea name="body" rows="8" cols="5" class="form-control"
 											placeholder="내용을 입력해주세요"></textarea>
 									</div>
 								</div>
@@ -112,7 +109,7 @@
 								<div class="col-sm-12">
 									<label>비고</label>
 									<div class="col-lg-12">
-										<textarea rows="5" cols="5" class="form-control"
+										<textarea name="note" rows="5" cols="5" class="form-control"
 											placeholder="비고를 입력해주세요"></textarea>
 									</div>
 								</div>

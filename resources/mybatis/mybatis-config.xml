@@ -17,6 +17,8 @@
 	</environments>
 	
 	<mappers>
+	    <mapper resource="com/qs/www/approval/model/dao/ApprovalDAO.xml"/>
+	    
 		<mapper resource="com/qs/www/member/model/dao/MemberDAO.xml"/>
 
 		<mapper resource="com/qs/www/mypage/model/dao/MypageDAO.xml"/>
