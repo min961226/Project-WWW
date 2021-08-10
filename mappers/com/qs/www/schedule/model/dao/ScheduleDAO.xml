@@ -25,7 +25,9 @@
 	</insert>
 	
 	<insert id="applyWorkingSystemItemContent" parameterType="com.qs.www.schedule.model.dto.WorkingDocumentItemDTO">
+
 	INSERT /* com.qs.www.schedule.model.dao.ScheduleDAO#applyWorkingSystemItemContent() */
+
 	  INTO TBL_ITEM_CONTENT A
 	(
 	  A.REPORT_NO
@@ -42,14 +44,18 @@
 	)
 	</insert>
 	
+
 	
 	<insert id="applyWorkingSystemApprover" parameterType="com.qs.www.schedule.model.dto.ApproverPerReportDTO">
 	INSERT /* com.qs.www.schedule.model.dao.ScheduleDAO#applyWorkingSystemApprover() */
+
 	  INTO TBL_APPROVER_PER_REPORT A
 	(
 	  A.REPORT_NO
 	, A.MEMBER_NO
+
 	, A.PRIORITY
+
 	, A.APPROVER_TYPE
 	)
 	VALUES

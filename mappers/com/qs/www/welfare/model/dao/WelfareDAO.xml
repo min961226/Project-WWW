@@ -2,9 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="WelfareDAO">
 
+
 	<resultMap type="com.qs.www.welfare.model.dto.WelfareListDTO" id="welfareResultMap">
 		<result property="welfareName" column="DOCUMENT_NAME"/>
 	</resultMap> 
+
 <select id="selectWelfareList" resultType="java.lang.String">
 	SELECT /* com.qs.www.welfare.model.dao.WelfareDAO#checkWelfareList()*/
 		   DOCUMENT_NAME
