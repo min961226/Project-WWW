@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.qs.www.approval.model.dto.ApproverDTO;
 import com.qs.www.member.model.dto.MemberDTO;
+import com.qs.www.schedule.model.dto.ApproverPerReportDTO;
 import com.qs.www.schedule.model.dto.MemberWorkLogDTO;
 import com.qs.www.schedule.model.dto.ReportDTO;
 import com.qs.www.schedule.model.dto.WorkingDocumentItemDTO;
@@ -36,9 +38,7 @@ public class InsertWorkingSystemScheduleServlet extends HttpServlet {
 //		HttpSession session = request.getSession();
 //		MemberDTO loginMember = (MemberDTO) session.getAttribute("loginMember");
 		
-		//근무신청서의 문서번호는 4번이다.
-		int documentNo = 4;
-		
+		int documentNo = 4;			//근무신청서의 문서번호는 4번이다.		
 		int workNo = Integer.parseInt(request.getParameter("workNo"));
 		int approverLine = Integer.parseInt(request.getParameter("approverLine"));
 		String changeReason = request.getParameter("changeReason");
@@ -59,9 +59,8 @@ public class InsertWorkingSystemScheduleServlet extends HttpServlet {
 		System.out.println("InsertWorkingSystemScheduleServlet의 reportDTO : " + reportDTO);
 				
 		ScheduleService scheduleService = new ScheduleService();		
-//		int result = scheduleService.applyWorkingSystem(reportDTO);
-//		System.out.println(result);
-//		if(result > 0 ) { 여기서부터 다음거 시작이지
+//		int result1 = scheduleService.applyWorkingSystem(reportDTO);
+//		if(result1 > 0 ) { 여기서부터 다음거 시작이지
 		
 		
 		/* 2-1. 방금 상신올린문서의 ReportNo를 가져와야 함 */
@@ -75,7 +74,6 @@ public class InsertWorkingSystemScheduleServlet extends HttpServlet {
 		
 		System.out.println("title : " + title);
 		
-		//ArrayList를 써야 하나?
 		List<String> workingDocumentItem = new ArrayList<>();
 		workingDocumentItem.add(title);
 		workingDocumentItem.add(getworkNo);
@@ -85,43 +83,52 @@ public class InsertWorkingSystemScheduleServlet extends HttpServlet {
 		System.out.println("InsertWorkingSystemScheduleServlet의 List : " + workingDocumentItem);
 		
 		int priority = 1;
-		int result = 0;
-		for(String item : workingDocumentItem) {
-			WorkingDocumentItemDTO workingDocumentItemDTO = new WorkingDocumentItemDTO();
-			workingDocumentItemDTO.setReportNo(2); //일단 하드코딩
-			workingDocumentItemDTO.setDocumentNo(documentNo);
-			workingDocumentItemDTO.setPriority(priority);
-			workingDocumentItemDTO.setItemContent(item);			
-			
-			result = scheduleService.applyWorkingSystemItemContent(workingDocumentItemDTO);
-			
-			priority++;
-		}
-		System.out.println(result);
-		
-//		workingDocumentItemDTO.setTitle(title);
-//		workingDocumentItemDTO.setWorkNo(getworkNo);
-//		workingDocumentItemDTO.setStartDate(request.getParameter("startDay"));
-//		workingDocumentItemDTO.setEndDate(request.getParameter("endDay"));
-//		workingDocumentItemDTO.setChangeReason(changeReason);
-//		System.out.println("InsertWorkingSystemScheduleServlet의 workingDocumentItemDTO : " + workingDocumentItemDTO);
-//		
-//		int result = scheduleService.applyWorkingSystemItemContent(workingDocumentItemDTO);
-//		System.out.println(result);
-//		if(result > 0 ) { 여기서부터 다음거 시작이지
+		int result2 = 0;
+//		for(String item : workingDocumentItem) {
+//			WorkingDocumentItemDTO workingDocumentItemDTO = new WorkingDocumentItemDTO();
+//			workingDocumentItemDTO.setReportNo(2); //일단 하드코딩
+//			workingDocumentItemDTO.setDocumentNo(documentNo);
+//			workingDocumentItemDTO.setPriority(priority);
+//			workingDocumentItemDTO.setItemContent(item);			
+//			
+//			result2 = scheduleService.applyWorkingSystemItemContent(workingDocumentItemDTO);
+//			
+//			priority++;
+//		}		
+//		System.out.println(result2);		
+//		if(result2 > 0 ) { 여기서부터 다음거 시작이지
 		
 		
 		/* 3-1. 결재라인선택한 번호로, 결재자들의 결재자사번을 받아오기 */
-		List<String> approverList = new ArrayList<>();
-		
-		
+		//일단 하드코딩
+		ApproverDTO approverDTO = new ApproverDTO();
+		approverDTO.setMemberNo(1);
+		approverDTO.setLineNo(4);
+		approverDTO.setApproverName("유관순");
+		approverDTO.setApproverType("결재");
+		approverDTO.setPriority(1);
 		
 		/* 3-2. 상신별결재자(TBL_APPROVER_PER_REPORT)에 insert */
+		List<ApproverDTO> approverList = new ArrayList<>();
+		approverList.add(approverDTO);
+		
+		int result3 = 0;
+//		for(ApproverDTO approver : approverList) {
+//			ApproverPerReportDTO approverPerReportDTO = new ApproverPerReportDTO();
+//			approverPerReportDTO.setReportNo(2); //일단 하드코딩
+//			approverPerReportDTO.setMemberNo(approver.getMemberNo());
+//			approverPerReportDTO.setPriority(approver.getPriority());
+//			
+//			result3 = scheduleService.applyWorkingSystemApprover(approverPerReportDTO);
+//		}
+//		System.out.println(result3);
+//		if(result3 > 0) {
 		
 		
+		/* 4. 커스텀근무제라면 커스텀근무제에도 추가해야함 */
 		
 		
-		/* 4. 사원별근무제변경이력 확인 */
+		/* 5. 사원별근무제변경이력 확인 */
 		java.sql.Date startDay = java.sql.Date.valueOf(request.getParameter("startDay"));
 		java.sql.Date endDay = java.sql.Date.valueOf(request.getParameter("endDay"));
 		//int memberNo = (Integer) session.getAttribute("memberNo");
@@ -131,10 +138,11 @@ public class InsertWorkingSystemScheduleServlet extends HttpServlet {
 		memberWorkLogDTO.setMemberNo(4);
 		memberWorkLogDTO.setWorkType(workType);
 		memberWorkLogDTO.setWorkNo(workNo);
-		memberWorkLogDTO.setApproverLine(approverLine);
 		memberWorkLogDTO.setStartDay(startDay);
 		memberWorkLogDTO.setEndDay(endDay);
 		memberWorkLogDTO.setChangeReason(changeReason);
+		
+		
 		
 		
 		

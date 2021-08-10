@@ -41,5 +41,23 @@
 	, #{ itemContent }
 	)
 	</insert>
+	
+	<insert id="applyWorkingSystemItemContent">
+	INSERT
+	  INTO TBL_APPROVER_PER_REPORT
+	(
+	  A.REPORT_NO
+	, A.MEMBER_NO
+	, A.PRIROTY
+	, A.APPROVER_TYPE
+	)
+	VALUES
+	(
+	  #{ reportNo }
+	, #{ memberNo }
+	, #{ priority }
+	, DEFAULT
+	)
+	</insert>
 
 </mapper>
