@@ -25,8 +25,6 @@ public class FreeBoardService {
 		
 		List<FreeBoardDTO> freeboardList = freeboardDAO.selectAllFreeList(session);
 		
-		System.out.println(freeboardList);
-		
 		session.close();
 
 		return freeboardList;

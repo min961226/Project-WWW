@@ -24,7 +24,7 @@ public class ScheduleDAO {
 
 	public int applyWorkingSystemApprover(SqlSession session, ApproverPerReportDTO approverPerReportDTO) {
 		
-		return session.insert("ScheduleDAO.applyWorkingSystemItemContent", approverPerReportDTO);
+		return session.insert("ScheduleDAO.applyWorkingSystemApprover", approverPerReportDTO);
 	}
 
 }
