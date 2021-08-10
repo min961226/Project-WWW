@@ -38,12 +38,16 @@ public class ApprovalService {
 		return approverList;
 	}
 
-	public String selectReportNum() {
+	public int selectReportNum() {
 		SqlSession session = getSqlSession();
 
-		String reportNum = approvalDAO.selectReportNum(session);
+		int reportNum = approvalDAO.selectReportNum(session);
 		
-
+		if(reportNum > 0) {
+            session.commit();
+        } else {
+            session.rollback();
+        }
 		session.close();
 
 		return reportNum;

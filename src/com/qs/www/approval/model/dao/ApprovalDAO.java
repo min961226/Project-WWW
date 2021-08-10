@@ -19,7 +19,7 @@ public class ApprovalDAO {
 		return session.selectList("ApprovalDAO.selectApprover", lineNo);
 	}
 
-	public String selectReportNum(SqlSession session) {
+	public int selectReportNum(SqlSession session) {
 		
 		return session.selectOne("ApprovalDAO.selectReportNum");
 	}

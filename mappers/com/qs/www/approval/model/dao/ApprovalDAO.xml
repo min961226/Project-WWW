@@ -21,24 +21,34 @@
 	</resultMap>
 	<select id="selectApprovalLine"
 		resultMap="approvalLineResultMap">
-		SELECT /* com.qs.www.approval.model.dao.ApprovalDAO#selectApprovalLine()*/
+		SELECT /*
+		com.qs.www.approval.model.dao.ApprovalDAO#selectApprovalLine()*/
 		A.*
 		FROM TBL_APPROVER_LINE A
 		WHERE A.MEMBER_NO = #{ no }
 	</select>
 	<select id="selectApprover" resultMap="approverResultMap">
-		SELECT /* com.qs.www.approval.model.dao.ApprovalDAO#selectApprovalLine()*/
+		SELECT /*
+		com.qs.www.approval.model.dao.ApprovalDAO#selectApprovalLine()*/
 		A.*
 		FROM TBL_APPROVER A
 		WHERE A.LINE_NO = #{ lineNo }
 	</select>
 
-	<select id="selectReportNum" resultType="java.lang.String">
+	<select id="selectReportNum" resultType="_int">
+
 		SELECT
+
 		LAST_NUMBER
-		FROM USER_SEQUENCES
+
+		FROM
+
+		USER_SEQUENCES
+
 		WHERE
-		SEQUENCE_NAME = 'SEQ_REPORT_NO';
+
+		SEQUENCE_NAME = 'SEQ_REPORT_NO'
+
 	</select>
 
 
