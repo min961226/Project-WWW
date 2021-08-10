@@ -12,6 +12,7 @@
 <title>Wonderful Welfare Workspace</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
 </head>
 
 <body>
@@ -35,7 +36,7 @@
 									<div class="col-sm-6">
 										<label>결재 분류</label>
 										<div class="col-md-12">
-											<select class="form-control" name="documentNo">
+											<select id="document" class="form-control" name="documentNo">
 												<option value=1>일반기안문</option>
 												<option value=2>일반품의서</option>
 												<option value=3>일반결의서</option>
@@ -91,6 +92,42 @@
 								
 								
 								</div>
+								
+								
+								<div class="form-group" <c:if test="${1 eq 3}"> hidden </c:if>>
+								
+									<div class="col-sm-3">
+										<label>계약일</label>
+										<div class="col-md-12">
+										<input type="date" class="col-md-12"/>
+										</div>
+										
+									</div>
+
+									<div class="col-sm-3">
+										<label>지출예정일</label>
+										<div class="col-md-12">
+											<input type="date" class="col-md-12"/>
+										</div>
+									</div>
+									
+									
+									
+									 <div class="col-sm-6">
+										<label>물품번호</label>
+										<div class="col-md-12">
+											<select class="form-control" name="documentNo">
+												<option value=1>p-1</option>
+												<option value=2>p-2</option>
+												<option value=3>p-3</option>
+												<option value=4>p-4</option>
+												<option value=5>p-5</option>
+												<option value=6>p-6</option>
+											</select>
+										</div>
+									</div>
+								</div>
+								
 								
 								
 								
@@ -330,6 +367,9 @@
 
 	</div>
 	<div class="sidebar-overlay" data-reff=""></div>
+	
+	
 </body>
+
 
 </html>
