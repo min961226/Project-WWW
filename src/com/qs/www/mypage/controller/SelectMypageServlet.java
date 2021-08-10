@@ -25,8 +25,6 @@ public class SelectMypageServlet extends HttpServlet {
 		MypageService mypageService = new MypageService();
 		MemberInfoDTO memberInfo = mypageService.selectInfo(memberId);
 		
-		
-		
 		session.setAttribute("memberInfo", memberInfo);
 		request.getRequestDispatcher("/WEB-INF/views/mypage/info.jsp").forward(request, response);
 	}
