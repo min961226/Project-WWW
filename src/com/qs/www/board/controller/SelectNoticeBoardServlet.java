@@ -19,6 +19,7 @@ public class SelectNoticeBoardServlet extends HttpServlet {
 		
 		List<NoticeDTO> noticeList = new NoticeService().selectAllNoticeList();
 		
+		
 		String path = "";
 		if(noticeList != null) {
 			path = "/WEB-INF/views/notice/noticeList.jsp";

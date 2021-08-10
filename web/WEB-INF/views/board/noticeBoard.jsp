@@ -14,7 +14,7 @@
 <body>
     <div class="main-wrapper">
 		<jsp:include page="../common/navbar.jsp"/>
-    </div>
+    
     
             <div class="page-wrapper">
             <div class="content container-fluid">
@@ -716,7 +716,7 @@
                 </div>
             </div>
         </div>
-    
+    </div>
 </body>
 
 </html>

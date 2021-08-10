@@ -25,6 +25,7 @@ public class NoticeService {
 		
 		List<NoticeDTO> noticeList = noticeDAO.selectAllNoticeList(session);
 		return noticeList;
+		
 	}
 
 }
