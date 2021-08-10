@@ -25,6 +25,12 @@
     
     <mapper resource="com/qs/www/schedule/model/dao/ScheduleDAO.xml"/>
     
+     	<mapper resource="com/qs/www/board/model/dao/NoticeDAO.xml"/>
+     	
+     	<mapper resource="com/qs/www/board/model/dao/FreeDAO.xml"/>
+    
+    
+    
 
 
 	</mappers>
