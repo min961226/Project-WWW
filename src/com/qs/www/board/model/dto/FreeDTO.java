@@ -2,7 +2,7 @@ package com.qs.www.board.model.dto;
 
 import java.util.Date;
 
-public class FreeBoardDTO {
+public class FreeDTO {
 	
 	private int no;
 	private String title;
@@ -15,10 +15,10 @@ public class FreeBoardDTO {
 	private Date modified;
 	
 
-	public FreeBoardDTO() {}
+	public FreeDTO() {}
 
 
-	public FreeBoardDTO(int no, String title, int member, String type, int count, String body, String delete, Date created,
+	public FreeDTO(int no, String title, int member, String type, int count, String body, String delete, Date created,
 			Date modified) {
 		super();
 		this.no = no;
