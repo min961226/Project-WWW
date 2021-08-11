@@ -31,4 +31,21 @@ public class FreeService {
 		
 	}
 
+	public int insertFree(FreeDTO newFree) {
+		
+		SqlSession session = getSqlSession();
+		
+		int result = freeDAO.insertFree(session, newFree);
+		
+		if(result > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+		
+		session.close();
+		
+		return result;
+	}
+
 }
