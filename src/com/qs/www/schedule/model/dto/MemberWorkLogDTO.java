@@ -6,28 +6,38 @@ import sun.misc.JavaAWTAccess;
 
 public class MemberWorkLogDTO implements java.io.Serializable{
 	
-	private int memberNo;
-	private String workType;
-	private int approverLine;
-	private java.sql.Date startDay;
-	private java.sql.Date endDay;
-	private int workNo;
-	private java.sql.Date changeDate;
-	private String changeReason;	
+	private int memberWorkLogNo;			//근무제변경이력번호
+	private int memberNo;					//사번
+	private String workType;				//변경후근무제유형
+	private int approverLine;				
+	private int workNo;						//변경후근무제유형코드
+	private java.sql.Date startDay;			//시작일
+	private java.sql.Date endDay;			//종료일
+	private java.sql.Date changeDate;		//변경일자
+	private String changeReason;			//변경사유
 	
 	public MemberWorkLogDTO() {}
 
-	public MemberWorkLogDTO(int memberNo, String workType, int approverLine, Date startDay, Date endDay, int workNo,
-			Date changeDate, String changeReason) {
+	public MemberWorkLogDTO(int memberWorkLogNo, int memberNo, String workType, int approverLine, int workNo,
+			Date startDay, Date endDay, Date changeDate, String changeReason) {
 		super();
+		this.memberWorkLogNo = memberWorkLogNo;
 		this.memberNo = memberNo;
 		this.workType = workType;
 		this.approverLine = approverLine;
+		this.workNo = workNo;
 		this.startDay = startDay;
 		this.endDay = endDay;
-		this.workNo = workNo;
 		this.changeDate = changeDate;
 		this.changeReason = changeReason;
+	}
+
+	public int getMemberWorkLogNo() {
+		return memberWorkLogNo;
+	}
+
+	public void setMemberWorkLogNo(int memberWorkLogNo) {
+		this.memberWorkLogNo = memberWorkLogNo;
 	}
 
 	public int getMemberNo() {
@@ -54,6 +64,14 @@ public class MemberWorkLogDTO implements java.io.Serializable{
 		this.approverLine = approverLine;
 	}
 
+	public int getWorkNo() {
+		return workNo;
+	}
+
+	public void setWorkNo(int workNo) {
+		this.workNo = workNo;
+	}
+
 	public java.sql.Date getStartDay() {
 		return startDay;
 	}
@@ -68,14 +86,6 @@ public class MemberWorkLogDTO implements java.io.Serializable{
 
 	public void setEndDay(java.sql.Date endDay) {
 		this.endDay = endDay;
-	}
-
-	public int getWorkNo() {
-		return workNo;
-	}
-
-	public void setWorkNo(int workNo) {
-		this.workNo = workNo;
 	}
 
 	public java.sql.Date getChangeDate() {
@@ -96,10 +106,12 @@ public class MemberWorkLogDTO implements java.io.Serializable{
 
 	@Override
 	public String toString() {
-		return "MemberWorkLogDTO [memberNo=" + memberNo + ", workType=" + workType + ", approverLine=" + approverLine
-				+ ", startDay=" + startDay + ", endDay=" + endDay + ", workNo=" + workNo + ", changeDate=" + changeDate
-				+ ", changeReason=" + changeReason + "]";
+		return "MemberWorkLogDTO [memberWorkLogNo=" + memberWorkLogNo + ", memberNo=" + memberNo + ", workType="
+				+ workType + ", approverLine=" + approverLine + ", workNo=" + workNo + ", startDay=" + startDay
+				+ ", endDay=" + endDay + ", changeDate=" + changeDate + ", changeReason=" + changeReason + "]";
 	}
+
+	
 
 	
 	

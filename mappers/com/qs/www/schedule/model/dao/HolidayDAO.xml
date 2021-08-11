@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="HolidayDAO">
+
+	<resultMap type="com.qs.www.schedule.model.dto.HolidayTypeDTO" id="holidayListResultMap">
+		<id property="holidayCode" column="HOLIDAY_CODE"/>
+		<result property="holidayName" column="HOLIDAY_NAME"/>
+		<result property="holidayType" column="HOLIDAY_TYPE"/>
+		<result property="dayNumber" column="DAY_NUMBER"/>
+		<result property="holidayNote" column="HOLIDAY_NOTE"/>
+		<result property="useYn" column="USE_YN"/>
+	</resultMap>
+	
+	<select id="selectAllHolidayType" resultMap="holidayListResultMap">
+	SELECT /* com.qs.www.schedule.model.dao.ScheduleDAO#selectHolidayType() */
+	       A.HOLIDAY_CODE
+	     , A.HOLIDAY_NAME
+	     , A.HOLIDAY_TYPE
+	     , A.DAY_NUMBER
+	     , A.HOLIDAY_NOTE
+	     , A.USE_YN
+	  FROM TBL_HOLIDAY_TYPE A
+	</select>
+
+
+</mapper>

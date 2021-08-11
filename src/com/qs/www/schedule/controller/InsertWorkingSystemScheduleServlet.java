@@ -58,7 +58,7 @@ public class InsertWorkingSystemScheduleServlet extends HttpServlet {
             }
         }
         System.out.println("lineName : " + lineName);
-		
+        
 		int documentNo = 4;				//근무신청서의 문서번호는 4번이다.		
 		int workNo = Integer.parseInt(request.getParameter("workNo"));
 		int approverLine = Integer.parseInt(request.getParameter("approverLine"));
@@ -71,6 +71,9 @@ public class InsertWorkingSystemScheduleServlet extends HttpServlet {
 			workType = "표준근무제";
 		}
 
+		String memberName = ((MemberInfoDTO) session.getAttribute("memberInfo")).getName();
+		String title = memberName + " " + workType + " 신청서";		//title도 미리 만들어둔다.
+		
 		/* 1. 상신테이블(TBL_REPORT)에 insert */
 		ReportDTO reportDTO = new ReportDTO();
 		int memberNo = ((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo();
@@ -78,6 +81,7 @@ public class InsertWorkingSystemScheduleServlet extends HttpServlet {
 		reportDTO.setDocumentNo(documentNo);
 		reportDTO.setReportNote(changeReason);
 		reportDTO.setLineName(lineName);
+		reportDTO.setReportTitle(title);
 		System.out.println("InsertWorkingSystemScheduleServlet의 reportDTO : " + reportDTO);
 
 		ScheduleService scheduleService = new ScheduleService();		
@@ -95,8 +99,7 @@ public class InsertWorkingSystemScheduleServlet extends HttpServlet {
 			System.out.println("reportNo : " + reportNo);
 
 			/* 2-2. 상신별문서항목작성내용(TBL_ITEM_CONTENT)에 insert */
-			String memberName = ((MemberInfoDTO) session.getAttribute("memberInfo")).getName();
-			String title = memberName + " " + workType + " 신청서";
+			
 			String getworkNo = request.getParameter("workNo");
 
 			List<String> workingDocumentItem = new ArrayList<>();
