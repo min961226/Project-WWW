@@ -30,6 +30,7 @@
                             <h4 class="card-title">내용작성</h4>
                             
                             <form action="${ pageContext.servletContext.contextPath }/schedule/holiday/insert" method="post" class="form-horizontal">
+                            
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
