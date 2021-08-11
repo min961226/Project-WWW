@@ -12,11 +12,158 @@
 </head>
 
 <body>
-    <div class="main-wrapper">
-		<jsp:include page="../common/navbar.jsp"/>
-        
-        
-    </div>
+	<div class="main-wrapper">
+		<jsp:include page="../common/navbar.jsp" />
+		<div class="page-wrapper">
+			<div class="content container-fluid">
+				<div class="row">
+					<div class="col-xs-12">
+						<h4 class="page-title">결재신청</h4>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-12">
+						
+
+							<form class="form-horizontal" action="${ pageContext.servletContext.contextPath }/approval/applied/update" method="post">
+
+
+								<div class="form-group">
+									<div class="col-sm-6">
+										<label>결재 분류</label>
+										<div class="col-md-12">
+											<input class="form-control" 
+											     <c:if test="${requestScope.selectedReport.documentNo eq 1}"> <c:out  value="일반기안문"/></c:if>
+											     <c:if test="${requestScope.selectedReport.documentNo eq 2}"> <c:out  value="일반품의서"/></c:if>
+											     <c:if test="${requestScope.selectedReport.documentNo eq 3}"> <c:out  value="일반결의서"/></c:if>  disabled/>
+										</div>
+									</div>
+									
+									<div class="col-sm-6">
+										<label>결재 제목</label>
+										<div class="col-md-12">
+											<input class="form-control" value="${ requestScope.selectedReport.reportTitle }"  disabled/>
+										</div>
+									</div>
+								</div>
+
+
+								<div class="form-group">
+									<div class="col-sm-6">
+										<label>기안자</label>
+										<div class="col-md-12">
+										<input class="form-control" value="${ sessionScope.memberInfo.name }"  disabled/>
+										</div>
+									</div>
+
+									<div class="col-sm-6">
+										<label>결재라인</label>
+										<div class="col-md-12">
+											<input class="form-control" value="${ requestScope.selectedReport.lineName }"  disabled/>
+										</div>
+									</div>
+								</div>
+								
+								<div class="form-group">
+								<div class="col-sm-6">
+									<label>첨부서류</label>
+									<div class="col-md-12">
+										<input class="form-control" type="file">
+									</div>
+								</div>
+								
+								<div class="col-sm-6">
+										<label>보존기간</label>
+										<div class="col-md-12">
+										<input class="form-control" value="${ requestScope.selectedReport.reportDate }부터 5년"  disabled/>
+										</div>
+									</div>
+								
+								
+								</div>
+								
+								<c:set var = "no" value ="${ requestScope.selectedReport.documentNo }" />
+								<c:if test="${  no eq 3 }">
+								<div id="area3" class="form-group" >
+								
+									<div class="col-sm-3">
+										<label>계약일</label>
+										<div class="col-md-12">
+										<input type="date" name="contractDate"  class="col-md-12"/>
+										</div>
+										
+									</div>
+
+									<div class="col-sm-3">
+										<label>지출예정일</label>
+										<div class="col-md-12">
+											<input type="date" name="payDate"  class="col-md-12"/>
+										</div>
+									</div>
+									
+									
+									
+									 <div class="col-sm-6">
+										<label>물품번호</label>
+										<div class="col-md-12">
+											<select class="form-control" name="productNo">
+												<option value=1>p-1</option>
+												<option value=2>p-2</option>
+												<option value=3>p-3</option>
+												<option value=4>p-4</option>
+												<option value=5>p-5</option>
+												<option value=6>p-6</option>
+											</select>
+										</div>
+									</div>
+								</div>
+								</c:if>
+								
+								
+								
+								<div class="form-group">
+								<div class="col-sm-12">
+									<label>내용</label>
+									<div class="col-lg-12">
+										<textarea name="body" rows="8" cols="5" class="form-control"
+											placeholder="내용을 입력해주세요"></textarea>
+									</div>
+								</div>
+								</div>
+								
+								
+								<div class="form-group">
+								<div class="col-sm-12">
+									<label>비고</label>
+									<div class="col-lg-12">
+										<textarea name="note" rows="5" cols="5" class="form-control"
+											placeholder="비고를 입력해주세요"></textarea>
+									</div>
+								</div>
+								</div>
+								
+								
+								<div class="row">
+                                    <div class="col-sm-12 text-center m-t-20">
+                                        <button type="submit" class="btn btn-primary btn-lg"> 회수 </button>
+                                        <button type="button" class="btn btn-primary btn-lg"> 나가기 </button>
+                                    </div>
+                                </div>
+								
+							</form>
+						
+						
+						
+					</div>
+				</div>
+			</div>
+			
+		</div>
+
+	</div>
+	<div class="sidebar-overlay" data-reff=""></div>
+	
+	
 </body>
 
 </html>

@@ -26,6 +26,11 @@ public class SelectOneAppliedApprovalServlet extends HttpServlet {
 		List<WorkingDocumentItemDTO> itemList = new ApprovalService().selectReportItemList(no);
 		System.out.println(selectedReport);
 		System.out.println(itemList);
+		
+		request.setAttribute("selectedReport", selectedReport);
+		request.setAttribute("itemList", itemList);
+		
+		request.getRequestDispatcher("/WEB-INF/views/approval/detailAppliedApproval.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
