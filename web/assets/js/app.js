@@ -157,7 +157,7 @@ $(document).ready(function($) {
 
     if ($('.datetimepicker').length > 0) {
         $('.datetimepicker').datetimepicker({
-            format: 'DD/MM/YYYY'
+            format: 'YYYY/MM/DD'
         });
     }
 

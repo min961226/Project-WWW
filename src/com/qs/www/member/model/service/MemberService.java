@@ -7,6 +7,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.qs.www.member.model.dao.MemberDAO;
 import com.qs.www.member.model.dto.MemberDTO;
+import com.qs.www.member.model.dto.MemberInfoDTO;
 
 public class MemberService {
 	
@@ -16,25 +17,25 @@ public class MemberService {
 		memberDAO = new MemberDAO();
 	}
 
-	public MemberDTO checkMember(MemberDTO requestMember) {
+	public MemberInfoDTO checkMember(MemberDTO requestMember) {
 		
-		SqlSession session = getSqlSession();
+		SqlSession sqlSession = getSqlSession();
 		
-		MemberDTO loginMember = null;
+		MemberInfoDTO loginMember = null;
 		
-		String encPwd = memberDAO.selectEncryptedPwd(session, requestMember);
+		String encPwd = memberDAO.selectEncryptedPwd(sqlSession, requestMember);
 		
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		
 		if(encPwd.equals(requestMember.getPassword())) {
-			loginMember = memberDAO.selectLoginMember(session, requestMember);
+			loginMember = memberDAO.selectLoginMember(sqlSession, requestMember);
 		}
 		
 //		if(passwordEncoder.matches(requestMember.getPassword(), encPwd)) {
 //			loginMember = memberDAO.selectLoginMember(session, requestMember);
 //		}
 		
-		session.close();
+		sqlSession.close();
 		
 		return loginMember;
 	}

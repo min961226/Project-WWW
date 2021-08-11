@@ -24,198 +24,171 @@
                     <form class="col-xs-6 text-right m-b-30">
                     </form>
                 </div>
-                <div class="row">
-                	<div class="col-md-2">
-                		<div class="author-img-wrap" align="center">
-                			<img class="img-responsive img-circle" src="${ pageContext.servletContext.contextPath }/assets/img/user.jpg" alt="">
-                        </div>
-                        <br>
-                        <div align="center">
-                        	<button type="button" class="btn btn-primary">사진 변경</button>
-                        </div>
-                	</div>
-                	
-                	<div class="col-md-5">
-                        <div class="card-box">
-                    		<div class="profile-view">
-                    			<div class="form-horizontal">
-                    				<ul class="personal-info">
-		                    			<li>
-		                    				<span class="title">ID</span>
-		                    				<span class="text">${ memberInfo.memberId }</span>
-		                    			</li>
-		                    			<li>
-		                    				<span class="title">사번</span>
-		                    				<span class="text">${ memberInfo.memberNo }</span>
-		                    			</li>
-		                          		<li>
-		                          			<span class="title">이름</span>
-		                          			<span class="text">${ memberInfo.name }</span>
-		                          		</li>
-		                          		<li>
-		                          			<span class="title">부서</span>
-		                          			<span class="text">${ memberInfo.department.deptName }</span>                            				
-		                          		</li>
-		                          		<li>
-		                          			<span class="title">직급</span>
-		                          			<span class="text">${ memberInfo.job.jobName }</span>
-		                          		</li>
-		                          		<li>
-		                          			<span class="title">E-mail</span>
-		                          			<span class="text">${ memberInfo.email }</span>
-		                          		</li>
-		                          		<li>
-		                          			<span class="title">사내전화</span>
-		                          			<span class="text">내선 ${ memberInfo.department.deptCallNumber }</span>
-		                          		</li>
-		                          		<li>
-		                          			<span class="title">입사일</span>
-		                          			<span class="text">${ memberInfo.enrollDate }</span>
-		                          		</li>
-		                          		<li>
-		                          			<span class="title">재직 상태</span>
-		                          			<span class="text">재직</span>
-		                          		</li>
-		                          		<li>
-		                          			<span class="title">권한</span>
-		                          			<span class="text">${ memberInfo.role.roleName }</span>
-		                          		</li>
-		                        	</ul>
-		                        </div>
-		                    </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-md-5">
-                        <div class="card-box">
-                    		<div class="profile-view">
-                    			<form action="#" class="form-horizontal">
-                    				<div class="form-group">
-		                          		<label class="col-md-3 control-label">성별</label>
-                                    	<div class="col-md-9">
-	                            			<label class="radio-inline">
-	                                			<input type="radio" name="gender" value="M" <c:if test="${ memberInfo.gender == '남'}">checked</c:if>>남
-	                            			</label>
-	                            			<label class="radio-inline">
-	                                			<input type="radio" name="gender" value="F"<c:if test="${ memberInfo.gender == '여'}">checked</c:if>>여
-	                            			</label>
-                                    	</div>
-                                    </div>
-                                    <div class="form-group">
-                                    	<label class="col-md-3 control-label">생년월일</label>
-                                    	<div class="col-md-9">
-                                            <div class="cal-icon">
-                                                <input class="form-control floating datetimepicker" type="text" value="${ memberInfo.birthday }">
-                                            </div>
-                                        </div>
-                                	</div>
-                    				<ul class="personal-info">
-		                    			<li>
-		                    				<span class="title">성별</span>
-		                    				<span class="text">${ memberInfo.gender }</span>
-		                    			</li>
-		                    			<li>
-		                    				<span class="title">생년월일</span>
-		                    				<span class="text">${ memberInfo.birthday }</span>
-		                    			</li>
-		                          		<li>
-		                          			<span class="title">휴대전화</span>
-		                          			<span class="text">${ memberInfo.phone }</span>
-		                          		</li>
-		                          		<li>
-		                          			<span class="title">자택주소</span>
-		                          			<span class="text">${ memberInfo.address }</span>                            				
-		                          		</li>
-		                        	</ul>
-		                        </form>
-		                    </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="row">
-                	<div class="col-md-2">
-                		<div class="author-img-wrap" align="center">
-                			<img class="img-responsive img-circle" src="${ pageContext.servletContext.contextPath }/assets/img/user.jpg" alt="">
-                        </div>
-                        <br>
-                        <div align="center">
-                        	<button type="button" class="btn btn-primary">사진 변경</button>
-                        </div>
-                	</div>
-                    <div class="col-md-5">
-                        <div class="card-box">
-                        	<form action="#" class="form-horizontal">
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label">ID</label>
-                                    <label class="col-md-9 control-label">${ memberInfo.memberId }</label>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label">사번</label>
-                                    <label class="col-md-9 control-label">${ memberInfo.memberNo }</label>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label">이름</label>
-                                    <label class="col-md-9 control-label">${ memberInfo.name }</label>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label">부서</label>
-                                    <label class="col-md-9 control-label">${ memberInfo.department.deptName }</label>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label">직급</label>
-                                    <label class="col-md-9 control-label">${ memberInfo.job.jobName }</label>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label">E-mail</label>
-                                    <label class="col-md-9 control-label">${ memberInfo.email }</label>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label">사내전화</label>
-                                    <label class="col-md-9 control-label">내선 ${ memberInfo.department.deptCallNumber }</label>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label">입사일</label>
-                                    <label class="col-md-9 control-label">${ memberInfo.enrollDate }</label>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label">재직 상태</label>
-                                    <label class="col-md-9 control-label">재직</label>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label">권한</label>
-                                    <label class="col-md-9 control-label">${ memberInfo.role.roleName }</label>
-                                </div>
-                            </form>
-                    	</div>
-                    </div>
-                    
-                    <div class="col-md-5">
-                        <div class="card-box">
-                            <form action="#" class="form-horizontal">
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label">성별</label>
-                                    <label class="col-md-9 control-label">${ memberInfo.gender }</label>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label">생년월일</label>
-                                    <label class="col-md-9 control-label">${ memberInfo.birthday }</label>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label">휴대전화</label>
-                                    <label class="col-md-9 control-label">${ memberInfo.phone }</label>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label">자택주소</label>
-                                    <label class="col-md-9 control-label">${ memberInfo.address }</label>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+            
+	            <form>
+	                <div class="row">
+	                	<div class="col-md-2">
+	                		<div class="author-img-wrap" align="center">
+	                			<img class="img-responsive img-circle" src="${ pageContext.servletContext.contextPath }/assets/img/user.jpg" alt="">
+	                        </div>
+	                        <br>
+	                        <div align="center">
+	                        	<button type="button" class="btn btn-primary">사진 변경</button>
+	                        </div>
+	                	</div>
+	                	
+	                	<div class="col-md-5">
+	                        <div class="card-box">
+	                    		<div class="profile-view">
+	                    			<div class="form-horizontal">
+	                    				<div class="form-group" style="back">
+		                                    <label class="control-label col-lg-3">ID</label>
+		                                    <div class="col-md-9">
+		                                        <input type="text" class="form-control" value="${ memberInfo.memberId }" readonly>
+		                                    </div>
+		                                </div>
+		                                <div class="form-group">
+		                                    <label class="control-label col-lg-3">사번</label>
+		                                    <div class="col-md-9">
+		                                        <input type="text" class="form-control" value="${ memberInfo.memberNo }" readonly>
+		                                    </div>
+		                                </div>
+		                                <div class="form-group">
+		                                    <label class="control-label col-lg-3">이름</label>
+		                                    <div class="col-md-9">
+		                                        <input type="text" class="form-control" value="${ memberInfo.name }" readonly>
+		                                    </div>
+		                                </div>
+		                                <div class="form-group">
+		                                    <label class="control-label col-lg-3">부서</label>
+		                                    <div class="col-md-9">
+		                                        <input type="text" class="form-control" value="${ memberInfo.department.deptName }" readonly>
+		                                    </div>
+		                                </div>
+		                                <div class="form-group">
+		                                    <label class="control-label col-lg-3">직급</label>
+		                                    <div class="col-md-9">
+		                                        <input type="text" class="form-control" value="${ memberInfo.job.jobName }" readonly>
+		                                    </div>
+		                                </div>
+		                                <div class="form-group">
+		                                    <label class="control-label col-lg-3">E-mail</label>
+		                                    <div class="col-md-9">
+		                                        <input type="email" class="form-control" value="${ memberInfo.email }" readonly>
+		                                    </div>
+		                                </div>
+		                                <div class="form-group">
+		                                    <label class="control-label col-lg-3">사내전화</label>
+		                                    <div class="col-md-9">
+		                                        <input type="text" class="form-control" value="${ memberInfo.department.deptCallNumber }" readonly>
+		                                    </div>
+		                                </div>
+		                                <div class="form-group">
+		                                    <label class="control-label col-lg-3">입사일</label>
+		                                    <div class="col-md-9">
+		                                        <input type="date" class="form-control" value="${ memberInfo.enrollDate }" readonly>
+		                                    </div>
+		                                </div>
+		                                <div class="form-group">
+		                                    <label class="control-label col-lg-3">재직 상태</label>
+		                                    <div class="col-md-9">
+		                                        <input type="text" class="form-control" value="재직" readonly>
+		                                    </div>
+		                                </div>
+		                                <div class="form-group">
+		                                    <label class="control-label col-lg-3">권한</label>
+		                                    <div class="col-md-9">
+		                                        <input type="text" class="form-control" value="${ memberInfo.role.roleName }" readonly>
+		                                    </div>
+		                                </div>
+			                        </div>
+			                    </div>
+	                        </div>
+	                    </div>
+	                    
+	                    <div class="col-md-5">
+	                        <div class="card-box">
+	                    		<div class="profile-view">
+	                    			<div class="form-horizontal">
+	                    				<div class="form-group">
+		                                    <label class="control-label col-lg-3">성별</label>
+		                                    <div class="col-md-9">
+		                                    	<label class="radio-inline">
+		                                			<input type="radio" name="gender" value="M" <c:if test="${ memberInfo.gender == '남'}">checked</c:if>>남
+		                            			</label>
+		                            			<label class="radio-inline">
+		                                			<input type="radio" name="gender" value="F"<c:if test="${ memberInfo.gender == '여'}">checked</c:if>>여
+		                            			</label>
+		                                    </div>
+		                                </div>
+	                                    <div class="form-group">
+	                                    	<label class="control-label col-lg-3">생년월일</label>
+	                                    	<div class="col-md-9">
+	                                            <div class="cal-icon">
+	                                               	<input type="text" class="form-control floating datetimepicker" value="${ memberInfo.birthday }">
+	                                            </div>
+	                                        </div>
+	                                	</div>
+	                                	<div class="form-group">
+		                                    <label class="control-label col-lg-3">휴대전화</label>
+		                                    <div class="col-md-9">
+		                                        <input type="tel" class="form-control" value="${ memberInfo.phone }">
+		                                    </div>
+		                                </div>
+		                                <div class="form-group">
+		                                    <label class="control-label col-lg-3">자택주소</label>
+		                                    <div class="col-md-9">
+		                                    	<div class="input-group">
+		                                    		<span><input type="text" class="form-control" name="zipCode" id="zipCode" value="${ memberInfo.address }" readonly></span>
+	                                            	<span class="input-group-btn">
+														<button type="button" class="btn btn-primary" id="searchZipCode">검색</button>
+													</span>
+												</div>
+											</div>												
+		                                </div>
+		                                <div class="form-group">
+		                                    <label class="control-label col-lg-3"></label>
+		                                    <div class="col-md-9">
+		                                        <input type="text" class="form-control" name="address1" id="address1" value="" readonly>
+		                                    </div>
+		                                </div>
+		                                <div class="form-group">
+		                                    <label class="control-label col-lg-3"></label>
+		                                    <div class="col-md-9">
+		                                        <input type="text" class="form-control" name="address2" id="address2" value="">
+		                                    </div>
+		                                </div>
+			                        </div>
+			                    </div>
+	                        </div>
+	                    </div>
+	                </div>
+	                
+	                <div align="center">
+	                	<button type="submit" class="btn btn-success">프로필 수정</button>
+	                	<button type="reset" class="btn btn-default">돌아가기</button>
+	                </div>
+	            </form>
             </div>
         </div>
     </div>
+    
+    <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script>
+    	const $searchZipCode = document.getElementById("searchZipCode");
+    	
+    	$searchZipCode.onclick = function() {
+			// 우편번호 검색 창을 오픈하면서 동시에 사용자가 선택한 주소 정보(data 객체)를 전달
+    		new daum.Postcode({
+    			oncomplete: function(data){
+					// 팝업창에서 검색결과 항목을 선택했을 떄 실행할 코드
+    				document.getElementById("zipCode").value = data.zonecode;
+    				document.getElementById("address1").value = data.address;
+    				document.getElementById("address2").focus();
+    			}
+    		}).open();
+    	}
+    </script>
 </body>
 
 </html>

@@ -10,12 +10,12 @@
 
 <body>
 	<!-- 비로그인 상태 -->
-	<c:if test="${ empty sessionScope.loginMember }">
+	<c:if test="${ empty sessionScope.memberInfo }">
 		<jsp:forward page="/WEB-INF/views/member/login.jsp"/>
 	</c:if>
 	
 	<!-- 로그인 상태 -->
-	<c:if test="${ !empty sessionScope.loginMember }">
+	<c:if test="${ !empty sessionScope.memberInfo }">
 		<jsp:forward page="/WEB-INF/views/main/main.jsp"/>
 	</c:if>
 </body>

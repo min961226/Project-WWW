@@ -21,6 +21,7 @@ public class UpdateMypageServlet extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		
-		System.out.println("Session : " + session);
+		request.setAttribute("successCode", "updateProfile");
+		request.getRequestDispatcher("/WEB-INF/views/common/failed.jsp").forward(request, response);
 	}
 }
