@@ -22,7 +22,7 @@
                         <h4 class="page-title">My Profile</h4>
                     </div>
                     <form class="col-xs-6 text-right m-b-30">
-                        <a href="${ pageContext.servletContext.contextPath }/mypage/info/update" class="btn btn-success">프로필 수정</a>
+                        <button type="button" class="btn btn-success" id="updateInfo">프로필 수정</button>
                     </form>
                 </div>
                 <div class="row">
@@ -127,7 +127,7 @@
 	                                    <label class="control-label col-lg-3">자택주소</label>
 	                                    <div class="col-md-9">
 	                                    	<div class="input-group">
-	                                    		<span><input type="text" class="form-control" name="zipCode" id="zipCode" value="" readonly></span>
+	                                    		<span><input type="text" class="form-control" name="zipCode" id="zipCode" value="${ zipCode }" readonly></span>
                                             	<span class="input-group-btn">
 													<button type="button" class="btn btn-primary" id="searcHZipCode" disabled>검색</button>
 												</span>
@@ -137,17 +137,17 @@
 	                                <div class="form-group">
 	                                    <label class="control-label col-lg-3"></label>
 	                                    <div class="col-md-9">
-	                                        <input type="text" class="form-control" name="address1" id="address1" value="${ memberInfo.address }" readonly>
+	                                        <input type="text" class="form-control" name="address1" id="address1" value="${ address1 }" readonly>
 	                                    </div>
 	                                </div>
 	                                <div class="form-group">
 	                                    <label class="control-label col-lg-3"></label>
 	                                    <div class="col-md-9">
-	                                        <input type="text" class="form-control" name="address2" id="address2" value="" readonly>
+	                                        <input type="text" class="form-control" name="address2" id="address2" value="${ address2 }" readonly>
 	                                    </div>
 	                                </div>
 	                                <div class="form-group">
-	                                    <label class="control-label col-lg-3">비밀번호<br> 확인 질문</label>
+	                                    <label class="control-label col-lg-3">비밀번호<br>확인 질문</label>
 	                                    <div class="col-md-9">
 	                                        <input type="text" class="form-control" name="question" value="${ memberInfo.checkQuestion.questionBody }" readonly>
 	                                    </div>
@@ -166,6 +166,14 @@
             </div>
         </div>
     </div>
+    
+    <script>
+    	const $updateInfo = document.getElementById("updateInfo");
+    	
+    	$updateInfo.onclick = function() {
+    		location.href = "${ pageContext.servletContext.contextPath }/mypage/info/update";
+    	}
+    </script>
 </body>
 
 </html>

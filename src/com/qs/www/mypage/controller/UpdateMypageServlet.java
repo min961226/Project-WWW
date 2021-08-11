@@ -1,6 +1,7 @@
 package com.qs.www.mypage.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.qs.www.member.model.dto.CheckQuestionDTO;
 import com.qs.www.member.model.dto.MemberInfoDTO;
 import com.qs.www.mypage.model.service.MypageService;
 
@@ -16,6 +18,11 @@ import com.qs.www.mypage.model.service.MypageService;
 public class UpdateMypageServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		MypageService mypageService = new MypageService();
+		List<CheckQuestionDTO> questionList = mypageService.selectQuestionList();
+		
+		System.out.println(questionList);
 		
 		request.getRequestDispatcher("/WEB-INF/views/mypage/updateInfo.jsp").forward(request, response);
 	}
@@ -28,6 +35,8 @@ public class UpdateMypageServlet extends HttpServlet {
 		String address = request.getParameter("zipCode")
 						+ "$" + request.getParameter("address1")
 						+ "$" + request.getParameter("address2");
+		String question = request.getParameter("question");
+		String answer = request.getParameter("answer");
 		
 		HttpSession session = request.getSession();
 		MemberInfoDTO memberInfo = (MemberInfoDTO) session.getAttribute("memberInfo");
@@ -35,6 +44,8 @@ public class UpdateMypageServlet extends HttpServlet {
 		memberInfo.setBirthday(birthday);
 		memberInfo.setPhone(phone);
 		memberInfo.setAddress(address);
+		memberInfo.getCheckQuestion().setQuestionBody(question);
+		memberInfo.setQuestionAnswer(answer);
 		
 		MypageService mypageService = new MypageService();
 		

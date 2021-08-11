@@ -114,10 +114,10 @@
 		                                    <label class="control-label col-lg-3">성별</label>
 		                                    <div class="col-md-9">
 		                                    	<label class="radio-inline">
-		                                			<input type="radio" name="gender" value="M" <c:if test="${ memberInfo.gender == '남'}">checked</c:if>>남
+		                                			<input type="radio" name="gender" value="남" <c:if test="${ memberInfo.gender == '남'}">checked</c:if>>남
 		                            			</label>
 		                            			<label class="radio-inline">
-		                                			<input type="radio" name="gender" value="F"<c:if test="${ memberInfo.gender == '여'}">checked</c:if>>여
+		                                			<input type="radio" name="gender" value="여"<c:if test="${ memberInfo.gender == '여'}">checked</c:if>>여
 		                            			</label>
 		                                    </div>
 		                                </div>
@@ -139,7 +139,7 @@
 		                                    <label class="control-label col-lg-3">자택주소</label>
 		                                    <div class="col-md-9">
 		                                    	<div class="input-group">
-		                                    		<span><input type="text" class="form-control" name="zipCode" id="zipCode" value="" readonly></span>
+		                                    		<span><input type="text" class="form-control" name="zipCode" id="zipCode" value="${ zipCode }" readonly></span>
 	                                            	<span class="input-group-btn">
 														<button type="button" class="btn btn-primary" id="searchZipCode">검색</button>
 													</span>
@@ -149,17 +149,17 @@
 		                                <div class="form-group">
 		                                    <label class="control-label col-lg-3"></label>
 		                                    <div class="col-md-9">
-		                                        <input type="text" class="form-control" name="address1" id="address1" value="${ memberInfo.address }" readonly>
+		                                        <input type="text" class="form-control" name="address1" id="address1" value="${ address1 }" readonly>
 		                                    </div>
 		                                </div>
 		                                <div class="form-group">
 		                                    <label class="control-label col-lg-3"></label>
 		                                    <div class="col-md-9">
-		                                        <input type="text" class="form-control" name="address2" id="address2" value="">
+		                                        <input type="text" class="form-control" name="address2" id="address2" value="${ address2 }">
 		                                    </div>
 		                                </div>
 		                                <div class="form-group">
-		                                    <label class="control-label col-lg-3">비밀번호 확인 질문</label>
+		                                    <label class="control-label col-lg-3">비밀번호<br>확인 질문</label>
 		                                    <div class="col-md-9">
 		                                        <input type="text" class="form-control" name="question" value="${ memberInfo.checkQuestion.questionBody }">
 		                                    </div>
