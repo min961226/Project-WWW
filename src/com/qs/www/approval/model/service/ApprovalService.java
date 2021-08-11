@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import com.qs.www.approval.model.dao.ApprovalDAO;
 import com.qs.www.approval.model.dto.ApprovalLineDTO;
 import com.qs.www.approval.model.dto.ApproverDTO;
+import com.qs.www.schedule.model.dto.ReportDTO;
 
 import static com.qs.www.common.mybatis.Template.getSqlSession;
 
@@ -51,6 +52,16 @@ public class ApprovalService {
 		session.close();
 
 		return reportNum;
+	}
+
+	public List<ReportDTO> selectMyReport(int no) {
+		SqlSession session = getSqlSession();
+
+		List<ReportDTO> reportList = approvalDAO.selectMyReport(session, no);
+
+		session.close();
+
+		return reportList;
 	}
 
 }

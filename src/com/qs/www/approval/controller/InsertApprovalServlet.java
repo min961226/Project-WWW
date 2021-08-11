@@ -33,6 +33,7 @@ public class InsertApprovalServlet extends HttpServlet {
 		List<ApprovalLineDTO> lineList = new ApprovalService().selectApprovalLine(no);
 
 		request.setAttribute("lineList", lineList);
+		session.setAttribute("lineList", lineList);
 		request.getRequestDispatcher("/WEB-INF/views/approval/insertApproval.jsp").forward(request, response);
 
 	}
@@ -41,10 +42,29 @@ public class InsertApprovalServlet extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		
+		int lineNo = Integer.parseInt(request.getParameter("line"));
+		
 		int documentNo = Integer.parseInt(request.getParameter("documentNo"));
 		int memberNo = ((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo();
 		String note = request.getParameter("note");
-
+		
+		List<ApprovalLineDTO> lineList = (List<ApprovalLineDTO>) session.getAttribute("lineList");
+		
+		String lineName = "";
+		for(ApprovalLineDTO line: lineList) {
+			if(line.getLineNo() == lineNo) {
+				lineName = line.getLineName();
+			}
+		}
+		System.out.println("lineName : " + lineName);
+		
+		
+	
+		
+		
+		
+		
+		
 		int reportNo = new ApprovalService().selectReportNum();
 		System.out.println("reportNo : " + reportNo );
 
@@ -92,7 +112,7 @@ public class InsertApprovalServlet extends HttpServlet {
 
 
 
-		int lineNo = Integer.parseInt(request.getParameter("line"));
+		
 		//선택한 결재 라인에 등록되있는 결재자들 가져오기
 		List<ApproverDTO> approverList = new ApprovalService().selectApprover(lineNo);
 		System.out.println(approverList);

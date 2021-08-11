@@ -12,7 +12,18 @@
 <title>Wonderful Welfare Workspace</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
+<script>
+            
+            // onchange에서 호출하는 함수. 
+            function testChange(obj){
+                // 'obj'는 this를 지칭하는 것입니다.
+                var dNo = $(obj).val();
+                alert("문서번호 : " + dNo);
+                
+               
+            }
+            
+        </script>
 </head>
 
 <body>
@@ -36,30 +47,14 @@
 									<div class="col-sm-6">
 										<label>결재 분류</label>
 										<div class="col-md-12">
-											<select id="document" class="form-control" name="documentNo">
+											<select id="document" class="form-control" name="documentNo"  onchange="testChange(this)">
 												<option value=1>일반기안문</option>
 												<option value=2>일반품의서</option>
 												<option value=3>일반결의서</option>
 											</select>
 										</div>
 									</div>
-									<script>
-		                                  var document = document.getElementById("document");
-		
-		                                  test1.onclick = function() {
-		                                 	var area1 = document.getElementById("area1");
-			
-		                                   	area1.innerHTML += "test1()이 실행되었습니다.<br>";
-		                                  }
-		
-		                                  test2.onclick = function() {
-			                                var area1 = document.getElementById("area1");
-			
-		                                	area1.innerHTML += "test2()가 실행되면서 test1() 이벤트 제거 <br>";
-			                                test1.onclick = null; //전역변수 test1의 이벤트 속성값을 null로 해주는게 이벤트 제거효과임
-		                                  }
-		
-	                              </script>
+									
 									<div class="col-sm-6">
 										<label>결재 제목</label>
 										<div class="col-md-12">
@@ -110,7 +105,7 @@
 								</div>
 								
 								
-								<div class="form-group" <c:if test="${1 eq 3}"> hidden </c:if>>
+								<div id="area3" class="form-group" <c:if test="${dNo eq 1}"> hidden</c:if>>
 								
 									<div class="col-sm-3">
 										<label>계약일</label>
