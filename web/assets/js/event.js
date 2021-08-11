@@ -5,7 +5,7 @@ window.onload = function() {
 		const $writeFree = document.getElementById("writeFree");
 		$writeFree.onclick = function() {
 			location.href = "/WWW/board/free/select";
-							/board/free/select
+							
 		}
 	}
 	
@@ -13,7 +13,7 @@ window.onload = function() {
 		const $cancleFree = document.getElementById("cancleFree");
 		$cancleFree.onclick = function() {
 			location.href = "/chap99/notice/list";
-							/board/free/insert
+							
 			
 		}
 	}

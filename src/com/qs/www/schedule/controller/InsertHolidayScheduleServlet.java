@@ -12,10 +12,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.qs.www.approval.model.dto.ApprovalLineDTO;
+import com.qs.www.approval.model.dto.ApproverDTO;
 import com.qs.www.approval.model.service.ApprovalService;
 import com.qs.www.member.model.dto.MemberInfoDTO;
+import com.qs.www.schedule.model.dto.ApproverPerReportDTO;
+import com.qs.www.schedule.model.dto.HolidayDocumentItemDTO;
 import com.qs.www.schedule.model.dto.HolidayTypeDTO;
 import com.qs.www.schedule.model.dto.ReportDTO;
+import com.qs.www.schedule.model.dto.WorkingDocumentItemDTO;
 import com.qs.www.schedule.model.service.HolidayService;
 import com.qs.www.schedule.model.service.ScheduleService;
 
@@ -105,10 +109,10 @@ public class InsertHolidayScheduleServlet extends HttpServlet {
 		reportDTO.setReportTitle(title);
 		System.out.println("InsertHolidayScheduleServlet의 reportDTO : " + reportDTO);
 
-//		ScheduleService scheduleService = new ScheduleService();		
-//		int result1 = scheduleService.applyWorkingSystem(reportDTO);
-//		
-//		if(result1 > 0) {
+		ScheduleService scheduleService = new ScheduleService();		
+		int result1 = scheduleService.applyWorkingSystem(reportDTO);
+		
+		if(result1 > 0) {
 			
 			/* 2-1. 방금 상신올린 문서의 ReportNo 가져오기 */
 			ApprovalService approvalService = new ApprovalService();
@@ -116,9 +120,7 @@ public class InsertHolidayScheduleServlet extends HttpServlet {
 			
 			System.out.println("reportNo : " + reportNo);
 			
-			/* 2-2. 상신별문서항목작성내용(TBL_ITEM_CONTENT)에 insert */
-			//제목, 휴가코드, 시작일, 시작일 종일여부, 종료일, 종료일 종일여부, 사유, 기간일수
-			
+			/* 2-2. 상신별문서항목작성내용(TBL_ITEM_CONTENT)에 insert */			
 			String startDayString = request.getParameter("startDay");
 			String endDayString = request.getParameter("endDay");	
 			
@@ -131,9 +133,49 @@ public class InsertHolidayScheduleServlet extends HttpServlet {
 			holidayDocumentItem.add(endDayAllday);			//종료일 종일여부
 			holidayDocumentItem.add(changeReason);			//사유
 			holidayDocumentItem.add(duringDateString);		//기간일수
-			System.out.println(holidayDocumentItem);
+			System.out.println("InsertHolidayScheduleServlet의 holidayDocumentItem" + holidayDocumentItem);
 			
-//		}
+			int priority = 1;
+			int result2 = 0;
+			for(String item : holidayDocumentItem) {
+				WorkingDocumentItemDTO workingDocumentItemDTO = new WorkingDocumentItemDTO();
+				workingDocumentItemDTO.setReportNo(reportNo);
+				workingDocumentItemDTO.setDocumentNo(documentNo);
+				workingDocumentItemDTO.setPriority(priority);
+				workingDocumentItemDTO.setItemContent(item);			
+
+				result2 = scheduleService.applyWorkingSystemItemContent(workingDocumentItemDTO);
+
+				priority++;
+			}		
+			
+			System.out.println(result2);		
+			if(result2 > 0) {
+				
+				/* 3-1. 결재라인 선택한 번호로, 결재자들의 결재자사번과 우선순위를 DTO로 받아오기 */
+				List<ApproverDTO> approverList = new ApprovalService().selectApprover(lineNo);
+				System.out.println(approverList);
+
+				/* 3-2. 상신별결재자(TBL_APPROVER_PER_REPORT)에 insert */
+				int result3 = 0;
+				for(ApproverDTO approver : approverList) {
+					ApproverPerReportDTO approverPerReportDTO = new ApproverPerReportDTO();
+					approverPerReportDTO.setReportNo(reportNo);
+					approverPerReportDTO.setMemberNo(approver.getMemberNo());
+					approverPerReportDTO.setPriority(approver.getPriority());
+
+					result3 = scheduleService.applyWorkingSystemApprover(approverPerReportDTO);
+				}
+				
+				System.out.println(result3);
+				if(result3 > 0) {
+					
+					/* 4. 휴가부여사용내역(tbl_member_holiday_log)에 추가 */
+				}
+				
+			}
+			
+		}
 		
 
     	
