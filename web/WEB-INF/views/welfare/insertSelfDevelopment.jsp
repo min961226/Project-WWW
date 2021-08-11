@@ -36,25 +36,22 @@
 									value="${memberNo}" readonly="readonly" />
 							</div>
 							<div class="form-group">
-								<label>부서</label> <input name ="deptName" class="form-control" type="text" value="${deptName}">
+								<label>부서</label> <input name ="deptName" class="form-control" type="text" value=" ${ sessionScope.memberInfo.department.deptName }">
 							</div>
 							<div class="form-group">
-								<label>직위</label> <input name ="jobName"  class="form-control" type="text" value="${jobName}">
+								<label>직위</label> <input name ="jobName"  class="form-control" type="text" value="${ sessionScope.memberInfo.job.jobName }">
 							</div>
 							<div class="form-group">
-								<label>신청자</label> <input name ="name" class="form-control" type="text"	value="${name}">
+								<label>신청자</label> <input name ="name" class="form-control" type="text"	value="${ sessionScope.memberInfo.name }" readonly="readonly">
 							</div>
 							<div class="form-group" >
 								<label>결재선 지정</label>
-								<select name="approverLine" class="form-control">
-									<option>-- 결재선 지정 --</option>
-									<c:forEach items="${ requestScope.approverLine }" var="approverLine">
-										<option><c:out value="${ approverLine }" /></option>
+								<select name="lineList" class="form-control">
+									<option>-- 결재선 지정 목록 --</option>
+									<c:forEach items="${ requestScope.lineList }" var="lineList">
+										<option><c:out value="${ lineList.lineName }" /></option>
 									</c:forEach>
 								</select>
-							</div>
-							<div class="form-group">
-								<label>자기개발비 사용일자</label> <input name="date" class="form-control" type="date">
 							</div>
 							<div class="form-group">
 								<label>신청 목적</label> <select name="selfDevList"
@@ -64,6 +61,9 @@
 										<option><c:out value="${ selfDevList }" /></option>
 									</c:forEach>
 								</select>
+							</div>
+							<div class="form-group">
+								<label>자기개발비 사용일자</label> <input name="date" class="form-control" type="date">
 							</div>
 
 							<div class="form-group">
