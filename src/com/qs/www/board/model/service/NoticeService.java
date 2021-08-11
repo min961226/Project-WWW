@@ -1,6 +1,6 @@
 package com.qs.www.board.model.service;
 
-import java.util.List; 
+import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -24,6 +24,9 @@ public class NoticeService {
 		SqlSession session = getSqlSession();
 		
 		List<NoticeDTO> noticeList = noticeDAO.selectAllNoticeList(session);
+		
+		session.close();
+		
 		return noticeList;
 		
 	}

@@ -24,6 +24,9 @@ public class FreeService {
 		SqlSession session = getSqlSession();
 		
 		List<FreeDTO> freeList = freeDAO.selectAllFreeList(session);
+		
+		session.close();
+		
 		return freeList;
 		
 	}
