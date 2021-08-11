@@ -1,6 +1,8 @@
 package com.qs.www.member.model.dto;
 
-public class JobDTO {
+import java.io.Serializable;
+
+public class JobDTO implements Serializable {
 	
 	private String jobCode;
 	private String jobName;

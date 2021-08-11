@@ -26,8 +26,8 @@ public class MemberService {
 		String encPwd = memberDAO.selectEncryptedPwd(sqlSession, requestMember);
 		
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-		
 		if(encPwd.equals(requestMember.getPassword())) {
+			
 			loginMember = memberDAO.selectLoginMember(sqlSession, requestMember);
 		}
 		

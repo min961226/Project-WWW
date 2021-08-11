@@ -25,7 +25,7 @@
                     </form>
                 </div>
             
-	            <form>
+	            <form action="${ pageContext.servletContext.contextPath }/mypage/info/update" method="POST">
 	                <div class="row">
 	                	<div class="col-md-2">
 	                		<div class="author-img-wrap" align="center">
@@ -125,21 +125,21 @@
 	                                    	<label class="control-label col-lg-3">생년월일</label>
 	                                    	<div class="col-md-9">
 	                                            <div class="cal-icon">
-	                                               	<input type="text" class="form-control floating datetimepicker" value="${ memberInfo.birthday }">
+	                                               	<input type="text" class="form-control floating datetimepicker" name="birthday" value="${ memberInfo.birthday }">
 	                                            </div>
 	                                        </div>
 	                                	</div>
 	                                	<div class="form-group">
 		                                    <label class="control-label col-lg-3">휴대전화</label>
 		                                    <div class="col-md-9">
-		                                        <input type="tel" class="form-control" value="${ memberInfo.phone }">
+		                                        <input type="tel" class="form-control" name="phone" value="${ memberInfo.phone }">
 		                                    </div>
 		                                </div>
 		                                <div class="form-group">
 		                                    <label class="control-label col-lg-3">자택주소</label>
 		                                    <div class="col-md-9">
 		                                    	<div class="input-group">
-		                                    		<span><input type="text" class="form-control" name="zipCode" id="zipCode" value="${ memberInfo.address }" readonly></span>
+		                                    		<span><input type="text" class="form-control" name="zipCode" id="zipCode" value="" readonly></span>
 	                                            	<span class="input-group-btn">
 														<button type="button" class="btn btn-primary" id="searchZipCode">검색</button>
 													</span>
@@ -149,13 +149,25 @@
 		                                <div class="form-group">
 		                                    <label class="control-label col-lg-3"></label>
 		                                    <div class="col-md-9">
-		                                        <input type="text" class="form-control" name="address1" id="address1" value="" readonly>
+		                                        <input type="text" class="form-control" name="address1" id="address1" value="${ memberInfo.address }" readonly>
 		                                    </div>
 		                                </div>
 		                                <div class="form-group">
 		                                    <label class="control-label col-lg-3"></label>
 		                                    <div class="col-md-9">
 		                                        <input type="text" class="form-control" name="address2" id="address2" value="">
+		                                    </div>
+		                                </div>
+		                                <div class="form-group">
+		                                    <label class="control-label col-lg-3">비밀번호 확인 질문</label>
+		                                    <div class="col-md-9">
+		                                        <input type="text" class="form-control" name="question" value="${ memberInfo.checkQuestion.questionBody }">
+		                                    </div>
+		                                </div>
+		                                <div class="form-group">
+		                                    <label class="control-label col-lg-3">답변</label>
+		                                    <div class="col-md-9">
+		                                        <input type="text" class="form-control" name="answer" value="${ memberInfo.questionAnswer }">
 		                                    </div>
 		                                </div>
 			                        </div>

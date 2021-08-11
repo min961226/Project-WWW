@@ -3,7 +3,6 @@ package com.qs.www.member.model.dto;
 import java.io.Serializable;
 import java.sql.Date;
 
-
 public class MemberInfoDTO implements Serializable {
 	
 	private int memberNo;
@@ -18,15 +17,12 @@ public class MemberInfoDTO implements Serializable {
 	private String address;
 	private String gender;
 	private String phone;
-	private String questionCode;
 	private CheckQuestionDTO checkQuestion;
 	private String questionAnswer;
 	private String domitoryYn;
 	private String roleCode;
 	private RoleDTO role;
-	private String deptCode;
 	private DepartmentDTO department;
-	private String jobCode;
 	private JobDTO job;
 	private String appWorkType;
 	private int workCode;
@@ -35,10 +31,9 @@ public class MemberInfoDTO implements Serializable {
 	public MemberInfoDTO() {}
 
 	public MemberInfoDTO(int memberNo, String memberId, String password, String name, Date enrollDate, Date entDate,
-			String entYn, String email, Date birthday, String address, String gender, String phone, String questionCode,
+			String entYn, String email, Date birthday, String address, String gender, String phone,
 			CheckQuestionDTO checkQuestion, String questionAnswer, String domitoryYn, String roleCode, RoleDTO role,
-			String deptCode, DepartmentDTO department, String jobCode, JobDTO job, String appWorkType, int workCode,
-			int remainingHoliday) {
+			DepartmentDTO department, JobDTO job, String appWorkType, int workCode, int remainingHoliday) {
 		super();
 		this.memberNo = memberNo;
 		this.memberId = memberId;
@@ -52,15 +47,12 @@ public class MemberInfoDTO implements Serializable {
 		this.address = address;
 		this.gender = gender;
 		this.phone = phone;
-		this.questionCode = questionCode;
 		this.checkQuestion = checkQuestion;
 		this.questionAnswer = questionAnswer;
 		this.domitoryYn = domitoryYn;
 		this.roleCode = roleCode;
 		this.role = role;
-		this.deptCode = deptCode;
 		this.department = department;
-		this.jobCode = jobCode;
 		this.job = job;
 		this.appWorkType = appWorkType;
 		this.workCode = workCode;
@@ -163,14 +155,6 @@ public class MemberInfoDTO implements Serializable {
 		this.phone = phone;
 	}
 
-	public String getQuestionCode() {
-		return questionCode;
-	}
-
-	public void setQuestionCode(String questionCode) {
-		this.questionCode = questionCode;
-	}
-
 	public CheckQuestionDTO getCheckQuestion() {
 		return checkQuestion;
 	}
@@ -211,28 +195,12 @@ public class MemberInfoDTO implements Serializable {
 		this.role = role;
 	}
 
-	public String getDeptCode() {
-		return deptCode;
-	}
-
-	public void setDeptCode(String deptCode) {
-		this.deptCode = deptCode;
-	}
-
 	public DepartmentDTO getDepartment() {
 		return department;
 	}
 
 	public void setDepartment(DepartmentDTO department) {
 		this.department = department;
-	}
-
-	public String getJobCode() {
-		return jobCode;
-	}
-
-	public void setJobCode(String jobCode) {
-		this.jobCode = jobCode;
 	}
 
 	public JobDTO getJob() {
@@ -272,10 +240,9 @@ public class MemberInfoDTO implements Serializable {
 		return "MemberInfoDTO [memberNo=" + memberNo + ", memberId=" + memberId + ", password=" + password + ", name="
 				+ name + ", enrollDate=" + enrollDate + ", entDate=" + entDate + ", entYn=" + entYn + ", email=" + email
 				+ ", birthday=" + birthday + ", address=" + address + ", gender=" + gender + ", phone=" + phone
-				+ ", questionCode=" + questionCode + ", checkQuestion=" + checkQuestion + ", questionAnswer="
-				+ questionAnswer + ", domitoryYn=" + domitoryYn + ", roleCode=" + roleCode + ", role=" + role
-				+ ", deptCode=" + deptCode + ", department=" + department + ", jobCode=" + jobCode + ", job=" + job
-				+ ", appWorkType=" + appWorkType + ", workCode=" + workCode + ", remainingHoliday=" + remainingHoliday
-				+ "]";
+				+ ", checkQuestion=" + checkQuestion + ", questionAnswer=" + questionAnswer + ", domitoryYn="
+				+ domitoryYn + ", roleCode=" + roleCode + ", role=" + role + ", department=" + department + ", job="
+				+ job + ", appWorkType=" + appWorkType + ", workCode=" + workCode + ", remainingHoliday="
+				+ remainingHoliday + "]";
 	}
 }
