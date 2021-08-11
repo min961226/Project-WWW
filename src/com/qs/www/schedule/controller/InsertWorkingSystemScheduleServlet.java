@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import com.qs.www.approval.model.dto.ApproverDTO;
 import com.qs.www.approval.model.service.ApprovalService;
-import com.qs.www.member.model.dto.MemberDTO;
+import com.qs.www.member.model.dto.MemberInfoDTO;
 import com.qs.www.schedule.model.dto.ApproverPerReportDTO;
 import com.qs.www.schedule.model.dto.MemberWorkLogDTO;
 import com.qs.www.schedule.model.dto.ReportDTO;
@@ -26,6 +26,8 @@ public class InsertWorkingSystemScheduleServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("근무 신청");
+		
+		//필요한 것들 미리 DB에서 받아와서 뷰페이지에 같이 전달해야한다
 
 		String path = "/WEB-INF/views/schedule/insertApplyWorkingSystem.jsp";
 
@@ -53,7 +55,8 @@ public class InsertWorkingSystemScheduleServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 
 		ReportDTO reportDTO = new ReportDTO();
-		reportDTO.setMemberNo(((MemberDTO) session.getAttribute("loginMember")).getMemberNo());
+		int memberNo = ((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo();
+		reportDTO.setMemberNo(memberNo);
 		reportDTO.setDocumentNo(documentNo);
 		reportDTO.setReportNote(changeReason);
 		System.out.println("InsertWorkingSystemScheduleServlet의 reportDTO : " + reportDTO);
@@ -73,7 +76,7 @@ public class InsertWorkingSystemScheduleServlet extends HttpServlet {
 			System.out.println("reportNo : " + reportNo);
 
 			/* 2-2. 상신별문서항목작성내용(TBL_ITEM_CONTENT)에 insert */
-			String memberName = ((MemberDTO) session.getAttribute("loginMember")).getName();
+			String memberName = ((MemberInfoDTO) session.getAttribute("memberInfo")).getName();
 			String title = memberName + " " + workType + " 신청서";
 			String getworkNo = request.getParameter("workNo");
 
@@ -153,7 +156,7 @@ public class InsertWorkingSystemScheduleServlet extends HttpServlet {
 
 						/* 5-1. 첫번째 변경이력. startDay 사용 */
 						MemberWorkLogDTO memberWorkLogDTO = new MemberWorkLogDTO();
-						memberWorkLogDTO.setMemberNo(((MemberDTO) session.getAttribute("loginMember")).getMemberNo());
+						memberWorkLogDTO.setMemberNo(((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo());
 						memberWorkLogDTO.setWorkType(workType);
 						memberWorkLogDTO.setWorkNo(workNo);
 						memberWorkLogDTO.setStartDay(startDay);
@@ -162,7 +165,7 @@ public class InsertWorkingSystemScheduleServlet extends HttpServlet {
 
 						/* 5-2. 두번째 변경이력. endNextDate 사용. 다시 기본근태로 돌림 */
 						MemberWorkLogDTO memberWorkLogDTO2 = new MemberWorkLogDTO();
-						memberWorkLogDTO2.setMemberNo(((MemberDTO) session.getAttribute("loginMember")).getMemberNo());
+						memberWorkLogDTO2.setMemberNo(((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo());
 						memberWorkLogDTO2.setWorkType("표준");
 						memberWorkLogDTO2.setWorkNo(1);
 						memberWorkLogDTO2.setStartDay(endNextDate);
