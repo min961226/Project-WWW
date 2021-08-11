@@ -29,4 +29,53 @@
 	  FROM TBL_APPROVER
 	 WHERE MEMBER_NO = #{ memberNo }
 </select>
+
+<insert id="insertSelfDevelopment" parameterType="com.qs.www.welfare.model.dto.WelfareListDTO">
+
+	INSERT /* com.qs.www.welfare.model.dao.WelfareDAO#insertSelfDevelopment() */
+	  INTO TBL_REPORT A
+	(
+	  A.REPORT_NO
+	, A.REPORT_DATE
+	, A.MEMBER_NO
+	, A.DOCUMENT_NO
+	, A.REPORT_NOTE
+	, A.REPORT_STATUS
+	, A.LINE_NAME
+	, A.REPORT_TITLE
+	)
+	VALUES
+	(
+	  SEQ_REPORT_NO.NEXTVAL
+	, SYSDATE
+	, #{ memberNo }
+	, #{ documentNo }
+	, #{ reportNote }
+	, DEFAULT
+	, #{ lineName }
+	, #{ welfareTitle }
+	)
+	</insert>
+	
+	<select id="selectReportNum" resultType="_int">
+		SELECT /* com.qs.www.welfare.model.dao.WelfareDAO#selectReportNum() */
+		       LAST_NUMBER
+		  FROM USER_SEQUENCES
+		 WHERE SEQUENCE_NAME = 'SEQ_REPORT_NO'
+	</select>
+	
+	<select id="selectDevNo" resultType="_int">
+		SELECT /* com.qs.www.welfare.model.dao.WelfareDAO#selectDevNo() */
+		       DEVELOPMENT_NO
+		  FROM TBL_SELF_DEVELOPMENT
+		 WHERE DEVELOPMENT_TYPE_NAME = #{ lineName }
+	</select>
+	
+	<select id="selectLimitCost" resultType="_int">
+		SELECT /* com.qs.www.welfare.model.dao.WelfareDAO#selectLimitCost() */
+			   MONTH_LIMIT_COST
+		  FROM TBL_SELF_DEVELOPMENT
+		 WHERE DEVELOPMENT_NO = #{ developmentNo }
+	</select>
+	
 </mapper>

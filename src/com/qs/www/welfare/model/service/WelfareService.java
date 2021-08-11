@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
 import com.qs.www.welfare.model.dao.WelfareDAO;
+import com.qs.www.welfare.model.dto.WelfareListDTO;
 
 import static com.qs.www.common.mybatis.Template.getSqlSession;
 
@@ -46,5 +47,53 @@ public class WelfareService {
 
 		return approverLine;
 	}
+	
+	public int selectReportNum() {
+		SqlSession session = getSqlSession();
+
+		int reportNum = welfareDAO.selectReportNum(session);
+		
+		session.close();
+
+		return reportNum;
+	}
+
+	public int insertSelfDevelopment(WelfareListDTO welfareListDTO) {
+		
+		SqlSession session = getSqlSession();
+		
+		int result = welfareDAO.insertSelfDevelopment(session, welfareListDTO);
+		
+		if(result > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+		
+		session.close();
+		
+		return result;
+	}
+
+	public int selectDevNo(String lineName) {
+		SqlSession session = getSqlSession();
+
+		int devNo = welfareDAO.selectDevNo(session, lineName);
+		
+		session.close();
+
+		return devNo;
+	}
+
+	public int selectLimitCost(int developmentNo) {
+		SqlSession session = getSqlSession();
+
+		int limitCost = welfareDAO.selectLimitCost(session, developmentNo);
+		
+		session.close();
+
+		return limitCost;
+	}
+
 
 }

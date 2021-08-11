@@ -59,6 +59,7 @@
 									<option>-- 자기개발비 신청 가능 목록 --</option>
 									<c:forEach items="${ requestScope.selfDevList }" var="selfDevList">
 										<option><c:out value="${ selfDevList }" /></option>
+
 									</c:forEach>
 								</select>
 							</div>
