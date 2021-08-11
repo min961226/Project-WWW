@@ -43,10 +43,10 @@ public class InsertWorkingSystemScheduleServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		System.out.println("InsertWorkingSystemScheduleServlet = 근무신청 서블렛으로 이동");
+		System.out.println("근무신청 서블렛으로 이동");
 
 		HttpSession session = request.getSession();
-		int lineNo = Integer.parseInt(request.getParameter("approverLine")); 		//위쪽에서 미리 받는다.
+		int lineNo = Integer.parseInt(request.getParameter("line")); 		//위쪽에서 미리 받는다.
 		
 		List<ApprovalLineDTO> lineList = (List<ApprovalLineDTO>) session.getAttribute("lineList");
 
@@ -61,7 +61,7 @@ public class InsertWorkingSystemScheduleServlet extends HttpServlet {
         
 		int documentNo = 4;				//근무신청서의 문서번호는 4번이다.		
 		int workNo = Integer.parseInt(request.getParameter("workNo"));
-		int approverLine = Integer.parseInt(request.getParameter("approverLine"));
+		int approverLine = Integer.parseInt(request.getParameter("line"));
 		String changeReason = request.getParameter("changeReason");
 
 		String workType = ""; 			//이 부분 수정해야 함

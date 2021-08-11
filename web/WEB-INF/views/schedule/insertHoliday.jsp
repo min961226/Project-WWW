@@ -18,6 +18,7 @@
 		<div class="page-wrapper">
 		
             <div class="content container-fluid">
+            
                 <div class="row">
                     <div class="col-xs-12">
                         <h4 class="page-title">휴가일정 생성 신청</h4>
@@ -28,17 +29,20 @@
                     <div class="col-md-12">
                         <div class="card-box">
                             <h4 class="card-title">내용작성</h4>
-                            
+                                                     
                             <form action="${ pageContext.servletContext.contextPath }/schedule/holiday/insert" method="post" class="form-horizontal">
-                            
+                            	                            	
                                 <div class="row">
-                                    <div class="col-md-6">
+                                	<!-- 일단 md 12는 양측을 꽉 채움.. 고민해 볼 것-->
+                                    <div class="col-md-9">
                                         <div class="form-group">
                                             <label class="col-md-3 control-label">현황</label>
+                                            <!-- 한줄로 쭉하고싶은데... -->
                                             <div class="col-md-9">
                                                 <input type="text" value=${ sessionScope.memberInfo.name }class="form-control" disabled> 정기연차 이외 휴가의 소멸기간은 1년 입니다. 
                                             </div>
                                         </div>
+                                        
                                         <br>
                                         
                                         <div class="form-group">
@@ -51,7 +55,7 @@
                                 		<div class="form-group">
                                 			<label class="col-md-3 control-label">결재라인</label>
                                 			<div class="col-md-9">
-                                				<select class="select" name="approverLine">
+                                				<select class="select" name="line">
                                 				<option>--결재라인 선택--</option>
                                 				<c:forEach var="line" items="${ requestScope.lineList }">
                                 					<option value= ${ line.lineNo }>${ line.lineName }</option>
@@ -63,10 +67,10 @@
                                 		<div class="form-group">
                                 			<label class="col-md-3 control-label">휴가종류</label>
                                 			<div class="col-md-9">
-                                				<select class="select" name="approverLine">
+                                				<select class="select" name="holidayCode">
                                 				<option>--휴가종류 선택--</option>
-                                				<c:forEach var="holidayType" items="${ requestScope.holidayTypeList }">
-                                					<option value= ${ holidayType.holidayCode }>${ holidayType.holidayName }</option>
+                                				<c:forEach var="holidayCode" items="${ requestScope.holidayTypeList }">
+                                					<option value= ${ holidayCode.holidayCode }>${ holidayCode.holidayName }</option>
                                 				</c:forEach>
                                 				</select>
                                 		    </div>
@@ -74,29 +78,33 @@
                                 		
                                 		<div class="form-group">
                                 			<label class="col-md-3 control-label">시작일</label>
-                                			<div class="col-md-9">
+                                			<div class="col-md-4">
                                 				<input type="date" class="form-control" name="startDay">
+                                            </div>
+                                            <div class="col-md-4">
                                 				<select class="select" name="startDayAllday">
                                                     <option>종일여부</option>
-                                                    <option value="1">종일</option>
-                                                    <option value="2">오전시작</option>
-                                                    <option value="3">오후시작</option>
+                                                    <option value="종일">종일</option>
+                                                    <option value="오전">오전시작</option>
+                                                    <option value="오후">오후시작</option>
                                                 </select>
                                             </div>
                                         </div>
-                                
-                                		<div class="form-group">
+                                        
+                                        <div class="form-group">
                                 			<label class="col-md-3 control-label">종료일</label>
-                                			<div class="col-md-9">
+                                			<div class="col-md-4">
                                 				<input type="date" class="form-control" name="endDay">
-                                				<select class="select" name="startDayAllday">
+                                            </div>
+                                            <div class="col-md-4">
+                                				<select class="select" name="endDayAllday">
                                                     <option>종일여부</option>
-                                                    <option value="1">종일</option>
-                                                    <option value="2">오전시작</option>
-                                                    <option value="3">오후시작</option>
+                                                    <option value="종일">종일</option>
+                                                    <option value="오전">오전까지</option>
+                                                    <option value="오후">오후까지</option>
                                                 </select>
-                                			</div>
-                                		</div>
+                                            </div>
+                                        </div>
                                 
                                         <div class="form-group">
                                             <label class="col-md-3 control-label">기간</label>
@@ -105,78 +113,25 @@
                                             </div>
                                         </div>
                                         
-                                       
-                                    <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="col-md-3 control-label">Username</label>
+                                            <label class="col-md-3 control-label">사유</label>
                                             <div class="col-md-9">
-                                                <input type="text" class="form-control">
+                                                <input type="text" class="form-control" name="reason">
                                             </div>
                                         </div>
+                                        
                                         <div class="form-group">
-                                            <label class="col-md-3 control-label">Email</label>
+                                            <label class="col-md-3 control-label">첨부파일</label>
                                             <div class="col-md-9">
-                                                <input type="text" class="form-control">
+                                                <input type="file" class="form-control">
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label class="col-md-3 control-label">Password</label>
-                                            <div class="col-md-9">
-                                                <input type="password" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-md-3 control-label">Repeat Password</label>
-                                            <div class="col-md-9">
-                                                <input type="password" class="form-control">
-                                            </div>
-                                        </div>
-                                    </div>
+                                        
+                                	</div>
                                 </div>
                                 
-                                <h4 class="card-title">Address</h4>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="col-md-3 control-label">Address Line 1</label>
-                                            <div class="col-md-9">
-                                                <input type="text" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-md-3 control-label">Address Line 2</label>
-                                            <div class="col-md-9">
-                                                <input type="text" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-md-3 control-label">State</label>
-                                            <div class="col-md-9">
-                                                <input type="text" class="form-control">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="col-md-3 control-label">City</label>
-                                            <div class="col-md-9">
-                                                <input type="text" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-md-3 control-label">Country</label>
-                                            <div class="col-md-9">
-                                                <input type="text" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-md-3 control-label">Postal Code</label>
-                                            <div class="col-md-9">
-                                                <input type="text" class="form-control">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                
+                                
                                 
                                 
                                 <div class="text-right">
