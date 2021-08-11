@@ -73,4 +73,21 @@ public class ScheduleService {
 		return result;
 	}
 
+	public int applyWorkingSystemMemberWorkLog(MemberWorkLogDTO memberWorkLogDTO) {
+		
+		SqlSession session = getSqlSession();
+		
+		int result = scheduleDAO.applyWorkingSystemMemberWorkLog(session, memberWorkLogDTO);
+		
+		if(result > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+				
+		session.close();
+		
+		return result;
+	}
+
 }

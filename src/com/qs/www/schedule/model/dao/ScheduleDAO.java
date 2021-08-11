@@ -27,4 +27,9 @@ public class ScheduleDAO {
 		return session.insert("ScheduleDAO.applyWorkingSystemApprover", approverPerReportDTO);
 	}
 
+	public int applyWorkingSystemMemberWorkLog(SqlSession session, MemberWorkLogDTO memberWorkLogDTO) {
+		
+		return session.insert("ScheduleDAO.applyWorkingSystemMemberWorkLog", memberWorkLogDTO);
+	}
+
 }
