@@ -11,14 +11,6 @@ public class WelfareDAO {
 		return session.selectList("WelfareDAO.selectWelfareList");
 	}
 
-	public String selectDeptName(SqlSession session, String deptCode) {
-		return session.selectOne("WelfareDAO.selectDeptName",deptCode);
-	}
-
-	public String selectJobName(SqlSession session, String jobCode) {
-		return session.selectOne("WelfareDAO.selectJobName",jobCode);
-	}
-
 	public List<String> selectApproverLine(SqlSession session, int memberNo) {
 		return session.selectList("WelfareDAO.selectApproverLine", memberNo);
 	}

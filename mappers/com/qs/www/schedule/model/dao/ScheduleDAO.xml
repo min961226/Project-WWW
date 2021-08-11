@@ -3,26 +3,30 @@
 <mapper namespace="ScheduleDAO">
 	
 	<insert id="applyWorkingSystem" parameterType="com.qs.www.schedule.model.dto.ReportDTO">
-	INSERT /* com.qs.www.schedule.model.dao.ScheduleDAO#applyWorkingSystem() */
-	  INTO TBL_REPORT A
-	(
-	  A.REPORT_NO
-	, A.REPORT_DATE
-	, A.MEMBER_NO
-	, A.DOCUMENT_NO
-	, A.REPORT_NOTE
-	, A.REPORT_STATUS
-	)
-	VALUES
-	(
-	  SEQ_REPORT_NO.NEXTVAL
-	, SYSDATE
-	, #{ memberNo }
-	, #{ documentNo }
-	, #{ reportNote }
-	, DEFAULT
-	)
-	</insert>
+    INSERT /* com.qs.www.schedule.model.dao.ScheduleDAO#applyWorkingSystem() */
+      INTO TBL_REPORT A
+    (
+      A.REPORT_NO
+    , A.REPORT_DATE
+    , A.MEMBER_NO
+    , A.DOCUMENT_NO
+    , A.REPORT_NOTE
+    , A.REPORT_STATUS
+    , A.LINE_NAME
+    , A.REPORT_TITLE
+    )
+    VALUES
+    (
+      SEQ_REPORT_NO.NEXTVAL
+    , SYSDATE
+    , #{ memberNo }
+    , #{ documentNo }
+    , #{ reportNote }
+    , DEFAULT
+    , #{ lineName }
+    , #{ reportTitle }
+    )
+    </insert>
 	
 	
 	<insert id="applyWorkingSystemItemContent" parameterType="com.qs.www.schedule.model.dto.WorkingDocumentItemDTO">

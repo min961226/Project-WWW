@@ -36,7 +36,6 @@ public class SelectedWelfareServlet extends HttpServlet {
 		String jobName = ((MemberInfoDTO) session.getAttribute("memberInfo")).getJob().getJobName();
 		List<String> approverLine = welfareService.selectApproverLine(memberNo);
 		List<ApprovalLineDTO> lineList = new ApprovalService().selectApprovalLine(memberNo);
-
 		
 		System.out.println(memberNo);
 		System.out.println(name);
@@ -54,10 +53,9 @@ public class SelectedWelfareServlet extends HttpServlet {
 		System.out.println(lineList);
 		
 		String path = "";
-
 		switch (selectedWelfare) {
 		case "야간교통비신청서":
-			path = "/WEB-INF/views/common/error-404.jsp";
+			path = "/WEB-INF/views/welfare/insertNightTransportation.jsp";
 			break;
 		case "경조사신청서":
 			path = "/WEB-INF/views/welfare/insertFamilyEvent.jsp";

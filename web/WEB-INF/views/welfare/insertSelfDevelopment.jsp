@@ -32,11 +32,11 @@
 					<div class="col-md-8 col-md-offset-2">
 						<form name = "insertSelfDev" action="${ pageContext.servletContext.contextPath }/welfare/selfDevelopment/insert" method="POST">
 							<div class="form-group">
-								<label>직원 ID</label> <input class="form-control" type="text"
+								<label>직원 ID</label> <input name ="memberNo" class="form-control" type="text"
 									value="${memberNo}" readonly="readonly" />
 							</div>
 							<div class="form-group">
-								<label>부서</label> <input name ="deptName" class="form-control" type="text" value=" ${ sessionScope.memberInfo.department.deptName }">
+								<label>부서</label> <input name ="deptName" class="form-control" type="text" value="${ sessionScope.memberInfo.department.deptName }">
 							</div>
 							<div class="form-group">
 								<label>직위</label> <input name ="jobName"  class="form-control" type="text" value="${ sessionScope.memberInfo.job.jobName }">
