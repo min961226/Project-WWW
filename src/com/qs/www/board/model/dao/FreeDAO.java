@@ -14,4 +14,9 @@ public class FreeDAO {
 		return session.selectList("FreeDAO.selectAllFreeList");
 	}
 
+	public int insertFree(SqlSession session, FreeDTO newFree) {
+		
+		return session.insert("FreeDAO.insertFree", newFree);
+	}
+
 }

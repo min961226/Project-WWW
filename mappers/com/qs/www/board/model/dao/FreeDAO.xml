@@ -28,5 +28,21 @@
              , A.MODIFIED_DATE
          FROM TBL_BOARD A
 	</select>
+	
+	<insert id="insertFree">
+        INSERT /* com.qs.www.board.model.dao.FreeDAO#insertFree() */
+          INTO TBL_BOARD A
+        (
+          A.NOTICE_NO
+        , A.NOTICE_TITLE
+        , A.NOTICE_BODY
+        )
+        VALUES
+        (
+          SEQ_NOTICE_NO.NEXTVAL
+        , #{ title }
+        , #{ body }
+        )
+	</insert>
 
 </mapper>
