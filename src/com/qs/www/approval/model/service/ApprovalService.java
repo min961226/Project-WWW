@@ -8,6 +8,7 @@ import com.qs.www.approval.model.dao.ApprovalDAO;
 import com.qs.www.approval.model.dto.ApprovalLineDTO;
 import com.qs.www.approval.model.dto.ApproverDTO;
 import com.qs.www.schedule.model.dto.ReportDTO;
+import com.qs.www.schedule.model.dto.WorkingDocumentItemDTO;
 
 import static com.qs.www.common.mybatis.Template.getSqlSession;
 
@@ -62,6 +63,26 @@ public class ApprovalService {
 		session.close();
 
 		return reportList;
+	}
+
+	public ReportDTO selectOneReportDetail(int no) {
+		SqlSession session = getSqlSession();
+
+		ReportDTO reportList = approvalDAO.selectOneReportDetail(session, no);
+
+		session.close();
+
+		return reportList;
+	}
+
+	public List<WorkingDocumentItemDTO> selectReportItemList(int no) {
+		SqlSession session = getSqlSession();
+
+		List<WorkingDocumentItemDTO>  itemList = approvalDAO.selectReportItemList(session, no);
+
+		session.close();
+
+		return itemList;
 	}
 
 }

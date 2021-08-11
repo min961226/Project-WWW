@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import com.qs.www.approval.model.dto.ApprovalLineDTO;
 import com.qs.www.approval.model.dto.ApproverDTO;
 import com.qs.www.schedule.model.dto.ReportDTO;
+import com.qs.www.schedule.model.dto.WorkingDocumentItemDTO;
 
 public class ApprovalDAO {
 
@@ -28,6 +29,16 @@ public class ApprovalDAO {
 	public List<ReportDTO> selectMyReport(SqlSession session, int no) {
 		
 		return session.selectList("ApprovalDAO.selectMyReport", no);
+	}
+
+	public ReportDTO selectOneReportDetail(SqlSession session, int no) {
+
+		return session.selectOne("ApprovalDAO.selectOneReportDetail", no);
+	}
+
+	public List<WorkingDocumentItemDTO> selectReportItemList(SqlSession session, int no) {
+		
+		return session.selectList("ApprovalDAO.selectReportItemList", no);
 	}
 
 }

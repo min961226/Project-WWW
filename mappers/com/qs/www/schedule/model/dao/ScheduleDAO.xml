@@ -12,6 +12,8 @@
 	, A.DOCUMENT_NO
 	, A.REPORT_NOTE
 	, A.REPORT_STATUS
+	, A.LINE_NAME
+	, A.REPORT_TITLE
 	)
 	VALUES
 	(
@@ -21,6 +23,8 @@
 	, #{ documentNo }
 	, #{ reportNote }
 	, DEFAULT
+	, #{ lineName }
+	, #{ reportTitle }
 	)
 	</insert>
 	
