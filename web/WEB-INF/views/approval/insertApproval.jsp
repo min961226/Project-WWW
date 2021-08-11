@@ -43,7 +43,23 @@
 											</select>
 										</div>
 									</div>
-
+									<script>
+		                                  var document = document.getElementById("document");
+		
+		                                  test1.onclick = function() {
+		                                 	var area1 = document.getElementById("area1");
+			
+		                                   	area1.innerHTML += "test1()이 실행되었습니다.<br>";
+		                                  }
+		
+		                                  test2.onclick = function() {
+			                                var area1 = document.getElementById("area1");
+			
+		                                	area1.innerHTML += "test2()가 실행되면서 test1() 이벤트 제거 <br>";
+			                                test1.onclick = null; //전역변수 test1의 이벤트 속성값을 null로 해주는게 이벤트 제거효과임
+		                                  }
+		
+	                              </script>
 									<div class="col-sm-6">
 										<label>결재 제목</label>
 										<div class="col-md-12">
