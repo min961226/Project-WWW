@@ -48,7 +48,7 @@
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">신청자</label>
                                     <div class="col-md-9">
-                                        <input type="text" value="${ sessionScope.loginMember.name }" class="form-control">
+                                        <input type="text" value="${ sessionScope.memberInfo.name }" class="form-control" disabled>
                                     </div>
                                 </div>
                                 
@@ -57,9 +57,10 @@
                                     <div class="col-md-9">
                                     	<!-- 일단은 결재라인 아무거나 -->
                                         <select class="select" name="approverLine">
-                                            <option>선택</option>
-                                            <option value="1">기본업무용</option>
-                                            <option value="2">근무신청용</option>
+                                            <option>--결재라인 선택--</option>
+                                            <c:forEach var="line" items="${ requestScope.lineList }">
+												<option value= ${ line.lineNo }>${ line.lineName }</option>
+											</c:forEach>
                                         </select>
                                     </div>
                                 </div>
