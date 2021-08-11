@@ -13,6 +13,7 @@
                TBL_MEMBER A
            SET A.GENDER = #{ gender }
              , A.BIRTHDAY = #{ birthday }
+             , A.RRN = #{ rrn }
              , A.PHONE = #{ phone }
              , A.ADDRESS = #{ address }
              , A.QUESTION_ANSWER = #{ questionAnswer }

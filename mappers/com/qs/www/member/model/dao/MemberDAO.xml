@@ -6,6 +6,7 @@
 		<result property="memberId" column="MEMBER_ID"/>
 		<result property="password" column="PASSWORD"/>
 		<result property="name" column="NAME"/>
+		<result property="rrn" column="RRN"/>
 		<result property="enrollDate" column="ENROLL_DATE"/>
 		<result property="entDate" column="ENT_DATE"/>
 		<result property="entYn" column="ENT_YN"/>
@@ -44,7 +45,7 @@
 		</association>
 	</resultMap>
 	
-	<select id="selectEncryptedPwd" parameterType="com.qs.www.member.model.dto.MemberInfoDTO" resultType="java.lang.String">
+	<select id="selectEncryptedPwd" parameterType="java.lang.String" resultType="java.lang.String">
         SELECT /* com.qs.www.member.model.dao.MemberDAO#selectEncryptedPwd() */
                A.PASSWORD
           FROM TBL_MEMBER A
@@ -52,12 +53,13 @@
            AND A.MEMBER_ID = #{ memberId }
 	</select>
 	
-	<select id="selectLoginMember" parameterType="com.qs.www.member.model.dto.MemberInfoDTO" resultMap="memberInfoResultMap">
+	<select id="selectLoginMember" parameterType="java.lang.String" resultMap="memberInfoResultMap">
         SELECT /* com.qs.www.member.model.dao.MypageDAO#selectInfo() */
                A.MEMBER_NO
              , A.MEMBER_ID
              , A.PASSWORD
              , A.NAME
+             , A.RRN
              , A.ENROLL_DATE
              , A.ENT_YN
              , A.EMAIL

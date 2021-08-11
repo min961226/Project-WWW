@@ -37,62 +37,62 @@
                     		<div class="profile-view">
                     			<div class="form-horizontal">
 	                    			<div class="form-group" style="back">
-	                                    <label class="control-label col-lg-3">ID</label>
-	                                    <div class="col-md-9">
+	                                    <label class="control-label col-lg-4">ID</label>
+	                                    <div class="col-md-8">
 	                                        <input type="text" class="form-control" value="${ memberInfo.memberId }" readonly>
 	                                    </div>
 	                                </div>
 	                                <div class="form-group">
-	                                    <label class="control-label col-lg-3">사번</label>
-	                                    <div class="col-md-9">
+	                                    <label class="control-label col-lg-4">사번</label>
+	                                    <div class="col-md-8">
 	                                        <input type="text" class="form-control" value="${ memberInfo.memberNo }" readonly>
 	                                    </div>
 	                                </div>
 	                                <div class="form-group">
-	                                    <label class="control-label col-lg-3">이름</label>
-	                                    <div class="col-md-9">
+	                                    <label class="control-label col-lg-4">이름</label>
+	                                    <div class="col-md-3">
 	                                        <input type="text" class="form-control" value="${ memberInfo.name }" readonly>
 	                                    </div>
 	                                </div>
 	                                <div class="form-group">
-	                                    <label class="control-label col-lg-3">부서</label>
-	                                    <div class="col-md-9">
+	                                    <label class="control-label col-lg-4">부서</label>
+	                                    <div class="col-md-8">
 	                                        <input type="text" class="form-control" value="${ memberInfo.department.deptName }" readonly>
 	                                    </div>
 	                                </div>
 	                                <div class="form-group">
-	                                    <label class="control-label col-lg-3">직급</label>
-	                                    <div class="col-md-9">
+	                                    <label class="control-label col-lg-4">직급</label>
+	                                    <div class="col-md-8">
 	                                        <input type="text" class="form-control" value="${ memberInfo.job.jobName }" readonly>
 	                                    </div>
 	                                </div>
 	                                <div class="form-group">
-	                                    <label class="control-label col-lg-3">E-mail</label>
-	                                    <div class="col-md-9">
+	                                    <label class="control-label col-lg-4">E-mail</label>
+	                                    <div class="col-md-8">
 	                                        <input type="text" class="form-control" value="${ memberInfo.email }" readonly>
 	                                    </div>
 	                                </div>
 	                                <div class="form-group">
-	                                    <label class="control-label col-lg-3">사내전화</label>
-	                                    <div class="col-md-9">
+	                                    <label class="control-label col-lg-4">사내전화</label>
+	                                    <div class="col-md-8">
 	                                        <input type="text" class="form-control" value="${ memberInfo.department.deptCallNumber }" readonly>
 	                                    </div>
 	                                </div>
 	                                <div class="form-group">
-	                                    <label class="control-label col-lg-3">입사일</label>
-	                                    <div class="col-md-9">
+	                                    <label class="control-label col-lg-4">입사일</label>
+	                                    <div class="col-md-8">
 	                                        <input type="text" class="form-control" value="${ memberInfo.enrollDate }" readonly>
 	                                    </div>
 	                                </div>
 	                                <div class="form-group">
-	                                    <label class="control-label col-lg-3">재직 상태</label>
-	                                    <div class="col-md-9">
+	                                    <label class="control-label col-lg-4">재직 상태</label>
+	                                    <div class="col-md-8">
 	                                        <input type="text" class="form-control" value="재직" readonly>
 	                                    </div>
 	                                </div>
 	                                <div class="form-group">
-	                                    <label class="control-label col-lg-3">권한</label>
-	                                    <div class="col-md-9">
+	                                    <label class="control-label col-lg-4">권한</label>
+	                                    <div class="col-md-8">
 	                                        <input type="text" class="form-control" value="${ memberInfo.role.roleName }" readonly>
 	                                    </div>
 	                                </div>
@@ -106,26 +106,36 @@
                     		<div class="profile-view">
                     			<form class="form-horizontal">
                     				<div class="form-group">
-	                                    <label class="control-label col-lg-3">성별</label>
-	                                    <div class="col-md-9">
+	                                    <label class="control-label col-lg-4">성별</label>
+	                                    <div class="col-md-8">
 	                                        <input type="text" class="form-control" value="${ memberInfo.gender }" readonly>
 	                                    </div>
 	                                </div>
 	                                <div class="form-group">
-	                                    <label class="control-label col-lg-3">생년월일</label>
-	                                    <div class="col-md-9">
+	                                    <label class="control-label col-lg-4">생년월일</label>
+	                                    <div class="col-md-8">
 	                                        <input type="text" class="form-control" value="${ memberInfo.birthday }" readonly>
 	                                    </div>
 	                                </div>
 	                                <div class="form-group">
-	                                    <label class="control-label col-lg-3">휴대전화</label>
-	                                    <div class="col-md-9">
+	                                    <label class="control-label col-lg-4">주민둥록번호</label>
+	                                    <div class="col-md-3">
+	                                        <input type="text" class="form-control" value="${ firstRrn }" readonly>
+	                                    </div>
+	                                    <label class="control-label col-lg-1"> - </label>
+	                                    <div class="col-md-4">
+	                                        <input type="password" class="form-control" value="${ lastRrn }" readonly>
+	                                    </div>
+	                                </div>
+	                                <div class="form-group">
+	                                    <label class="control-label col-lg-4">휴대전화</label>
+	                                    <div class="col-md-8">
 	                                        <input type="text" class="form-control" value="${ memberInfo.phone }" readonly>
 	                                    </div>
 	                                </div>
 	                                <div class="form-group">
-	                                    <label class="control-label col-lg-3">자택주소</label>
-	                                    <div class="col-md-9">
+	                                    <label class="control-label col-lg-4">자택주소</label>
+	                                    <div class="col-md-8">
 	                                    	<div class="input-group">
 	                                    		<span><input type="text" class="form-control" name="zipCode" id="zipCode" value="${ zipCode }" readonly></span>
                                             	<span class="input-group-btn">
@@ -135,26 +145,26 @@
 										</div>												
 	                                </div>
 	                                <div class="form-group">
-	                                    <label class="control-label col-lg-3"></label>
-	                                    <div class="col-md-9">
+	                                    <label class="control-label col-lg-4"></label>
+	                                    <div class="col-md-8">
 	                                        <input type="text" class="form-control" name="address1" id="address1" value="${ address1 }" readonly>
 	                                    </div>
 	                                </div>
 	                                <div class="form-group">
-	                                    <label class="control-label col-lg-3"></label>
-	                                    <div class="col-md-9">
+	                                    <label class="control-label col-lg-4"></label>
+	                                    <div class="col-md-8">
 	                                        <input type="text" class="form-control" name="address2" id="address2" value="${ address2 }" readonly>
 	                                    </div>
 	                                </div>
 	                                <div class="form-group">
-	                                    <label class="control-label col-lg-3">비밀번호<br>확인 질문</label>
-	                                    <div class="col-md-9">
+	                                    <label class="control-label col-lg-4">비밀번호 확인<br>질문</label>
+	                                    <div class="col-md-8">
 	                                        <input type="text" class="form-control" name="question" value="${ memberInfo.checkQuestion.questionBody }" readonly>
 	                                    </div>
 		                            </div>
 		                            <div class="form-group">
-		                                <label class="control-label col-lg-3">답변</label>
-		                                <div class="col-md-9">
+		                                <label class="control-label col-lg-4">답변</label>
+		                                <div class="col-md-8">
 		                            		<input type="text" class="form-control" name="answer" value="${ memberInfo.questionAnswer }" readonly>
 		                            	</div>
 		                        	</div>

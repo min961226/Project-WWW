@@ -20,19 +20,19 @@ public class MemberService {
 	public MemberInfoDTO checkMember(MemberDTO requestMember) {
 		
 		SqlSession sqlSession = getSqlSession();
-		
+		String memberId = requestMember.getMemberId();
 		MemberInfoDTO loginMember = null;
 		
-		String encPwd = memberDAO.selectEncryptedPwd(sqlSession, requestMember);
+		String encPwd = memberDAO.selectEncryptedPwd(sqlSession, memberId);
 		
-		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-		if(encPwd.equals(requestMember.getPassword())) {
-			
-			loginMember = memberDAO.selectLoginMember(sqlSession, requestMember);
+		if(encPwd != null && encPwd.equals(requestMember.getPassword())) {
+			loginMember = memberDAO.selectLoginMember(sqlSession, memberId);
 		}
 		
+//		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+//		
 //		if(passwordEncoder.matches(requestMember.getPassword(), encPwd)) {
-//			loginMember = memberDAO.selectLoginMember(session, requestMember);
+//			loginMember = memberDAO.selectLoginMember(session, memberId);
 //		}
 		
 		sqlSession.close();

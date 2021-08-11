@@ -9,6 +9,7 @@ public class MemberDTO implements Serializable {
 	private String memberId;
 	private String password;
 	private String name;
+	private String rrn;
 	private Date enrollDate;
 	private Date entDate;
 	private String entYn;
@@ -20,24 +21,25 @@ public class MemberDTO implements Serializable {
 	private String questionCode;
 	private String questionAnswer;
 	private String domitoryYn;
-	private String roleCode;
 	private String deptCode;
 	private String jobCode;
 	private String appWorkType;
 	private int workCode;
 	private int remainingHoliday;
+	private String roleCode;
 	
 	public MemberDTO() {}
 
-	public MemberDTO(int memberNo, String memberId, String password, String name, Date enrollDate, Date entDate,
-			String entYn, String email, Date birthday, String address, String gender, String phone, String questionCode,
-			String questionAnswer, String domitoryYn, String roleCode, String deptCode, String jobCode,
-			String appWorkType, int workCode, int remainingHoliday) {
+	public MemberDTO(int memberNo, String memberId, String password, String name, String rrn, Date enrollDate,
+			Date entDate, String entYn, String email, Date birthday, String address, String gender, String phone,
+			String questionCode, String questionAnswer, String domitoryYn, String deptCode, String jobCode,
+			String appWorkType, int workCode, int remainingHoliday, String roleCode) {
 		super();
 		this.memberNo = memberNo;
 		this.memberId = memberId;
 		this.password = password;
 		this.name = name;
+		this.rrn = rrn;
 		this.enrollDate = enrollDate;
 		this.entDate = entDate;
 		this.entYn = entYn;
@@ -49,12 +51,12 @@ public class MemberDTO implements Serializable {
 		this.questionCode = questionCode;
 		this.questionAnswer = questionAnswer;
 		this.domitoryYn = domitoryYn;
-		this.roleCode = roleCode;
 		this.deptCode = deptCode;
 		this.jobCode = jobCode;
 		this.appWorkType = appWorkType;
 		this.workCode = workCode;
 		this.remainingHoliday = remainingHoliday;
+		this.roleCode = roleCode;
 	}
 
 	public int getMemberNo() {
@@ -87,6 +89,14 @@ public class MemberDTO implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getRrn() {
+		return rrn;
+	}
+
+	public void setRrn(String rrn) {
+		this.rrn = rrn;
 	}
 
 	public Date getEnrollDate() {
@@ -165,7 +175,6 @@ public class MemberDTO implements Serializable {
 		return questionAnswer;
 	}
 
-
 	public void setQuestionAnswer(String questionAnswer) {
 		this.questionAnswer = questionAnswer;
 	}
@@ -176,14 +185,6 @@ public class MemberDTO implements Serializable {
 
 	public void setDomitoryYn(String domitoryYn) {
 		this.domitoryYn = domitoryYn;
-	}
-
-	public String getRoleCode() {
-		return roleCode;
-	}
-
-	public void setRoleCode(String roleCode) {
-		this.roleCode = roleCode;
 	}
 
 	public String getDeptCode() {
@@ -226,13 +227,22 @@ public class MemberDTO implements Serializable {
 		this.remainingHoliday = remainingHoliday;
 	}
 
+	public String getRoleCode() {
+		return roleCode;
+	}
+
+	public void setRoleCode(String roleCode) {
+		this.roleCode = roleCode;
+	}
+
 	@Override
 	public String toString() {
 		return "MemberDTO [memberNo=" + memberNo + ", memberId=" + memberId + ", password=" + password + ", name="
-				+ name + ", enrollDate=" + enrollDate + ", entDate=" + entDate + ", entYn=" + entYn + ", email=" + email
-				+ ", birthday=" + birthday + ", address=" + address + ", gender=" + gender + ", phone=" + phone
-				+ ", questionCode=" + questionCode + ", questionAnswer=" + questionAnswer + ", domitoryYn=" + domitoryYn
-				+ ", roleCode=" + roleCode + ", deptCode=" + deptCode + ", jobCode=" + jobCode + ", appWorkType="
-				+ appWorkType + ", workCode=" + workCode + ", remainingHoliday=" + remainingHoliday + "]";
+				+ name + ", rrn=" + rrn + ", enrollDate=" + enrollDate + ", entDate=" + entDate + ", entYn=" + entYn
+				+ ", email=" + email + ", birthday=" + birthday + ", address=" + address + ", gender=" + gender
+				+ ", phone=" + phone + ", questionCode=" + questionCode + ", questionAnswer=" + questionAnswer
+				+ ", domitoryYn=" + domitoryYn + ", deptCode=" + deptCode + ", jobCode=" + jobCode + ", appWorkType="
+				+ appWorkType + ", workCode=" + workCode + ", remainingHoliday=" + remainingHoliday + ", roleCode="
+				+ roleCode + "]";
 	}
 }
