@@ -55,7 +55,7 @@
                                 <div class="form-group">
                                 	<label class="col-md-3 control-label">결재라인</label>
                                     <div class="col-md-9">
-                                        <select class="select" name="approverLine">
+                                        <select class="select" name="line">
                                             <option>--결재라인 선택--</option>
                                             <c:forEach var="line" items="${ requestScope.lineList }">
 												<option value= ${ line.lineNo }>${ line.lineName }</option>
