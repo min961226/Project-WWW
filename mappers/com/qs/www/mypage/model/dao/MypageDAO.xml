@@ -2,6 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="MypageDAO">
 
+	<select id="selectQuestionList" resultType="java.lang.String">
+        SELECT /* com.qs.www.mypage.model.dao.MypageDAO#selectQuestionList() */
+               A.QUESTION_BODY
+          FROM TBL_CHECK_QUESTION A
+	</select>
+
 	<update id="updateInfo" parameterType="com.qs.www.member.model.dto.MemberInfoDTO">
         UPDATE /* com.qs.www.mypage.model.dao.MypageDAO#updateInfo() */
                TBL_MEMBER A
@@ -9,6 +15,10 @@
              , A.BIRTHDAY = #{ birthday }
              , A.PHONE = #{ phone }
              , A.ADDRESS = #{ address }
+             , A.QUESTION_ANSWER = #{ questionAnswer }
+             , A.QUESTION_CODE = (SELECT B.QUESTION_CODE
+                                    FROM TBL_CHECK_QUESTION B
+                                   WHERE B.QUESTION_BODY = #{ checkQuestion.questionBody })
          WHERE A.MEMBER_NO = #{ memberNo }
 	</update>
 	

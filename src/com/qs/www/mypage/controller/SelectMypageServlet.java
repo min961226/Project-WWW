@@ -9,15 +9,24 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.qs.www.member.model.dto.MemberDTO;
-import com.qs.www.mypage.model.service.MypageService;
+import com.qs.www.member.model.dto.MemberInfoDTO;
 
 @WebServlet("/mypage/info/select")
 public class SelectMypageServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		request.getRequestDispatcher("/WEB-INF/views/mypage/info.jsp").forward(request, response);
+		HttpSession session = request.getSession();
+		String address = ((MemberInfoDTO) session.getAttribute("memberInfo")).getAddress();
 		
+		String zipCode = address.split("\\$")[0];
+		String address1 = address.split("\\$")[1];
+		String address2 = address.split("\\$")[2];
+		
+		session.setAttribute("zipCode", zipCode);
+		session.setAttribute("address1", address1);
+		session.setAttribute("address2", address2);
+		
+		request.getRequestDispatcher("/WEB-INF/views/mypage/info.jsp").forward(request, response);
 	}
 }
