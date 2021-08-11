@@ -5,14 +5,14 @@ import java.sql.Date;
 
 public class ReportDTO implements Serializable{
 	
-	private int reportNo;
-	private java.sql.Date reportDate;
-	private int memberNo;
-	private int documentNo;
-	private String reportNote;
-	private String reportStatus;
-	private String lineName;
-	private String reportTitle;
+	private int reportNo;					//상신번호
+	private java.sql.Date reportDate;		//상신일자
+	private int memberNo;					//상신자 사번
+	private int documentNo;					//문서번호
+	private String reportNote;				//비고
+	private String reportStatus;			//결재상태
+	private String lineName;				//라인명
+	private String reportTitle;				//상신명(상신문서제목)
 	
 	public ReportDTO() {}
 

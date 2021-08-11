@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ScheduleDAO">
+
 	
 	<insert id="applyWorkingSystem" parameterType="com.qs.www.schedule.model.dto.ReportDTO">
 	INSERT /* com.qs.www.schedule.model.dao.ScheduleDAO#applyWorkingSystem() */
@@ -12,6 +13,8 @@
 	, A.DOCUMENT_NO
 	, A.REPORT_NOTE
 	, A.REPORT_STATUS
+	, A.LINE_NAME
+	, A.REPORT_TITLE
 	)
 	VALUES
 	(
@@ -21,6 +24,8 @@
 	, #{ documentNo }
 	, #{ reportNote }
 	, DEFAULT
+	, #{ lineName }
+	, #{ reportTitle }
 	)
 	</insert>
 	
@@ -83,5 +88,7 @@
 	, #{ changeReason }
 	)
 	</insert>
+	
+	
 
 </mapper>

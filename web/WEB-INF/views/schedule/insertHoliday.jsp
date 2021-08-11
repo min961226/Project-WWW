@@ -29,7 +29,6 @@
                         <div class="card-box">
                             <h4 class="card-title">내용작성</h4>
                             
-                            <h4 class="card-title">Personal Information</h4>
                             <form action="${ pageContext.servletContext.contextPath }/schedule/holiday/insert" method="post" class="form-horizontal">
                                 <div class="row">
                                     <div class="col-md-6">
@@ -47,37 +46,65 @@
                                         		<input type="text" value="${ sessionScope.memberInfo.name }" class="form-control" disabled>
                                     		</div>
                                 		</div>
+                                		
+                                		<div class="form-group">
+                                			<label class="col-md-3 control-label">결재라인</label>
+                                			<div class="col-md-9">
+                                				<select class="select" name="approverLine">
+                                				<option>--결재라인 선택--</option>
+                                				<c:forEach var="line" items="${ requestScope.lineList }">
+                                					<option value= ${ line.lineNo }>${ line.lineName }</option>
+                                				</c:forEach>
+                                				</select>
+                                		    </div>
+                                		</div>
+                                		
+                                		<div class="form-group">
+                                			<label class="col-md-3 control-label">휴가종류</label>
+                                			<div class="col-md-9">
+                                				<select class="select" name="approverLine">
+                                				<option>--휴가종류 선택--</option>
+                                				<c:forEach var="holidayType" items="${ requestScope.holidayTypeList }">
+                                					<option value= ${ holidayType.holidayCode }>${ holidayType.holidayName }</option>
+                                				</c:forEach>
+                                				</select>
+                                		    </div>
+                                		</div>
+                                		
+                                		<div class="form-group">
+                                			<label class="col-md-3 control-label">시작일</label>
+                                			<div class="col-md-9">
+                                				<input type="date" class="form-control" name="startDay">
+                                				<select class="select" name="startDayAllday">
+                                                    <option>종일여부</option>
+                                                    <option value="1">종일</option>
+                                                    <option value="2">오전시작</option>
+                                                    <option value="3">오후시작</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                
+                                		<div class="form-group">
+                                			<label class="col-md-3 control-label">종료일</label>
+                                			<div class="col-md-9">
+                                				<input type="date" class="form-control" name="endDay">
+                                				<select class="select" name="startDayAllday">
+                                                    <option>종일여부</option>
+                                                    <option value="1">종일</option>
+                                                    <option value="2">오전시작</option>
+                                                    <option value="3">오후시작</option>
+                                                </select>
+                                			</div>
+                                		</div>
                                 
                                         <div class="form-group">
-                                            <label class="col-md-3 control-label">Last Name</label>
+                                            <label class="col-md-3 control-label">기간</label>
                                             <div class="col-md-9">
                                                 <input type="text" class="form-control">
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label class="col-md-3 control-label">Gender</label>
-                                            <div class="col-md-9">
-                                                <label class="radio-inline">
-                                                    <input type="radio" name="gender" checked="checked"> Male
-                                                </label>
-                                                <label class="radio-inline">
-                                                    <input type="radio" name="gender"> Female
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-md-3 control-label">Blood Group</label>
-                                            <div class="col-md-9">
-                                                <select class="select">
-                                                    <option>Select</option>
-                                                    <option value="1">A+</option>
-                                                    <option value="2">O+</option>
-                                                    <option value="3">B+</option>
-                                                    <option value="4">AB+</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
+                                        
+                                       
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label class="col-md-3 control-label">Username</label>
@@ -105,6 +132,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                
                                 <h4 class="card-title">Address</h4>
                                 <div class="row">
                                     <div class="col-md-6">
@@ -148,6 +176,8 @@
                                         </div>
                                     </div>
                                 </div>
+                                
+                                
                                 <div class="text-right">
                                     <button type="submit" class="btn btn-primary">Submit</button>
                                 </div>
@@ -155,8 +185,10 @@
                         </div>
                     </div>
                 </div>
+                
                 <br>
                 <br>
+                
                 <div class="row">
                     <div class="col-md-6">
                         <div class="card-box">

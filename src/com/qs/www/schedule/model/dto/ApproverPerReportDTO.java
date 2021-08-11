@@ -4,10 +4,10 @@ import java.io.Serializable;
 
 public class ApproverPerReportDTO implements Serializable{
 	
-	private int reportNo;
-	private int memberNo;
-	private int priority;
-	private String approverType;
+	private int reportNo;					//상신번호
+	private int memberNo;					//결재자사번
+	private int priority;					//결재순번
+	private String approverType;			//결재상태
 	
 	public ApproverPerReportDTO() {}
 
