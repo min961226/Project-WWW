@@ -31,9 +31,7 @@
 			</select>
 			<input type="search">
 			<button type="submit" style="background-color:orange;">검색하기</button>
-			<button id="writeFree" style="background-color:orange;">작성하기</button>
-			
-
+			<button id="writeNotice">작성하기</button>
 		</div>
                 <div class="row">
                     <div class="col-lg-12">
@@ -96,10 +94,10 @@
 											<td><c:out value="${ board.count }"/></td>
 											<td><c:out value="${ board.created }"/></td>
 										</tr>
-										</c:forEach>
-										
-										
+										</c:forEach>	
                                 </table>
+                                
+                                
                                 <div class="pagingArea" align="center">
 		<!-- 맨 앞으로 이동 버튼 -->
 	    <button id="startPage"><<</button>
