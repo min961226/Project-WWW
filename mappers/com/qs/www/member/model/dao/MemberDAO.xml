@@ -44,7 +44,7 @@
 		</association>
 	</resultMap>
 	
-	<select id="selectEncryptedPwd" parameterType="java.lang.String" resultType="java.lang.String">
+	<select id="selectEncryptedPwd" parameterType="com.qs.www.member.model.dto.MemberInfoDTO" resultType="java.lang.String">
         SELECT /* com.qs.www.member.model.dao.MemberDAO#selectEncryptedPwd() */
                A.PASSWORD
           FROM TBL_MEMBER A
@@ -52,7 +52,7 @@
            AND A.MEMBER_ID = #{ memberId }
 	</select>
 	
-	<select id="selectLoginMember" parameterType="java.lang.String" resultMap="memberInfoResultMap">
+	<select id="selectLoginMember" parameterType="com.qs.www.member.model.dto.MemberInfoDTO" resultMap="memberInfoResultMap">
         SELECT /* com.qs.www.member.model.dao.MypageDAO#selectInfo() */
                A.MEMBER_NO
              , A.MEMBER_ID
