@@ -57,7 +57,7 @@
 									<div class="col-sm-6">
 										<label>기안자</label>
 										<div class="col-md-12">
-										<input class="form-control" value="${ sessionScope.loginMember.name }"  disabled/>
+										<input class="form-control" value="${ sessionScope.memberInfo.name }"  disabled/>
 										</div>
 									</div>
 
@@ -99,7 +99,7 @@
 									<div class="col-sm-3">
 										<label>계약일</label>
 										<div class="col-md-12">
-										<input type="date" class="col-md-12"/>
+										<input type="date" name="contractDate"  class="col-md-12"/>
 										</div>
 										
 									</div>
@@ -107,7 +107,7 @@
 									<div class="col-sm-3">
 										<label>지출예정일</label>
 										<div class="col-md-12">
-											<input type="date" class="col-md-12"/>
+											<input type="date" name="payDate"  class="col-md-12"/>
 										</div>
 									</div>
 									
@@ -116,7 +116,7 @@
 									 <div class="col-sm-6">
 										<label>물품번호</label>
 										<div class="col-md-12">
-											<select class="form-control" name="documentNo">
+											<select class="form-control" name="productNo">
 												<option value=1>p-1</option>
 												<option value=2>p-2</option>
 												<option value=3>p-3</option>

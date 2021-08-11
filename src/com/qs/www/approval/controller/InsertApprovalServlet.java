@@ -9,11 +9,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.qs.www.approval.model.dto.ApprovalLineDTO;
 import com.qs.www.approval.model.dto.ApproverDTO;
 import com.qs.www.approval.model.service.ApprovalService;
 import com.qs.www.member.model.dto.MemberDTO;
+import com.qs.www.member.model.dto.MemberInfoDTO;
+import com.qs.www.schedule.model.dto.ApproverPerReportDTO;
 import com.qs.www.schedule.model.dto.ReportDTO;
 import com.qs.www.schedule.model.dto.WorkingDocumentItemDTO;
 import com.qs.www.schedule.model.service.ScheduleService;
@@ -22,9 +25,10 @@ import com.qs.www.schedule.model.service.ScheduleService;
 public class InsertApprovalServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		
+		HttpSession session = request.getSession();
 		//로그인중인 유저가 생성자인 결재라인 가져오기
-		int no = ((MemberDTO) request.getSession().getAttribute("loginMember")).getMemberNo();
+		int no = ((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo();
 
 		List<ApprovalLineDTO> lineList = new ApprovalService().selectApprovalLine(no);
 
@@ -34,9 +38,11 @@ public class InsertApprovalServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		
+		HttpSession session = request.getSession();
+		
 		int documentNo = Integer.parseInt(request.getParameter("documentNo"));
-		int memberNo = ((MemberDTO) request.getSession().getAttribute("loginMember")).getMemberNo();
+		int memberNo = ((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo();
 		String note = request.getParameter("note");
 
 		int reportNo = new ApprovalService().selectReportNum();
@@ -49,7 +55,7 @@ public class InsertApprovalServlet extends HttpServlet {
 
 		//REPORT(상신) 추가
 		ScheduleService scheduleService = new ScheduleService();	
-//		int resultReportRegist = scheduleService.applyWorkingSystem(report);
+		int result1 = scheduleService.applyWorkingSystem(report);
 
 
 		String title = request.getParameter("title");
@@ -60,9 +66,9 @@ public class InsertApprovalServlet extends HttpServlet {
 		documentItem.add(body);
 
 		if(documentNo == 3) {
-			String contractDate = "a";
-			String payDate = "a";
-			String productNo = "a";
+			String contractDate = request.getParameter("contractDate");
+			String payDate = request.getParameter("payDate");
+			String productNo = request.getParameter("productNo");
 
 			documentItem.add(contractDate);
 			documentItem.add(payDate);
@@ -72,17 +78,17 @@ public class InsertApprovalServlet extends HttpServlet {
 		int priority = 1;
 		int result2 = 0;
 
-//		for(String item : documentItem) {
-//			WorkingDocumentItemDTO documentItemDTO = new WorkingDocumentItemDTO();
-//			documentItemDTO.setReportNo(reportNo);
-//			documentItemDTO.setDocumentNo(documentNo);
-//			documentItemDTO.setPriority(priority);
-//			documentItemDTO.setItemContent(item);	
-//
-//			result2 = scheduleService.applyWorkingSystemItemContent(documentItemDTO);
-//
-//			priority++;
-//		}
+		for(String item : documentItem) {
+			WorkingDocumentItemDTO documentItemDTO = new WorkingDocumentItemDTO();
+			documentItemDTO.setReportNo(reportNo);
+			documentItemDTO.setDocumentNo(documentNo);
+			documentItemDTO.setPriority(priority);
+			documentItemDTO.setItemContent(item);	
+
+			result2 = scheduleService.applyWorkingSystemItemContent(documentItemDTO);
+
+			priority++;
+		}
 
 
 
@@ -90,8 +96,23 @@ public class InsertApprovalServlet extends HttpServlet {
 		//선택한 결재 라인에 등록되있는 결재자들 가져오기
 		List<ApproverDTO> approverList = new ApprovalService().selectApprover(lineNo);
 		System.out.println(approverList);
+		
+		int result3 = 0;
+		for(ApproverDTO approver : approverList) {
+			ApproverPerReportDTO approverPerReportDTO = new ApproverPerReportDTO();
+			approverPerReportDTO.setReportNo(reportNo);
+			approverPerReportDTO.setMemberNo(approver.getMemberNo());
+			approverPerReportDTO.setPriority(approver.getPriority());
 
-
+			result3 = scheduleService.applyWorkingSystemApprover(approverPerReportDTO);
+		}
+		
+		if(result1 > 0 && result2 > 0 && result3 > 0 ) {
+			System.out.println("alert 상신성공");
+			
+		} else {
+			System.out.println("alert 상신실패");
+		}
 	}
 
 
