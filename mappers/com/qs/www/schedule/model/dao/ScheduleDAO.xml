@@ -4,6 +4,7 @@
 
 	
 	<insert id="applyWorkingSystem" parameterType="com.qs.www.schedule.model.dto.ReportDTO">
+
 	INSERT /* com.qs.www.schedule.model.dao.ScheduleDAO#applyWorkingSystem() */
 	  INTO TBL_REPORT A
 	(
@@ -28,6 +29,7 @@
 	, #{ reportTitle }
 	)
 	</insert>
+
 	
 	
 	<insert id="applyWorkingSystemItemContent" parameterType="com.qs.www.schedule.model.dto.WorkingDocumentItemDTO">
