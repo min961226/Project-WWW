@@ -12,9 +12,10 @@
 		<result property="body" column="BOARD_BODY"/>
 		<result property="delete" column="DELETE_YN"/>	
 		<result property="created" column="CREATED_DATE"/>	
-		<result property="modified" column="MODIFIED_DATE"/>	
+		<result property="modified" column="MODIFIED_DATE"/>
 		
 	</resultMap>
+
 	<select id="selectAllFreeList" resultMap="freeResultMap">
         SELECT /* com.qs.www.board.model.dao.FreeDAO#selectAllFreeList() */
                A.BOARD_NO
@@ -33,16 +34,29 @@
         INSERT /* com.qs.www.board.model.dao.FreeDAO#insertFree() */
           INTO TBL_BOARD A
         (
-          A.NOTICE_NO
-        , A.NOTICE_TITLE
-        , A.NOTICE_BODY
+          A.BOARD_NO
+        , A.BOARD_TITLE
+        , A.MEMBER_NO
+        , A.BOARD_TYPE
+        , A.BOARD_COUNT
+        , A.BOARD_BODY
+        , A.BOARD_YN
+        , A.DELETE_YN
+        , A.CREATED_DATE
+        , A.MODIFIED_DATE
         )
         VALUES
         (
-          SEQ_NOTICE_NO.NEXTVAL
+          SEQ_BOARD_NO.NEXTVAL
         , #{ title }
+        , #{ member }
+        , #{ type }
+        , #{ count }
         , #{ body }
+        , #{ delete }
+        , SYSDATE
+        , SYSDATE
         )
 	</insert>
-
+	
 </mapper>

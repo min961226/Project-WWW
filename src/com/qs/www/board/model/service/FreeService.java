@@ -45,6 +45,8 @@ public class FreeService {
 		
 		session.close();
 		
+		System.out.println(result);
+		
 		return result;
 	}
 
