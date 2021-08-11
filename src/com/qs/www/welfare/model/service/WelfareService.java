@@ -27,26 +27,6 @@ public class WelfareService {
 		return welfareList;
 	}
 
-	public String selectDeptName(String deptCode) {
-		SqlSession session = getSqlSession();
-
-		String deptName = welfareDAO.selectDeptName(session, deptCode);
-
-		session.close();
-
-		return deptName;
-	}
-
-	public String selectJobName(String jobCode) {
-		SqlSession session = getSqlSession();
-
-		String jobName = welfareDAO.selectJobName(session, jobCode);
-
-		session.close();
-
-		return jobName;
-	}
-
 	public List<String> checkSelfDevList() {
 		SqlSession session = getSqlSession();
 

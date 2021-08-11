@@ -10,7 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.qs.www.member.model.dto.MemberDTO;
+import com.qs.www.approval.model.dto.ApprovalLineDTO;
+import com.qs.www.approval.model.service.ApprovalService;
 import com.qs.www.member.model.dto.MemberInfoDTO;
 import com.qs.www.welfare.model.service.WelfareService;
 
@@ -24,20 +25,19 @@ public class SelectedWelfareServlet extends HttpServlet {
 		System.out.println(selectedWelfare);
 		
 		WelfareService welfareService = new WelfareService();
+
 		
 		HttpSession session = request.getSession();
 		System.out.println("복지선택완료");
 
 		int memberNo = ((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo();
-		String deptCode = ((MemberInfoDTO) session.getAttribute("memberInfo")).getDeptCode();
-		String jobCode = ((MemberInfoDTO) session.getAttribute("memberInfo")).getJobCode();
 		String name = ((MemberInfoDTO) session.getAttribute("memberInfo")).getName();
-		String deptName = welfareService.selectDeptName(deptCode);
-		String jobName = welfareService.selectJobName(jobCode);
+		String deptName = ((MemberInfoDTO) session.getAttribute("memberInfo")).getDepartment().getDeptName();
+		String jobName = ((MemberInfoDTO) session.getAttribute("memberInfo")).getJob().getJobName();
 		List<String> approverLine = welfareService.selectApproverLine(memberNo);
+		List<ApprovalLineDTO> lineList = new ApprovalService().selectApprovalLine(memberNo);
+
 		
-		System.out.println(deptCode);
-		System.out.println(jobCode);
 		System.out.println(memberNo);
 		System.out.println(name);
 		System.out.println(deptName);
@@ -49,7 +49,9 @@ public class SelectedWelfareServlet extends HttpServlet {
 		request.setAttribute("jobName", jobName);
 		request.setAttribute("name", name);
 		request.setAttribute("approverLine", approverLine);
+		request.setAttribute("lineList", lineList);
 		
+		System.out.println(lineList);
 		
 		String path = "";
 

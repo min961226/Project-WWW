@@ -16,14 +16,6 @@ public class InsertSelfDevelopmentWelfareServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("자기개발비 신청!");
-		String deptName = request.getParameter("selfDevObj");
-		String selfDevInfo = request.getParameter("selfDevInfo");
-		String approvalLine = request.getParameter("approvalLine");
-		String date = request.getParameter("date");
-		System.out.println(deptName);
-		System.out.println(selfDevInfo);
-		System.out.println(approvalLine);
-		System.out.println(date);
-		
+		int documentNo = 9;		//자기개발비 신청 문서 번호
 	}
 }
