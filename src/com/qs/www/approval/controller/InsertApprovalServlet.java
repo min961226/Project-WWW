@@ -58,7 +58,7 @@ public class InsertApprovalServlet extends HttpServlet {
 		}
 		System.out.println("lineName : " + lineName);
 		
-		
+		String title = request.getParameter("title");
 	
 		
 		
@@ -72,13 +72,15 @@ public class InsertApprovalServlet extends HttpServlet {
 		report.setDocumentNo(documentNo);
 		report.setMemberNo(memberNo);
 		report.setReportNote(note);
+		report.setLineName(lineName);
+		report.setReportTitle(title);
 
 		//REPORT(상신) 추가
 		ScheduleService scheduleService = new ScheduleService();	
 		int result1 = scheduleService.applyWorkingSystem(report);
 
 
-		String title = request.getParameter("title");
+		
 		String body = request.getParameter("body");
 
 		List<String> documentItem = new ArrayList<>();
