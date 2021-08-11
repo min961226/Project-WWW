@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.qs.www.member.model.dto.MemberInfoDTO;
+import com.qs.www.mypage.model.service.MypageService;
+
 @WebServlet("/mypage/info/update")
 public class UpdateMypageServlet extends HttpServlet {
 
@@ -19,9 +22,34 @@ public class UpdateMypageServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		HttpSession session = request.getSession();
+		String gender = request.getParameter("gender");
+		java.sql.Date birthday = java.sql.Date.valueOf(request.getParameter("birthday"));
+		String phone = request.getParameter("phone").replace("-", "");
+		String address = request.getParameter("zipCode")
+						+ "$" + request.getParameter("address1")
+						+ "$" + request.getParameter("address2");
 		
-		request.setAttribute("successCode", "updateProfile");
-		request.getRequestDispatcher("/WEB-INF/views/common/failed.jsp").forward(request, response);
+		HttpSession session = request.getSession();
+		MemberInfoDTO memberInfo = (MemberInfoDTO) session.getAttribute("memberInfo");
+		memberInfo.setGender(gender);
+		memberInfo.setBirthday(birthday);
+		memberInfo.setPhone(phone);
+		memberInfo.setAddress(address);
+		
+		MypageService mypageService = new MypageService();
+		
+		int result = mypageService.updateInfo(memberInfo);
+		String path = "";
+		
+		if(result > 0) {
+			path = "/WEB-INF/views/common/success.jsp";
+			
+			request.setAttribute("successCode", "updateInfo");
+		} else {
+			path = "/WEB-INF/views/common/failed.jsp";
+			
+			request.setAttribute("failedCode", "updateInfo");
+		}
+		request.getRequestDispatcher(path).forward(request, response);
 	}
 }

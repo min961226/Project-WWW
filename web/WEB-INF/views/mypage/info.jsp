@@ -127,7 +127,7 @@
 	                                    <label class="control-label col-lg-3">자택주소</label>
 	                                    <div class="col-md-9">
 	                                    	<div class="input-group">
-	                                    		<span><input type="text" class="form-control" name="zipCode" id="zipCode" value="${ memberInfo.address }" readonly></span>
+	                                    		<span><input type="text" class="form-control" name="zipCode" id="zipCode" value="" readonly></span>
                                             	<span class="input-group-btn">
 													<button type="button" class="btn btn-primary" id="searcHZipCode" disabled>검색</button>
 												</span>
@@ -143,9 +143,21 @@
 	                                <div class="form-group">
 	                                    <label class="control-label col-lg-3"></label>
 	                                    <div class="col-md-9">
-	                                        <input type="text" class="form-control" name="address2" id="address2" value="${ memberInfo.address }" readonly>
+	                                        <input type="text" class="form-control" name="address2" id="address2" value="" readonly>
 	                                    </div>
 	                                </div>
+	                                <div class="form-group">
+	                                    <label class="control-label col-lg-3">비밀번호<br> 확인 질문</label>
+	                                    <div class="col-md-9">
+	                                        <input type="text" class="form-control" name="question" value="${ memberInfo.checkQuestion.questionBody }" readonly>
+	                                    </div>
+		                            </div>
+		                            <div class="form-group">
+		                                <label class="control-label col-lg-3">답변</label>
+		                                <div class="col-md-9">
+		                            		<input type="text" class="form-control" name="answer" value="${ memberInfo.questionAnswer }" readonly>
+		                            	</div>
+		                        	</div>
 		                        </form>
 		                    </div>
                         </div>

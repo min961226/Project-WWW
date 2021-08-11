@@ -15,7 +15,7 @@
 			let movePath = "";
 			
 			switch(successCode) {
-				case "updateMember" :
+				case "updateInfo" :
 					successMessage = "프로필이 수정되었습니다."
 					movePath =  "${ pageContext.servletContext.contextPath }/mypage/info/select";
 					break;
