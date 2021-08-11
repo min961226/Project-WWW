@@ -9,16 +9,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.sun.xml.internal.ws.client.RequestContext;
+import com.qs.www.main.model.dao.MainDTO;
+import com.qs.www.main.model.service.MainService;
+import com.qs.www.member.model.dto.MemberInfoDTO;
 
 @WebServlet("/main")
 public class SelectMainServlet extends HttpServlet {
 	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		System.out.println("main 연결 성공!!");
+		HttpSession session = request.getSession();
+		MemberInfoDTO memberInfo = (MemberInfoDTO) session.getAttribute("memberInfo");
 		
-		System.out.println(request.getParameter("id"));
+		MainService mainService = new MainService();
+		
+		MainDTO mainDTO = mainService.selectMain(memberInfo);
 		
 		request.getRequestDispatcher("/WEB-INF/views/main/main.jsp").forward(request, response);
 		
