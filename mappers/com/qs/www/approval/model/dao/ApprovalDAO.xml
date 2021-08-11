@@ -67,6 +67,7 @@
 		FROM TBL_REPORT A
 		WHERE A.MEMBER_NO = #{ no }
 		  AND 4 > A.DOCUMENT_NO
+		ORDER BY A.REPORT_NO DESC
 	</select>
 	<select id="selectOneReportDetail"
 		resultMap="reportResultMap">
@@ -83,6 +84,7 @@
 		A.*
 		FROM TBL_ITEM_CONTENT A
 		WHERE A.REPORT_NO = #{ no }
+		ORDER BY A.PRIORITY
 	</select>
 </mapper>
 	    
