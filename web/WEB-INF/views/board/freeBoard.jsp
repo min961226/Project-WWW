@@ -15,8 +15,7 @@
     <div class="main-wrapper">
 		<jsp:include page="../common/navbar.jsp"/>
 		
-		
-		 <div class="page-wrapper">
+			<div class="page-wrapper">
             <div class="content container-fluid">
                 <div class="row">
                     <div class="col-xs-12">
@@ -31,7 +30,8 @@
 			</select>
 			<input type="search">
 			<button type="submit" style="background-color:orange;">검색하기</button>
-			<button id="writeNotice">작성하기</button>
+			<button id="writeFree">작성하기</button>
+			<button onclick="location.href='${ pageContext.servletContext.contextPath }/board/free/select'">글작성으로</button>
 		</div>
                 <div class="row">
                     <div class="col-lg-12">

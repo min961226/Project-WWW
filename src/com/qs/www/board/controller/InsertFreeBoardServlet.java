@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.qs.www.board.model.dto.FreeDTO;
 import com.qs.www.board.model.service.FreeService;
+import com.qs.www.member.model.dto.MemberInfoDTO;
 
 @WebServlet("/board/free/insert")
 public class InsertFreeBoardServlet extends HttpServlet {
@@ -25,12 +26,10 @@ public class InsertFreeBoardServlet extends HttpServlet {
 		
 		String title = request.getParameter("title");
 		String body = request.getParameter("body");
-//		int writerMemberNo = ((MemberDTO) request.getSession().getAttribute("loginMember")).getNo();
 		
 		FreeDTO newFree = new FreeDTO();
 		newFree.setTitle(title);
 		newFree.setBody(body);
-//		newFree.setWriterMemberNo(writerMemberNo);
 		
 		FreeService freeService = new FreeService();
 		int result = freeService.insertFree(newFree);
