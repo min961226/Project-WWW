@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.qs.www.member.model.dto.MemberDTO;
+import com.qs.www.member.model.dto.MemberInfoDTO;
 import com.qs.www.welfare.model.service.WelfareService;
 
 @WebServlet("/welfare/list/selected")
@@ -27,10 +28,10 @@ public class SelectedWelfareServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		System.out.println("복지선택완료");
 
-		int memberNo = ((MemberDTO) session.getAttribute("loginMember")).getMemberNo();
-		String deptCode = ((MemberDTO) session.getAttribute("loginMember")).getDeptCode();
-		String jobCode = ((MemberDTO) session.getAttribute("loginMember")).getJobCode();
-		String name = ((MemberDTO) session.getAttribute("loginMember")).getName();
+		int memberNo = ((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo();
+		String deptCode = ((MemberInfoDTO) session.getAttribute("memberInfo")).getDeptCode();
+		String jobCode = ((MemberInfoDTO) session.getAttribute("memberInfo")).getJobCode();
+		String name = ((MemberInfoDTO) session.getAttribute("memberInfo")).getName();
 		String deptName = welfareService.selectDeptName(deptCode);
 		String jobName = welfareService.selectJobName(jobCode);
 		List<String> approverLine = welfareService.selectApproverLine(memberNo);

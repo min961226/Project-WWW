@@ -38,8 +38,9 @@ public class LoginServlet extends HttpServlet {
 			response.sendRedirect(request.getContextPath());
 		} else {
 			
-			request.setAttribute("failedCode", "login");
-			request.getRequestDispatcher("/WEB-INF/views/common/failed.jsp").forward(request, response);
+//			request.setAttribute("failedCode", "login");
+//			request.getRequestDispatcher("/WEB-INF/views/common/failed.jsp").forward(request, response);
 		}
 	}
 }
+
