@@ -26,7 +26,6 @@ public class SelectedWelfareServlet extends HttpServlet {
 		
 		WelfareService welfareService = new WelfareService();
 
-		
 		HttpSession session = request.getSession();
 		System.out.println("복지선택완료");
 
