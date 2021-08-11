@@ -31,6 +31,8 @@ public class UpdateMypageServlet extends HttpServlet {
 		
 		String gender = request.getParameter("gender");
 		java.sql.Date birthday = java.sql.Date.valueOf(request.getParameter("birthday"));
+		String rrn = request.getParameter("firstRrn")
+						+ "-" + request.getParameter("lastRrn");
 		String phone = request.getParameter("phone").replace("-", "");
 		String address = request.getParameter("zipCode")
 						+ "$" + request.getParameter("address1")
@@ -42,6 +44,7 @@ public class UpdateMypageServlet extends HttpServlet {
 		MemberInfoDTO memberInfo = (MemberInfoDTO) session.getAttribute("memberInfo");
 		memberInfo.setGender(gender);
 		memberInfo.setBirthday(birthday);
+		memberInfo.setRrn(rrn);
 		memberInfo.setPhone(phone);
 		memberInfo.setAddress(address);
 		memberInfo.getCheckQuestion().setQuestionBody(question);

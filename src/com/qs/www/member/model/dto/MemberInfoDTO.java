@@ -9,6 +9,7 @@ public class MemberInfoDTO implements Serializable {
 	private String memberId;
 	private String password;
 	private String name;
+	private String rrn;
 	private Date enrollDate;
 	private Date entDate;
 	private String entYn;
@@ -30,8 +31,8 @@ public class MemberInfoDTO implements Serializable {
 	
 	public MemberInfoDTO() {}
 
-	public MemberInfoDTO(int memberNo, String memberId, String password, String name, Date enrollDate, Date entDate,
-			String entYn, String email, Date birthday, String address, String gender, String phone,
+	public MemberInfoDTO(int memberNo, String memberId, String password, String name, String rrn, Date enrollDate,
+			Date entDate, String entYn, String email, Date birthday, String address, String gender, String phone,
 			CheckQuestionDTO checkQuestion, String questionAnswer, String domitoryYn, String roleCode, RoleDTO role,
 			DepartmentDTO department, JobDTO job, String appWorkType, int workCode, int remainingHoliday) {
 		super();
@@ -39,6 +40,7 @@ public class MemberInfoDTO implements Serializable {
 		this.memberId = memberId;
 		this.password = password;
 		this.name = name;
+		this.rrn = rrn;
 		this.enrollDate = enrollDate;
 		this.entDate = entDate;
 		this.entYn = entYn;
@@ -89,6 +91,14 @@ public class MemberInfoDTO implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getRrn() {
+		return rrn;
+	}
+
+	public void setRrn(String rrn) {
+		this.rrn = rrn;
 	}
 
 	public Date getEnrollDate() {
@@ -238,11 +248,11 @@ public class MemberInfoDTO implements Serializable {
 	@Override
 	public String toString() {
 		return "MemberInfoDTO [memberNo=" + memberNo + ", memberId=" + memberId + ", password=" + password + ", name="
-				+ name + ", enrollDate=" + enrollDate + ", entDate=" + entDate + ", entYn=" + entYn + ", email=" + email
-				+ ", birthday=" + birthday + ", address=" + address + ", gender=" + gender + ", phone=" + phone
-				+ ", checkQuestion=" + checkQuestion + ", questionAnswer=" + questionAnswer + ", domitoryYn="
-				+ domitoryYn + ", roleCode=" + roleCode + ", role=" + role + ", department=" + department + ", job="
-				+ job + ", appWorkType=" + appWorkType + ", workCode=" + workCode + ", remainingHoliday="
-				+ remainingHoliday + "]";
+				+ name + ", rrn=" + rrn + ", enrollDate=" + enrollDate + ", entDate=" + entDate + ", entYn=" + entYn
+				+ ", email=" + email + ", birthday=" + birthday + ", address=" + address + ", gender=" + gender
+				+ ", phone=" + phone + ", checkQuestion=" + checkQuestion + ", questionAnswer=" + questionAnswer
+				+ ", domitoryYn=" + domitoryYn + ", roleCode=" + roleCode + ", role=" + role + ", department="
+				+ department + ", job=" + job + ", appWorkType=" + appWorkType + ", workCode=" + workCode
+				+ ", remainingHoliday=" + remainingHoliday + "]";
 	}
 }

@@ -18,10 +18,12 @@
 				case "login" :
 					failedMessage = "등록되지 않은 아이디이거나, 잘못된 비밀번호 입니다."
 					movePath = "${ pageContext.servletContext.contextPath }"
+					break;
 					
 				case "updateInfo" :
 					failedMessage = "프로필 수정에 실패했습니다."
 					movePath = "${ pageContext.servletContext.contextPath }"
+					break;
 			}
 			
 			alert(failedMessage);

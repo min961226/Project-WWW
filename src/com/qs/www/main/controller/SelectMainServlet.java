@@ -16,7 +16,7 @@ public class SelectMainServlet extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		System.out.println("연결 성공!!");
+		System.out.println("main 연결 성공!!");
 		
 		System.out.println(request.getParameter("id"));
 		
