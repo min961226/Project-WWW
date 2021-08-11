@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.qs.www.approval.model.dto.ApprovalLineDTO;
 import com.qs.www.approval.model.dto.ApproverDTO;
 import com.qs.www.approval.model.service.ApprovalService;
 import com.qs.www.member.model.dto.MemberInfoDTO;
@@ -27,8 +28,13 @@ public class InsertWorkingSystemScheduleServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("근무 신청");
 		
-		//필요한 것들 미리 DB에서 받아와서 뷰페이지에 같이 전달해야한다
-
+		//로그인중인 유저가 생성자인 결재라인 가져오기
+		HttpSession session = request.getSession();		
+		int no = ((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo();
+		List<ApprovalLineDTO> lineList = new ApprovalService().selectApprovalLine(no);
+		request.setAttribute("lineList", lineList);
+		session.setAttribute("lineList", lineList);
+		
 		String path = "/WEB-INF/views/schedule/insertApplyWorkingSystem.jsp";
 
 		request.getRequestDispatcher(path).forward(request, response);
@@ -39,12 +45,26 @@ public class InsertWorkingSystemScheduleServlet extends HttpServlet {
 
 		System.out.println("InsertWorkingSystemScheduleServlet = 근무신청 서블렛으로 이동");
 
-		int documentNo = 4;			//근무신청서의 문서번호는 4번이다.		
+		HttpSession session = request.getSession();
+		int lineNo = Integer.parseInt(request.getParameter("approverLine")); 		//위쪽에서 미리 받는다.
+		
+		List<ApprovalLineDTO> lineList = (List<ApprovalLineDTO>) session.getAttribute("lineList");
+
+		//session에서 가져온 결재라인들 중, 받아온 lineNo와 일치하는 DTO의 lineName을 따온다. 
+        String lineName = "";
+        for(ApprovalLineDTO line: lineList) {
+            if(line.getLineNo() == lineNo) {
+                lineName = line.getLineName();
+            }
+        }
+        System.out.println("lineName : " + lineName);
+		
+		int documentNo = 4;				//근무신청서의 문서번호는 4번이다.		
 		int workNo = Integer.parseInt(request.getParameter("workNo"));
 		int approverLine = Integer.parseInt(request.getParameter("approverLine"));
 		String changeReason = request.getParameter("changeReason");
 
-		String workType = "";
+		String workType = ""; 			//이 부분 수정해야 함
 		if(workNo > 5) {
 			workType = "커스텀근무제";
 		} else {
@@ -52,13 +72,12 @@ public class InsertWorkingSystemScheduleServlet extends HttpServlet {
 		}
 
 		/* 1. 상신테이블(TBL_REPORT)에 insert */
-		HttpSession session = request.getSession();
-
 		ReportDTO reportDTO = new ReportDTO();
 		int memberNo = ((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo();
 		reportDTO.setMemberNo(memberNo);
 		reportDTO.setDocumentNo(documentNo);
 		reportDTO.setReportNote(changeReason);
+		reportDTO.setLineName(lineName);
 		System.out.println("InsertWorkingSystemScheduleServlet의 reportDTO : " + reportDTO);
 
 		ScheduleService scheduleService = new ScheduleService();		
@@ -106,18 +125,13 @@ public class InsertWorkingSystemScheduleServlet extends HttpServlet {
 
 
 				/* 3-1. 결재라인 선택한 번호로, 결재자들의 결재자사번과 우선순위를 DTO로 받아오기 */
-				//일단 하드코딩
-				ApproverDTO approverDTO = new ApproverDTO();
-				approverDTO.setMemberNo(1);
-				approverDTO.setLineNo(4);
-				approverDTO.setApproverName("유관순");
-				approverDTO.setApproverType("결재");
-				approverDTO.setPriority(1);
+				//선택한 결재 라인에 등록되있는 결재자들 가져오기
+				//lineNo는 위쪽에서 이미 받아두었다. 
+				
+				List<ApproverDTO> approverList = new ApprovalService().selectApprover(lineNo);
+				System.out.println(approverList);
 
 				/* 3-2. 상신별결재자(TBL_APPROVER_PER_REPORT)에 insert */
-				List<ApproverDTO> approverList = new ArrayList<>();
-				approverList.add(approverDTO);
-				System.out.println("InsertWorkingSystemScheduleServlet의 결재라인 : " + approverList);
 
 				int result3 = 0;
 				for(ApproverDTO approver : approverList) {
@@ -183,7 +197,7 @@ public class InsertWorkingSystemScheduleServlet extends HttpServlet {
 			}
 		}
 
-		if(result1 == 1 && result5 == 1 && result6 == 1) {
+		if(result1 > 0 && result5 > 0 && result6 > 0) {
 			System.out.println("alert 상신성공");
 			String path = "";
 			response.sendRedirect(request.getContextPath());

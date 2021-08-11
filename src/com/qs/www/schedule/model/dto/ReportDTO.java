@@ -11,11 +11,13 @@ public class ReportDTO implements Serializable{
 	private int documentNo;
 	private String reportNote;
 	private String reportStatus;
+	private String lineName;
+	private String reportTitle;
 	
 	public ReportDTO() {}
 
 	public ReportDTO(int reportNo, Date reportDate, int memberNo, int documentNo, String reportNote,
-			String reportStatus) {
+			String reportStatus, String lineName, String reportTitle) {
 		super();
 		this.reportNo = reportNo;
 		this.reportDate = reportDate;
@@ -23,6 +25,8 @@ public class ReportDTO implements Serializable{
 		this.documentNo = documentNo;
 		this.reportNote = reportNote;
 		this.reportStatus = reportStatus;
+		this.lineName = lineName;
+		this.reportTitle = reportTitle;
 	}
 
 	public int getReportNo() {
@@ -73,12 +77,29 @@ public class ReportDTO implements Serializable{
 		this.reportStatus = reportStatus;
 	}
 
+	public String getLineName() {
+		return lineName;
+	}
+
+	public void setLineName(String lineName) {
+		this.lineName = lineName;
+	}
+
+	public String getReportTitle() {
+		return reportTitle;
+	}
+
+	public void setReportTitle(String reportTitle) {
+		this.reportTitle = reportTitle;
+	}
+
 	@Override
 	public String toString() {
 		return "ReportDTO [reportNo=" + reportNo + ", reportDate=" + reportDate + ", memberNo=" + memberNo
-				+ ", documentNo=" + documentNo + ", reportNote=" + reportNote + ", reportStatus=" + reportStatus + "]";
+				+ ", documentNo=" + documentNo + ", reportNote=" + reportNote + ", reportStatus=" + reportStatus
+				+ ", lineName=" + lineName + ", reportTitle=" + reportTitle + "]";
 	}
-
+	
 	
 	
 
