@@ -26,19 +26,19 @@
                         <form>
                             <div class="form-group">
                                 <label>직원 ID</label>
-                                 <input class="form-control" type="text" value= "${memberNo}" readonly="readonly"/>
+                                <input class="form-control" type="text" value= "${memberNo}" readonly="readonly"/>
                             </div>
                             <div class="form-group">
                                 <label>부서</label>
-                                <input class="form-control" type="text">
+                                <input class="form-control" type="text" value= "${deptName}">
                             </div>
                             <div class="form-group">
                                 <label>직위</label>
-                                <input class="form-control" type="text">
+                                <input class="form-control" type="text" value= "${jobName}">
                             </div>
                             <div class="form-group">
                                 <label>신청자</label>
-                                <input class="form-control" type="text">
+                                <input class="form-control" type="text" value= "${name}">
                             </div>
                             <div class="form-group">
                                 <label>회의실명</label>

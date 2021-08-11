@@ -47,4 +47,24 @@ public class WelfareService {
 		return jobName;
 	}
 
+	public List<String> checkSelfDevList() {
+		SqlSession session = getSqlSession();
+
+		List<String> selfDevList = welfareDAO.checkSelfDevList(session);
+
+		session.close();
+
+		return selfDevList;
+	}
+
+	public List<String> selectApproverLine(int memberNo) {
+		SqlSession session = getSqlSession();
+
+		List<String> approverLine = welfareDAO.selectApproverLine(session,memberNo);
+
+		session.close();
+
+		return approverLine;
+	}
+
 }

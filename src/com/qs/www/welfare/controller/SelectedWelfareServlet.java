@@ -19,6 +19,9 @@ public class SelectedWelfareServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
+		String selectedWelfare = request.getParameter("selectedWelfare");
+		System.out.println(selectedWelfare);
+		
 		WelfareService welfareService = new WelfareService();
 		
 		HttpSession session = request.getSession();
@@ -28,22 +31,24 @@ public class SelectedWelfareServlet extends HttpServlet {
 		String deptCode = ((MemberDTO) session.getAttribute("loginMember")).getDeptCode();
 		String jobCode = ((MemberDTO) session.getAttribute("loginMember")).getJobCode();
 		String name = ((MemberDTO) session.getAttribute("loginMember")).getName();
-		System.out.println(deptCode);
-		System.out.println(jobCode);
 		String deptName = welfareService.selectDeptName(deptCode);
 		String jobName = welfareService.selectJobName(jobCode);
+		List<String> approverLine = welfareService.selectApproverLine(memberNo);
+		
+		System.out.println(deptCode);
+		System.out.println(jobCode);
 		System.out.println(memberNo);
 		System.out.println(name);
-		
 		System.out.println(deptName);
 		System.out.println(jobName);
+		System.out.println(approverLine);
+		
 		request.setAttribute("memberNo", memberNo);
 		request.setAttribute("deptName", deptName);
 		request.setAttribute("jobName", jobName);
 		request.setAttribute("name", name);
+		request.setAttribute("approverLine", approverLine);
 		
-		String selectedWelfare = request.getParameter("selectedWelfare");
-		System.out.println(selectedWelfare);
 		
 		String path = "";
 
@@ -55,7 +60,15 @@ public class SelectedWelfareServlet extends HttpServlet {
 			path = "/WEB-INF/views/welfare/insertFamilyEvent.jsp";
 			break;
 		case "자기개발비신청서":
-			path = "/WEB-INF/views/welfare/insertSelfDevelopment.jsp";
+			List<String> selfDevList = welfareService.checkSelfDevList();
+			System.out.println(selfDevList);
+				if(selfDevList != null) {
+					path = "/WEB-INF/views/welfare/insertSelfDevelopment.jsp";
+					request.setAttribute("selfDevList", selfDevList);
+				} else {
+					path = "/WEB-INF/views/common/error-404.jsp";
+					request.setAttribute("message", "복지 목록조회 실패!");
+				}
 			break;
 		case "기숙사입주신청서":
 			path = "/WEB-INF/views/welfare/insertDomitory.jsp";
