@@ -24,6 +24,9 @@ public class FormService {
 		SqlSession session = getSqlSession();
 		
 		List<FormDTO> formList = formDAO.selectAllFormList(session);
+		
+		session.close();
+		
 		return formList;
 		
 	}
