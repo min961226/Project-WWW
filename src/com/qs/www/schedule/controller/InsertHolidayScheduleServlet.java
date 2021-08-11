@@ -17,6 +17,7 @@ import com.qs.www.approval.model.service.ApprovalService;
 import com.qs.www.member.model.dto.MemberInfoDTO;
 import com.qs.www.schedule.model.dto.ApproverPerReportDTO;
 import com.qs.www.schedule.model.dto.HolidayDocumentItemDTO;
+import com.qs.www.schedule.model.dto.HolidayLogDTO;
 import com.qs.www.schedule.model.dto.HolidayTypeDTO;
 import com.qs.www.schedule.model.dto.ReportDTO;
 import com.qs.www.schedule.model.dto.WorkingDocumentItemDTO;
@@ -111,7 +112,7 @@ public class InsertHolidayScheduleServlet extends HttpServlet {
 
 		ScheduleService scheduleService = new ScheduleService();		
 		int result1 = scheduleService.applyWorkingSystem(reportDTO);
-		
+		int result5 = 0;
 		if(result1 > 0) {
 			
 			/* 2-1. 방금 상신올린 문서의 ReportNo 가져오기 */
@@ -171,13 +172,32 @@ public class InsertHolidayScheduleServlet extends HttpServlet {
 				if(result3 > 0) {
 					
 					/* 4. 휴가부여사용내역(tbl_member_holiday_log)에 추가 */
+					int holidayCodeInt = Integer.parseInt(holidayCode);
+					
+					HolidayLogDTO holidayLogDTO = new HolidayLogDTO();
+					holidayLogDTO.setMemberNo(memberNo);
+					holidayLogDTO.setLogNote(changeReason);
+					holidayLogDTO.setLogType("사용");
+					holidayLogDTO.setHolidayCode(holidayCodeInt);
+					holidayLogDTO.setHolidayDuringDate(duringDateString);
+					
+					/* 5-1. 방금 넣은 휴가부여사용내역의 currval 가져오기 */
+					
+					/* 5-2. 휴가사용정보(TBL_HOLIDAY_USE_INFO)에 추가 */
+					
 				}
 				
 			}
 			
 		}
 		
-
+//		if(result1 > 0 && result5 > 0) {
+//			System.out.println("alert 상신성공");
+//			String path = "";
+//			response.sendRedirect(request.getContextPath());
+//		} else {
+//			System.out.println("alert 상신실패");
+//		}
     	
     	
 	}
