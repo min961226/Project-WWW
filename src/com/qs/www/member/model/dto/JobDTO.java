@@ -1,4 +1,4 @@
-package com.qs.www.mypage.model.dto;
+package com.qs.www.member.model.dto;
 
 public class JobDTO {
 	

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="MemberDAO">
-	<resultMap type="com.qs.www.member.model.dto.MemberDTO" id="memberResultMap">
+	<resultMap type="com.qs.www.member.model.dto.MemberInfoDTO" id="memberInfoResultMap">
 		<id property="memberNo" column="MEMBER_NO"/>
 		<result property="memberId" column="MEMBER_ID"/>
 		<result property="password" column="PASSWORD"/>
@@ -14,18 +14,37 @@
 		<result property="address" column="ADDRESS"/>
 		<result property="gender" column="GENDER"/>
 		<result property="phone" column="PHONE"/>
-		<result property="questionCode" column="QUESTION_CODE"/>
 		<result property="questionAnswer" column="QUESTION_ANSWER"/>
 		<result property="domitoryYn" column="DOMITORY_YN"/>
-		<result property="roleCode" column="ROLE_CODE"/>
-		<result property="deptCode" column="DEPT_CODE"/>
-		<result property="jobCode" column="JOB_CODE"/>
 		<result property="appWorkType" column="APP_WORK_TYPE"/>
 		<result property="workCode" column="WORK_CODE"/>
 		<result property="remainingHoliday" column="REMAINING_HOLIDAY"/>
-	</resultMap>
 		
-	<select id="selectEncryptedPwd" resultType="java.lang.String">
+		<association property="checkQuestion" javaType="com.qs.www.member.model.dto.CheckQuestionDTO">
+			<id property="questionCode" column="QUESTION_CODE"/>
+			<result property="questionBody" column="QUESTION_BODY"/>
+		</association>
+		
+		<association property="role" javaType="com.qs.www.member.model.dto.RoleDTO">
+			<id property="roleCode" column="ROLE_CODE"/>
+			<id property="deptCode" column="DEPT_CODE"/>
+			<id property="jobCode" column="JOB_CODE"/>
+			<result property="roleName" column="ROLE_NAME"/>
+		</association>
+		
+		<association property="department" javaType="com.qs.www.member.model.dto.DepartmentDTO">
+			<id property="deptCode" column="DEPT_CODE"/>
+			<result property="deptName" column="DEPT_NAME"/>
+			<result property="deptCallNumber" column="DEPT_CALL_NUMBER"/>
+		</association>
+		
+		<association property="job" javaType="com.qs.www.member.model.dto.JobDTO">
+			<id property="jobCode" column="JOB_CODE"/>
+			<result property="jobName" column="JOB_NAME"/>
+		</association>
+	</resultMap>
+	
+	<select id="selectEncryptedPwd" parameterType="java.lang.String" resultType="java.lang.String">
         SELECT /* com.qs.www.member.model.dao.MemberDAO#selectEncryptedPwd() */
                A.PASSWORD
           FROM TBL_MEMBER A
@@ -33,14 +52,13 @@
            AND A.MEMBER_ID = #{ memberId }
 	</select>
 	
-	<select id="selectLoginMember" resultMap="memberResultMap">
-        SELECT /* com.qs.www.member.model.dao.MemberDAO#selectLoginMember() */
+	<select id="selectLoginMember" parameterType="java.lang.String" resultMap="memberInfoResultMap">
+        SELECT /* com.qs.www.member.model.dao.MypageDAO#selectInfo() */
                A.MEMBER_NO
              , A.MEMBER_ID
              , A.PASSWORD
              , A.NAME
              , A.ENROLL_DATE
-             , A.ENT_DATE
              , A.ENT_YN
              , A.EMAIL
              , A.BIRTHDAY
@@ -48,15 +66,24 @@
              , A.GENDER
              , A.PHONE
              , A.QUESTION_CODE
+             , B.QUESTION_BODY
              , A.QUESTION_ANSWER
              , A.DOMITORY_YN
              , A.ROLE_CODE
+             , C.ROLE_NAME
              , A.DEPT_CODE
+             , D.DEPT_NAME
+             , D.DEPT_CALL_NUMBER
              , A.JOB_CODE
+             , E.JOB_NAME
              , A.APP_WORK_TYPE
              , A.WORK_CODE
              , A.REMAINING_HOLIDAY
           FROM TBL_MEMBER A
+          JOIN TBL_CHECK_QUESTION B ON (A.QUESTION_CODE = B.QUESTION_CODE)
+          JOIN TBL_ROLE C ON (A.ROLE_CODE = C.ROLE_CODE)
+          JOIN TBL_DEPARTMENT D ON (A.DEPT_CODE = D.DEPT_CODE)
+          JOIN TBL_JOB E ON (A.JOB_CODE = E.JOB_CODE)
          WHERE A.ENT_YN = 'N'
            AND A.MEMBER_ID = #{ memberId }
 	</select>

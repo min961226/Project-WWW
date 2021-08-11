@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 
@@ -40,16 +41,25 @@
 					<span style="font-size:25px">W</span>orkspace</h4>
 			</div>
 			<ul class="nav navbar-nav navbar-right user-menu pull-right">
+				<li class="dropdown hidden-xs">
+					<a href="#">
+						<img src="${ pageContext.servletContext.contextPath }/assets/img/sign_in.png" alt=""></img>
+					</a>
+				</li>
+				<li class="dropdown hidden-xs">
+					<a href="#">
+						<img src="${ pageContext.servletContext.contextPath }/assets/img/sign_out.png" alt=""></img>
+					</a>
+				</li>
 				<li class="dropdown">
-					<a href="profile.html" class="dropdown-toggle user-link" data-toggle="dropdown" title="Admin">
-						<span class="user-img"><img class="img-circle" src="${ pageContext.servletContext.contextPath }/assets/img/user.jpg" width="40" alt="Admin">
-							<span class="status online"></span>
-						</span>
-						<span>Admin</span>
+					<a href="#" class="dropdown-toggle user-link" data-toggle="dropdown">
+						<span class="status online"></span>
+						<span class="user-img"><img class="img-circle" src="${ pageContext.servletContext.contextPath }/assets/img/user.jpg" width="40" alt="Admin"></span>
+						<span>${ sessionScope.memberInfo.name } 님</span>
 						<i class="caret"></i>
 					</a>
 					<ul class="dropdown-menu">
-						<li><a href="${ pageContext.servletContext.contextPath }/mypage/info/select">마이페이지</a></li>
+						<li style=""><a href="${ pageContext.servletContext.contextPath }/mypage/info/select">마이페이지</a></li>
 						<li><a href="${ pageContext.servletContext.contextPath }/mypage/contact/select">사내연락망</a></li>
 						<li><a href="${ pageContext.servletContext.contextPath }/mypage/logout">로그아웃</a></li>
 					</ul>

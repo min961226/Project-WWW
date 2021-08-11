@@ -3,6 +3,7 @@ package com.qs.www.member.model.dao;
 import org.apache.ibatis.session.SqlSession;
 
 import com.qs.www.member.model.dto.MemberDTO;
+import com.qs.www.member.model.dto.MemberInfoDTO;
 
 public class MemberDAO {
 
@@ -10,7 +11,7 @@ public class MemberDAO {
 		return session.selectOne("MemberDAO.selectEncryptedPwd", requestMember);
 	}
 
-	public MemberDTO selectLoginMember(SqlSession session, MemberDTO requestMember) {
+	public MemberInfoDTO selectLoginMember(SqlSession session, MemberDTO requestMember) {	
 		return session.selectOne("MemberDAO.selectLoginMember", requestMember);
 	}
 
