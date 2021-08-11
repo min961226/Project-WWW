@@ -24,6 +24,10 @@
 					failedMessage = "프로필 수정에 실패했습니다."
 					movePath = "${ pageContext.servletContext.contextPath }"
 					break;
+				case "insertApproval" :
+					successMessage = "결재 신청이 실패헀습니다."
+					movePath =  "${ pageContext.servletContext.contextPath }/approval/applied/select";
+					break;
 			}
 			
 			alert(failedMessage);

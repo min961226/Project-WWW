@@ -1,7 +1,9 @@
 package com.qs.www.approval.controller;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -14,7 +16,6 @@ import javax.servlet.http.HttpSession;
 import com.qs.www.approval.model.dto.ApprovalLineDTO;
 import com.qs.www.approval.model.dto.ApproverDTO;
 import com.qs.www.approval.model.service.ApprovalService;
-import com.qs.www.member.model.dto.MemberDTO;
 import com.qs.www.member.model.dto.MemberInfoDTO;
 import com.qs.www.schedule.model.dto.ApproverPerReportDTO;
 import com.qs.www.schedule.model.dto.ReportDTO;
@@ -31,7 +32,17 @@ public class InsertApprovalServlet extends HttpServlet {
 		int no = ((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo();
 
 		List<ApprovalLineDTO> lineList = new ApprovalService().selectApprovalLine(no);
-
+		
+		Date now  = new Date();
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		String str = format.format(now);
+		
+		String[] arrayDate = str.split("-");   
+		int yearPlusFive = Integer.parseInt(arrayDate[0]) + 5;
+		String endDate = yearPlusFive + "-" + arrayDate[1]  + "-" + arrayDate[2];
+		System.out.println(endDate);
+		
+		request.setAttribute("endDate", endDate);
 		request.setAttribute("lineList", lineList);
 		session.setAttribute("lineList", lineList);
 		request.getRequestDispatcher("/WEB-INF/views/approval/insertApproval.jsp").forward(request, response);
@@ -129,12 +140,18 @@ public class InsertApprovalServlet extends HttpServlet {
 			result3 = scheduleService.applyWorkingSystemApprover(approverPerReportDTO);
 		}
 		
+		
+		String path = "";
 		if(result1 > 0 && result2 > 0 && result3 > 0 ) {
-			System.out.println("alert 상신성공");
+            path = "/WEB-INF/views/common/success.jsp";
+			request.setAttribute("successCode", "insertApproval");
 			
 		} else {
-			System.out.println("alert 상신실패");
+			path = "/WEB-INF/views/common/failed.jsp";
+			request.setAttribute("failedCode", "insertApproval");
 		}
+		
+		request.getRequestDispatcher(path).forward(request, response);
 	}
 
 
