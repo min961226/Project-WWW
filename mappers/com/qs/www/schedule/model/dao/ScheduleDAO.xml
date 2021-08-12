@@ -2,9 +2,18 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ScheduleDAO">
 
+	<resultMap type="com.qs.www.schedule.model.dto.ReportDTO" id="reportResultMap">
+		<result property="reportNo" column="REPORT_NO" />
+		<result property="reportDate" column="REPORT_DATE" />
+		<result property="memberNo" column="MEMBER_NO" />
+		<result property="documentNo" column="DOCUMENT_NO" />
+		<result property="reportNote" column="REPORT_NOTE" />
+		<result property="reportStatus" column="REPORT_STATUS" />
+		<result property="lineName" column="LINE_NAME" />
+		<result property="reportTitle" column="REPORT_TITLE" />
+	</resultMap>
 	
 	<insert id="applyWorkingSystem" parameterType="com.qs.www.schedule.model.dto.ReportDTO">
-
 	INSERT /* com.qs.www.schedule.model.dao.ScheduleDAO#applyWorkingSystem() */
 	  INTO TBL_REPORT A
 	(
@@ -30,7 +39,6 @@
 	)
 	</insert>
 
-	
 	
 	<insert id="applyWorkingSystemItemContent" parameterType="com.qs.www.schedule.model.dto.WorkingDocumentItemDTO">
 	INSERT /* com.qs.www.schedule.model.dao.ScheduleDAO#applyWorkingSystemItemContent() */
@@ -70,7 +78,7 @@
 	</insert>
 	
 	<insert id="applyWorkingSystemMemberWorkLog" parameterType="com.qs.www.schedule.model.dto.MemberWorkLogDTO">
-	INSERT /**/
+	INSERT /* com.qs.www.schedule.model.dao.ScheduleDAO#applyWorkingSystemMemberWorkLog() */
 	  INTO TBL_MEMBER_WORK_LOG A
 	(
 	  A.MEMBER_WORK_LOG_NO
@@ -91,6 +99,21 @@
 	)
 	</insert>
 	
-	
+	<select id="selectMyWorkReport" resultMap="reportResultMap">
+	SELECT /* com.qs.www.schedule.model.dao.ScheduleDAO#selectMyWorkReport() */
+	       A.REPORT_NO
+	     , A.REPORT_DATE
+	     , A.MEMBER_NO
+	     , A.DOCUMENT_NO
+	     , A.REPORT_NOTE
+	     , A.REPORT_STATUS
+	     , A.LINE_NAME
+	     , A.REPORT_TITLE
+	  FROM TBL_REPORT A
+	 WHERE A.MEMBER_NO = #{ no }
+	   AND A.DOCUMENT_NO IN (4, 5)
+	   AND REPORT_STATUS != '회수'
+	 ORDER BY A.REPORT_NO DESC
+	</select>
 
 </mapper>

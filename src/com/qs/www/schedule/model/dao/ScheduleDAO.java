@@ -33,6 +33,11 @@ public class ScheduleDAO {
 		return session.insert("ScheduleDAO.applyWorkingSystemMemberWorkLog", memberWorkLogDTO);
 	}
 
+	public List<ReportDTO> selectMyWorkReport(SqlSession session, int no) {
+		
+		return session.selectList("ScheduleDAO.selectMyWorkReport", no);
+	}
+
 	
 
 }
