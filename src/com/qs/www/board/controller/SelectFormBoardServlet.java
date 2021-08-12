@@ -18,9 +18,9 @@ import com.qs.www.mng.board.model.dto.NoticeDTO;
 public class SelectFormBoardServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//문서서식 게시판 목록
 		List<FormDTO> formList = new FormService().selectAllFormList();
 		
-
 		String path = "";
 		if(formList != null) {
 			path = "/WEB-INF/views/board/formBoard.jsp";

@@ -18,7 +18,7 @@ public class FreeService {
 		freeDAO = new FreeDAO();
 		
 	}
-
+	//자유게시판 목록조회
 	public List<FreeDTO> selectAllFreeList() {
 		
 		SqlSession session = getSqlSession();
@@ -30,7 +30,7 @@ public class FreeService {
 		return freeList;
 		
 	}
-
+	//자유게시판 작성
 	public int insertFree(FreeDTO newFree) {
 		
 		SqlSession session = getSqlSession();
@@ -48,6 +48,30 @@ public class FreeService {
 		System.out.println(result);
 		
 		return result;
+	}
+	//자유게시판 상세조회
+	public FreeDTO selectFreeDetail(int no) {
+		
+		SqlSession session = getSqlSession();
+		FreeDTO freeDetail = null;
+		
+		int result = freeDAO.incrementFreeCount(session, no);
+		
+		if(result > 0) {
+			freeDetail = freeDAO.selectFreeDetail(session, no);
+			
+			if(freeDetail != null) {
+				session.commit();
+			} else {
+				session.rollback();
+			}
+		} else {
+			session.rollback();
+		}
+		
+		session.close();
+		
+		return freeDetail;
 	}
 
 }

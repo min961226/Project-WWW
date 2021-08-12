@@ -16,7 +16,7 @@ import com.qs.www.mng.board.model.dto.NoticeDTO;
 public class SelectNoticeBoardServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		//공지사항 목록
 		List<NoticeDTO> noticeList = new NoticeService().selectAllNoticeList();
 		
 		System.out.println(noticeList);

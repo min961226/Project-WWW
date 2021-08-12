@@ -18,7 +18,7 @@ public class NoticeService {
 		noticeDAO = new NoticeDAO();
 		
 	}
-
+	//공지사항 목록조회
 	public List<NoticeDTO> selectAllNoticeList() {
 		
 		SqlSession session = getSqlSession();
