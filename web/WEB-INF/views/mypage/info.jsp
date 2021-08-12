@@ -118,7 +118,7 @@
 	                                    </div>
 	                                </div>
 	                                <div class="form-group">
-	                                    <label class="control-label col-lg-4">주민둥록번호</label>
+	                                    <label class="control-label col-lg-4">주민등록번호</label>
 	                                    <div class="col-md-3">
 	                                        <input type="text" class="form-control" value="${ firstRrn }" readonly>
 	                                    </div>
