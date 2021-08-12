@@ -31,7 +31,7 @@
 			<input type="search">
 			<button type="submit" style="background-color:orange;">검색하기</button>
 			<button id="writeFree">작성하기</button>
-			<button onclick="location.href='${ pageContext.servletContext.contextPath }/board/free/select'">글작성으로</button>
+			<button onclick="location.href='${ pageContext.servletContext.contextPath }/board/free/insert'">글작성으로</button>
 		</div>
                 <div class="row">
                     <div class="col-lg-12">

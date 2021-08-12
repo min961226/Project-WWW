@@ -16,16 +16,25 @@ public class InsertFreeBoardServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String path = "/WEB-INF/views/board/inserFreeBoard.jsp";
+		String path = "/WEB-INF/views/board/freeBoard.jsp";
 		
 		request.getRequestDispatcher(path).forward(request, response);
 		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 		
+//		int no = ((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo();
 		String title = request.getParameter("title");
+		int member = Integer.parseInt(request.getParameter("member"));
+		String type = request.getParameter("type");
+		int count = Integer.parseInt(request.getParameter("count"));
 		String body = request.getParameter("body");
+		String delete = request.getParameter("delete");
+		java.sql.Date created = java.sql.Date.valueOf(request.getParameter("created"));
+		java.sql.Date modified = java.sql.Date.valueOf(request.getParameter("modified"));
+		
 		
 		FreeDTO newFree = new FreeDTO();
 		newFree.setTitle(title);
