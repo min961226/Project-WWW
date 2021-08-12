@@ -41,4 +41,9 @@ public class ApprovalDAO {
 		return session.selectList("ApprovalDAO.selectReportItemList", no);
 	}
 
+	public int callbackSelectedReport(SqlSession session, int no) {
+		
+		return session.update("ApprovalDAO.callbackSelectedReport", no);
+	}
+
 }

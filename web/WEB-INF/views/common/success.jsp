@@ -25,6 +25,7 @@
 					movePath =  "${ pageContext.servletContext.contextPath }/approval/applied/select";
 					break;
 					
+
 				case "insertWork" :
 					successMessage = "근무신청이 상신되었습니다."
 					movePath =  "${ pageContext.servletContext.contextPath }/schedule/workingSystem/insert";
@@ -35,6 +36,12 @@
 					movePath =  "${ pageContext.servletContext.contextPath }/schedule/holiday/insert";
 					break;
 					
+
+				case "callbackApproval" :
+					successMessage = "결재가 회수되었습니다."
+					movePath =  "${ pageContext.servletContext.contextPath }/approval/applied/select";
+					break;
+
 			}
 			
 			alert(successMessage);
