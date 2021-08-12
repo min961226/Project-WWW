@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
+import com.qs.www.schedule.model.dto.WorkingDocumentItemDTO;
 import com.qs.www.welfare.model.dto.WelfareListDTO;
 
 
@@ -35,6 +36,10 @@ public class WelfareDAO {
 	
 	public int insertSelfDevelopment(SqlSession session, WelfareListDTO welfareListDTO) {
 		return session.insert("WelfareDAO.insertSelfDevelopment", welfareListDTO);
+	}
+
+	public int insertSelfDevelopmentItemContent(SqlSession session, WorkingDocumentItemDTO documentItemDTO) {
+		return session.insert("ScheduleDAO.applyWorkingSystemItemContent", documentItemDTO);
 	}
 
 
