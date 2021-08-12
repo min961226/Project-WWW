@@ -82,6 +82,12 @@
 		 WHERE A.REPORT_NO = #{ no }
 		 ORDER BY A.PRIORITY
 	</select>
+	 <update id="callbackSelectedReport">
+		UPDATE /* com.qs.www.approval.model.dao.ApprovalDAO#selectOneReportDetail()*/
+		       TBL_REPORT A
+		   SET A.REPORT_STATUS = '회수'
+		 WHERE A.REPORT_NO = #{ no }
+	</update>
 </mapper>
 	    
 
