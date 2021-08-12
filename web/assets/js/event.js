@@ -4,13 +4,15 @@ window.onload = function() {
 	if(document.getElementById("writeFree")) {
 		const $writeFree = document.getElementById("writeFree");
 		$writeFree.onclick = function() {
-
+			location.href = "/board/free/insert";
+//			location.href = ${ pageContext.servletContext.contextPath }"/board/free/select";
 		}
 	}
 	
 	if(document.getElementById("cancleFree")) {
 		const $cancleFree = document.getElementById("cancleFree");
 		$cancleFree.onclick = function() {
+			//location.href = ${ pageContext.servletContext.contextPath }"/board/free/insert";
 			
 		}
 	}
