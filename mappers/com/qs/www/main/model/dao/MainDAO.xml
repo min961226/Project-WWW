@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="MainDAO">
+
+	<resultMap type="com.qs.www.main.model.dto.MainInfoDTO" id="mainInfoResultMap">
+		<id property="commuteNo" column="COMMUTE_NO"/>
+		<result property="yearMonth" column="YEAR_MONTH"/>
+		<result property="day" column="DAY"/>
+		<result property="inTime" column="IN_TIME"/>
+		<result property="outTime" column="OUT_TIME"/>
+	</resultMap>
+
+	<select id="selectMain" parameterType="com.qs.www.main.model.dto.MainInfoDTO" resultMap="mainInfoResultMap">
+        SELECT
+               A.COMMUTE_NO
+             , A.YEAR_MONTH
+             , A.DAY
+             , A.IN_TIME
+             , A.OUT_TIME
+          FROM TBL_COMMUTE A
+         WHERE A.MEMBER_NO = #{ memberNo }
+           AND A.YEAR_MONTH || '-' || A.DAY BETWEEN #{ weekStartDate } AND #{ weekEndDate }
+	</select>
+</mapper>

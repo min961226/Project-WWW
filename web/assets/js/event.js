@@ -4,7 +4,7 @@ window.onload = function() {
 	if(document.getElementById("writeFree")) {
 		const $writeFree = document.getElementById("writeFree");
 		$writeFree.onclick = function() {
-
+			location.href = "${ pageContext.servletContext.contextPath }/board/free/insert";
 		}
 	}
 	
