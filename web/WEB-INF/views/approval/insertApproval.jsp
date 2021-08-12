@@ -12,18 +12,7 @@
 <title>Wonderful Welfare Workspace</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script>
-            
-            // onchange에서 호출하는 함수. 
-            function testChange(obj){
-                // 'obj'는 this를 지칭하는 것입니다.
-                var dNo = $(obj).val();
-                alert("문서번호 : " + dNo);
-                
-               
-            }
-            
-        </script>
+        
 </head>
 
 <body>
@@ -54,6 +43,8 @@
 											</select>
 										</div>
 									</div>
+									
+									
 									
 									<div class="col-sm-6">
 										<label>결재 제목</label>
@@ -97,7 +88,7 @@
 										<label>보존기간</label>
 										<div class="col-md-12">
 										
-										<input class="form-control" value="${ requestScope.endDate }"  disabled/>
+										<input class="form-control" value="~${ requestScope.endDate }"  disabled/>
 										</div>
 									</div>
 								
@@ -105,7 +96,7 @@
 								</div>
 								
 								
-								<div id="area3" class="form-group" <c:if test="${dNo eq 1}"> hidden</c:if>>
+								<div id="div1" class="form-group" hidden>
 								
 									<div class="col-sm-3">
 										<label>계약일</label>
@@ -172,9 +163,6 @@
                                 </div>
 								
 							</form>
-						
-						
-						
 					</div>
 				</div>
 			</div>
@@ -185,11 +173,25 @@
 	<div class="sidebar-overlay" data-reff=""></div>
 	
 	<script>
-    	
+	 // onchange에서 호출하는 함수. 
+    function testChange(obj){
+    	var result = $('#document option:selected').val();
+        if (result == 3) {
+          $('#div1').show();
+        } else {
+          $('#div1').hide();
+        }
+    }
+	
+	
+	
     	const $goBack = document.getElementById("goBack");
     	$goBack.onclick = function() {
     		location.href = "${ pageContext.servletContext.contextPath }/approval/applied/select"
     	}
+    	
+    	
+    	
     </script>
 </body>
 

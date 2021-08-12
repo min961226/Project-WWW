@@ -7,6 +7,6 @@ import com.qs.www.member.model.dto.MemberInfoDTO;
 public class MainDAO {
 
 	public void selectMain(SqlSession sqlSession, MemberInfoDTO memberInfo) {
-		sqlSession.selectList("selectMain", memberInfo);
+//		sqlSession.selectList("selectMain", memberInfo);
 	}
 }

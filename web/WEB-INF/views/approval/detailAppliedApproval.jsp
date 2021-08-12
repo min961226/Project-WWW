@@ -18,16 +18,19 @@
 			<div class="content container-fluid">
 				<div class="row">
 					<div class="col-xs-12">
-						<h4 class="page-title">결재신청</h4>
+						<h4 class="page-title">결재요청함 상세보기</h4>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-lg-12">
 						
 
-							<form class="form-horizontal" action="${ pageContext.servletContext.contextPath }/approval/applied/update" method="post">
-
-
+							<form class="form-horizontal" action="${ pageContext.servletContext.contextPath }/approval/applied/selectOne?no=${ requestScope.selectedReport.reportNo }" method="post">
+							
+							
+							  
+								
+							
 								<div class="form-group">
 									<div class="col-sm-6">
 										<label>결재 분류</label>
@@ -75,7 +78,7 @@
 								<div class="col-sm-6">
 										<label>보존기간</label>
 										<div class="col-md-12">
-										<input class="form-control" value="${ requestScope.endDate }"  disabled/>
+										<input class="form-control" value="~${ requestScope.endDate }"  disabled/>
 										</div>
 									</div>
 								
