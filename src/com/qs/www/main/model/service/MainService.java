@@ -1,11 +1,15 @@
 package com.qs.www.main.model.service;
 
+import static com.qs.www.common.mybatis.Template.getSqlSession;
+
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 
-import com.qs.www.main.model.dao.MainDTO;
-import com.qs.www.main.model.dto.MainDAO;
-import com.qs.www.member.model.dto.MemberInfoDTO;
-import static com.qs.www.common.mybatis.Template.getSqlSession;
+import com.qs.www.main.model.dao.MainDAO;
+import com.qs.www.main.model.dto.MainDTO;
+import com.qs.www.main.model.dto.MainInfoDTO;
+
 public class MainService {
 	
 	private final MainDAO mainDAO;
@@ -14,11 +18,13 @@ public class MainService {
 		mainDAO = new MainDAO();
 	}
 
-	public MainDTO selectMain(MemberInfoDTO memberInfo) {
+	public MainInfoDTO selectMain(MainDTO mainDTO) {
 		
 		SqlSession sqlSession = getSqlSession();
 		
-		mainDAO.selectMain(sqlSession, memberInfo);
+		List<MainInfoDTO> mainInfo = mainDAO.selectMain(sqlSession, mainDTO);
+		
+		System.out.println(mainInfo);
 		
 		sqlSession.close();
 		

@@ -193,7 +193,7 @@
 	        </div>
 	    </div>
 	</div>
-	<div class="sidebar-overlay" data-reff=""></div>	
+	<div class="sidebar-overlay" data-reff=""></div>
     <script type="text/javascript" src="${ pageContext.servletContext.contextPath }/assets/js/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="${ pageContext.servletContext.contextPath }/assets/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="${ pageContext.servletContext.contextPath }/assets/js/jquery.slimscroll.js"></script>
