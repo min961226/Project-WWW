@@ -15,90 +15,83 @@
     <div class="main-wrapper">
 		<jsp:include page="../common/navbar.jsp"/>
 		
-			<div class="page-wrapper">
+		<div class="page-wrapper">
             <div class="content container-fluid">
                 <div class="row">
                     <div class="col-xs-12">
                         <h4 class="page-title">자유 게시판</h4>
                     </div>
                 </div>
-                		<div class="search-area" align="right">
-			<select id="searchCondition" name="searchCondition">
-				<option value="writer">작성자</option>
-				<option value="title">제목</option>
-				<option value="content">내용</option>
-			</select>
-			<input type="search">
-			<button type="submit" style="background-color:orange;">검색하기</button>
-			<button id="writeFree">작성하기</button>
-			<button onclick="location.href='${ pageContext.servletContext.contextPath }/board/free/insert'">글작성으로</button>
-		</div>
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="card-box">
-                            <div class="card-block">
-                                <p class="content-group">
-                                </p>
-                                <table class="display datatable table table-stripped">
-                                    <thead>
-                                        <tr bgcolor = "FFBC35">
-                                            <th>번호</th>
-                                            <th>제목</th>
-                                            <th>작성일</th>
-                                            <th>조회수</th>
-                                        </tr>
-
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>4</td>
-                                            <td> 별관 2층 남자화장실 비데 고장 신고입니다.</td>
-                                            <td>2021.07.23</td>
-                                            <td>61</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>[1팀] 유선 인터넷 및 인터넷 전화기 고장</td>
-                                            <td>2021.01.27</td>
-                                            <td>63</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>4층 복합기 블랙 토너 교체</td>
-                                            <td>2020.01.27</td>
-                                            <td>66</td>
-
-                                        </tr>
-                                                                                <tr>
-                                            <td>1</td>
-                                            <td>6층 백열 전구 교체 부탁 드립니다.</td>
-                                            <td>2020.01.27</td>
-                                            <td>66</td>
-
-                                        </tr>
-                                    </tbody>
-                                    <thead>
-                                        <tr bgcolor = "FFBC35">
-                                            <th>번호</th>
-                                            <th>제목</th>
-                                            <th>조회수</th>
-                                            <th>수정 날짜</th>
-                                        </tr>
-
-                                    </thead>
-                                		<c:forEach var="board" items="${ requestScope.freeList }">
-										<tr>
-											<td><c:out value="${ board.no }"/></td>
-											<td><c:out value="${ board.title }"/></td>
-											<td><c:out value="${ board.count }"/></td>
-											<td><c:out value="${ board.created }"/></td>
-										</tr>
-										</c:forEach>	
-                                </table>
-                                
-                                
-                                <div class="pagingArea" align="center">
+                <div class="search-area" align="right">
+				<select id="searchCondition" name="searchCondition">
+					<option value="writer">작성자</option>
+					<option value="title">제목</option>
+					<option value="content">내용</option>
+				</select>
+				<input type="search">
+				<button type="submit" style="background-color:orange;">검색하기</button>
+				<button type="button" id="writeFree">작성하기</button>
+			</div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card-box">
+                    	<div class="card-block">
+                        	<p class="content-group">
+                            </p>
+                            <table class="display datatable table table-stripped">
+                            	<thead>
+                                	<tr bgcolor = "FFBC35">
+                                    	<th>번호</th>
+                                        <th>제목</th>
+                                        <th>작성일</th>
+                                        <th>조회수</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>4</td>
+                                        <td> 별관 2층 남자화장실 비데 고장 신고입니다.</td>
+                                        <td>2021.07.23</td>
+                                        <td>61</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>[1팀] 유선 인터넷 및 인터넷 전화기 고장</td>
+                                        <td>2021.01.27</td>
+                                        <td>63</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>4층 복합기 블랙 토너 교체</td>
+                                        <td>2020.01.27</td>
+                                        <td>66</td>
+                                     </tr>
+                                     <tr>
+                                        <td>1</td>
+                                        <td>6층 백열 전구 교체 부탁 드립니다.</td>
+                                        <td>2020.01.27</td>
+                                        <td>66</td>
+                                    </tr>
+                                </tbody>
+                                <thead>
+                                    <tr bgcolor = "FFBC35">
+                                        <th>번호</th>
+                                        <th>제목</th>
+                                        <th>조회수</th>
+                                        <th>수정 날짜</th>
+                                    </tr>
+                                </thead>
+                                <c:forEach var="board" items="${ requestScope.freeList }">
+									<tr>
+										<td><c:out value="${ board.no }"/></td>
+										<td><c:out value="${ board.title }"/></td>
+										<td><c:out value="${ board.count }"/></td>
+										<td><c:out value="${ board.created }"/></td>
+									</tr>
+								</c:forEach>	
+                            </table>
+                            
+                            <div class="pagingArea" align="center">
 		<!-- 맨 앞으로 이동 버튼 -->
 	    <button id="startPage"><<</button>
 		
@@ -136,10 +129,16 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
-    
+	<script>
+	    if(document.getElementById("writeFree")) {
+			const $writeFree = document.getElementById("writeFree");
+			$writeFree.onclick = function() {
+				location.href = "${ pageContext.servletContext.contextPath }/board/free/insert";
+			}
+		}
+	</script>
 </body>
 
 </html>
