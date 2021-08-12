@@ -26,8 +26,6 @@ public class SelectOneAppliedApprovalServlet extends HttpServlet {
 		ReportDTO selectedReport  = new ApprovalService().selectOneReportDetail(no);
 
 		List<WorkingDocumentItemDTO> itemList = new ApprovalService().selectReportItemList(no);
-		System.out.println(selectedReport);
-		System.out.println(itemList);
 
 
 		//등록날짜를 보존기간으로 바꾸기
@@ -54,6 +52,22 @@ public class SelectOneAppliedApprovalServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		int no = Integer.parseInt(request.getParameter("no"));
+		
+		int result =  new ApprovalService().callbackSelectedReport(no);
+		System.out.println(result);
+		
+		String path = "";
+		if(result > 0) {
+            path = "/WEB-INF/views/common/success.jsp";
+			request.setAttribute("successCode", "callbackApproval");
+			
+		} else {
+			path = "/WEB-INF/views/common/failed.jsp";
+			request.setAttribute("failedCode", "callbackApproval");
+		}
+		
+		request.getRequestDispatcher(path).forward(request, response);
+		
 	}
 }

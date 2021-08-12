@@ -19,7 +19,7 @@ import com.qs.www.board.model.service.FreeService;
 public class SelectFreeBoardServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		//자유게시판 목록
 		List<FreeDTO> freeList = new FreeService().selectAllFreeList();
 		
 		String path = "";

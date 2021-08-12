@@ -85,4 +85,19 @@ public class ApprovalService {
 		return itemList;
 	}
 
+	public int callbackSelectedReport(int no) {
+		SqlSession session = getSqlSession();
+
+		int result = approvalDAO.callbackSelectedReport(session, no);
+		
+		if(result > 0) {
+            session.commit();
+        } else {
+            session.rollback();
+        }
+		session.close();
+
+		return result;
+	}
+
 }

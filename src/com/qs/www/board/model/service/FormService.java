@@ -18,7 +18,7 @@ public class FormService {
 		formDAO = new FormDAO();
 		
 	}
-
+	//문서서식 게시판 조회
 	public List<FormDTO> selectAllFormList() {
 		
 		SqlSession session = getSqlSession();

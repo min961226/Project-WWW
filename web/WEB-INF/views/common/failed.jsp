@@ -25,14 +25,30 @@
 					movePath = "${ pageContext.servletContext.contextPath }"
 					break;
 				case "insertApproval" :
-					successMessage = "결재 신청이 실패헀습니다."
+					failedMessage = "결재 신청이 실패헀습니다."
 					movePath =  "${ pageContext.servletContext.contextPath }/approval/applied/select";
 					break;
-				case "insertSelfDev" :
-					successMessage = "자기개발비 신청에 실패하였습니다."
-						movePath =  "${ pageContext.servletContext.contextPath }/welfare/list/select";
+
+					
+				case "insertWork" :
+					failedMessage = "근무신청이 실패했습니다."
+					movePath =  "${ pageContext.servletContext.contextPath }";
 					break;
 					
+				case "inserHoliday" :
+					failedMessage = "휴가신청이 실패했습니다."
+					movePath =  "${ pageContext.servletContext.contextPath }";
+
+				case "callbackApproval" :
+					failedMessage = "결재회수가 실패했습니다."
+					movePath =  "${ pageContext.servletContext.contextPath }/approval/applied/select";
+
+					break;
+          
+         case "insertSelfDev" :	
+					failedMessage = "자기개발비 신청에 실패하였습니다."	
+					movePath =  "${ pageContext.servletContext.contextPath }/welfare/list/select";
+          break;
 			}
 			
 			alert(failedMessage);
@@ -41,4 +57,5 @@
 		})();
 	</script>
 </body>
+
 </html>

@@ -70,27 +70,27 @@ public class InsertApprovalServlet extends HttpServlet {
 		System.out.println("lineName : " + lineName);
 		
 		String title = request.getParameter("title");
-	
-		
-		
-		
-		
 		
 		int reportNo = new ApprovalService().selectReportNum();
-		System.out.println("reportNo : " + reportNo );
-
+		
 		ReportDTO report = new ReportDTO();
 		report.setDocumentNo(documentNo);
 		report.setMemberNo(memberNo);
 		report.setReportNote(note);
 		report.setLineName(lineName);
 		report.setReportTitle(title);
-
+		
+		
 		//REPORT(상신) 추가
 		ScheduleService scheduleService = new ScheduleService();	
 		int result1 = scheduleService.applyWorkingSystem(report);
-
-
+		
+		
+		
+		
+		
+		
+		
 		
 		String body = request.getParameter("body");
 

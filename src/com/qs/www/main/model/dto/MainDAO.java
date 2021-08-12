@@ -1,3 +1,4 @@
+
 package com.qs.www.main.model.dto;
 
 import org.apache.ibatis.session.SqlSession;
@@ -10,3 +11,4 @@ public class MainDAO {
 //		sqlSession.selectList("selectMain", memberInfo);
 	}
 }
+

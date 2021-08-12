@@ -59,4 +59,18 @@
         )
 	</insert>
 	
+	<select id="selectFreeDetail" resultMap="freeResultMap">
+       SELECT
+               A.BOARD_NO
+             , A.BOARD_TITLE
+             , A.MEMBER_NO
+             , A.BOARD_TYPE
+             , A.BOARD_COUNT
+             , A.BOARD_BODY
+             , A.DELETE_YN
+             , A.CREATED_DATE
+             , A.MODIFIED_DATE
+         FROM TBL_BOARD A
+    </select>
+	
 </mapper>
