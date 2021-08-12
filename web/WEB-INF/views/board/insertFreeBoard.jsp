@@ -24,7 +24,8 @@
                 </div>
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
-                        <form>
+                    <form action="${ pageContext.servletContext.contextPath }/board/free/insert" method="post">
+
                              <div class="form-group">
                                 <label>글제목</label>
                                 <input class="form-control" type="text" value= "${memberNo}">
