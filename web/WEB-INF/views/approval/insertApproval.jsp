@@ -97,7 +97,7 @@
 										<label>보존기간</label>
 										<div class="col-md-12">
 										
-										<input class="form-control" value='작성날짜로 부터 5년뒤 까지'  disabled/>
+										<input class="form-control" value="${ requestScope.endDate }"  disabled/>
 										</div>
 									</div>
 								
@@ -128,12 +128,12 @@
 										<label>물품번호</label>
 										<div class="col-md-12">
 											<select class="form-control" name="productNo">
-												<option value=1>p-1</option>
-												<option value=2>p-2</option>
-												<option value=3>p-3</option>
-												<option value=4>p-4</option>
-												<option value=5>p-5</option>
-												<option value=6>p-6</option>
+												<option value="p-1">p-1</option>
+												<option value="p-2">p-2</option>
+												<option value="p-3">p-3</option>
+												<option value="p-4">p-4</option>
+												<option value="p-5">p-5</option>
+												<option value="p-6">p-6</option>
 											</select>
 										</div>
 									</div>
@@ -167,7 +167,7 @@
 								<div class="row">
                                     <div class="col-sm-12 text-center m-t-20">
                                         <button type="submit" class="btn btn-primary btn-lg"> 신청 </button>
-                                        <button type="button" class="btn btn-primary btn-lg"> 취소 </button>
+                                        <button type="reset" class="btn btn-primary btn-lg" id="goBack">취소</button>
                                     </div>
                                 </div>
 								
@@ -184,7 +184,13 @@
 	</div>
 	<div class="sidebar-overlay" data-reff=""></div>
 	
-	
+	<script>
+    	
+    	const $goBack = document.getElementById("goBack");
+    	$goBack.onclick = function() {
+    		location.href = "${ pageContext.servletContext.contextPath }/approval/applied/select"
+    	}
+    </script>
 </body>
 
 

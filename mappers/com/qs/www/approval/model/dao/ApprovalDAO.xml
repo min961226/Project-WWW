@@ -67,6 +67,7 @@
 		FROM TBL_REPORT A
 		WHERE A.MEMBER_NO = #{ no }
 		  AND 4 > A.DOCUMENT_NO
+		  AND REPORT_STATUS != '회수'
 		ORDER BY A.REPORT_NO DESC
 	</select>
 	<select id="selectOneReportDetail"

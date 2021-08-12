@@ -16,7 +16,7 @@
 	
 	<!-- 로그인 상태 -->
 	<c:if test="${ !empty sessionScope.memberInfo }">
-		<jsp:forward page="/WEB-INF/views/main/main.jsp"/>
+		<c:redirect url="/main"/>
 	</c:if>
 </body>
 </html>

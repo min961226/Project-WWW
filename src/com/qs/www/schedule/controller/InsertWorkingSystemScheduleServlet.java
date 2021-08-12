@@ -135,7 +135,6 @@ public class InsertWorkingSystemScheduleServlet extends HttpServlet {
 				System.out.println(approverList);
 
 				/* 3-2. 상신별결재자(TBL_APPROVER_PER_REPORT)에 insert */
-
 				int result3 = 0;
 				for(ApproverDTO approver : approverList) {
 					ApproverPerReportDTO approverPerReportDTO = new ApproverPerReportDTO();
@@ -164,6 +163,7 @@ public class InsertWorkingSystemScheduleServlet extends HttpServlet {
 						long longendNextDate = longendDate + (1 * 24 * 60 * 60 * 1000);		//하루를 추가
 						java.sql.Date endNextDate = new java.sql.Date(longendNextDate);		//다시 sql.Date 형태로 변경
 						System.out.println(endDay + " 와" + endNextDate);
+						//혹은 split한 다음에 날짜에 +1하고 다시 합치는 방법도 있다. 
 
 						if(workType.equals("표준근무제")) {
 							workType = "표준";
