@@ -19,6 +19,11 @@
 					successMessage = "프로필이 수정되었습니다."
 					movePath =  "${ pageContext.servletContext.contextPath }/mypage/info/select";
 					break;
+					
+				case "insertApproval" :
+					successMessage = "결재가 신청되었습니다."
+					movePath =  "${ pageContext.servletContext.contextPath }/approval/applied/select";
+					break;
 			}
 			
 			alert(successMessage);
