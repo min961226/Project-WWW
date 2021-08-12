@@ -24,6 +24,10 @@
 					successMessage = "결재가 신청되었습니다."
 					movePath =  "${ pageContext.servletContext.contextPath }/approval/applied/select";
 					break;
+				case "insertSelfDev" :
+					successMessage = "자기개발비 신청이 완료되었습니다."
+					movePath =  "${ pageContext.servletContext.contextPath }/welfare/list/select";
+					break;
 			}
 			
 			alert(successMessage);

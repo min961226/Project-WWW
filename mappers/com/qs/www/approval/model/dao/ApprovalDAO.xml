@@ -37,20 +37,17 @@
 		<result property="itemContent" column="ITEM_CONTENT" />
 	</resultMap>
 	
-	<select id="selectApprovalLine"
-		resultMap="approvalLineResultMap">
-		SELECT /*
-		com.qs.www.approval.model.dao.ApprovalDAO#selectApprovalLine()*/
-		A.*
-		FROM TBL_APPROVER_LINE A
-		WHERE A.MEMBER_NO = #{ no }
+	<select id="selectApprovalLine" resultMap="approvalLineResultMap">
+		SELECT /* com.qs.www.approval.model.dao.ApprovalDAO#selectApprovalLine()*/
+			   A.*
+		  FROM TBL_APPROVER_LINE A
+		 WHERE A.MEMBER_NO = #{ no }
 	</select>
 	<select id="selectApprover" resultMap="approverResultMap">
-		SELECT /*
-		com.qs.www.approval.model.dao.ApprovalDAO#selectApprovalLine()*/
-		A.*
-		FROM TBL_APPROVER A
-		WHERE A.LINE_NO = #{ lineNo }
+		SELECT /* com.qs.www.approval.model.dao.ApprovalDAO#selectApprovalLine()*/
+			   A.*
+		  FROM TBL_APPROVER A
+		 WHERE A.LINE_NO = #{ lineNo }
 	</select>
 
 	<select id="selectReportNum" resultType="_int">
@@ -61,10 +58,9 @@
 	</select>
 	<select id="selectMyReport"
 		resultMap="reportResultMap">
-		SELECT /*
-		com.qs.www.approval.model.dao.ApprovalDAO#selectMyReport()*/
-		A.*
-		FROM TBL_REPORT A
+		SELECT /* com.qs.www.approval.model.dao.ApprovalDAO#selectMyReport()*/
+			   A.*
+		 FROM TBL_REPORT A
 		WHERE A.MEMBER_NO = #{ no }
 		  AND 4 > A.DOCUMENT_NO
 		  AND REPORT_STATUS != '회수'
@@ -72,20 +68,18 @@
 	</select>
 	<select id="selectOneReportDetail"
 		resultMap="reportResultMap">
-		SELECT /*
-		com.qs.www.approval.model.dao.ApprovalDAO#selectOneReportDetail()*/
-		A.*
-		FROM TBL_REPORT A
-		WHERE A.REPORT_NO = #{ no }
+		SELECT /* com.qs.www.approval.model.dao.ApprovalDAO#selectOneReportDetail()*/
+			   A.*
+		  FROM TBL_REPORT A
+		 WHERE A.REPORT_NO = #{ no }
 	</select>
 	<select id="selectReportItemList"
 		resultMap="reportItemResultMap">
-		SELECT /*
-		com.qs.www.approval.model.dao.ApprovalDAO#selectOneReportDetail()*/
-		A.*
-		FROM TBL_ITEM_CONTENT A
-		WHERE A.REPORT_NO = #{ no }
-		ORDER BY A.PRIORITY
+		SELECT /* com.qs.www.approval.model.dao.ApprovalDAO#selectOneReportDetail()*/
+			   A.*
+		  FROM TBL_ITEM_CONTENT A
+		 WHERE A.REPORT_NO = #{ no }
+		 ORDER BY A.PRIORITY
 	</select>
 </mapper>
 	    
