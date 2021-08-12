@@ -33,6 +33,11 @@ public class ScheduleDAO {
 		return session.insert("ScheduleDAO.applyWorkingSystemMemberWorkLog", memberWorkLogDTO);
 	}
 
+	public int setFirstWorkingSystemApprover(SqlSession session, ApproverPerReportDTO approverPerReportDTO) {
+		
+		return session.update("ScheduleDAO.setFirstWorkingSystemApprover", approverPerReportDTO);
+	}
+
 	
 
 }
