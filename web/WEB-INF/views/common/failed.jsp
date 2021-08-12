@@ -28,6 +28,10 @@
 					successMessage = "결재 신청이 실패헀습니다."
 					movePath =  "${ pageContext.servletContext.contextPath }/approval/applied/select";
 					break;
+				case "callbackApproval" :
+					successMessage = "결재회수가 실패했습니다."
+					movePath =  "${ pageContext.servletContext.contextPath }/approval/applied/select";
+					break;
 			}
 			
 			alert(failedMessage);

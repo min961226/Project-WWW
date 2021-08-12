@@ -24,6 +24,11 @@
 					successMessage = "결재가 신청되었습니다."
 					movePath =  "${ pageContext.servletContext.contextPath }/approval/applied/select";
 					break;
+					
+				case "callbackApproval" :
+					successMessage = "결재가 회수되었습니다."
+					movePath =  "${ pageContext.servletContext.contextPath }/approval/applied/select";
+					break;
 			}
 			
 			alert(successMessage);
