@@ -66,6 +66,9 @@
 							<div class="form-group">
 								<label>자기개발비 사용일자</label> <input name="date" class="form-control" type="date">
 							</div>
+							<div class="form-group">
+								<label>자기개발비 예상 청구 금액</label> <br><input name="selfDevCost" class="" type="number" width="100px">￦
+							</div>
 
 							<div class="form-group">
 								<label>신청 내용</label>
@@ -84,8 +87,7 @@
 							<div class="m-t-20 text-center">
 								<button class="btn btn-primary btn-lg" type="submit">신청
 									완료</button>
-								<input id="goBack" type="reset" value="돌아가기"
-									class="btn btn-primary btn-lg">
+								<button type="reset" class="btn btn-default" id="goBack">돌아가기</button>
 							</div>
 						</form>
 					</div>
@@ -93,6 +95,11 @@
 			</div>
 		</div>
 	</div>
+	 <script>
+ $goBack.onclick = function() {
+		location.href = "${ pageContext.servletContext.contextPath }/welfare/list/select"
+	}
+ </script>
 </body>
 
 </html>

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
+import com.qs.www.schedule.model.dto.WorkingDocumentItemDTO;
 import com.qs.www.welfare.model.dao.WelfareDAO;
 import com.qs.www.welfare.model.dto.WelfareListDTO;
 
@@ -93,6 +94,22 @@ public class WelfareService {
 		session.close();
 
 		return limitCost;
+	}
+
+	public int insertSelfDevelopmentItemContent(WorkingDocumentItemDTO documentItemDTO) {
+SqlSession session = getSqlSession();
+		
+		int result = welfareDAO.insertSelfDevelopmentItemContent(session, documentItemDTO);
+		
+		if(result > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+				
+		session.close();
+		
+		return result;
 	}
 
 
