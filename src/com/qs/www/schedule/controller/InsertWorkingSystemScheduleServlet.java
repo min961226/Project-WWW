@@ -48,9 +48,9 @@ public class InsertWorkingSystemScheduleServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		int lineNo = Integer.parseInt(request.getParameter("line")); 		//위쪽에서 미리 받는다.
 		
-		List<ApprovalLineDTO> lineList = (List<ApprovalLineDTO>) session.getAttribute("lineList");
 
 		//session에서 가져온 결재라인들 중, 받아온 lineNo와 일치하는 DTO의 lineName을 따온다. 
+		List<ApprovalLineDTO> lineList = (List<ApprovalLineDTO>) session.getAttribute("lineList");
         String lineName = "";
         for(ApprovalLineDTO line: lineList) {
             if(line.getLineNo() == lineNo) {
@@ -74,7 +74,15 @@ public class InsertWorkingSystemScheduleServlet extends HttpServlet {
 		String memberName = ((MemberInfoDTO) session.getAttribute("memberInfo")).getName();
 		String title = memberName + " " + workType + " 신청서";		//title도 미리 만들어둔다.
 		
-		/* 1. 상신테이블(TBL_REPORT)에 insert */
+		
+		/* 1-1. 상신올릴 문서가 쓸 ReportNo 가져오기 */
+		ApprovalService approvalService = new ApprovalService();
+		int reportNo = approvalService.selectReportNum();
+
+		System.out.println("reportNo : " + reportNo);
+		
+		
+		/* 1-2. 상신테이블(TBL_REPORT)에 insert */
 		ReportDTO reportDTO = new ReportDTO();
 		int memberNo = ((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo();
 		reportDTO.setMemberNo(memberNo);
@@ -91,15 +99,8 @@ public class InsertWorkingSystemScheduleServlet extends HttpServlet {
 		int result6 = 0; 		//if문 밖인 제일 마지막에서도 판단할 수 있도록 바깥에 빼서 선언해준다		
 		if(result1 > 0 ) { 
 
-
-			/* 2-1. 방금 상신올린 문서의 ReportNo 가져오기 */
-			ApprovalService approvalService = new ApprovalService();
-			int reportNo = approvalService.selectReportNum();
-
-			System.out.println("reportNo : " + reportNo);
-
-			/* 2-2. 상신별문서항목작성내용(TBL_ITEM_CONTENT)에 insert */
 			
+			/* 2. 상신별문서항목작성내용(TBL_ITEM_CONTENT)에 insert */
 			String getworkNo = request.getParameter("workNo");
 
 			List<String> workingDocumentItem = new ArrayList<>();
@@ -128,9 +129,7 @@ public class InsertWorkingSystemScheduleServlet extends HttpServlet {
 
 
 				/* 3-1. 결재라인 선택한 번호로, 결재자들의 결재자사번과 우선순위를 DTO로 받아오기 */
-				//선택한 결재 라인에 등록되있는 결재자들 가져오기
-				//lineNo는 위쪽에서 이미 받아두었다. 
-				
+				//선택한 결재 라인에 등록되있는 결재자들 가져오기				
 				List<ApproverDTO> approverList = new ApprovalService().selectApprover(lineNo);
 				System.out.println(approverList);
 
@@ -145,68 +144,75 @@ public class InsertWorkingSystemScheduleServlet extends HttpServlet {
 					result3 = scheduleService.applyWorkingSystemApprover(approverPerReportDTO);
 				}
 				System.out.println(result3);
-				if(result3 > 0) {
+				
 
-					
-					/* 4. 커스텀근무제라면 커스텀근무제에도 추가 */
-					if(true) {
-
-						
-						
-						
-
-						/* 5. 사원별근무제변경이력(TBL_MEMBER_WORK_LOG)에 insert */
-						java.sql.Date startDay = java.sql.Date.valueOf(request.getParameter("startDay"));
-						java.sql.Date endDay = java.sql.Date.valueOf(request.getParameter("endDay"));
-						java.util.Date endDate = endDay;
-						long longendDate = endDate.getTime();								//밀리세컨으로 변경
-						long longendNextDate = longendDate + (1 * 24 * 60 * 60 * 1000);		//하루를 추가
-						java.sql.Date endNextDate = new java.sql.Date(longendNextDate);		//다시 sql.Date 형태로 변경
-						System.out.println(endDay + " 와" + endNextDate);
-						//혹은 split한 다음에 날짜에 +1하고 다시 합치는 방법도 있다. 
-
-						if(workType.equals("표준근무제")) {
-							workType = "표준";
-						} else {
-							workType = "커스텀";
-						}
-
-						/* 5-1. 첫번째 변경이력. startDay 사용 */
-						MemberWorkLogDTO memberWorkLogDTO = new MemberWorkLogDTO();
-						memberWorkLogDTO.setMemberNo(((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo());
-						memberWorkLogDTO.setWorkType(workType);
-						memberWorkLogDTO.setWorkNo(workNo);
-						memberWorkLogDTO.setStartDay(startDay);
-						memberWorkLogDTO.setChangeReason(changeReason);
-						System.out.println("memberWorkLogDTO : " + memberWorkLogDTO);
-
-						/* 5-2. 두번째 변경이력. endNextDate 사용. 다시 기본근태로 돌림 */
-						MemberWorkLogDTO memberWorkLogDTO2 = new MemberWorkLogDTO();
-						memberWorkLogDTO2.setMemberNo(((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo());
-						memberWorkLogDTO2.setWorkType("표준");
-						memberWorkLogDTO2.setWorkNo(1);
-						memberWorkLogDTO2.setStartDay(endNextDate);
-						memberWorkLogDTO2.setChangeReason("이전 근태신청의 기간만료");
-						System.out.println("memberWorkLogDTO2 : " + memberWorkLogDTO2);
-
-						result5 = scheduleService.applyWorkingSystemMemberWorkLog(memberWorkLogDTO);
-						result6 = scheduleService.applyWorkingSystemMemberWorkLog(memberWorkLogDTO2);
-
-						System.out.println(result5);
-						System.out.println(result6);
-
-					}
-				}
 			}
 		}
 
-		if(result1 > 0 && result5 > 0 && result6 > 0) {
-			System.out.println("alert 상신성공");
-			String path = "";
-			response.sendRedirect(request.getContextPath());
+		/* 성공여부에 따라 success 혹은 fail로 넘겨줌 */
+		String path = "";
+		if(result1 > 0 && result6 > 0) {
+			System.out.println("alert 근무신청 상신성공");			
+			path = "/WEB-INF/views/common/success.jsp";
+			request.setAttribute("successCode", "insertWork");
+
 		} else {
-			System.out.println("alert 상신실패");
+			System.out.println("alert 근무신청 상신실패");			
+			path = "/WEB-INF/views/common/failed.jsp";
+			request.setAttribute("failedCode", "insertWork");
 		}
 
+		request.getRequestDispatcher(path).forward(request, response);
+
 	}
+	
+	
+	//나중에 근무신청이 결재승인 된 이후에 해야 함
+	
+	/* 4. 커스텀근무제라면 커스텀근무제에도 추가 */
+//	if(true) {
+
+		
+//		/* 5. 사원별근무제변경이력(TBL_MEMBER_WORK_LOG)에 insert */
+//		java.sql.Date startDay = java.sql.Date.valueOf(request.getParameter("startDay"));
+//		java.sql.Date endDay = java.sql.Date.valueOf(request.getParameter("endDay"));
+//		java.util.Date endDate = endDay;
+//		long longendDate = endDate.getTime();								//밀리세컨으로 변경
+//		long longendNextDate = longendDate + (1 * 24 * 60 * 60 * 1000);		//하루를 추가
+//		java.sql.Date endNextDate = new java.sql.Date(longendNextDate);		//다시 sql.Date 형태로 변경
+//		System.out.println(endDay + " 와" + endNextDate);
+//		//혹은 split한 다음에 날짜에 +1하고 다시 합치는 방법도 있다. 
+//
+//		if(workType.equals("표준근무제")) {
+//			workType = "표준";
+//		} else {
+//			workType = "커스텀";
+//		}
+//
+//		/* 5-1. 첫번째 변경이력. startDay 사용 */
+//		MemberWorkLogDTO memberWorkLogDTO = new MemberWorkLogDTO();
+//		memberWorkLogDTO.setMemberNo(((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo());
+//		memberWorkLogDTO.setWorkType(workType);
+//		memberWorkLogDTO.setWorkNo(workNo);
+//		memberWorkLogDTO.setStartDay(startDay);
+//		memberWorkLogDTO.setChangeReason(changeReason);
+//		System.out.println("memberWorkLogDTO : " + memberWorkLogDTO);
+//
+//		/* 5-2. 두번째 변경이력. endNextDate 사용. 다시 기본근태로 돌림 */
+//		MemberWorkLogDTO memberWorkLogDTO2 = new MemberWorkLogDTO();
+//		memberWorkLogDTO2.setMemberNo(((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo());
+//		memberWorkLogDTO2.setWorkType("표준");
+//		memberWorkLogDTO2.setWorkNo(1);
+//		memberWorkLogDTO2.setStartDay(endNextDate);
+//		memberWorkLogDTO2.setChangeReason("이전 근태신청의 기간만료");
+//		System.out.println("memberWorkLogDTO2 : " + memberWorkLogDTO2);
+//
+//		result5 = scheduleService.applyWorkingSystemMemberWorkLog(memberWorkLogDTO);
+//		result6 = scheduleService.applyWorkingSystemMemberWorkLog(memberWorkLogDTO2);
+//
+//		System.out.println(result5);
+//		System.out.println(result6);
+
+	
+	
 }

@@ -12,7 +12,7 @@
 	</resultMap>
 	
 	<select id="selectAllHolidayType" resultMap="holidayListResultMap">
-	SELECT /* com.qs.www.schedule.model.dao.ScheduleDAO#selectHolidayType() */
+	SELECT /* com.qs.www.schedule.model.dao.HolidayDAO#selectAllHolidayType() */
 	       A.HOLIDAY_CODE
 	     , A.HOLIDAY_NAME
 	     , A.HOLIDAY_TYPE
@@ -21,6 +21,59 @@
 	     , A.USE_YN
 	  FROM TBL_HOLIDAY_TYPE A
 	</select>
+	
+	<insert id="insertHolidayLog" parameterType="com.qs.www.schedule.model.dto.HolidayLogDTO">
+	INSERT /* com.qs.www.schedule.model.dao.HolidayDAO#insertHolidayLog() */
+	  INTO TBL_MEMBER_HOLIDAY_LOG A
+	(
+	  A.HOLIDAY_LOG_NO
+	, A.MEMBER_NO
+	, A.LOG_OCCUR_DATE
+	, A.LOG_NOTE
+	, A.LOG_TYPE
+	, A.HOLIDAY_CODE
+	, A.HOLIDAY_DURING_DATE
+	, A.RULE_CODE
+	, IS_PRODUCED_BY_RULE
+	)
+	VALUES
+	(
+	  SEQ_HOLIDAY_LOG_NO.NEXTVAL
+	, #{ memberNo }
+	, SYSDATE
+	, #{ logNote }
+	, #{ logType }
+	, #{ holidayCode }
+	, #{ holidayDuringDate }
+	, NULL
+	, NULL
+	)
+	</insert>
+	
+	<select id="selectHolidayLogNum" resultType="_int">
+	SELECT /* com.qs.www.schedule.model.dao.HolidayDAO#selectHolidayLogNum() */
+		   LAST_NUMBER
+      FROM USER_SEQUENCES
+     WHERE SEQUENCE_NAME = 'SEQ_HOLIDAY_LOG_NO'
+	</select>
+	
+	<insert id="insertHolidayUseInfo" parameterType="com.qs.www.schedule.model.dto.HolidayUseInfoDTO">
+	INSERT /* com.qs.www.schedule.model.dao.HolidayDAO#insertHolidayUseInfo() */
+	  INTO TBL_HOLIDAY_USE_INFO A
+	(
+	  A.HOLIDAY_LOG_NO
+	, A.HOLIDAY_START_DAY
+	, A.HOLIDAY_END_DAY
+	, A.HOLIDAY_REPORT_NO
+	)
+	VALUES
+	(
+	  #{ holidayLogNo }
+	, #{ holidayStartDay }
+	, #{ holidayEndDay }
+	, #{ holidayReportNo }
+	)
+	</insert>
 
 
 </mapper>
