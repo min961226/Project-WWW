@@ -1,7 +1,6 @@
 package com.qs.www.welfare.controller;
 
 import java.io.IOException;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,41 +15,54 @@ import com.qs.www.approval.model.dto.ApproverDTO;
 import com.qs.www.approval.model.service.ApprovalService;
 import com.qs.www.schedule.model.dto.ApproverPerReportDTO;
 import com.qs.www.schedule.model.dto.WorkingDocumentItemDTO;
+import com.qs.www.welfare.model.dto.FamilyEventDTO;
 import com.qs.www.welfare.model.dto.WelfareListDTO;
 import com.qs.www.welfare.model.service.WelfareService;
 
 @WebServlet("/welfare/familyEvent/insert")
 public class InsertFamilyEventWelfareServlet extends HttpServlet {
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String welfareTitle = "경조금 신청"; // 결재 제목
+		int documentNo = 8; // 자기개발비 신청 문서 번호
 		
-	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		WelfareService welfareService = new WelfareService();
-		System.out.println("자기개발비 신청!");
-		int documentNo = 9; 													// 자기개발비 신청 문서 번호
-		int developmentNo = 0;													// 신청목적 번호
-		String welfareTitle = "자기개발비 신청"; 									// 결재 제목
-		int lineNo = Integer.parseInt(request.getParameter("lineList"));
-
-		switch (request.getParameter("radio")) {						//신청목적=> 번호 도출
-		case "결혼":
-			developmentNo=1;
-			break;
-		case "출산":
-			developmentNo=2;
-			break;
-		case "사망":
-			developmentNo=3;
-			break;
+		FamilyEventDTO familyEventDTO = new FamilyEventDTO();
 		
-
+		int eventNo = 0; // 신청목적 번호
+		int supportFund = 0;
+		familyEventDTO.setWreathStatus(request.getParameter("wreathStatus").charAt(0));
+		System.out.println(request.getParameter("eventType"));
+		switch (Integer.parseInt(request.getParameter("eventType"))) {
+		case 1:
+			familyEventDTO.setEventType("결혼");
+			familyEventDTO.setRelation(request.getParameter("marrige"));
+			break;
+		case 2:
+			familyEventDTO.setEventType("출산");
+			familyEventDTO.setRelation(request.getParameter("childBirth"));
+			break;
+		case 3:
+			familyEventDTO.setEventType("회갑");
+			familyEventDTO.setRelation(request.getParameter("sixtyBirth"));
+			break;
+		case 4:
+			familyEventDTO.setEventType("사망");
+			familyEventDTO.setRelation(request.getParameter("death"));
+			break;
 		default:
 			break;
 		}
+		eventNo = welfareService.selectEventNo(familyEventDTO);
+		supportFund= welfareService.selectSupportFund(eventNo);
+		System.out.println(supportFund);
 		
+		
+		int lineNo = Integer.parseInt(request.getParameter("lineList"));
 		List<ApprovalLineDTO> lineList = new ApprovalService().selectApprovalLine(Integer.parseInt(request.getParameter("memberNo")));
+		System.out.println(lineNo);
+		System.out.println(lineList);
 		
 		String lineName = "";					
 		
@@ -63,26 +75,22 @@ public class InsertFamilyEventWelfareServlet extends HttpServlet {
 		WelfareListDTO welfareListDTO = new WelfareListDTO();
 		
 		welfareListDTO.setMemberNo(request.getParameter("memberNo"));
-		welfareListDTO.setLineName(request.getParameter("lineList"));
 		welfareListDTO.setDocumentNo(documentNo);
-		welfareListDTO.setReportNote(request.getParameter("selfDevInfo"));
-		welfareListDTO.setLineName(request.getParameter("selfDevList"));
+		welfareListDTO.setReportNote(request.getParameter("eventInfo"));
+		welfareListDTO.setLineName(request.getParameter("lineList"));
 		welfareListDTO.setWelfareTitle(welfareTitle);
-		welfareListDTO.setDate(Date.valueOf(request.getParameter("date")));
 		System.out.println(welfareListDTO);
-		System.out.println(documentNo);
 		
-//		int developmentNo = welfareService.selectDevNo(welfareListDTO.getLineName());		//지원 목록
-////		int limitCost = welfareService.selectLimitCost(developmentNo);					//지원 최대 금액
-
 		int reportNo = welfareService.selectReportNum();
-		int result1 = welfareService.insertSelfDevelopment(welfareListDTO);
+		int result1 = welfareService.insertWelfareReport(welfareListDTO);
 		
 		List<String> documentItem = new ArrayList<>();
-		documentItem.add(welfareListDTO.getWelfareTitle());
-		documentItem.add(String.valueOf(developmentNo));
+		documentItem.add(welfareTitle);
+		documentItem.add(String.valueOf(eventNo));
+		documentItem.add(request.getParameter("eventName"));
+		documentItem.add(String.valueOf(supportFund));
 		documentItem.add(request.getParameter("date"));
-		documentItem.add(request.getParameter("selfDevCost"));
+		documentItem.add(request.getParameter("eventPlace"));
 		documentItem.add(welfareListDTO.getReportNote());
 		
 		int priority = 1;
@@ -120,10 +128,10 @@ public class InsertFamilyEventWelfareServlet extends HttpServlet {
 
 		if(result1 > 0 && result2 > 0 && result3 > 0 ) {
 			path = "/WEB-INF/views/common/success.jsp";
-			request.setAttribute("successCode", "insertSelfDev");
+			request.setAttribute("successCode", "insertFamilyEvent");
 		} else {
 			path = "/WEB-INF/views/common/failed.jsp";
-			request.setAttribute("failed", "insertSelfDev");
+			request.setAttribute("failed", "insertFamilyEvent");
 		}
 		request.getRequestDispatcher(path).forward(request, response);
 	}

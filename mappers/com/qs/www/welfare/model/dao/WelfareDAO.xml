@@ -15,11 +15,33 @@
 		<result property="priority" column="PRIORITHY" />
 
 	</resultMap>
+	
+	<resultMap type="com.qs.www.welfare.model.dto.FamilyEventDTO" id="familyEventResultMap">
+		<result property="eventNo" column="EVENT_NO" />
+		<result property="eventType" column="EVENT_TYPE" />
+		<result property="supportFund" column="SUPPORT_FUND" />
+		<result property="relation" column="EVENT_RELATED_PERSON" />
+		<result property="wreathStatus" column="WREATH_STATUS" />
+
+	</resultMap>
+	
+	<resultMap type="com.qs.www.welfare.model.dto.MemberOverTimeLogDTO" id="memberOverTimeLogResultMap">
+		<result property="overTimelogNo" column="MEMBER_OVERTIME_LOG_NO" />
+		<result property="reportNo" column="OVERTIME_REPORT_NO" />
+		<result property="memberNo" column="MEMBER_NO" />
+		<result property="overTimeStartDay" column="OVERTIME_START_DAY" />
+		<result property="overTimeStartTime" column="OVERTIME_START_TIME" />
+		<result property="overTimeEndDay" column="OVERTIME_END_DAY" />
+		<result property="overTimeEndTime" column="OVERTIME_END_TIME" />
+		<result property="overTimeHour" column="OVERTIME_DURING" />
+		<result property="TransBill" column="TRANS_BILL" />
+
+	</resultMap>
 
 <select id="selectWelfareList" resultType="java.lang.String">
 	SELECT /* com.qs.www.welfare.model.dao.WelfareDAO#checkWelfareList()*/
-		   DOCUMENT_NAME
-	  FROM TBL_DOCUMENT_FORM
+		   A.DOCUMENT_NAME
+	  FROM TBL_DOCUMENT_FORM A
 	 WHERE CATEGORY_CODE = 'C2'
        AND DOCUMENT_NAME LIKE '%신청서'
 	   AND USE_YN = 'Y'
@@ -28,18 +50,18 @@
 
 <select id="checkSelfDevList" resultType="java.lang.String">
 	SELECT /* com.qs.www.welfare.model.dao.WelfareDAO#checkSelfDevList()*/
-		   DEVELOPMENT_TYPE_NAME
-	  FROM TBL_SELF_DEVELOPMENT
+		   A. DEVELOPMENT_TYPE_NAME
+	  FROM TBL_SELF_DEVELOPMENT A
 </select>
 
 <select id="selectApproverLine" resultType="java.lang.String">
 	SELECT /* com.qs.www.welfare.model.dao.WelfareDAO#selectApproverLine()*/
-		   APPROVER_NAME
-	  FROM TBL_APPROVER
+		   A.APPROVER_NAME
+	  FROM TBL_APPROVER A
 	 WHERE MEMBER_NO = #{ memberNo }
 </select>
 
-<insert id="insertSelfDevelopment" parameterType="com.qs.www.welfare.model.dto.WelfareListDTO">
+<insert id="insertWelfareReport" parameterType="com.qs.www.welfare.model.dto.WelfareListDTO">
 
 	INSERT /* com.qs.www.welfare.model.dao.WelfareDAO#insertSelfDevelopment() */
 	  INTO TBL_REPORT A
@@ -85,6 +107,30 @@
 			   MONTH_LIMIT_COST
 		  FROM TBL_SELF_DEVELOPMENT
 		 WHERE DEVELOPMENT_NO = #{ developmentNo }
+	</select>
+	
+	<select id="selectEventNo" parameterType="com.qs.www.welfare.model.dto.FamilyEventDTO" resultType="_int">
+		SELECT /* com.qs.www.welfare.model.dao.WelfareDAO#selectEventNo() */
+			   EVENT_NO
+		  FROM TBL_FAMILY_EVENT_TYPE
+		 WHERE EVENT_TYPE = #{ eventType }
+		   AND EVENT_RELATED_PERSON = #{ relation }
+		   AND WREATH_STATUS = #{ wreathStatus }
+	</select>
+	
+	<select id="selectSupportFund" resultType="_int">
+		SELECT /* com.qs.www.welfare.model.dao.WelfareDAO#selectEventNo() */
+			   SUPPORT_FUND
+		  FROM TBL_FAMILY_EVENT_TYPE
+		 WHERE EVENT_NO = #{ eventNo }
+	</select>
+	
+	<select id="checkNightTrans" resultMap="memberOverTimeLogResultMap">
+		SELECT /* com.qs.www.welfare.model.dao.WelfareDAO#selectEventNo() */
+			   A.*
+		  FROM TBL_MEMBER_OVERTIME_LOG A
+		 WHERE MEMBER_NO = #{ memberNo }
+		   AND TRANS_BILL = 'N'
 	</select>
 	
 	

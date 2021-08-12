@@ -24,52 +24,47 @@
                 <div class="row">
                    <div class="col-md-8 col-md-offset-2">
 						<form name = "insertNightTran" action="${ pageContext.servletContext.contextPath }/welfare/nightTransportation/insert" method="POST">
-							<div class="form-group">
-								<label>직원 ID</label> <input class="form-control" type="text"
-									value="${memberNo}" readonly="readonly" />
+						<div class="form-group">
+								<label>직원 ID</label> <input name="memberNo" class="form-control" type="text" value="${memberNo}" readonly="readonly" />
 							</div>
 							<div class="form-group">
-								<label>부서</label> <input name ="deptName" class="form-control" type="text" value=" ${ sessionScope.memberInfo.department.deptName }">
+								<label>부서</label> <input name="deptName" class="form-control" type="text" value="${ sessionScope.memberInfo.department.deptName }" required="required">
 							</div>
 							<div class="form-group">
-								<label>직위</label> <input name ="jobName"  class="form-control" type="text" value="${ sessionScope.memberInfo.job.jobName }">
+								<label>직위</label> <input name="jobName" class="form-control" type="text" value="${ sessionScope.memberInfo.job.jobName }" required="required">
 							</div>
 							<div class="form-group">
-								<label>신청자</label> <input name ="name" class="form-control" type="text"	value="${ sessionScope.memberInfo.name }" readonly="readonly">
+								<label>신청자</label> <input name="name" class="form-control"	type="text" value="${ sessionScope.memberInfo.name }" readonly="readonly">
 							</div>
-							<div class="form-group" >
-								<label>결재선 지정</label>
-								<select name="lineList" class="form-control">
+							<br>
+							<div class="form-group">
+								<label>결재선 지정</label> <select name="lineList" 	class="form-control" required="required">
 									<option>-- 결재선 지정 목록 --</option>
-									<c:forEach items="${ requestScope.lineList }" var="lineList">
-										<option><c:out value="${ lineList.lineName }" /></option>
+									<c:forEach items="${ requestScope.lineList }" var="lineList"><option value=${ lineList.lineNo }>${ lineList.lineName }</option>
 									</c:forEach>
 								</select>
 							</div>
 							<div class="form-group">
-								<label>야근 종료시간</label> <select name="selfDevList"
-									class="form-control">
-									<option>-- 결재 완료 야근 목록 --</option>
-									<c:forEach items="${ requestScope.selfDevList }" var="selfDevList">
-										<option><c:out value="${ selfDevList }" /></option>
+								<label>추가 근무 근거</label> <select name="overTimeLog" class="form-control" required="required">
+									<option value=null>-- 결재 완료 야근 목록 --</option>
+									<c:forEach items="${ requestScope.memberOverTimeLog }" var="memberOverTimeLog">
+										<option value ="${ memberOverTimeLog.overTimeStartDay } ${memberOverTimeLog.overTimeStartTime } ~ ${memberOverTimeLog.overTimeEndDay} ${ memberOverTimeLog.overTimeEndTime }"><c:out value="${ memberOverTimeLog.overTimeStartDay } ${memberOverTimeLog.overTimeStartTime } ~ ${memberOverTimeLog.overTimeEndDay} ${ memberOverTimeLog.overTimeEndTime } ( ${ memberOverTimeLog.overTimeHour}시간)" /></option>
 									</c:forEach>
 								</select>
 							</div>
 							<div class="form-group">
-								<label>청구 예상 교통비</label> <br><input name="TransBill" class="" type="number" width="100px">￦
+								<label>청구 예상 교통비</label> <br><input name="transBill" class="" type="number" width="100px"required="required">￦
 							</div>
 
 							<div class="form-group">
-								<label>신청 내용</label>
-								<textarea name="selfDevInfo" cols="30" rows="6" class="form-control"></textarea>
+								<label>업무 내용</label>
+								<textarea name="overTimeLogInfo" cols="30" rows="6" class="form-control" required="required"></textarea>
 							</div>
 
 							<div class="form-group">
 								<label>영수증 첨부</label>
 								<div>
-									<input class="form-control" type="file"> <small
-										class="help-block">파일 최대 사이즈: 50 MB. 허용된 확장자: jpg,
-										gif, png. </small>
+									<input class="form-control" type="file"> <small	class="help-block">파일 최대 사이즈: 50 MB. 허용된 확장자: jpg,	gif, png. </small>
 								</div>
 
 							</div>
