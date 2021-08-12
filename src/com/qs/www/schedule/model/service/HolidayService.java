@@ -7,7 +7,9 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
 import com.qs.www.schedule.model.dao.HolidayDAO;
+import com.qs.www.schedule.model.dto.HolidayLogDTO;
 import com.qs.www.schedule.model.dto.HolidayTypeDTO;
+import com.qs.www.schedule.model.dto.HolidayUseInfoDTO;
 
 public class HolidayService {
 	
@@ -33,6 +35,54 @@ public class HolidayService {
 		
 		return holidayList;
 	}
+
+	public int insertHolidayLog(HolidayLogDTO holidayLogDTO) {
+		
+		SqlSession session = getSqlSession();
+		
+		int result = holidayDAO.insertHolidayLog(session, holidayLogDTO);
+		
+		if(result > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+		
+		session.close();
+		
+		return result;
+		
+	}
+	
+	public int selectHolidayLogNum() {
+		
+		SqlSession session = getSqlSession();
+		
+		int holidayLogNo = holidayDAO.selectHolidayLogNum(session);
+		
+		session.close();
+		
+		return holidayLogNo;
+	}
+
+	public int insertHolidayUseInfo(HolidayUseInfoDTO holidayUseInfoDTO) {
+		
+		SqlSession session = getSqlSession();
+		
+		int result = holidayDAO.insertHolidayUseInfo(session, holidayUseInfoDTO);
+		
+		if(result > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+		
+		session.close();
+		
+		return result;
+	}
+
+	
 
 
 }
