@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
+import com.qs.www.schedule.model.dto.ApproverPerReportDTO;
 import com.qs.www.schedule.model.dto.WorkingDocumentItemDTO;
 import com.qs.www.welfare.model.dto.WelfareListDTO;
 
@@ -40,6 +41,10 @@ public class WelfareDAO {
 
 	public int insertSelfDevelopmentItemContent(SqlSession session, WorkingDocumentItemDTO documentItemDTO) {
 		return session.insert("ScheduleDAO.applyWorkingSystemItemContent", documentItemDTO);
+	}
+
+	public int insertSelfDevelopmentApprover(SqlSession session, ApproverPerReportDTO approverPerReportDTO) {
+		return session.insert("ScheduleDAO.applyWorkingSystemApprover", approverPerReportDTO);
 	}
 
 

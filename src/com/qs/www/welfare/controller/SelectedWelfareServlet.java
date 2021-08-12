@@ -33,23 +33,19 @@ public class SelectedWelfareServlet extends HttpServlet {
 		String name = ((MemberInfoDTO) session.getAttribute("memberInfo")).getName();
 		String deptName = ((MemberInfoDTO) session.getAttribute("memberInfo")).getDepartment().getDeptName();
 		String jobName = ((MemberInfoDTO) session.getAttribute("memberInfo")).getJob().getJobName();
-		List<String> approverLine = welfareService.selectApproverLine(memberNo);
 		List<ApprovalLineDTO> lineList = new ApprovalService().selectApprovalLine(memberNo);
-		
+
 		System.out.println(memberNo);
-		System.out.println(name);
 		System.out.println(deptName);
 		System.out.println(jobName);
-		System.out.println(approverLine);
+		System.out.println(name);
+		System.out.println(lineList);
 		
 		request.setAttribute("memberNo", memberNo);
 		request.setAttribute("deptName", deptName);
 		request.setAttribute("jobName", jobName);
 		request.setAttribute("name", name);
-		request.setAttribute("approverLine", approverLine);
 		request.setAttribute("lineList", lineList);
-		
-		System.out.println(lineList);
 		
 		String path = "";
 		switch (selectedWelfare) {
@@ -66,8 +62,7 @@ public class SelectedWelfareServlet extends HttpServlet {
 					path = "/WEB-INF/views/welfare/insertSelfDevelopment.jsp";
 					request.setAttribute("selfDevList", selfDevList);
 				} else {
-					path = "/WEB-INF/views/common/error-404.jsp";
-					request.setAttribute("message", "복지 목록조회 실패!");
+					path = "/WEB-INF/views/common/error-500.jsp";
 				}
 			break;
 		case "기숙사입주신청서":

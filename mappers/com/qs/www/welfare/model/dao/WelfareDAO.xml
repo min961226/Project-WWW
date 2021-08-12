@@ -4,8 +4,17 @@
 
 
 	<resultMap type="com.qs.www.welfare.model.dto.WelfareListDTO" id="welfareResultMap">
-		<result property="welfareName" column="DOCUMENT_NAME"/>
-	</resultMap> 
+		<result property="reportNo" column="REPORT_NO" />
+		<result property="memberNo" column="MEMBER_NO" />
+		<result property="reportNote" column="REPORT_NOTE" />
+		<result property="documentNo" column="DOCUMENT_NO" />
+		<result property="selfDevName" column="DEVELOPMENT_TYPE_NAME" />
+		<result property="welfareTitle" column="DOCUMENT_NAME" />
+		<result property="selfDevDate" column="ITEM_NAME" />
+		<result property="lineName" column="LINE_NAME" />
+		<result property="priority" column="PRIORITHY" />
+
+	</resultMap>
 
 <select id="selectWelfareList" resultType="java.lang.String">
 	SELECT /* com.qs.www.welfare.model.dao.WelfareDAO#checkWelfareList()*/
@@ -77,5 +86,7 @@
 		  FROM TBL_SELF_DEVELOPMENT
 		 WHERE DEVELOPMENT_NO = #{ developmentNo }
 	</select>
+	
+	
 	
 </mapper>

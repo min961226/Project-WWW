@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
+import com.qs.www.schedule.model.dto.ApproverPerReportDTO;
 import com.qs.www.schedule.model.dto.WorkingDocumentItemDTO;
 import com.qs.www.welfare.model.dao.WelfareDAO;
 import com.qs.www.welfare.model.dto.WelfareListDTO;
@@ -42,37 +43,37 @@ public class WelfareService {
 	public List<String> selectApproverLine(int memberNo) {
 		SqlSession session = getSqlSession();
 
-		List<String> approverLine = welfareDAO.selectApproverLine(session,memberNo);
+		List<String> approverLine = welfareDAO.selectApproverLine(session, memberNo);
 
 		session.close();
 
 		return approverLine;
 	}
-	
+
 	public int selectReportNum() {
 		SqlSession session = getSqlSession();
 
 		int reportNum = welfareDAO.selectReportNum(session);
-		
+
 		session.close();
 
 		return reportNum;
 	}
 
 	public int insertSelfDevelopment(WelfareListDTO welfareListDTO) {
-		
+
 		SqlSession session = getSqlSession();
-		
+
 		int result = welfareDAO.insertSelfDevelopment(session, welfareListDTO);
-		
-		if(result > 0) {
+
+		if (result > 0) {
 			session.commit();
 		} else {
 			session.rollback();
 		}
-		
+
 		session.close();
-		
+
 		return result;
 	}
 
@@ -80,7 +81,7 @@ public class WelfareService {
 		SqlSession session = getSqlSession();
 
 		int devNo = welfareDAO.selectDevNo(session, lineName);
-		
+
 		session.close();
 
 		return devNo;
@@ -90,16 +91,33 @@ public class WelfareService {
 		SqlSession session = getSqlSession();
 
 		int limitCost = welfareDAO.selectLimitCost(session, developmentNo);
-		
+
 		session.close();
 
 		return limitCost;
 	}
 
 	public int insertSelfDevelopmentItemContent(WorkingDocumentItemDTO documentItemDTO) {
-SqlSession session = getSqlSession();
-		
+		SqlSession session = getSqlSession();
+
 		int result = welfareDAO.insertSelfDevelopmentItemContent(session, documentItemDTO);
+
+		if (result > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+
+		session.close();
+
+		return result;
+	}
+
+	public int insertSelfDevelopmentApprover(ApproverPerReportDTO approverPerReportDTO) {
+
+		SqlSession session = getSqlSession();
+		
+		int result = welfareDAO.insertSelfDevelopmentApprover(session, approverPerReportDTO);
 		
 		if(result > 0) {
 			session.commit();

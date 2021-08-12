@@ -30,26 +30,33 @@
 				</div>
 				<div class="row">
 					<div class="col-md-8 col-md-offset-2">
-						<form name = "insertSelfDev" action="${ pageContext.servletContext.contextPath }/welfare/selfDevelopment/insert" method="POST">
+						<form name="insertSelfDev"
+							action="${ pageContext.servletContext.contextPath }/welfare/selfDevelopment/insert"
+							method="POST">
 							<div class="form-group">
-								<label>직원 ID</label> <input name ="memberNo" class="form-control" type="text"
-									value="${memberNo}" readonly="readonly" />
+								<label>직원 ID</label> <input name="memberNo" class="form-control"
+									type="text" value="${memberNo}" readonly="readonly" />
 							</div>
 							<div class="form-group">
-								<label>부서</label> <input name ="deptName" class="form-control" type="text" value="${ sessionScope.memberInfo.department.deptName }">
+								<label>부서</label> <input name="deptName" class="form-control"
+									type="text"
+									value="${ sessionScope.memberInfo.department.deptName }">
 							</div>
 							<div class="form-group">
-								<label>직위</label> <input name ="jobName"  class="form-control" type="text" value="${ sessionScope.memberInfo.job.jobName }">
+								<label>직위</label> <input name="jobName" class="form-control"
+									type="text" value="${ sessionScope.memberInfo.job.jobName }">
 							</div>
 							<div class="form-group">
-								<label>신청자</label> <input name ="name" class="form-control" type="text"	value="${ sessionScope.memberInfo.name }" readonly="readonly">
+								<label>신청자</label> <input name="name" class="form-control"
+									type="text" value="${ sessionScope.memberInfo.name }"
+									readonly="readonly">
 							</div>
-							<div class="form-group" >
-								<label>결재선 지정</label>
-								<select name="lineList" class="form-control">
+							<div class="form-group">
+								<label>결재선 지정</label> <select name="lineList"
+									class="form-control">
 									<option>-- 결재선 지정 목록 --</option>
 									<c:forEach items="${ requestScope.lineList }" var="lineList">
-										<option><c:out value="${ lineList.lineName }" /></option>
+										<option value= ${ lineList.lineNo }>${ lineList.lineName }</option>
 									</c:forEach>
 								</select>
 							</div>
@@ -57,29 +64,30 @@
 								<label>신청 목적</label> <select name="selfDevList"
 									class="form-control">
 									<option>-- 자기개발비 신청 가능 목록 --</option>
-									<c:forEach items="${ requestScope.selfDevList }" var="selfDevList">
+									<c:forEach items="${ requestScope.selfDevList }"
+										var="selfDevList">
 										<option><c:out value="${ selfDevList }" /></option>
 
 									</c:forEach>
 								</select>
 							</div>
 							<div class="form-group">
-								<label>자기개발비 사용일자</label> <input name="date" class="form-control" type="date">
+								<label>자기개발비 사용일자</label> <input name="date"	class="form-control" type="date">
 							</div>
 							<div class="form-group">
-								<label>자기개발비 예상 청구 금액</label> <br><input name="selfDevCost" class="" type="number" width="100px">￦
+								<label>자기개발비 예상 청구 금액</label> <br>
+								<input name="selfDevCost" class="" type="number" width="100px">￦
 							</div>
 
 							<div class="form-group">
 								<label>신청 내용</label>
-								<textarea name="selfDevInfo" cols="30" rows="6" class="form-control"></textarea>
+								<textarea name="selfDevInfo" cols="30" rows="6"	class="form-control"></textarea>
 							</div>
 
 							<div class="form-group">
 								<label>영수증 첨부</label>
 								<div>
-									<input class="form-control" type="file"> <small
-										class="help-block">파일 최대 사이즈: 50 MB. 허용된 확장자: jpg,
+									<input class="form-control" type="file"> <small	class="help-block">파일 최대 사이즈: 50 MB. 허용된 확장자: jpg,
 										gif, png. </small>
 								</div>
 
@@ -87,7 +95,7 @@
 							<div class="m-t-20 text-center">
 								<button class="btn btn-primary btn-lg" type="submit">신청
 									완료</button>
-								<button type="reset" class="btn btn-default" id="goBack">돌아가기</button>
+								<button type="reset" class="btn btn-primary btn-lg" id="goBack">돌아가기</button>
 							</div>
 						</form>
 					</div>
@@ -95,11 +103,13 @@
 			</div>
 		</div>
 	</div>
-	 <script>
- $goBack.onclick = function() {
-		location.href = "${ pageContext.servletContext.contextPath }/welfare/list/select"
-	}
- </script>
+	<script>
+		const $goBack = document.getElementById("goBack");
+
+		$goBack.onclick = function() {
+			location.href = "${ pageContext.servletContext.contextPath }/welfare/list/select"
+		}
+	</script>
 </body>
 
 </html>
