@@ -30,36 +30,47 @@ public class SelectMainServlet extends HttpServlet {
 		int memberNo = memberInfo.getMemberNo();
 		String appWorkType = memberInfo.getAppWorkType();
 		int workCode = memberInfo.getWorkCode();
-		int remainingHoliday = memberInfo.getRemainingHoliday();
 		
 		// 날짜 출력 양식
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		// 오늘 날짜
-		Calendar today = new GregorianCalendar();
-		String todayDate = sdf.format(today.getTime());
+		Calendar date = new GregorianCalendar();
+		String todayDate = sdf.format(date.getTime());
 		// 이번주 월요일 날짜
-		today.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-		String weekStartDate = sdf.format(today.getTime());
+		date.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+		Calendar weekStartCalDate = date;
+		String weekStartDate = sdf.format(weekStartCalDate.getTime());
 		// 다음주 일요일 날짜
-		today.add(Calendar.DATE, 6);
-		String weekEndDate = sdf.format(today.getTime());
+		date.add(Calendar.DATE, 6);
+		Calendar weekEndCalDate = date;
+		String weekEndDate = sdf.format(weekEndCalDate.getTime());
+		// 요일별 날짜를 담을 변수
+		date.add(Calendar.DATE, -6);
+		Calendar selectedCalDate = date;
+		String selectedDate = sdf.format(selectedCalDate.getTime());
+		System.out.println(selectedCalDate);
 		
 		WorkInfoDTO workInfo = new WorkInfoDTO();
 		workInfo.setMemberNo(memberNo);
 		workInfo.setAppWorkType(appWorkType);
 		workInfo.setWorkCode(workCode);
-		workInfo.setRemainingHoliday(remainingHoliday);
 		workInfo.setToday(todayDate);
 		workInfo.setWeekStartDate(weekStartDate);
 		workInfo.setWeekEndDate(weekEndDate);
+		workInfo.setSelectedDate(selectedDate);
 		
 		MainService mainService = new MainService();
 		
-		List<CommutingLogDTO> commutingLog = mainService.selectCommutingLog(workInfo);
-		List<WorkingLogDTO> workingLog = mainService.selectWorkingLog(workInfo);
+		List<CommutingLogDTO> commutingLogList = mainService.selectCommutingLog(workInfo);
+		List<WorkingLogDTO> workingLogList = mainService.selectWorkingLog(workInfo, selectedCalDate, sdf);
 		
-		System.out.println(commutingLog);
-		System.out.println(workingLog);
+		for(CommutingLogDTO commutingLog : commutingLogList) {
+			System.out.println(commutingLog);
+		}
+		
+		for(WorkingLogDTO workingLog : workingLogList) {
+			System.out.println(workingLog);
+		}
 		
 		request.getRequestDispatcher("/WEB-INF/views/main/main.jsp").forward(request, response);
 		
