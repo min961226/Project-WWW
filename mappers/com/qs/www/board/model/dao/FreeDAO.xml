@@ -42,7 +42,6 @@
         , A.BOARD_BODY
         , A.DELETE_YN
         , A.CREATED_DATE
-        , A.MODIFIED_DATE
         )
         VALUES
         (
@@ -50,13 +49,14 @@
         , #{ title }
         , #{ member }
         , #{ type }
-        , #{ count }
+        , DEFAULT
         , #{ body }
-        , #{ delete }
-        , SYSDATE
+        , DEFAULT
         , SYSDATE
         )
 	</insert>
+	
+	
 	
 	
 	

@@ -1,3 +1,4 @@
+
 package com.qs.www.main.model.service;
 
 import static com.qs.www.common.mybatis.Template.getSqlSession;
@@ -84,4 +85,5 @@ public class MainService {
 		
 		return workingLogList;
 	}
+
 }

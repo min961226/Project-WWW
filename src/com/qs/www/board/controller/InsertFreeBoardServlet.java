@@ -8,10 +8,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.qs.www.board.model.dto.FreeDTO;
 import com.qs.www.board.model.service.FreeService;
 import com.qs.www.member.model.dto.MemberInfoDTO;
+
+
 
 @WebServlet("/board/free/insert")
 public class InsertFreeBoardServlet extends HttpServlet {
@@ -25,38 +28,25 @@ public class InsertFreeBoardServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		int memberNo = ((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo();
+		String type = "자유";
+		String title = (String)request.getParameter("title");
+		String body = (String)request.getParameter("body");
 
-		
-//		int no = ((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo();
-		int no = Integer.parseInt(request.getParameter("title"));
-		String title = request.getParameter("title");
-		int member = Integer.parseInt(request.getParameter("member"));
-		String type = request.getParameter("type");
-		int count = Integer.parseInt(request.getParameter("count"));
-		String body = request.getParameter("body");
-		String delete = request.getParameter("delete");
-		java.sql.Date created = java.sql.Date.valueOf(request.getParameter("created"));
-		java.sql.Date modified = java.sql.Date.valueOf(request.getParameter("modified"));
-		
-		
 		FreeDTO newFree = new FreeDTO();
 		newFree.setTitle(title);
-		newFree.setMember(member);
-		newFree.setType(type);
-		newFree.setCount(count);
 		newFree.setBody(body);
-		newFree.setDelete(delete);
-		newFree.setCreated(created);
-		newFree.setModified(modified);
+		newFree.setMember(memberNo);
+		newFree.setType(type);
 
-		
 		FreeService freeService = new FreeService();
 		int result = freeService.insertFree(newFree);
 		
 		String path = "";
 		if(result > 0) {
 			path = "/WEB-INF/views/common/success.jsp";
-			request.setAttribute("successCode", "insertNotice");
+			request.setAttribute("successCode", "insertFree");
 		} else {
 			path = "/WEB-INF/views/common/failed.jsp";
 			request.setAttribute("message", "자유게시판 등록에 실패하셨습니다.");
