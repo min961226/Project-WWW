@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,8 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.qs.www.main.model.dto.MainDTO;
-import com.qs.www.main.model.dto.MainInfoDTO;
+import com.qs.www.main.model.dto.CommutingLogDTO;
+import com.qs.www.main.model.dto.WorkInfoDTO;
+import com.qs.www.main.model.dto.WorkingLogDTO;
 import com.qs.www.main.model.service.MainService;
 import com.qs.www.member.model.dto.MemberInfoDTO;
 
@@ -26,6 +28,9 @@ public class SelectMainServlet extends HttpServlet {
 		MemberInfoDTO memberInfo = (MemberInfoDTO) session.getAttribute("memberInfo");
 		
 		int memberNo = memberInfo.getMemberNo();
+		String appWorkType = memberInfo.getAppWorkType();
+		int workCode = memberInfo.getWorkCode();
+		int remainingHoliday = memberInfo.getRemainingHoliday();
 		
 		// 날짜 출력 양식
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -39,15 +44,22 @@ public class SelectMainServlet extends HttpServlet {
 		today.add(Calendar.DATE, 6);
 		String weekEndDate = sdf.format(today.getTime());
 		
-		MainDTO mainDTO = new MainDTO();
-		mainDTO.setMemberNo(memberNo);
-		mainDTO.setToday(todayDate);
-		mainDTO.setWeekStartDate(weekStartDate);
-		mainDTO.setWeekEndDate(weekEndDate);
+		WorkInfoDTO workInfo = new WorkInfoDTO();
+		workInfo.setMemberNo(memberNo);
+		workInfo.setAppWorkType(appWorkType);
+		workInfo.setWorkCode(workCode);
+		workInfo.setRemainingHoliday(remainingHoliday);
+		workInfo.setToday(todayDate);
+		workInfo.setWeekStartDate(weekStartDate);
+		workInfo.setWeekEndDate(weekEndDate);
 		
 		MainService mainService = new MainService();
 		
-		MainInfoDTO mainInfoDTO = mainService.selectMain(mainDTO);
+		List<CommutingLogDTO> commutingLog = mainService.selectCommutingLog(workInfo);
+		List<WorkingLogDTO> workingLog = mainService.selectWorkingLog(workInfo);
+		
+		System.out.println(commutingLog);
+		System.out.println(workingLog);
 		
 		request.getRequestDispatcher("/WEB-INF/views/main/main.jsp").forward(request, response);
 		

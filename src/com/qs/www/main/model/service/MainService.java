@@ -7,8 +7,9 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
 import com.qs.www.main.model.dao.MainDAO;
-import com.qs.www.main.model.dto.MainDTO;
-import com.qs.www.main.model.dto.MainInfoDTO;
+import com.qs.www.main.model.dto.CommutingLogDTO;
+import com.qs.www.main.model.dto.WorkInfoDTO;
+import com.qs.www.main.model.dto.WorkingLogDTO;
 
 public class MainService {
 	
@@ -18,16 +19,25 @@ public class MainService {
 		mainDAO = new MainDAO();
 	}
 
-	public MainInfoDTO selectMain(MainDTO mainDTO) {
+	public List<CommutingLogDTO> selectCommutingLog(WorkInfoDTO workInfo) {
 		
 		SqlSession sqlSession = getSqlSession();
 		
-		List<MainInfoDTO> mainInfo = mainDAO.selectMain(sqlSession, mainDTO);
-		
-		System.out.println(mainInfo);
+		List<CommutingLogDTO> commutingLog = mainDAO.selectCommutingLog(sqlSession, workInfo);
 		
 		sqlSession.close();
 		
-		return null;
+		return commutingLog;
+	}
+
+	public List<WorkingLogDTO> selectWorkingLog(WorkInfoDTO workInfo) {
+		
+		SqlSession sqlSession = getSqlSession();
+
+		List<WorkingLogDTO> workingLog = mainDAO.selectWorkingLog(sqlSession, workInfo);
+
+		sqlSession.close();
+		
+		return workingLog;
 	}
 }

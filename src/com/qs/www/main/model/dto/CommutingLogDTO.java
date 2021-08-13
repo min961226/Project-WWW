@@ -1,6 +1,8 @@
 package com.qs.www.main.model.dto;
 
-public class MainInfoDTO {
+import java.io.Serializable;
+
+public class CommutingLogDTO implements Serializable {
 	
 	private int commuteNo;
 	private String yearMonth;
@@ -8,9 +10,9 @@ public class MainInfoDTO {
 	private String inTime;
 	private String outTime;
 	
-	public MainInfoDTO() {}
+	public CommutingLogDTO() {}
 
-	public MainInfoDTO(int commuteNo, String yearMonth, String day, String inTime, String outTime) {
+	public CommutingLogDTO(int commuteNo, String yearMonth, String day, String inTime, String outTime) {
 		super();
 		this.commuteNo = commuteNo;
 		this.yearMonth = yearMonth;
@@ -61,7 +63,7 @@ public class MainInfoDTO {
 
 	@Override
 	public String toString() {
-		return "MainInfoDTO [commuteNo=" + commuteNo + ", yearMonth=" + yearMonth + ", day=" + day + ", inTime="
+		return "CommutingLogDTO [commuteNo=" + commuteNo + ", yearMonth=" + yearMonth + ", day=" + day + ", inTime="
 				+ inTime + ", outTime=" + outTime + "]";
 	}
 }
