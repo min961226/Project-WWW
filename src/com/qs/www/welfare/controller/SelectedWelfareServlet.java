@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import com.qs.www.approval.model.dto.ApprovalLineDTO;
 import com.qs.www.approval.model.service.ApprovalService;
 import com.qs.www.member.model.dto.MemberInfoDTO;
+import com.qs.www.welfare.model.dto.MemberOverTimeLogDTO;
 import com.qs.www.welfare.model.service.WelfareService;
 
 @WebServlet("/welfare/list/selected")
@@ -33,24 +34,30 @@ public class SelectedWelfareServlet extends HttpServlet {
 		String name = ((MemberInfoDTO) session.getAttribute("memberInfo")).getName();
 		String deptName = ((MemberInfoDTO) session.getAttribute("memberInfo")).getDepartment().getDeptName();
 		String jobName = ((MemberInfoDTO) session.getAttribute("memberInfo")).getJob().getJobName();
+		List<String> approverLine = welfareService.selectApproverLine(memberNo);
 		List<ApprovalLineDTO> lineList = new ApprovalService().selectApprovalLine(memberNo);
-
+		
 		System.out.println(memberNo);
+		System.out.println(name);
 		System.out.println(deptName);
 		System.out.println(jobName);
-		System.out.println(name);
-		System.out.println(lineList);
+		System.out.println(approverLine);
 		
 		request.setAttribute("memberNo", memberNo);
 		request.setAttribute("deptName", deptName);
 		request.setAttribute("jobName", jobName);
 		request.setAttribute("name", name);
+		request.setAttribute("approverLine", approverLine);
 		request.setAttribute("lineList", lineList);
+		
+		System.out.println(lineList);
 		
 		String path = "";
 		switch (selectedWelfare) {
 		case "야간교통비신청서":
+			List<MemberOverTimeLogDTO> memberOverTimeLog = welfareService.checkNightTrans(memberNo);
 			path = "/WEB-INF/views/welfare/insertNightTransportation.jsp";
+			request.setAttribute("memberOverTimeLog", memberOverTimeLog);
 			break;
 		case "경조사신청서":
 			path = "/WEB-INF/views/welfare/insertFamilyEvent.jsp";
@@ -63,6 +70,7 @@ public class SelectedWelfareServlet extends HttpServlet {
 					request.setAttribute("selfDevList", selfDevList);
 				} else {
 					path = "/WEB-INF/views/common/error-500.jsp";
+					request.setAttribute("message", "복지 목록조회 실패!");
 				}
 			break;
 		case "기숙사입주신청서":
@@ -75,7 +83,7 @@ public class SelectedWelfareServlet extends HttpServlet {
 			path = "/WEB-INF/views/welfare/insertLaptopRental.jsp";
 			break;
 		default:
-			path = "/WEB-INF/views/common/error-404.jsp";
+			path = "/WEB-INF/views/common/error-500.jsp";
 			break;
 		}
 

@@ -7,6 +7,8 @@ import org.apache.ibatis.session.SqlSession;
 import com.qs.www.schedule.model.dto.ApproverPerReportDTO;
 import com.qs.www.schedule.model.dto.WorkingDocumentItemDTO;
 import com.qs.www.welfare.model.dao.WelfareDAO;
+import com.qs.www.welfare.model.dto.FamilyEventDTO;
+import com.qs.www.welfare.model.dto.MemberOverTimeLogDTO;
 import com.qs.www.welfare.model.dto.WelfareListDTO;
 
 import static com.qs.www.common.mybatis.Template.getSqlSession;
@@ -60,11 +62,11 @@ public class WelfareService {
 		return reportNum;
 	}
 
-	public int insertSelfDevelopment(WelfareListDTO welfareListDTO) {
+	public int insertWelfareReport(WelfareListDTO welfareListDTO) {
 
 		SqlSession session = getSqlSession();
 
-		int result = welfareDAO.insertSelfDevelopment(session, welfareListDTO);
+		int result = welfareDAO.insertWelfareReport(session, welfareListDTO);
 
 		if (result > 0) {
 			session.commit();
@@ -128,6 +130,36 @@ public class WelfareService {
 		session.close();
 		
 		return result;
+	}
+
+	public int selectEventNo(FamilyEventDTO familyEventDTO) {
+		SqlSession session = getSqlSession();
+
+		int eventNo = welfareDAO.selectEventNo(session, familyEventDTO);
+
+		session.close();
+
+		return eventNo;
+	}
+
+	public int selectSupportFund(int eventNo) {
+		SqlSession session = getSqlSession();
+
+		int supportFund = welfareDAO.selectSupportFund(session, eventNo);
+
+		session.close();
+
+		return supportFund;
+	}
+
+	public List<MemberOverTimeLogDTO> checkNightTrans(int memberNo) {
+		SqlSession session = getSqlSession();
+
+		List<MemberOverTimeLogDTO> checkNightTrans = welfareDAO.checkNightTrans(session, memberNo);
+
+		session.close();
+
+		return checkNightTrans;
 	}
 
 

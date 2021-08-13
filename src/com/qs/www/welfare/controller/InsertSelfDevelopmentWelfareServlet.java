@@ -16,6 +16,7 @@ import com.qs.www.approval.model.dto.ApproverDTO;
 import com.qs.www.approval.model.service.ApprovalService;
 import com.qs.www.schedule.model.dto.ApproverPerReportDTO;
 import com.qs.www.schedule.model.dto.WorkingDocumentItemDTO;
+import com.qs.www.welfare.model.dto.FamilyEventDTO;
 import com.qs.www.welfare.model.dto.WelfareListDTO;
 import com.qs.www.welfare.model.service.WelfareService;
 
@@ -80,7 +81,7 @@ public class InsertSelfDevelopmentWelfareServlet extends HttpServlet {
 ////		int limitCost = welfareService.selectLimitCost(developmentNo);					//지원 최대 금액
 
 		int reportNo = welfareService.selectReportNum();
-		int result1 = welfareService.insertSelfDevelopment(welfareListDTO);
+		int result1 = welfareService.insertWelfareReport(welfareListDTO);
 		
 		List<String> documentItem = new ArrayList<>();
 		documentItem.add(welfareListDTO.getWelfareTitle());
