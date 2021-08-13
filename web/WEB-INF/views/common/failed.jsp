@@ -35,9 +35,10 @@
 					movePath =  "${ pageContext.servletContext.contextPath }";
 					break;
 					
-				case "inserHoliday" :
+				case "insertHoliday" :
 					failedMessage = "휴가신청이 실패했습니다."
 					movePath =  "${ pageContext.servletContext.contextPath }";
+					break;
 
 				case "callbackApproval" :
 					failedMessage = "결재회수가 실패했습니다."

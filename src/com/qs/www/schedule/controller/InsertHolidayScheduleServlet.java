@@ -89,15 +89,16 @@ public class InsertHolidayScheduleServlet extends HttpServlet {
 		}
 
 		String holidayCode = request.getParameter("holidayCode");
+		int holidayCodeInt = Integer.parseInt(request.getParameter("holidayCode"));
 		List<HolidayTypeDTO> holidayTypeList = (List<HolidayTypeDTO>) session.getAttribute("holidayTypeList");
 		String holidayType = "";
 		for(HolidayTypeDTO type : holidayTypeList) {
-			if(type.getHolidayType().equals(holidayCode)) {
+			if(type.getHolidayCode() == holidayCodeInt) {
 				holidayType = type.getHolidayType();
 			}
 		}
 
-		String title = memberName + " " + holidayType + " 휴가신청서";
+		String title = memberName + holidayType + " 휴가신청서";
 
 		/* 1-0. 상신올릴 문서가 쓸 ReportNo 가져오기 */
 		ApprovalService approvalService = new ApprovalService();

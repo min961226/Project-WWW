@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 
@@ -12,768 +13,191 @@
 </head>
 
 <body>
-    <div class="main-wrapper">
+	<div class="main-wrapper">
 		<jsp:include page="../common/navbar.jsp"/>
         
-        <div class="page-wrapper">
-            <div class="content container-fluid">
-                <div class="row">
-                    <div class="col-xs-8">
-                        <h4 class="page-title">Leave Request</h4>
-                    </div>
-                    <div class="col-xs-4 text-right m-b-30">
-                        <a href="#" class="btn btn-primary rounded pull-right" data-toggle="modal" data-target="#add_leave"><i class="fa fa-plus"></i> Add Leave</a>
-                    </div>
-                </div>
+		<div class="page-wrapper">
+			<div class="content container-fluid">
+            
+				<div class="row">
+					<div class="col-xs-8">
+						<h4 class="page-title">근무 신청 현황</h4>
+					</div>
+					<div class="col-xs-4 text-right m-b-30">
+						<a href="${ pageContext.servletContext.contextPath }/schedule/workingSystem/insert" class="btn btn-primary rounded pull-right"><i class="fa fa-plus"></i> 근무신청하기</a>
+					</div>
+				</div>
+				
+                <!-- 검색조건 -->
                 <div class="row filter-row">
-                    <div class="col-sm-3 col-md-2 col-xs-6">
-                        <div class="form-group form-focus">
-                            <label class="control-label">Employee Name</label>
-                            <input type="text" class="form-control floating">
-                        </div>
-                    </div>
-                    <div class="col-sm-3 col-md-2 col-xs-6">
-                        <div class="form-group form-focus select-focus">
-                            <label class="control-label">Leave Type</label>
-                            <select class="select floating">
-                                <option> -- Select -- </option>
-                                <option>Casual Leave</option>
-                                <option>Medical Leave</option>
-                                <option>Loss of Pay</option>
+					<div class="col-sm-3 col-md-3 col-xs-6">
+						<div class="form-group form-focus select-focus">
+							<label class="control-label">근무제 유형</label>
+							<select class="select floating">
+								<option> -- Select -- </option>
+								<option>정규근무 신청</option>
+								<option>초과근무 신청</option>
+								<option>Loss of Pay</option>
                             </select>
                         </div>
                     </div>
-                    <div class="col-sm-3 col-md-2 col-xs-6">
+                    <div class="col-sm-3 col-md-3 col-xs-6">
                         <div class="form-group form-focus select-focus">
-                            <label class="control-label">Leave Status</label>
+                            <label class="control-label">근무신청 승인상태</label>
                             <select class="select floating">
-                                <option> -- Select -- </option>
-                                <option> Pending </option>
-                                <option> Approved </option>
-                                <option> Rejected </option>
+								<option> -- Select -- </option>
+								<option> 승인 </option>
+                                <option> 반려 </option>
+                                <option> 대기 </option>
+                                <option> 미처리 </option>
                             </select>
                         </div>
                     </div>
                     <div class="col-sm-3 col-md-2 col-xs-6">
                         <div class="form-group form-focus">
-                            <label class="control-label">From</label>
+                            <label class="control-label">시작일</label>
                             <div class="cal-icon">
-                                <input class="form-control floating datetimepicker" type="text">
+                                <input class="form-control floating datetimepicker" type="text" name="startDate">
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-3 col-md-2 col-xs-6">
                         <div class="form-group form-focus">
-                            <label class="control-label">To</label>
+                            <label class="control-label">종료일</label>
                             <div class="cal-icon">
-                                <input class="form-control floating datetimepicker" type="text">
+                                <input class="form-control floating datetimepicker" type="text" name="endDate">
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-3 col-md-2 col-xs-6">
                         <a href="#" class="btn btn-success btn-block"> Search </a>
                     </div>
-                </div>
+                </div> <!-- 검색조건 end -->
+                
+                <!-- 근무신청내용 -->
                 <div class="row">
                     <div class="col-md-12">
                         <div class="table-responsive">
                             <table class="table table-striped custom-table m-b-0 datatable">
-                                <thead>
-                                    <tr>
-                                        <th>Employee</th>
-                                        <th>Leave Type</th>
-                                        <th>From</th>
-                                        <th>To</th>
-                                        <th>No of Days</th>
-                                        <th>Reason</th>
-                                        <th class="text-center">Status</th>
-                                        <th class="text-right">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <a class="avatar">R</a>
-                                            <h2><a href="#">Richard Miles <span>Web Developer</span></a></h2>
-                                        </td>
-                                        <td>Casual Leave</td>
-                                        <td>8 Aug 2017</td>
-                                        <td>8 Aug 2017</td>
-                                        <td>2 days</td>
-                                        <td>Going to Hospital</td>
-                                        <td class="text-center">
-                                            <div class="dropdown action-label">
-                                                <a class="btn btn-white btn-sm rounded dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
-                                                    <i class="fa fa-dot-circle-o text-purple"></i> New <i class="caret"></i>
-                                                </a>
-                                                <ul class="dropdown-menu pull-right">
-                                                    <li><a href="#"><i class="fa fa-dot-circle-o text-purple"></i> New</a></li>
-                                                    <li><a href="#"><i class="fa fa-dot-circle-o text-info"></i> Pending</a></li>
-                                                    <li><a href="#"><i class="fa fa-dot-circle-o text-success"></i> Approved</a></li>
-                                                    <li><a href="#"><i class="fa fa-dot-circle-o text-danger"></i> Declined</a></li>
-                                                </ul>
-                                            </div>
-                                        </td>
-                                        <td class="text-right">
-                                            <div class="dropdown">
-                                                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                                                <ul class="dropdown-menu pull-right">
-                                                    <li><a href="#" title="Edit" data-toggle="modal" data-target="#edit_leave"><i class="fa fa-pencil m-r-5"></i> Edit</a></li>
-                                                    <li><a href="#" title="Decline" data-toggle="modal" data-target="#delete_approve"><i class="fa fa-trash-o m-r-5"></i> Delete</a></li>
-                                                </ul>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <a class="avatar">J</a>
-                                            <h2><a>	John Doe  <span>Web Designer</span></a></h2>
-                                        </td>
-                                        <td>Medical Leave</td>
-                                        <td>13 Jul 2017</td>
-                                        <td>15 Jul 2017</td>
-                                        <td>3 days</td>
-                                        <td>Going to Hospital</td>
-                                        <td class="text-center">
-                                            <div class="dropdown action-label">
-                                                <a class="btn btn-white btn-sm rounded dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
-                                                    <i class="fa fa-dot-circle-o text-success"></i> Approved <i class="caret"></i>
-                                                </a>
-                                                <ul class="dropdown-menu pull-right">
-                                                    <li><a href="#"><i class="fa fa-dot-circle-o text-purple"></i> New</a></li>
-                                                    <li><a href="#"><i class="fa fa-dot-circle-o text-info"></i> Pending</a></li>
-                                                    <li><a href="#"><i class="fa fa-dot-circle-o text-success"></i> Approved</a></li>
-                                                    <li><a href="#"><i class="fa fa-dot-circle-o text-danger"></i> Declined</a></li>
-                                                </ul>
-                                            </div>
-                                        </td>
-                                        <td class="text-right">
-                                            <div class="dropdown">
-                                                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                                                <ul class="dropdown-menu pull-right">
-                                                    <li><a href="#" title="Edit" data-toggle="modal" data-target="#edit_leave"><i class="fa fa-pencil m-r-5"></i> Edit</a></li>
-                                                    <li><a href="#" title="Decline" data-toggle="modal" data-target="#delete_approve"><i class="fa fa-trash-o m-r-5"></i> Delete</a></li>
-                                                </ul>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <a class="avatar">J</a>
-                                            <h2><a>John Smith <span>Android Developer</span></a></h2>
-                                        </td>
-                                        <td>Casual Leave</td>
-                                        <td>27 Jun 2017</td>
-                                        <td>28 Jun 2017</td>
-                                        <td>2 days</td>
-                                        <td>Going to Hospital</td>
-                                        <td class="text-center">
-                                            <div class="dropdown action-label">
-                                                <a class="btn btn-white btn-sm rounded dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
-                                                    <i class="fa fa-dot-circle-o text-success"></i> Approved <i class="caret"></i>
-                                                </a>
-                                                <ul class="dropdown-menu pull-right">
-                                                    <li><a href="#"><i class="fa fa-dot-circle-o text-purple"></i> New</a></li>
-                                                    <li><a href="#"><i class="fa fa-dot-circle-o text-info"></i> Pending</a></li>
-                                                    <li><a href="#"><i class="fa fa-dot-circle-o text-success"></i> Approved</a></li>
-                                                    <li><a href="#"><i class="fa fa-dot-circle-o text-danger"></i> Declined</a></li>
-                                                </ul>
-                                            </div>
-                                        </td>
-                                        <td class="text-right">
-                                            <div class="dropdown">
-                                                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                                                <ul class="dropdown-menu pull-right">
-                                                    <li><a href="#" title="Edit" data-toggle="modal" data-target="#edit_leave"><i class="fa fa-pencil m-r-5"></i> Edit</a></li>
-                                                    <li><a href="#" title="Decline" data-toggle="modal" data-target="#delete_approve"><i class="fa fa-trash-o m-r-5"></i> Delete</a></li>
-                                                </ul>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <a class="avatar">M</a>
-                                            <h2><a>Mike Litorus  <span>IOS Developer</span></a></h2>
-                                        </td>
-                                        <td>Casual Leave</td>
-                                        <td>13 May 2017</td>
-                                        <td>13 May 2017</td>
-                                        <td>2 days</td>
-                                        <td>Going to Hospital</td>
-                                        <td class="text-center">
-                                            <div class="dropdown action-label">
-                                                <a class="btn btn-white btn-sm rounded dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
-                                                    <i class="fa fa-dot-circle-o text-danger"></i> Declined <i class="caret"></i>
-                                                </a>
-                                                <ul class="dropdown-menu pull-right">
-                                                    <li><a href="#"><i class="fa fa-dot-circle-o text-purple"></i> New</a></li>
-                                                    <li><a href="#"><i class="fa fa-dot-circle-o text-info"></i> Pending</a></li>
-                                                    <li><a href="#"><i class="fa fa-dot-circle-o text-success"></i> Approved</a></li>
-                                                    <li><a href="#"><i class="fa fa-dot-circle-o text-danger"></i> Declined</a></li>
-                                                </ul>
-                                            </div>
-                                        </td>
-                                        <td class="text-right">
-                                            <div class="dropdown">
-                                                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                                                <ul class="dropdown-menu pull-right">
-                                                    <li><a href="#" title="Edit" data-toggle="modal" data-target="#edit_leave"><i class="fa fa-pencil m-r-5"></i> Edit</a></li>
-                                                    <li><a href="#" title="Decline" data-toggle="modal" data-target="#delete_approve"><i class="fa fa-trash-o m-r-5"></i> Delete</a></li>
-                                                </ul>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <a class="avatar">R</a>
-                                            <h2><a>Richard Parker <span>Web Developer</span></a></h2>
-                                        </td>
-                                        <td>Casual Leave</td>
-                                        <td>31 Mar 2017</td>
-                                        <td>31 Mar 2017</td>
-                                        <td>2 days</td>
-                                        <td>Going to Hospital</td>
-                                        <td class="text-center">
-                                            <div class="dropdown action-label">
-                                                <a class="btn btn-white btn-sm rounded dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
-                                                    <i class="fa fa-dot-circle-o text-purple"></i> New <i class="caret"></i>
-                                                </a>
-                                                <ul class="dropdown-menu pull-right">
-                                                    <li><a href="#"><i class="fa fa-dot-circle-o text-purple"></i> New</a></li>
-                                                    <li><a href="#"><i class="fa fa-dot-circle-o text-info"></i> Pending</a></li>
-                                                    <li><a href="#"><i class="fa fa-dot-circle-o text-success"></i> Approved</a></li>
-                                                    <li><a href="#"><i class="fa fa-dot-circle-o text-danger"></i> Declined</a></li>
-                                                </ul>
-                                            </div>
-                                        </td>
-                                        <td class="text-right">
-                                            <div class="dropdown">
-                                                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                                                <ul class="dropdown-menu pull-right">
-                                                    <li><a href="#" title="Edit" data-toggle="modal" data-target="#edit_leave"><i class="fa fa-pencil m-r-5"></i> Edit</a></li>
-                                                    <li><a href="#" title="Decline" data-toggle="modal" data-target="#delete_approve"><i class="fa fa-trash-o m-r-5"></i> Delete</a></li>
-                                                </ul>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <a class="avatar">C</a>
-                                            <h2><a>Catherine Manseau <span>Web Developer</span></a></h2>
-                                        </td>
-                                        <td>Casual Leave</td>
-                                        <td>5 May 2017</td>
-                                        <td>6 May 2017</td>
-                                        <td>2 days</td>
-                                        <td>Going to Hospital</td>
-                                        <td class="text-center">
-                                            <div class="dropdown action-label">
-                                                <a class="btn btn-white btn-sm rounded dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
-                                                    <i class="fa fa-dot-circle-o text-success"></i> Approved <i class="caret"></i>
-                                                </a>
-                                                <ul class="dropdown-menu pull-right">
-                                                    <li><a href="#"><i class="fa fa-dot-circle-o text-purple"></i> New</a></li>
-                                                    <li><a href="#"><i class="fa fa-dot-circle-o text-info"></i> Pending</a></li>
-                                                    <li><a href="#"><i class="fa fa-dot-circle-o text-success"></i> Approved</a></li>
-                                                    <li><a href="#"><i class="fa fa-dot-circle-o text-danger"></i> Declined</a></li>
-                                                </ul>
-                                            </div>
-                                        </td>
-                                        <td class="text-right">
-                                            <div class="dropdown">
-                                                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                                                <ul class="dropdown-menu pull-right">
-                                                    <li><a href="#" title="Edit" data-toggle="modal" data-target="#edit_leave"><i class="fa fa-pencil m-r-5"></i> Edit</a></li>
-                                                    <li><a href="#" title="Decline" data-toggle="modal" data-target="#delete_approve"><i class="fa fa-trash-o m-r-5"></i> Delete</a></li>
-                                                </ul>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <a class="avatar">B</a>
-                                            <h2><a>Buster Wigton <span>Web Developer</span></a></h2>
-                                        </td>
-                                        <td>Casual Leave</td>
-                                        <td>5 May 2017</td>
-                                        <td>6 May 2017</td>
-                                        <td>2 days</td>
-                                        <td>Going to Hospital</td>
-                                        <td class="text-center">
-                                            <div class="dropdown action-label">
-                                                <a class="btn btn-white btn-sm rounded dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
-                                                    <i class="fa fa-dot-circle-o text-success"></i> Approved <i class="caret"></i>
-                                                </a>
-                                                <ul class="dropdown-menu pull-right">
-                                                    <li><a href="#"><i class="fa fa-dot-circle-o text-purple"></i> New</a></li>
-                                                    <li><a href="#"><i class="fa fa-dot-circle-o text-info"></i> Pending</a></li>
-                                                    <li><a href="#"><i class="fa fa-dot-circle-o text-success"></i> Approved</a></li>
-                                                    <li><a href="#"><i class="fa fa-dot-circle-o text-danger"></i> Declined</a></li>
-                                                </ul>
-                                            </div>
-                                        </td>
-                                        <td class="text-right">
-                                            <div class="dropdown">
-                                                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                                                <ul class="dropdown-menu pull-right">
-                                                    <li><a href="#" title="Edit" data-toggle="modal" data-target="#edit_leave"><i class="fa fa-pencil m-r-5"></i> Edit</a></li>
-                                                    <li><a href="#" title="Decline" data-toggle="modal" data-target="#delete_approve"><i class="fa fa-trash-o m-r-5"></i> Delete</a></li>
-                                                </ul>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <a class="avatar">M</a>
-                                            <h2><a>Melita Faucher <span>Web Developer</span></a></h2>
-                                        </td>
-                                        <td>Casual Leave</td>
-                                        <td>5 May 2017</td>
-                                        <td>6 May 2017</td>
-                                        <td>2 days</td>
-                                        <td>Going to Hospital</td>
-                                        <td class="text-center">
-                                            <div class="dropdown action-label">
-                                                <a class="btn btn-white btn-sm rounded dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
-                                                    <i class="fa fa-dot-circle-o text-danger"></i> Declined <i class="caret"></i>
-                                                </a>
-                                                <ul class="dropdown-menu pull-right">
-                                                    <li><a href="#"><i class="fa fa-dot-circle-o text-purple"></i> New</a></li>
-                                                    <li><a href="#"><i class="fa fa-dot-circle-o text-info"></i> Pending</a></li>
-                                                    <li><a href="#"><i class="fa fa-dot-circle-o text-success"></i> Approved</a></li>
-                                                    <li><a href="#"><i class="fa fa-dot-circle-o text-danger"></i> Declined</a></li>
-                                                </ul>
-                                            </div>
-                                        </td>
-                                        <td class="text-right">
-                                            <div class="dropdown">
-                                                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                                                <ul class="dropdown-menu pull-right">
-                                                    <li><a href="#" title="Edit" data-toggle="modal" data-target="#edit_leave"><i class="fa fa-pencil m-r-5"></i> Edit</a></li>
-                                                    <li><a href="#" title="Decline" data-toggle="modal" data-target="#delete_approve"><i class="fa fa-trash-o m-r-5"></i> Delete</a></li>
-                                                </ul>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <a class="avatar">T</a>
-                                            <h2><a>Tarah Shropshire <span>Web Developer</span></a></h2>
-                                        </td>
-                                        <td>Casual Leave</td>
-                                        <td>5 May 2017</td>
-                                        <td>6 May 2017</td>
-                                        <td>2 days</td>
-                                        <td>Going to Hospital</td>
-                                        <td class="text-center">
-                                            <div class="dropdown action-label">
-                                                <a class="btn btn-white btn-sm rounded dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
-                                                    <i class="fa fa-dot-circle-o text-purple"></i> New <i class="caret"></i>
-                                                </a>
-                                                <ul class="dropdown-menu pull-right">
-                                                    <li><a href="#"><i class="fa fa-dot-circle-o text-purple"></i> New</a></li>
-                                                    <li><a href="#"><i class="fa fa-dot-circle-o text-info"></i> Pending</a></li>
-                                                    <li><a href="#"><i class="fa fa-dot-circle-o text-success"></i> Approved</a></li>
-                                                    <li><a href="#"><i class="fa fa-dot-circle-o text-danger"></i> Declined</a></li>
-                                                </ul>
-                                            </div>
-                                        </td>
-                                        <td class="text-right">
-                                            <div class="dropdown">
-                                                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                                                <ul class="dropdown-menu pull-right">
-                                                    <li><a href="#" title="Edit" data-toggle="modal" data-target="#edit_leave"><i class="fa fa-pencil m-r-5"></i> Edit</a></li>
-                                                    <li><a href="#" title="Decline" data-toggle="modal" data-target="#delete_approve"><i class="fa fa-trash-o m-r-5"></i> Delete</a></li>
-                                                </ul>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <a class="avatar">D</a>
-                                            <h2><a>Domenic Houston <span>Web Developer</span></a></h2>
-                                        </td>
-                                        <td>Casual Leave</td>
-                                        <td>5 May 2017</td>
-                                        <td>6 May 2017</td>
-                                        <td>2 days</td>
-                                        <td>Going to Hospital</td>
-                                        <td class="text-center">
-                                            <div class="dropdown action-label">
-                                                <a class="btn btn-white btn-sm rounded dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
-                                                    <i class="fa fa-dot-circle-o text-success"></i> Approved <i class="caret"></i>
-                                                </a>
-                                                <ul class="dropdown-menu pull-right">
-                                                    <li><a href="#"><i class="fa fa-dot-circle-o text-purple"></i> New</a></li>
-                                                    <li><a href="#"><i class="fa fa-dot-circle-o text-info"></i> Pending</a></li>
-                                                    <li><a href="#"><i class="fa fa-dot-circle-o text-success"></i> Approved</a></li>
-                                                    <li><a href="#"><i class="fa fa-dot-circle-o text-danger"></i> Declined</a></li>
-                                                </ul>
-                                            </div>
-                                        </td>
-                                        <td class="text-right">
-                                            <div class="dropdown">
-                                                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                                                <ul class="dropdown-menu pull-right">
-                                                    <li><a href="#" title="Edit" data-toggle="modal" data-target="#edit_leave"><i class="fa fa-pencil m-r-5"></i> Edit</a></li>
-                                                    <li><a href="#" title="Decline" data-toggle="modal" data-target="#delete_approve"><i class="fa fa-trash-o m-r-5"></i> Delete</a></li>
-                                                </ul>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <a class="avatar">
-                                                <img src="assets/img/user.jpg" alt="John Doe">
+                            
+								<tbody>
+								<thead>
+									<tr>
+										<!-- 시작일과 종료일도 뜨게 해주고 싶네 -->
+										<th>결재번호</th>
+										<th>결재분류</th>
+										<th>결재제목</th>
+										<th>결재라인</th>
+										<th>상신일</th>
+										<th>진행상태</th>
+										<th rowspan="2">신청사유</th>                                     
+									</tr>
+								</thead>
+                               	
+                               	
+                                <c:forEach var="report" items="${ requestScope.reportList }">
+                                
+                                	<!-- 승인인지 여부만 확인 -->
+                                	<c:set var="isApproved" value="${ fn:contains(report.reportStatus, \"승인\") }"/>
+                                	
+									<tr>
+										<td><c:out value="${ report.reportNo }"/></td>
+										<td><c:if test="${ report.documentNo eq 4 }"><c:out value="근무신청서"/></c:if>
+											<c:if test="${ report.documentNo eq 5 }"><c:out value="초과근무신청서"/></c:if> </td>
+										<td><c:out value="${ report.reportTitle}"/></td>
+										<td><c:out value="${ report.lineName }"/></td>
+										<td><c:out value="${ report.reportDate }"/></td>
+										<td> 
+											<c:choose>
+												<c:when test="${ isApproved }">
+													<i class="fa fa-dot-circle-o text-success"></i><c:out value=" ${ report.reportStatus }"/>
+												</c:when>
+												<c:otherwise>
+													<i class="fa fa-dot-circle-o text-danger"></i><c:out value=" ${ report.reportStatus }"/>
+												</c:otherwise>
+											</c:choose>
+										</td>
+										
+										<td><c:out value="${ report.reportNote }"/></td>
+									</tr>
+								</c:forEach>	
+                                
+								<tr>
+									<td><h2>Richard Miles</h2></td>
+                                    <td>Casual Leave</td>
+                                    <td>8 Aug 2017</td>
+                                    <td>8 Aug 2017</td>
+                                    <td>2 days</td>
+                                    <td>Going to Hospital</td>
+                                    <td class="text-center">
+                                        <div class="dropdown action-label">
+                                            <a class="btn btn-white btn-sm rounded dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
+                                                <i class="fa fa-dot-circle-o text-purple"></i> New <i class="caret"></i>
                                             </a>
-                                            <h2><a>John Doe <span>Web Designer</span></a></h2>
-                                        </td>
-                                        <td>Casual Leave</td>
-                                        <td>5 May 2017</td>
-                                        <td>6 May 2017</td>
-                                        <td>2 days</td>
-                                        <td>Going to Hospital</td>
-                                        <td class="text-center">
-                                            <div class="dropdown action-label">
-                                                <a class="btn btn-white btn-sm rounded dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
-                                                    <i class="fa fa-dot-circle-o text-success"></i> Approved <i class="caret"></i>
-                                                </a>
-                                                <ul class="dropdown-menu pull-right">
-                                                    <li><a href="#"><i class="fa fa-dot-circle-o text-purple"></i> New</a></li>
-                                                    <li><a href="#"><i class="fa fa-dot-circle-o text-info"></i> Pending</a></li>
-                                                    <li><a href="#"><i class="fa fa-dot-circle-o text-success"></i> Approved</a></li>
-                                                    <li><a href="#"><i class="fa fa-dot-circle-o text-danger"></i> Declined</a></li>
-                                                </ul>
-                                            </div>
-                                        </td>
-                                        <td class="text-right">
-                                            <div class="dropdown">
-                                                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                                                <ul class="dropdown-menu pull-right">
-                                                    <li><a href="#" title="Edit" data-toggle="modal" data-target="#edit_leave"><i class="fa fa-pencil m-r-5"></i> Edit</a></li>
-                                                    <li><a href="#" title="Decline" data-toggle="modal" data-target="#delete_approve"><i class="fa fa-trash-o m-r-5"></i> Delete</a></li>
-                                                </ul>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <a class="avatar">R</a>
-                                            <h2><a>Rolland Webber <span>Web Developer</span></a></h2>
-                                        </td>
-                                        <td>Casual Leave</td>
-                                        <td>5 May 2017</td>
-                                        <td>6 May 2017</td>
-                                        <td>2 days</td>
-                                        <td>Going to Hospital</td>
-                                        <td class="text-center">
-                                            <div class="dropdown action-label">
-                                                <a class="btn btn-white btn-sm rounded dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
-                                                    <i class="fa fa-dot-circle-o text-danger"></i> Declined <i class="caret"></i>
-                                                </a>
-                                                <ul class="dropdown-menu pull-right">
-                                                    <li><a href="#"><i class="fa fa-dot-circle-o text-purple"></i> New</a></li>
-                                                    <li><a href="#"><i class="fa fa-dot-circle-o text-info"></i> Pending</a></li>
-                                                    <li><a href="#"><i class="fa fa-dot-circle-o text-success"></i> Approved</a></li>
-                                                    <li><a href="#"><i class="fa fa-dot-circle-o text-danger"></i> Declined</a></li>
-                                                </ul>
-                                            </div>
-                                        </td>
-                                        <td class="text-right">
-                                            <div class="dropdown">
-                                                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                                                <ul class="dropdown-menu pull-right">
-                                                    <li><a href="#" title="Edit" data-toggle="modal" data-target="#edit_leave"><i class="fa fa-pencil m-r-5"></i> Edit</a></li>
-                                                    <li><a href="#" title="Decline" data-toggle="modal" data-target="#delete_approve"><i class="fa fa-trash-o m-r-5"></i> Delete</a></li>
-                                                </ul>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                            <ul class="dropdown-menu pull-right">
+                                                <li><a href="#"><i class="fa fa-dot-circle-o text-purple"></i> New</a></li>
+                                                <li><a href="#"><i class="fa fa-dot-circle-o text-info"></i> Pending</a></li>
+                                                <li><a href="#"><i class="fa fa-dot-circle-o text-success"></i> Approved</a></li>
+                                                <li><a href="#"><i class="fa fa-dot-circle-o text-danger"></i> Declined</a></li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                    <td class="text-right">
+                                        <div class="dropdown">
+                                            <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                                            <ul class="dropdown-menu pull-right">
+                                                <li><a href="#" title="Edit" data-toggle="modal" data-target="#edit_leave"><i class="fa fa-pencil m-r-5"></i> Edit</a></li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+								</tbody>
+                            </table> <!-- 근무신청내용 end -->
+                            
+						<!-- 페이징 부분 -->
+						<div class="pagingArea" align="center">
+							<!-- 맨 앞으로 이동 버튼 -->
+	    					<button id="startPage"><<</button>
+		
+							<!-- 이전 페이지 버튼 -->
+							<c:if test="${ requestScope.selectCriteria.pageNo <= 1 }">
+								<button disabled><</button>
+							</c:if>
+							<c:if test="${ requestScope.selectCriteria.pageNo > 1 }">
+								<button id="prevPage"><</button>
+							</c:if>
+		
+							<!-- 숫자 버튼 -->
+							<c:forEach var="p" begin="${ requestScope.selectCriteria.startPage }" end="${ requestScope.selectCriteria.endPage }" step="1">
+								<c:if test="${ requestScope.selectCriteria.pageNo eq p }">
+									<button disabled><c:out value="${ p }"/></button>
+								</c:if>
+								<c:if test="${ requestScope.selectCriteria.pageNo ne p }">
+									<button onclick="pageButtonAction(this.innerText);"><c:out value="${ p }"/></button>
+								</c:if>
+							</c:forEach>
+		
+							<!-- 다음 페이지 버튼 -->
+							<c:if test="${ requestScope.selectCriteria.pageNo >= requestScope.selectCriteria.maxPage }">
+								<button disabled>></button>
+							</c:if>
+							<c:if test="${ requestScope.selectCriteria.pageNo < requestScope.selectCriteria.maxPage }">
+								<button id="nextPage">></button>
+							</c:if>
+		
+							<!-- 마지막 페이지로 이동 버튼 -->
+							<button id="maxPage">>></button> 
+						</div>
+						
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="notification-box">
-                <div class="msg-sidebar notifications msg-noti">
-                    <div class="topnav-dropdown-header">
-                        <span>Messages</span>
-                    </div>
-                    <div class="drop-scroll msg-list-scroll">
-                        <ul class="list-box">
-                            <li>
-                                <a href="chat.html">
-                                    <div class="list-item">
-                                        <div class="list-left">
-                                            <span class="avatar">R</span>
-                                        </div>
-                                        <div class="list-body">
-                                            <span class="message-author">Richard Miles </span>
-                                            <span class="message-time">12:28 AM</span>
-                                            <div class="clearfix"></div>
-                                            <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="chat.html">
-                                    <div class="list-item new-message">
-                                        <div class="list-left">
-                                            <span class="avatar">J</span>
-                                        </div>
-                                        <div class="list-body">
-                                            <span class="message-author">John Doe</span>
-                                            <span class="message-time">1 Aug</span>
-                                            <div class="clearfix"></div>
-                                            <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="chat.html">
-                                    <div class="list-item">
-                                        <div class="list-left">
-                                            <span class="avatar">T</span>
-                                        </div>
-                                        <div class="list-body">
-                                            <span class="message-author"> Tarah Shropshire </span>
-                                            <span class="message-time">12:28 AM</span>
-                                            <div class="clearfix"></div>
-                                            <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="chat.html">
-                                    <div class="list-item">
-                                        <div class="list-left">
-                                            <span class="avatar">M</span>
-                                        </div>
-                                        <div class="list-body">
-                                            <span class="message-author">Mike Litorus</span>
-                                            <span class="message-time">12:28 AM</span>
-                                            <div class="clearfix"></div>
-                                            <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="chat.html">
-                                    <div class="list-item">
-                                        <div class="list-left">
-                                            <span class="avatar">C</span>
-                                        </div>
-                                        <div class="list-body">
-                                            <span class="message-author"> Catherine Manseau </span>
-                                            <span class="message-time">12:28 AM</span>
-                                            <div class="clearfix"></div>
-                                            <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="chat.html">
-                                    <div class="list-item">
-                                        <div class="list-left">
-                                            <span class="avatar">D</span>
-                                        </div>
-                                        <div class="list-body">
-                                            <span class="message-author"> Domenic Houston </span>
-                                            <span class="message-time">12:28 AM</span>
-                                            <div class="clearfix"></div>
-                                            <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="chat.html">
-                                    <div class="list-item">
-                                        <div class="list-left">
-                                            <span class="avatar">B</span>
-                                        </div>
-                                        <div class="list-body">
-                                            <span class="message-author"> Buster Wigton </span>
-                                            <span class="message-time">12:28 AM</span>
-                                            <div class="clearfix"></div>
-                                            <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="chat.html">
-                                    <div class="list-item">
-                                        <div class="list-left">
-                                            <span class="avatar">R</span>
-                                        </div>
-                                        <div class="list-body">
-                                            <span class="message-author"> Rolland Webber </span>
-                                            <span class="message-time">12:28 AM</span>
-                                            <div class="clearfix"></div>
-                                            <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="chat.html">
-                                    <div class="list-item">
-                                        <div class="list-left">
-                                            <span class="avatar">C</span>
-                                        </div>
-                                        <div class="list-body">
-                                            <span class="message-author"> Claire Mapes </span>
-                                            <span class="message-time">12:28 AM</span>
-                                            <div class="clearfix"></div>
-                                            <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="chat.html">
-                                    <div class="list-item">
-                                        <div class="list-left">
-                                            <span class="avatar">M</span>
-                                        </div>
-                                        <div class="list-body">
-                                            <span class="message-author">Melita Faucher</span>
-                                            <span class="message-time">12:28 AM</span>
-                                            <div class="clearfix"></div>
-                                            <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="chat.html">
-                                    <div class="list-item">
-                                        <div class="list-left">
-                                            <span class="avatar">J</span>
-                                        </div>
-                                        <div class="list-body">
-                                            <span class="message-author">Jeffery Lalor</span>
-                                            <span class="message-time">12:28 AM</span>
-                                            <div class="clearfix"></div>
-                                            <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="chat.html">
-                                    <div class="list-item">
-                                        <div class="list-left">
-                                            <span class="avatar">L</span>
-                                        </div>
-                                        <div class="list-body">
-                                            <span class="message-author">Loren Gatlin</span>
-                                            <span class="message-time">12:28 AM</span>
-                                            <div class="clearfix"></div>
-                                            <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="chat.html">
-                                    <div class="list-item">
-                                        <div class="list-left">
-                                            <span class="avatar">T</span>
-                                        </div>
-                                        <div class="list-body">
-                                            <span class="message-author">Tarah Shropshire</span>
-                                            <span class="message-time">12:28 AM</span>
-                                            <div class="clearfix"></div>
-                                            <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="topnav-dropdown-footer">
-                        <a href="chat.html">See all messages</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="delete_approve" class="modal custom-modal fade" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content modal-md">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Decline Leave Request</h4>
-                    </div>
-                    <form>
-                        <div class="modal-body card-box">
-                            <p>Are you sure want to declined this leave request?</p>
-                            <div class="m-t-20 text-left">
-                                <a href="#" class="btn btn-default" data-dismiss="modal">Close</a>
-                                <button type="submit" class="btn btn-danger">Decline</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <div id="add_leave" class="modal custom-modal fade" role="dialog">
-            <div class="modal-dialog">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <div class="modal-content modal-md">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Add Leave Request</h4>
-                    </div>
-                    <div class="modal-body">
-                        <form>
-                            <div class="form-group">
-                                <label>Leave Type <span class="text-danger">*</span></label>
-                                <select class="select">
-                                    <option>Select Leave Type</option>
-                                    <option>Casual Leave 12 Days</option>
-                                    <option>Medical Leave</option>
-                                    <option>Loss of Pay</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>From <span class="text-danger">*</span></label>
-                                <div class="cal-icon">
-                                    <input class="form-control datetimepicker" type="text">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label>To <span class="text-danger">*</span></label>
-                                <div class="cal-icon">
-                                    <input class="form-control datetimepicker" type="text">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label>Number of days <span class="text-danger">*</span></label>
-                                <input class="form-control" readonly="" type="text">
-                            </div>
-                            <div class="form-group">
-                                <label>Remaining Leaves <span class="text-danger">*</span></label>
-                                <input class="form-control" readonly="" value="12" type="text">
-                            </div>
-                            <div class="form-group">
-                                <label>Leave Reason <span class="text-danger">*</span></label>
-                                <textarea rows="4" cols="5" class="form-control"></textarea>
-                            </div>
-                            <div class="m-t-20 text-center">
-                                <button class="btn btn-primary btn-lg">Send Leave Request</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="edit_leave" class="modal custom-modal fade" role="dialog">
+		</div>
+       
+       
+       <!-- 상세보기를 누르면 뜨는 모달  -->
+		<div id="edit_leave" class="modal custom-modal fade" role="dialog">
             <div class="modal-dialog">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <div class="modal-content modal-md">
@@ -822,8 +246,31 @@
             </div>
         </div>
     
-        
-    </div>
+    </div><!-- main-wrapper end -->
+    
+    <script>
+		if(document.getElementsByTagName("td")) {
+			const $tds = document.getElementsByTagName("td");
+			for(let i = 0; i < $tds.length; i++) {
+				
+				$tds[i].onmouseenter = function() {
+					this.parentNode.style.backgroundColor = "orangered";
+					this.parentNode.style.cursor = "pointer";
+				}
+				
+				$tds[i].onmouseout = function() {
+					this.parentNode.style.backgroundColor = "white";
+				}
+				
+				$tds[i].onclick = function() {
+					const no = this.parentNode.children[0].innerText; //결재번호가 0번째 td이므로, [0]의 innerText를 가져오기
+					location.href = "${ pageContext.servletContext.contextPath }/approval/applied/selectOne?no=" + no;
+				}
+				
+			}
+			
+		}
+	</script>
 </body>
 
 </html>

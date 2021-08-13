@@ -95,8 +95,7 @@ public class InsertWorkingSystemScheduleServlet extends HttpServlet {
 		ScheduleService scheduleService = new ScheduleService();		
 		int result1 = scheduleService.applyWorkingSystem(reportDTO);
 		
-		int result5 = 0;
-		int result6 = 0; 		//if문 밖인 제일 마지막에서도 판단할 수 있도록 바깥에 빼서 선언해준다		
+		int result3 = 0; 		//if문 밖인 제일 마지막에서도 판단할 수 있도록 바깥에 빼서 선언해준다		
 		if(result1 > 0 ) { 
 
 			
@@ -134,7 +133,6 @@ public class InsertWorkingSystemScheduleServlet extends HttpServlet {
 				System.out.println(approverList);
 
 				/* 3-2. 상신별결재자(TBL_APPROVER_PER_REPORT)에 insert */
-				int result3 = 0;
 				for(ApproverDTO approver : approverList) {
 					ApproverPerReportDTO approverPerReportDTO = new ApproverPerReportDTO();
 					approverPerReportDTO.setReportNo(reportNo);
@@ -151,7 +149,7 @@ public class InsertWorkingSystemScheduleServlet extends HttpServlet {
 
 		/* 성공여부에 따라 success 혹은 fail로 넘겨줌 */
 		String path = "";
-		if(result1 > 0 && result6 > 0) {
+		if(result1 > 0 && result3 > 0) {
 			System.out.println("alert 근무신청 상신성공");			
 			path = "/WEB-INF/views/common/success.jsp";
 			request.setAttribute("successCode", "insertWork");

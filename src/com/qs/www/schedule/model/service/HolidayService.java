@@ -10,6 +10,7 @@ import com.qs.www.schedule.model.dao.HolidayDAO;
 import com.qs.www.schedule.model.dto.HolidayLogDTO;
 import com.qs.www.schedule.model.dto.HolidayTypeDTO;
 import com.qs.www.schedule.model.dto.HolidayUseInfoDTO;
+import com.qs.www.schedule.model.dto.ReportDTO;
 
 public class HolidayService {
 	
@@ -80,6 +81,17 @@ public class HolidayService {
 		session.close();
 		
 		return result;
+	}
+
+	public List<ReportDTO> selectMyholidayReport(int no) {
+		
+		SqlSession session = getSqlSession();
+		
+		List<ReportDTO> holidayReportList = holidayDAO.selectMyholidayReport(session, no);
+				
+		session.close();
+		
+		return holidayReportList;
 	}
 
 	
