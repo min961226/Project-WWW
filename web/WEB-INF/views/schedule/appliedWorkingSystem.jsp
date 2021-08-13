@@ -97,14 +97,14 @@
                                	
                                 <c:forEach var="report" items="${ requestScope.reportList }">
                                 
-                                	<!-- 승인인지 여부만 확인 -->
+                                	<!-- 승인인지 여부만 확인. 승인 이외에는 빨간색으로 -->
                                 	<c:set var="isApproved" value="${ fn:contains(report.reportStatus, \"승인\") }"/>
                                 	
 									<tr>
 										<td><c:out value="${ report.reportNo }"/></td>
 										<td><c:if test="${ report.documentNo eq 4 }"><c:out value="근무신청서"/></c:if>
 											<c:if test="${ report.documentNo eq 5 }"><c:out value="초과근무신청서"/></c:if> </td>
-										<td><c:out value="${ report.reportTitle}"/></td>
+										<td><c:out value="${ report.reportTitle }"/></td>
 										<td><c:out value="${ report.lineName }"/></td>
 										<td><c:out value="${ report.reportDate }"/></td>
 										<td> 
@@ -264,7 +264,7 @@
 				
 				$tds[i].onclick = function() {
 					const no = this.parentNode.children[0].innerText; //결재번호가 0번째 td이므로, [0]의 innerText를 가져오기
-					location.href = "${ pageContext.servletContext.contextPath }/approval/applied/selectOne?no=" + no;
+					location.href = "${ pageContext.servletContext.contextPath }/schedule/workingSystem/selectOne?no=" + no;
 				}
 				
 			}
