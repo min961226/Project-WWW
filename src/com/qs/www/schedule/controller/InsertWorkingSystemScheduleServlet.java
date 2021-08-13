@@ -59,20 +59,29 @@ public class InsertWorkingSystemScheduleServlet extends HttpServlet {
         }
         System.out.println("lineName : " + lineName);
         
-		int documentNo = 4;				//근무신청서의 문서번호는 4번이다.		
+        
+				
 		int workNo = Integer.parseInt(request.getParameter("workNo"));
 		int approverLine = Integer.parseInt(request.getParameter("line"));
 		String changeReason = request.getParameter("changeReason");
-
-		String workType = ""; 			//이 부분 수정해야 함
-		if(workNo > 5) {
-			workType = "커스텀근무제";
-		} else {
-			workType = "표준근무제";
-		}
-
 		String memberName = ((MemberInfoDTO) session.getAttribute("memberInfo")).getName();
-		String title = memberName + " " + workType + " 신청서";		//title도 미리 만들어둔다.
+
+		String workType = ""; 			//workNo로 workType을 정한다.
+		if(workNo == 6) {
+			workType = "커스텀";
+		} else if(workNo == 7){
+			workType = "표준";
+		} else {
+			workType = "초과";
+		}
+		String title = memberName + " " + workType + "근무 신청서";		//title 미리 만들어둔다.
+		
+		int documentNo = 0;
+		if(workNo == 7) {
+			documentNo = 5;				//초과근무신청서의 문서번호는 5번이다.
+		} else {
+			documentNo = 4;				//근무신청서의 문서번호는 4번이다.
+		}				
 		
 		
 		/* 1-1. 상신올릴 문서가 쓸 ReportNo 가져오기 */
@@ -108,6 +117,7 @@ public class InsertWorkingSystemScheduleServlet extends HttpServlet {
 			workingDocumentItem.add(request.getParameter("startDay"));
 			workingDocumentItem.add(request.getParameter("endDay"));
 			workingDocumentItem.add(changeReason);
+			workingDocumentItem.add(workType);
 			System.out.println("InsertWorkingSystemScheduleServlet의 List : " + workingDocumentItem);
 
 			int priority = 1;
