@@ -24,15 +24,6 @@
                         <h4 class="page-title">기숙사 입주 현황</h4>
                     </div>
                 </div>
-                <div class="search-area" align="right">
-			<select id="searchCondition" name="searchCondition">
-				<option value="writer">작성자</option>
-				<option value="title">제목</option>
-				<option value="content">내용</option>
-			</select>
-			<input type="search">
-			<button type="submit" style="background-color:orange;">검색하기</button>
-			
 		</div>
                 <div class="row" >
                     <div class="col-lg-12">
@@ -44,18 +35,24 @@
                                         <thead>
                                         <tr bgcolor = "FFBC35">
                                             <th>번호</th>
-                                            <th>제목</th>
-                                            <th>작성 날짜</th>
-                                            <th>조회수</th>
+                                            <th>종류</th>
+                                            <th>동</th>
+                                            <th>호</th>
+                                            <th>현재 이용중인 인원</th>
+                                            <th>최대 인원</th>
+                                            <th>신청하기</th>
                                         </tr>
 
                                     </thead>
                                 		<c:forEach var="domitory" items="${ requestScope.domitoryList }">
 										<tr>
 											<td><c:out value="${ domitory.domitoryManageNo }"/></td>
-											<td><c:out value="${ domitory.domitoryBlockNo }"/></td>
-											<td><c:out value="${ domitory.roomNo }"/></td>
-											<td><c:out value="${ domitory.maxCapacity }"/></td>
+											<td>기숙사</td>
+											<td><c:out value="${ domitory.domitoryBlockNo }"/> 동</td>
+											<td><c:out value="${ domitory.roomNo }"/> 호</td>											
+											<td><c:out value="${ domitory.currCapacity }"/> 명</td>
+											<td><c:out value="${ domitory.maxCapacity }"/> 명</td>
+											<td><button type="submit"> 신청하기 </button></td>
 										</tr>
 										</c:forEach>
 										
@@ -100,14 +97,13 @@
             </div>
 
         </div>
-    </div>
         	<script>
 		if(document.getElementsByTagName("td")) {
 			const $tds = document.getElementsByTagName("td");
 			for(let i = 0; i < $tds.length; i++) {
 				
 				$tds[i].onmouseenter = function() {
-					this.parentNode.style.backgroundColor = "orangered";
+					this.parentNode.style.backgroundColor = "orange";
 					this.parentNode.style.cursor = "pointer";
 				}
 				
@@ -118,7 +114,7 @@
 				$tds[i].onclick = function() {
 					/* 게시물 번호까지 알아왔으니 이제 상세보기는 할 수 있겠지? */
 					const no = this.parentNode.children[0].innerText;
-					location.href = "${ pageContext.servletContext.contextPath }/notice/detail?no=" + no;
+					location.href = "${ pageContext.servletContext.contextPath }/welfare/domitory/select?no=" + no;
 				}
 				
 			}
