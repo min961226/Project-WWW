@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.qs.www.schedule.model.dto.ApproverPerReportDTO;
 import com.qs.www.schedule.model.dto.WorkingDocumentItemDTO;
+import com.qs.www.welfare.model.dto.DomitoryListDTO;
 import com.qs.www.welfare.model.dto.FamilyEventDTO;
 import com.qs.www.welfare.model.dto.MemberOverTimeLogDTO;
 import com.qs.www.welfare.model.dto.WelfareListDTO;
@@ -59,6 +60,10 @@ public class WelfareDAO {
 
 	public List<MemberOverTimeLogDTO> checkNightTrans(SqlSession session, int memberNo) {
 		return session.selectList("WelfareDAO.checkNightTrans", memberNo);
+	}
+
+	public List<DomitoryListDTO> selectDomitory(SqlSession session) {
+		return session.selectList("WelfareDAO.selectDomitory");
 	}
 
 

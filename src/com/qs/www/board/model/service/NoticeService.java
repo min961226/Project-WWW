@@ -34,7 +34,7 @@ public class NoticeService {
 	}
 	public NoticeDTO selectNoticeDetail(int no) {
 		SqlSession session = getSqlSession();
-		NoticeDTO noticeDetail = null;
+		NoticeDTO noticeDetail = null;	
 		
 		int result = noticeDAO.incrementNoticeCount(session, no);
 		
