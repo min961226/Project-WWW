@@ -40,6 +40,7 @@
 					<span style="font-size:25px">W</span>elfare
 					<span style="font-size:25px">W</span>orkspace</h4>
 			</div>
+			<a id="mobile_btn" class="mobile_btn pull-left" href="#sidebar"><i class="fa fa-bars" aria-hidden="true"></i></a>
 			<ul class="nav navbar-nav navbar-right user-menu pull-right">
 				<li class="dropdown hidden-xs">
 					<a href="#">

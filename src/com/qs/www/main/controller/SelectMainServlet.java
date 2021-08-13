@@ -1,6 +1,7 @@
 package com.qs.www.main.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -70,6 +71,5 @@ public class SelectMainServlet extends HttpServlet {
 		path = "/WEB-INF/views/main/main.jsp";
 			
 		request.getRequestDispatcher(path).forward(request, response);
-		
 	}
 }
