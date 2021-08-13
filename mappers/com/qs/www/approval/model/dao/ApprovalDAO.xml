@@ -29,6 +29,8 @@
 		<result property="reportStatus" column="REPORT_STATUS" />
 		<result property="lineName" column="LINE_NAME" />
 		<result property="reportTitle" column="REPORT_TITLE" />
+		<result property="memberName" column="NAME" />
+		
 	</resultMap>
 	<resultMap type="com.qs.www.schedule.model.dto.WorkingDocumentItemDTO"
 		id="reportItemResultMap">
@@ -36,6 +38,13 @@
 		<result property="documentNo" column="DOCUMENT_NO" />
 		<result property="priority" column="PRIORITY" />
 		<result property="itemContent" column="ITEM_CONTENT" />
+	</resultMap>
+	<resultMap type="com.qs.www.schedule.model.dto.ApproverPerReportDTO"
+		id="APRResultMap">
+		<result property="reportNo" column="REPORT_NO" />
+		<result property="memberNo" column="MEMBER_NO" />
+		<result property="priority" column="PRIORITY" />
+		<result property="approverType" column="APPROVER_TYPE" />
 	</resultMap>
 	
 	<select id="selectApprovalLine" resultMap="approvalLineResultMap">
@@ -71,8 +80,10 @@
 		resultMap="reportResultMap">
 		SELECT /* com.qs.www.approval.model.dao.ApprovalDAO#selectOneReportDetail()*/
 			   A.*
+			 , B.NAME
 		  FROM TBL_REPORT A
-		 WHERE A.REPORT_NO = #{ no }
+		  JOIN TBL_MEMBER B ON (A.MEMBER_NO = B.MEMBER_NO )
+		 WHERE A.REPORT_NO = #{ reportNo }
 	</select>
 	<select id="selectReportItemList"
 		resultMap="reportItemResultMap">
@@ -88,6 +99,21 @@
 		   SET A.REPORT_STATUS = '회수'
 		 WHERE A.REPORT_NO = #{ no }
 	</update>
+	<update id="callbackApproverPerReport">
+		UPDATE /* com.qs.www.approval.model.dao.ApprovalDAO#callbackApproverPerReport()*/
+		       TBL_APPROVER_PER_REPORT A
+		   SET A.APPROVER_TYPE = '미처리'
+		 WHERE A.REPORT_NO = #{ no }
+	</update>
+	<select id="selectMyTurnAPR"
+		resultMap="APRResultMap">
+		SELECT /* com.qs.www.approval.model.dao.ApprovalDAO#selectOneReportDetail()*/
+			   A.*
+		  FROM TBL_APPROVER_PER_REPORT A
+		 WHERE A.MEMBER_NO = #{ no }
+		  AND  A.APPROVER_TYPE = '대기'
+		ORDER BY A.REPORT_NO DESC
+	</select>
 </mapper>
 	    
 

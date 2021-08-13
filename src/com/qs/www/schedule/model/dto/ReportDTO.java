@@ -13,11 +13,12 @@ public class ReportDTO implements Serializable{
 	private String reportStatus;			//결재상태
 	private String lineName;				//라인명
 	private String reportTitle;				//상신명(상신문서제목)
+	private String memberName;               //상신자명(상신테이블에는 없는속성)
 	
 	public ReportDTO() {}
 
 	public ReportDTO(int reportNo, Date reportDate, int memberNo, int documentNo, String reportNote,
-			String reportStatus, String lineName, String reportTitle) {
+			String reportStatus, String lineName, String reportTitle, String memberName) {
 		super();
 		this.reportNo = reportNo;
 		this.reportDate = reportDate;
@@ -27,6 +28,7 @@ public class ReportDTO implements Serializable{
 		this.reportStatus = reportStatus;
 		this.lineName = lineName;
 		this.reportTitle = reportTitle;
+		this.memberName = memberName;
 	}
 
 	public int getReportNo() {
@@ -93,12 +95,22 @@ public class ReportDTO implements Serializable{
 		this.reportTitle = reportTitle;
 	}
 
+	public String getMemberName() {
+		return memberName;
+	}
+
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
+	}
+
 	@Override
 	public String toString() {
 		return "ReportDTO [reportNo=" + reportNo + ", reportDate=" + reportDate + ", memberNo=" + memberNo
 				+ ", documentNo=" + documentNo + ", reportNote=" + reportNote + ", reportStatus=" + reportStatus
-				+ ", lineName=" + lineName + ", reportTitle=" + reportTitle + "]";
+				+ ", lineName=" + lineName + ", reportTitle=" + reportTitle + ", memberName=" + memberName + "]";
 	}
+
+	
 	
 	
 	

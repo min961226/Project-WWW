@@ -1,16 +1,13 @@
 package com.qs.www.schedule.model.service;
 
-import com.qs.www.approval.model.dto.ApproverDTO;
 import com.qs.www.schedule.model.dao.ScheduleDAO;
 import com.qs.www.schedule.model.dto.ApproverPerReportDTO;
-import com.qs.www.schedule.model.dto.HolidayTypeDTO;
 import com.qs.www.schedule.model.dto.MemberWorkLogDTO;
 import com.qs.www.schedule.model.dto.ReportDTO;
 import com.qs.www.schedule.model.dto.WorkingDocumentItemDTO;
 
 import static com.qs.www.common.mybatis.Template.getSqlSession;
 
-import java.util.Iterator;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -62,8 +59,8 @@ public class ScheduleService {
 		SqlSession session = getSqlSession();
 		
 		int result = scheduleDAO.applyWorkingSystemApprover(session, approverPerReportDTO);
-		
-		if(result > 0) {
+		int result2 = scheduleDAO.setFirstWorkingSystemApprover(session, approverPerReportDTO);
+		if(result > 0 && result2 > 0) {
 			session.commit();
 		} else {
 			session.rollback();
@@ -89,6 +86,18 @@ public class ScheduleService {
 		session.close();
 		
 		return result;
-	}	
+	}
+
+	public List<ReportDTO> selectMyWorkReport(int no) {
+		
+		SqlSession session = getSqlSession();
+		
+		List<ReportDTO> workReportList = scheduleDAO.selectMyWorkReport(session, no);
+				
+		session.close();
+		
+		return workReportList;
+	}
+	
 
 }
