@@ -56,6 +56,10 @@
 				successMessage = "결재처리가 완료되었습니다."
 				movePath = "${ pageContext.servletContext.contextPath }/approval/waiting/select";
 				break;
+			case "insertFree":
+				successMessage = "자유게시글 작성이 완료되었습니다."
+				movePath = "${ pageContext.servletContext.contextPath }/board/free/select";
+				break;
 
 			}
 
