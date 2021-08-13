@@ -8,15 +8,20 @@ public class WorkingLogDTO implements Serializable {
 	private int workLogNo;
 	private String workType;
 	private int workNo;
+	private String selectedDate;
+	private WorkingTypeDTO workingType;
 	private Date changeDate;
 	
 	public WorkingLogDTO() {}
 
-	public WorkingLogDTO(int workLogNo, String workType, int workNo, Date changeDate) {
+	public WorkingLogDTO(int workLogNo, String workType, int workNo, String selectedDate, WorkingTypeDTO workingType,
+			Date changeDate) {
 		super();
 		this.workLogNo = workLogNo;
 		this.workType = workType;
 		this.workNo = workNo;
+		this.selectedDate = selectedDate;
+		this.workingType = workingType;
 		this.changeDate = changeDate;
 	}
 
@@ -44,6 +49,22 @@ public class WorkingLogDTO implements Serializable {
 		this.workNo = workNo;
 	}
 
+	public String getSelectedDate() {
+		return selectedDate;
+	}
+
+	public void setSelectedDate(String selectedDate) {
+		this.selectedDate = selectedDate;
+	}
+
+	public WorkingTypeDTO getWorkingType() {
+		return workingType;
+	}
+
+	public void setWorkingType(WorkingTypeDTO workingType) {
+		this.workingType = workingType;
+	}
+
 	public Date getChangeDate() {
 		return changeDate;
 	}
@@ -55,6 +76,7 @@ public class WorkingLogDTO implements Serializable {
 	@Override
 	public String toString() {
 		return "WorkingLogDTO [workLogNo=" + workLogNo + ", workType=" + workType + ", workNo=" + workNo
-				+ ", changeDate=" + changeDate + "]";
+				+ ", selectedDate=" + selectedDate + ", workingType=" + workingType + ", changeDate=" + changeDate
+				+ "]";
 	}
 }

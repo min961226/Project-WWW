@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import com.qs.www.main.model.dto.CommutingLogDTO;
 import com.qs.www.main.model.dto.WorkInfoDTO;
 import com.qs.www.main.model.dto.WorkingLogDTO;
+import com.qs.www.main.model.dto.WorkingTypeDTO;
 
 public class MainDAO {
 
@@ -14,7 +15,11 @@ public class MainDAO {
 		return sqlSession.selectList("MainDAO.selectCommutingLog", workInfo);
 	}
 
-	public List<WorkingLogDTO> selectWorkingLog(SqlSession sqlSession, WorkInfoDTO workInfo) {
-		return sqlSession.selectList("MainDAO.selectWorkingLog", workInfo);
+	public WorkingLogDTO selectWorkingLog(SqlSession sqlSession, WorkInfoDTO workInfo) {
+		return sqlSession.selectOne("MainDAO.selectWorkingLog", workInfo);
+	}
+
+	public WorkingTypeDTO selectWorkingType(SqlSession sqlSession, WorkingLogDTO workingLog) {
+		return sqlSession.selectOne("MainDAO.selectWorkingType", workingLog);
 	}
 }

@@ -10,10 +10,19 @@
 	</resultMap>
 	
 	<resultMap type="com.qs.www.main.model.dto.WorkingLogDTO" id="workingLogResultMap">
-		<id property="workLogNo" column="WORK_LOG_NO"/>
+		<id property="workLogNo" column="MEMBER_WORK_LOG_NO"/>
 		<result property="workType" column="WORK_TYPE"/>
 		<result property="workNo" column="WORK_NO"/>
+		<result property="selectedDate" column="SELECTED_DATE"/>
 		<result property="changeDate" column="CHANGE_DATE"/>
+	</resultMap>
+		
+	<resultMap type="com.qs.www.main.model.dto.WorkingTypeDTO" id="workingTypeResultMap">
+		<result property="dayOfWeek" column="DAY_OF_WEEK"/>
+		<result property="checkInTime" column="CHECK_IN_TIME"/>
+		<result property="checkOutTime" column="CHECK_OUT_TIME"/>
+		<result property="breakStartTime" column="BREAK_START_TIME"/>
+		<result property="breakEndTime" column="BREAK_END_TIME"/>
 	</resultMap>
 
 	<select id="selectCommutingLog" parameterType="com.qs.www.main.model.dto.WorkInfoDTO" resultMap="commutingLogResultMap">
@@ -34,19 +43,34 @@
              , A.WORK_TYPE
              , A.WORK_NO
              , A.CHANGE_DATE
-             , C.DAY_OF_WEEK
-             , C.CHECK_IN_TIME
-             , C.CHECK_OUT_TIME
-             , B.BREAK_START_TIME
-             , B.BREAK_END_TIME
           FROM TBL_MEMBER_WORK_LOG A
-          JOIN TBL_CUSTOM_WORK B ON (A.WORK_NO = B.WORK_NO)
-          JOIN TBL_CUSTOM_WORKTIME C ON (B.WORK_NO = C.WORK_NO)
-         WHERE A.MEMBER_NO = '4'
+         WHERE A.MEMBER_NO = #{ memberNo }
          <![CDATA[
-           AND A.CHANGE_DATE = (SELECT MAX(D.CHANGE_DATE)
-                                  FROM TBL_MEMBER_WORK_LOG D
-                                 WHERE D.CHANGE_DATE <= '2021-08-25')
+           AND A.CHANGE_DATE = (SELECT MAX(B.CHANGE_DATE)
+                                  FROM TBL_MEMBER_WORK_LOG B
+                                 WHERE B.CHANGE_DATE <= #{ selectedDate })
          ]]>
+	</select>
+	
+	<select id="selectWorkingType" parameterType="com.qs.www.main.model.dto.WorkingLogDTO" resultMap="workingTypeResultMap">
+        SELECT /* com.qs.www.main.model.dao.MainDAO#selectWorkingType() */
+		<if test="workType eq '표준'">
+               A.CHECK_IN_TIME
+             , A.CHECK_OUT_TIME
+             , A.BREAK_START_TIME
+             , A.BREAK_END_TIME
+          FROM TBL_STANDARD_WORK A
+         WHERE A.WORK_CODE = #{ workNo }
+		</if>
+		<if test="workType eq '커스텀'">
+               B.DAY_OF_WEEK
+             , B.CHECK_IN_TIME
+             , B.CHECK_OUT_TIME
+             , A.BREAK_START_TIME
+             , A.BREAK_END_TIME
+          FROM TBL_CUSTOM_WORK A
+          JOIN TBL_CUSTOM_WORKTIME B ON (A.WORK_NO = B.WORK_NO)
+         WHERE A.WORK_NO = #{ workNo }
+		</if>
 	</select>
 </mapper>

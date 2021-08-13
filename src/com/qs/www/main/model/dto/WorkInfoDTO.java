@@ -7,23 +7,23 @@ public class WorkInfoDTO implements Serializable {
 	private int memberNo;
 	private String appWorkType;
 	private int workCode;
-	private int remainingHoliday;
 	private String today;
 	private String weekStartDate;
 	private String weekEndDate;
+	private String selectedDate;
 	
 	public WorkInfoDTO() {}
 
-	public WorkInfoDTO(int memberNo, String appWorkType, int workCode, int remainingHoliday, String today,
-			String weekStartDate, String weekEndDate) {
+	public WorkInfoDTO(int memberNo, String appWorkType, int workCode, String today, String weekStartDate,
+			String weekEndDate, String selectedDate) {
 		super();
 		this.memberNo = memberNo;
 		this.appWorkType = appWorkType;
 		this.workCode = workCode;
-		this.remainingHoliday = remainingHoliday;
 		this.today = today;
 		this.weekStartDate = weekStartDate;
 		this.weekEndDate = weekEndDate;
+		this.selectedDate = selectedDate;
 	}
 
 	public int getMemberNo() {
@@ -50,14 +50,6 @@ public class WorkInfoDTO implements Serializable {
 		this.workCode = workCode;
 	}
 
-	public int getRemainingHoliday() {
-		return remainingHoliday;
-	}
-
-	public void setRemainingHoliday(int remainingHoliday) {
-		this.remainingHoliday = remainingHoliday;
-	}
-
 	public String getToday() {
 		return today;
 	}
@@ -82,10 +74,18 @@ public class WorkInfoDTO implements Serializable {
 		this.weekEndDate = weekEndDate;
 	}
 
+	public String getSelectedDate() {
+		return selectedDate;
+	}
+
+	public void setSelectedDate(String selectedDate) {
+		this.selectedDate = selectedDate;
+	}
+
 	@Override
 	public String toString() {
 		return "WorkInfoDTO [memberNo=" + memberNo + ", appWorkType=" + appWorkType + ", workCode=" + workCode
-				+ ", remainingHoliday=" + remainingHoliday + ", today=" + today + ", weekStartDate=" + weekStartDate
-				+ ", weekEndDate=" + weekEndDate + "]";
+				+ ", today=" + today + ", weekStartDate=" + weekStartDate + ", weekEndDate=" + weekEndDate
+				+ ", selectedDate=" + selectedDate + "]";
 	}
 }
