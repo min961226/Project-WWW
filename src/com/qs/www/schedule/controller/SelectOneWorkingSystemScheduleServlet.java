@@ -56,10 +56,10 @@ public class SelectOneWorkingSystemScheduleServlet extends HttpServlet {
 
 		String[] arrayDate = str.split("-");   
 		int yearPlusFive = Integer.parseInt(arrayDate[0]) + 5;
-		String endDate = yearPlusFive + "-" + arrayDate[1]  + "-" + arrayDate[2];
+		String preservedDate = yearPlusFive + "-" + arrayDate[1]  + "-" + arrayDate[2];
 		
 		request.setAttribute("selectedReport", selectedReport);
-		request.setAttribute("endDate", endDate);
+		request.setAttribute("preservedDate", preservedDate);
 		
 		String path = "/WEB-INF/views/schedule/detailAppliedWorkingSystem.jsp";
 		request.getRequestDispatcher(path).forward(request, response);
