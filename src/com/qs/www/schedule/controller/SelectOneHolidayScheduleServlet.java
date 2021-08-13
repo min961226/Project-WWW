@@ -1,6 +1,8 @@
 package com.qs.www.schedule.controller;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -27,6 +29,33 @@ public class SelectOneHolidayScheduleServlet extends HttpServlet {
 
 		//상신번호, 문서번호, 순번, 내용
 		List<WorkingDocumentItemDTO> itemList = new ApprovalService().selectReportItemList(no);
+		System.out.println("itemList : " + itemList);
+		
+		//휴가신청인경우
+		if(selectedReport.getDocumentNo() == 6) {
+			request.setAttribute("holidayType", itemList.get(1).getItemContent());			//휴가코드
+			request.setAttribute("startDate", itemList.get(2).getItemContent());			//시작일
+			request.setAttribute("startDateAllDay", itemList.get(3).getItemContent());		//시작일 종일여부
+			request.setAttribute("endDate", itemList.get(4).getItemContent());				//종료일
+			request.setAttribute("endDateAllDay", itemList.get(5).getItemContent());		//종료일 종일여부
+			request.setAttribute("reason", itemList.get(6).getItemContent());				//사유
+			request.setAttribute("holidayDuring", itemList.get(7).getItemContent());		//기간일수
+		}
+		
+		//등록날짜를 보존기간으로 바꾸기
+		Date reportDate = selectedReport.getReportDate();
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		String str = format.format(reportDate);
+		
+		String[] arrayDate = str.split("-");   
+		int yearPlusFive = Integer.parseInt(arrayDate[0]) + 5;
+		String preservedDate = yearPlusFive + "-" + arrayDate[1]  + "-" + arrayDate[2];
+				
+		request.setAttribute("selectedReport", selectedReport);
+		request.setAttribute("preservedDate", preservedDate);
+		
+		String path = "/WEB-INF/views/schedule/detailHoliday.jsp";
+		request.getRequestDispatcher(path).forward(request, response);
 		
 	}
 

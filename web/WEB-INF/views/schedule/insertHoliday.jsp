@@ -105,7 +105,8 @@
                                                 </select>
                                             </div>
                                         </div>
-                                
+                                	
+                                		<!-- 자바스크립트로 기간을... 바로 계산해주는 걸 해보자... -->
                                         <div class="form-group">
                                             <label class="col-md-3 control-label">기간</label>
                                             <div class="col-md-9">

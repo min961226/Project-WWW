@@ -18,7 +18,7 @@
 			<div class="content container-fluid">
 				<div class="row">
 					<div class="col-xs-12">
-						<h4 class="page-title">결재요청함 상세보기</h4>
+						<h4 class="page-title">근무신청함 상세보기</h4>
 					</div>
 				</div>
 				<div class="row">
@@ -52,7 +52,7 @@
 									<div class="col-sm-6">
 										<label>기안자</label>
 										<div class="col-md-12">
-										<input class="form-control" value="${ sessionScope.memberInfo.name }"  disabled/>
+											<input class="form-control" value="${ sessionScope.memberInfo.name }"  disabled/>
 										</div>
 									</div>
 
@@ -65,32 +65,30 @@
 								</div>
 								
 								<div class="form-group">
-								<div class="col-sm-6">
-									<label>첨부서류</label>
-									<div class="col-md-12">
-										<input class="form-control" type="file">
-									</div>
-								</div>
-								
-								<div class="col-sm-6">
-										<label>보존기간</label>
+									<div class="col-sm-6">
+										<label>첨부서류</label>
 										<div class="col-md-12">
-										<input class="form-control" value="~${ requestScope.preservedDate }"  disabled/>
+											<input class="form-control" type="file">
 										</div>
 									</div>
 								
-								
+									<div class="col-sm-6">
+										<label>보존기간</label>
+										<div class="col-md-12">
+											<input class="form-control" value="~${ requestScope.preservedDate }"  disabled/>
+										</div>
+									</div>
 								</div>
 								
 								<c:set var = "no" value ="${ requestScope.selectedReport.documentNo }" />
-								
 								<c:if test="${ no eq 4 }">
-								<div id="area3" class="form-group" >
+								<div class="form-group">
 								
+									<!-- 유형코드도 c:if로 해서 한글로 표시되도록 하고싶다 -->
 									<div class="col-sm-6">
 										<label>근무제 유형코드</label>
 										<div class="col-md-12">
-										<input class="form-control" value="${ requestScope.workCode }"  disabled/>
+											<input class="form-control" value="${ requestScope.workCode }"  disabled/>
 										</div>
 									</div>
 
@@ -99,9 +97,11 @@
 										<div class="col-md-12">
 											<input class="form-control" value="${ requestScope.worktype }"  disabled/>
 										</div>
-									</div>
-									
-									 <div class="col-sm-6">
+									</div>									
+								</div>
+								
+								<div class="form-group">
+									<div class="col-sm-6">
 										<label>시작일</label>
 										<div class="col-md-12">
 											<input class="form-control" value="${ requestScope.startDate }"  disabled/>
@@ -113,13 +113,16 @@
 										<div class="col-md-12">
 											<input class="form-control" value="${ requestScope.endDate }"  disabled/>
 										</div>
-									</div>
-									
+									</div>							
+								</div>
+								
+								<!-- 흠 이건 id가 달린 div인데, 뭐가 다른지 궁금하네 -->
+								<div id="area3" class="form-group" >					
 								</div>
 								</c:if>
 								
 								
-								<c:if test="${  no eq 5 }">
+								<c:if test="${ no eq 5 }">
 								<div id="area3" class="form-group" >
 								
 									<div class="col-sm-6">
@@ -166,8 +169,7 @@
 								<div class="col-sm-12">
 									<label>신청사유</label>
 									<div class="col-lg-12">
-										<textarea name="note" rows="5" cols="5" class="form-control"
-											disabled>${ requestScope.reason }</textarea>
+										<textarea name="note" rows="5" cols="5" class="form-control" disabled>${ requestScope.reason }</textarea>
 									</div>
 								</div>
 								</div>
@@ -200,7 +202,7 @@
     	
     	const $goBack = document.getElementById("goBack");
     	$goBack.onclick = function() {
-    		location.href = "${ pageContext.servletContext.contextPath }/approval/applied/select"
+    		location.href = "${ pageContext.servletContext.contextPath }/schedule/workingSystem/select"
     	}
     </script>
 </body>
