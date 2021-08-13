@@ -91,7 +91,7 @@
 										<th>결재라인</th>
 										<th>상신일</th>
 										<th>진행상태</th>
-										<th rowspan="2">신청사유</th>                                     
+										<th>신청사유</th>                                     
 									</tr>
 								</thead>
                                	
@@ -122,35 +122,7 @@
 									</tr>
 								</c:forEach>	
                                 
-								<tr>
-									<td><h2>Richard Miles</h2></td>
-                                    <td>Casual Leave</td>
-                                    <td>8 Aug 2017</td>
-                                    <td>8 Aug 2017</td>
-                                    <td>2 days</td>
-                                    <td>Going to Hospital</td>
-                                    <td class="text-center">
-                                        <div class="dropdown action-label">
-                                            <a class="btn btn-white btn-sm rounded dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
-                                                <i class="fa fa-dot-circle-o text-purple"></i> New <i class="caret"></i>
-                                            </a>
-                                            <ul class="dropdown-menu pull-right">
-                                                <li><a href="#"><i class="fa fa-dot-circle-o text-purple"></i> New</a></li>
-                                                <li><a href="#"><i class="fa fa-dot-circle-o text-info"></i> Pending</a></li>
-                                                <li><a href="#"><i class="fa fa-dot-circle-o text-success"></i> Approved</a></li>
-                                                <li><a href="#"><i class="fa fa-dot-circle-o text-danger"></i> Declined</a></li>
-                                            </ul>
-                                        </div>
-                                    </td>
-                                    <td class="text-right">
-                                        <div class="dropdown">
-                                            <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                                            <ul class="dropdown-menu pull-right">
-                                                <li><a href="#" title="Edit" data-toggle="modal" data-target="#edit_leave"><i class="fa fa-pencil m-r-5"></i> Edit</a></li>
-                                            </ul>
-                                        </div>
-                                    </td>
-                                </tr>
+								
 								</tbody>
                             </table> <!-- 근무신청내용 end -->
                             
@@ -196,55 +168,6 @@
 		</div>
        
        
-       <!-- 상세보기를 누르면 뜨는 모달 -->
-		<div id="edit_leave" class="modal custom-modal fade" role="dialog">
-            <div class="modal-dialog">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <div class="modal-content modal-md">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Edit Leave</h4>
-                    </div>
-                    <div class="modal-body">
-                        <form>
-                            <div class="form-group">
-                                <label>Leave Type <span class="text-danger">*</span></label>
-                                <select class="select">
-                                    <option>Select Leave Type</option>
-                                    <option>Casual Leave 12 Days</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>From <span class="text-danger">*</span></label>
-                                <div class="cal-icon">
-                                    <input class="form-control datetimepicker" value="01-01-2017" type="text">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label>To <span class="text-danger">*</span></label>
-                                <div class="cal-icon">
-                                    <input class="form-control datetimepicker" value="01-01-2017" type="text">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label>Number of days <span class="text-danger">*</span></label>
-                                <input class="form-control" readonly="" type="text" value="2">
-                            </div>
-                            <div class="form-group">
-                                <label>Remaining Leaves <span class="text-danger">*</span></label>
-                                <input class="form-control" readonly="" value="12" type="text">
-                            </div>
-                            <div class="form-group">
-                                <label>Leave Reason <span class="text-danger">*</span></label>
-                                <textarea rows="4" cols="5" class="form-control">Going to hospital</textarea>
-                            </div>
-                            <div class="m-t-20 text-center">
-                                <button class="btn btn-primary btn-lg">Save Changes</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
     
     </div><!-- main-wrapper end -->
     

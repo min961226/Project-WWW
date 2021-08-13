@@ -46,6 +46,7 @@ public class MainService {
 		
 		// 날짜별 근무 유형 및 시간 조회(월요일 ~ 일요일)
 		for(int i = 0; i < 7; i++) {
+
 			String selectedDate = sdf.format(selectedCalDate.getTime());
 			workInfo.setSelectedDate(selectedDate);
 			
