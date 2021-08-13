@@ -177,7 +177,7 @@
 			for(let i = 0; i < $tds.length; i++) {
 				
 				$tds[i].onmouseenter = function() {
-					this.parentNode.style.backgroundColor = "orangered";
+					this.parentNode.style.backgroundColor = "LightGoldenRodYellow";
 					this.parentNode.style.cursor = "pointer";
 				}
 				
@@ -187,7 +187,7 @@
 				
 				$tds[i].onclick = function() {
 					const no = this.parentNode.children[0].innerText; //결재번호가 0번째 td이므로, [0]의 innerText를 가져오기
-					location.href = "${ pageContext.servletContext.contextPath }/approval/applied/selectOne?no=" + no;
+					location.href = "${ pageContext.servletContext.contextPath }/schedule/holiday/selectOne?no=" + no;
 				}
 				
 			}

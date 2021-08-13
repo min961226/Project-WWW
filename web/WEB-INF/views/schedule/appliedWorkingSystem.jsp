@@ -110,7 +110,7 @@
 										<td><c:out value="${ report.reportTitle }"/></td>
 										<td><c:out value="${ report.lineName }"/></td>
 										<td><c:out value="${ report.reportDate }"/></td>
-										<!-- 
+										
 										<td> 
 											<c:choose>
 												<c:when test="${ isApproved }">
@@ -121,8 +121,8 @@
 												</c:otherwise>
 											</c:choose>
 										</td>
-										-->
-										<td><c:out value="${ report.reportStatus }"/></td>
+										
+										
 										
 										<td><c:out value="${ report.reportNote }"/></td>
 									</tr>
@@ -179,7 +179,7 @@
 			for(let i = 0; i < $tds.length; i++) {
 				
 				$tds[i].onmouseenter = function() {
-					this.parentNode.style.backgroundColor = "orangered";
+					this.parentNode.style.backgroundColor = "LightGoldenRodYellow";
 					this.parentNode.style.cursor = "pointer";
 				}
 				

@@ -144,13 +144,23 @@ public class InsertWorkingSystemScheduleServlet extends HttpServlet {
 
 				/* 3-2. 상신별결재자(TBL_APPROVER_PER_REPORT)에 insert */
 				for(ApproverDTO approver : approverList) {
-					ApproverPerReportDTO approverPerReportDTO = new ApproverPerReportDTO();
-					approverPerReportDTO.setReportNo(reportNo);
-					approverPerReportDTO.setMemberNo(approver.getMemberNo());
-					approverPerReportDTO.setPriority(approver.getPriority());
+		            ApproverPerReportDTO approverPerReportDTO = new ApproverPerReportDTO();
 
-					result3 = scheduleService.applyWorkingSystemApprover(approverPerReportDTO);
-				}
+		            if(approver.getApproverType().equals("결재")) {
+		                approverPerReportDTO.setReportNo(reportNo);
+		                approverPerReportDTO.setMemberNo(approver.getMemberNo());
+		                approverPerReportDTO.setPriority(approver.getPriority());
+
+		                result3 = scheduleService.applyWorkingSystemApprover(approverPerReportDTO);
+		            } else {
+		                approverPerReportDTO.setReportNo(reportNo);
+		                approverPerReportDTO.setMemberNo(approver.getMemberNo());
+		                approverPerReportDTO.setApproverType(approver.getApproverType());
+
+		                result3 = scheduleService.applyWorkingSystemReferer(approverPerReportDTO);
+		            }
+
+		        }
 				System.out.println(result3);
 				
 

@@ -28,24 +28,25 @@ public class SelectOneWorkingSystemScheduleServlet extends HttpServlet {
 
 		//상신번호, 문서번호, 순번, 내용
 		List<WorkingDocumentItemDTO> itemList = new ApprovalService().selectReportItemList(no);
+		System.out.println("itemList : " + itemList);
 		
 		//근무신청일경우
 		if(selectedReport.getDocumentNo() == 4) {
-			request.setAttribute("workCode", itemList.get(2).getItemContent());			//근무제 유형코드
-			request.setAttribute("startDate", itemList.get(3).getItemContent());		//시작일
-			request.setAttribute("endDate", itemList.get(4).getItemContent());			//종료일
-			request.setAttribute("reason", itemList.get(5).getItemContent());			//사유
-			request.setAttribute("worktype", itemList.get(6).getItemContent());			//근무제 유형
+			request.setAttribute("workCode", itemList.get(1).getItemContent());			//근무제 유형코드
+			request.setAttribute("startDate", itemList.get(2).getItemContent());		//시작일
+			request.setAttribute("endDate", itemList.get(3).getItemContent());			//종료일
+			request.setAttribute("reason", itemList.get(4).getItemContent());			//사유
+			request.setAttribute("worktype", itemList.get(5).getItemContent());			//근무제 유형
 		}
 		
 		//초과근무신청일경우
 		if(selectedReport.getDocumentNo() == 5) {
-			request.setAttribute("startDate", itemList.get(2).getItemContent());		//시작일시
-			request.setAttribute("endDate", itemList.get(3).getItemContent());			//종료일시
-			request.setAttribute("overtimeDuring", itemList.get(4).getItemContent());	//초과근무 기간시수
-			request.setAttribute("reason", itemList.get(5).getItemContent());			//사유
-			request.setAttribute("startDateTime", itemList.get(6).getItemContent());		//시작시간
-			request.setAttribute("endDateTime", itemList.get(7).getItemContent());			//종료시간
+			request.setAttribute("startDate", itemList.get(1).getItemContent());		//시작일시
+			request.setAttribute("endDate", itemList.get(2).getItemContent());			//종료일시
+			request.setAttribute("overtimeDuring", itemList.get(3).getItemContent());	//초과근무 기간시수
+			request.setAttribute("reason", itemList.get(4).getItemContent());			//사유
+			request.setAttribute("startDateTime", itemList.get(5).getItemContent());		//시작시간
+			request.setAttribute("endDateTime", itemList.get(6).getItemContent());			//종료시간
 		}
 		
 		
