@@ -119,6 +119,11 @@
 					location.href = "${ pageContext.servletContext.contextPath }/board/free/selectOne?no=" + no;
 				}
 				
+				const $goBack = document.getElementById("writeFree");
+		    	$goBack.onclick = function() {
+		    		location.href = "${ pageContext.servletContext.contextPath }/board/free/insert"
+		    	}
+				
 			}
 			
 		}

@@ -29,5 +29,30 @@
              , A.MODIFIED_DATE
          FROM TBL_BOARD A
 	</select>
+	
+	<update id="incrementNoticeCount">
+        UPDATE /* com.qs.www.board.model.dao.NoticeDAO#incrementNoticeCount() */
+               TBL_BOARD A
+           SET A.BOARD_COUNT = (SELECT B.BOARD_COUNT
+                                   FROM TBL_BOARD B
+                                  WHERE B.BOARD_NO = #{ no }
+                                ) + 1
+         WHERE A.BOARD_NO = #{ no }
+	</update>
+	
+	<select id="selectNoticeDetail" resultMap="noticeResultMap">
+       SELECT
+               A.BOARD_NO
+             , A.BOARD_TITLE
+             , A.MEMBER_NO
+             , A.BOARD_TYPE
+             , A.BOARD_COUNT
+             , A.BOARD_BODY
+             , A.DELETE_YN
+             , A.CREATED_DATE
+             , A.MODIFIED_DATE
+         FROM TBL_BOARD A
+         WHERE A.BOARD_NO = #{ no }
+    </select>
 
 </mapper>
