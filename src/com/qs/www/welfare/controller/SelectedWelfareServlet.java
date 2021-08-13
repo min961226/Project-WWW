@@ -12,7 +12,9 @@ import javax.servlet.http.HttpSession;
 
 import com.qs.www.approval.model.dto.ApprovalLineDTO;
 import com.qs.www.approval.model.service.ApprovalService;
+import com.qs.www.board.model.service.NoticeService;
 import com.qs.www.member.model.dto.MemberInfoDTO;
+import com.qs.www.mng.board.model.dto.NoticeDTO;
 import com.qs.www.welfare.model.dto.MemberOverTimeLogDTO;
 import com.qs.www.welfare.model.service.WelfareService;
 
@@ -36,6 +38,10 @@ public class SelectedWelfareServlet extends HttpServlet {
 		String jobName = ((MemberInfoDTO) session.getAttribute("memberInfo")).getJob().getJobName();
 		List<String> approverLine = welfareService.selectApproverLine(memberNo);
 		List<ApprovalLineDTO> lineList = new ApprovalService().selectApprovalLine(memberNo);
+		List<NoticeDTO> noticeList = new NoticeService().selectAllNoticeList();
+		
+		
+		request.getRequestDispatcher(path).forward(request, response);
 		
 		System.out.println(memberNo);
 		System.out.println(name);
@@ -75,6 +81,7 @@ public class SelectedWelfareServlet extends HttpServlet {
 			break;
 		case "기숙사입주신청서":
 			path = "/WEB-INF/views/welfare/insertDomitory.jsp";
+			request.setAttribute("noticeList", noticeList);
 			break;
 		case "회의실예약신청서":
 			path = "/WEB-INF/views/welfare/detailSeminarRoom.jsp";

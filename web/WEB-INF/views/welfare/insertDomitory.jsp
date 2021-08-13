@@ -12,82 +12,131 @@
 </head>
 
 <body>
+
     <div class="main-wrapper">
 		<jsp:include page="../common/navbar.jsp"/>
-         <div class="page-wrapper">
+    
+    
+            <div class="page-wrapper">
             <div class="content container-fluid">
                 <div class="row">
-                    <div class="col-md-8 col-md-offset-2">
-                        <h4 class="page-title">경조사 신청서</h4>
+                    <div class="col-xs-12">
+                        <h4 class="page-title">기숙사 입주 현황</h4>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-8 col-md-offset-2">
-                        <form>
-                             <div class="form-group">
-                                <label>직원 ID</label>
-                                <input class="form-control" type="text" value= "${memberNo}" readonly="readonly"/>
+                <div class="search-area" align="right">
+			<select id="searchCondition" name="searchCondition">
+				<option value="writer">작성자</option>
+				<option value="title">제목</option>
+				<option value="content">내용</option>
+			</select>
+			<input type="search">
+			<button type="submit" style="background-color:orange;">검색하기</button>
+			
+		</div>
+                <div class="row" >
+                    <div class="col-lg-12">
+                        <div class="card-box">
+                            <div class="card-block">
+                                <p class="content-group">
+                                </p>
+                                <table class="display datatable table table-stripped">
+                                        <thead>
+                                        <tr bgcolor = "FFBC35">
+                                            <th>번호</th>
+                                            <th>제목</th>
+                                            <th>작성 날짜</th>
+                                            <th>조회수</th>
+                                        </tr>
+
+                                    </thead>
+                                		<c:forEach var="board" items="${ requestScope.noticeList }">
+										<tr>
+											<td><c:out value="${ board.no }"/></td>
+											<td><c:out value="${ board.title }"/></td>
+											<td><c:out value="${ board.created }"/></td>
+											<td><c:out value="${ board.count }"/></td>
+										</tr>
+										</c:forEach>
+										
+                                </table>
+                                <div class="pagingArea" align="center">
+		<!-- 맨 앞으로 이동 버튼 -->
+	    <button id="startPage"><<</button>
+		
+		<!-- 이전 페이지 버튼 -->
+		<c:if test="${ requestScope.selectCriteria.pageNo <= 1 }">
+			<button disabled><</button>
+		</c:if>
+		<c:if test="${ requestScope.selectCriteria.pageNo > 1 }">
+			<button id="prevPage"><</button>
+		</c:if>
+		
+		<!-- 숫자 버튼 -->
+		<c:forEach var="p" begin="${ requestScope.selectCriteria.startPage }" end="${ requestScope.selectCriteria.endPage }" step="1">
+			<c:if test="${ requestScope.selectCriteria.pageNo eq p }">
+				<button disabled><c:out value="${ p }"/></button>
+			</c:if>
+			<c:if test="${ requestScope.selectCriteria.pageNo ne p }">
+				<button onclick="pageButtonAction(this.innerText);"><c:out value="${ p }"/></button>
+			</c:if>
+		</c:forEach>
+		
+		<!-- 다음 페이지 버튼 -->
+		<c:if test="${ requestScope.selectCriteria.pageNo >= requestScope.selectCriteria.maxPage }">
+			<button disabled>></button>
+		</c:if>
+		<c:if test="${ requestScope.selectCriteria.pageNo < requestScope.selectCriteria.maxPage }">
+			<button id="nextPage">></button>
+		</c:if>
+		
+		<!-- 마지막 페이지로 이동 버튼 -->
+		<button id="maxPage">>></button> 
+	</div>
                             </div>
-                            <div class="form-group">
-                                <label>부서</label>
-                                <input class="form-control" type="text" value= "${deptName}">
-                            </div>
-                            <div class="form-group">
-                                <label>직위</label>
-                                <input class="form-control" type="text" value= "${jobName}">
-                            </div>
-                            <div class="form-group">
-                                <label>신청자</label>
-                                <input class="form-control" type="text" value= "${name}">
-                            </div>
-                            <div class="form-group">
-                                <label>이용인원</label>
-                                <input class="form-control" type="text">
-                            </div>
-                            <div class="form-group">
-                                <label>이용 시간</label>
-                                <select class="select">
-                                    <option>Select</option>
-                                    <option>2014.07.28 (목) 09:00</option>
-                                    <option>Fashion</option>
-                                    <option>Books</option>
-                                    <option>Toys</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>이용 종료 시간</label>
-                                <select class="select">
-                                    <option>Select</option>
-                                    <option>2014.07.28 (목) 10:30</option>
-                                    <option>Fashion</option>
-                                    <option>Books</option>
-                                    <option>Toys</option>
-                                </select>
-                            </div>
-                           
-                            <div class="form-group">
-                                <label>회의 목적</label>
-                                <textarea cols="30" rows="6" class="form-control"></textarea>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label>파일첨부</label>
-                                <div>
-                                    <input class="form-control" type="file">
-                                    <small class="help-block">파일 최대 사이즈: 50 MB. 허용된 확장자: jpg, gif, png. </small>
-                                </div>
-                                
-                            </div>
-                            <div class="m-t-20 text-center">
-                                <button class="btn btn-primary btn-lg">신청 완료</button>
-                                <button class="btn btn-primary btn-lg">돌아가기</button>
-                            </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
+        	<script>
+		if(document.getElementsByTagName("td")) {
+			const $tds = document.getElementsByTagName("td");
+			for(let i = 0; i < $tds.length; i++) {
+				
+				$tds[i].onmouseenter = function() {
+					this.parentNode.style.backgroundColor = "orangered";
+					this.parentNode.style.cursor = "pointer";
+				}
+				
+				$tds[i].onmouseout = function() {
+					this.parentNode.style.backgroundColor = "white";
+				}
+				
+				$tds[i].onclick = function() {
+					/* 게시물 번호까지 알아왔으니 이제 상세보기는 할 수 있겠지? */
+					const no = this.parentNode.children[0].innerText;
+					location.href = "${ pageContext.servletContext.contextPath }/notice/detail?no=" + no;
+				}
+				
+			}
+			
+		}
+		
+		/* 제이쿼리 이용하는 경우 */
+		/* $(function() {
+			$("#listArea td").hover(function() {
+				$(this).parent().css({"background":"orangered", "cursor":"pointer"});
+			}, function() {
+				$(this).parent().css({"background":"black"});
+			}).click(function() {
+				const no = $(this).parent().children(":eq(0)").text();
+				location.href = "${ pageContext.servletContext.contextPath }/notice/detail?no=" + no;
+			});
+		}); */
+	</script>
 </body>
 
 </html>

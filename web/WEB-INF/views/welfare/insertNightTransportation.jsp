@@ -71,8 +71,7 @@
 							<div class="m-t-20 text-center">
 								<button class="btn btn-primary btn-lg" type="submit">신청
 									완료</button>
-								<input id="goBack" type="reset" value="돌아가기"
-									class="btn btn-primary btn-lg">
+								<button type="reset" class="btn btn-primary btn-lg" id="goBack">돌아가기</button>
 							</div>
 						</form>
 					</div>
@@ -80,6 +79,13 @@
             </div>
         </div>
     </div>
+    <script>
+		const $goBack = document.getElementById("goBack");
+
+		$goBack.onclick = function() {
+			location.href = "${ pageContext.servletContext.contextPath }/welfare/list/select"
+		}
+	</script>
 </body>
 
 </html>
