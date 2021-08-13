@@ -30,6 +30,7 @@ public class SelectMainServlet extends HttpServlet {
 		int memberNo = memberInfo.getMemberNo();
 		String appWorkType = memberInfo.getAppWorkType();
 		int workCode = memberInfo.getWorkCode();
+		String path = "";
 		
 		// 날짜 출력 양식
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -48,7 +49,6 @@ public class SelectMainServlet extends HttpServlet {
 		date.add(Calendar.DATE, -6);
 		Calendar selectedCalDate = date;
 		String selectedDate = sdf.format(selectedCalDate.getTime());
-		System.out.println(selectedCalDate);
 		
 		WorkInfoDTO workInfo = new WorkInfoDTO();
 		workInfo.setMemberNo(memberNo);
@@ -64,15 +64,12 @@ public class SelectMainServlet extends HttpServlet {
 		List<CommutingLogDTO> commutingLogList = mainService.selectCommutingLog(workInfo);
 		List<WorkingLogDTO> workingLogList = mainService.selectWorkingLog(workInfo, selectedCalDate, sdf);
 		
-		for(CommutingLogDTO commutingLog : commutingLogList) {
-			System.out.println(commutingLog);
-		}
-		
-		for(WorkingLogDTO workingLog : workingLogList) {
-			System.out.println(workingLog);
-		}
-		
-		request.getRequestDispatcher("/WEB-INF/views/main/main.jsp").forward(request, response);
+		request.setAttribute("workInfo", workInfo);
+		request.setAttribute("commutingLogList", commutingLogList);
+		request.setAttribute("workingLogList", workingLogList);
+		path = "/WEB-INF/views/main/main.jsp";
+			
+		request.getRequestDispatcher(path).forward(request, response);
 		
 	}
 }
