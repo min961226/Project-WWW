@@ -29,7 +29,7 @@
 					<option value="content">내용</option>
 				</select>
 				<input type="search">
-				<button type="submit" style="background-color:orange;">검색하기</button>
+				<button type="submit" >검색하기</button>
 				<button type="button" id="writeFree">작성하기</button>
 			</div>
             <div class="row">
@@ -39,52 +39,20 @@
                         	<p class="content-group">
                             </p>
                             <table class="display datatable table table-stripped">
-                            	<thead>
-                                	<tr bgcolor = "FFBC35">
-                                    	<th>번호</th>
-                                        <th>제목</th>
-                                        <th>작성일</th>
-                                        <th>조회수</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>4</td>
-                                        <td> 별관 2층 남자화장실 비데 고장 신고입니다.</td>
-                                        <td>2021.07.23</td>
-                                        <td>61</td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>[1팀] 유선 인터넷 및 인터넷 전화기 고장</td>
-                                        <td>2021.01.27</td>
-                                        <td>63</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>4층 복합기 블랙 토너 교체</td>
-                                        <td>2020.01.27</td>
-                                        <td>66</td>
-                                     </tr>
-                                     <tr>
-                                        <td>1</td>
-                                        <td>6층 백열 전구 교체 부탁 드립니다.</td>
-                                        <td>2020.01.27</td>
-                                        <td>66</td>
-                                    </tr>
-                                </tbody>
                                 <thead>
                                     <tr bgcolor = "FFBC35">
                                         <th>번호</th>
                                         <th>제목</th>
+                                        <th>작성자</th>
                                         <th>조회수</th>
                                         <th>수정 날짜</th>
                                     </tr>
                                 </thead>
-                                <c:forEach var="board" items="${ requestScope.freeList }">
+                                <c:forEach var="board" items="${ freeList }">
 									<tr>
 										<td><c:out value="${ board.no }"/></td>
 										<td><c:out value="${ board.title }"/></td>
+										<td><c:out value="${ board.member }"/></td>
 										<td><c:out value="${ board.count }"/></td>
 										<td><c:out value="${ board.created }"/></td>
 									</tr>
@@ -131,13 +99,41 @@
             </div>
         </div>
     </div>
-	<script>
-	    if(document.getElementById("writeFree")) {
-			const $writeFree = document.getElementById("writeFree");
-			$writeFree.onclick = function() {
-				location.href = "${ pageContext.servletContext.contextPath }/board/free/insert";
+    	<script>
+		if(document.getElementsByTagName("td")) {
+			const $tds = document.getElementsByTagName("td");
+			for(let i = 0; i < $tds.length; i++) {
+				
+				$tds[i].onmouseenter = function() {
+					this.parentNode.style.backgroundColor = "orangered";
+					this.parentNode.style.cursor = "pointer";
+				}
+				
+				$tds[i].onmouseout = function() {
+					this.parentNode.style.backgroundColor = "white";
+				}
+				
+				$tds[i].onclick = function() {
+					/* 게시물 번호까지 알아왔으니 이제 상세보기는 할 수 있겠지? */
+					const no = this.parentNode.children[0].innerText;
+					location.href = "${ pageContext.servletContext.contextPath }/board/free/selectOne?no=" + no;
+				}
+				
 			}
+			
 		}
+		
+		/* 제이쿼리 이용하는 경우 */
+		/* $(function() {
+			$("#listArea td").hover(function() {
+				$(this).parent().css({"background":"orangered", "cursor":"pointer"});
+			}, function() {
+				$(this).parent().css({"background":"black"});
+			}).click(function() {
+				const no = $(this).parent().children(":eq(0)").text();
+				location.href = "${ pageContext.servletContext.contextPath }/notice/detail?no=" + no;
+			});
+		}); */
 	</script>
 </body>
 

@@ -1,6 +1,8 @@
 package com.qs.www.board.controller;
 
 import java.io.IOException;
+import java.util.Date;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,7 +18,7 @@ public class InsertFreeBoardServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String path = "/WEB-INF/views/board/freeBoard.jsp";
+		String path = "/WEB-INF/views/board/detailFreeBoard.jsp";
 		
 		request.getRequestDispatcher(path).forward(request, response);
 		
@@ -38,7 +40,14 @@ public class InsertFreeBoardServlet extends HttpServlet {
 		
 		FreeDTO newFree = new FreeDTO();
 		newFree.setTitle(title);
+		newFree.setMember(member);
+		newFree.setType(type);
+		newFree.setCount(count);
 		newFree.setBody(body);
+		newFree.setDelete(delete);
+		newFree.setCreated(created);
+		newFree.setModified(modified);
+
 		
 		FreeService freeService = new FreeService();
 		int result = freeService.insertFree(newFree);

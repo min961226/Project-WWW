@@ -32,7 +32,6 @@
 			</select>
 			<input type="search">
 			<button type="submit" style="background-color:orange;">검색하기</button>
-			<button id="writeFree" style="background-color:orange;">작성하기</button>
 			
 
 		</div>
@@ -133,6 +132,42 @@
 
         </div>
     </div>
+        	<script>
+		if(document.getElementsByTagName("td")) {
+			const $tds = document.getElementsByTagName("td");
+			for(let i = 0; i < $tds.length; i++) {
+				
+				$tds[i].onmouseenter = function() {
+					this.parentNode.style.backgroundColor = "orangered";
+					this.parentNode.style.cursor = "pointer";
+				}
+				
+				$tds[i].onmouseout = function() {
+					this.parentNode.style.backgroundColor = "white";
+				}
+				
+				$tds[i].onclick = function() {
+					/* 게시물 번호까지 알아왔으니 이제 상세보기는 할 수 있겠지? */
+					const no = this.parentNode.children[0].innerText;
+					location.href = "${ pageContext.servletContext.contextPath }/notice/detail?no=" + no;
+				}
+				
+			}
+			
+		}
+		
+		/* 제이쿼리 이용하는 경우 */
+		/* $(function() {
+			$("#listArea td").hover(function() {
+				$(this).parent().css({"background":"orangered", "cursor":"pointer"});
+			}, function() {
+				$(this).parent().css({"background":"black"});
+			}).click(function() {
+				const no = $(this).parent().children(":eq(0)").text();
+				location.href = "${ pageContext.servletContext.contextPath }/notice/detail?no=" + no;
+			});
+		}); */
+	</script>
 </body>
 
 </html>

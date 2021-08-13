@@ -50,6 +50,9 @@
 								<button type="reset" id="cancleFree">취소하기</button>
 								<button type="submit">등록하기</button>
 							</div>
+							
+							
+							
                         </form>
                     </div>
                 </div>
