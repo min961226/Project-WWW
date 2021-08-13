@@ -42,6 +42,7 @@
 		<result property="domitoryManageNo" column="DOMITORY_MANAGE_NO" />
 		<result property="domitoryBlockNo" column="BLOCK_NO" />
 		<result property="roomNo" column="ROOM_NO" />
+		<result property="currCapacity" column="CURR_CAPACITY" />
 		<result property="maxCapacity" column="MAX_CAPACITY" />
 	</resultMap>
 

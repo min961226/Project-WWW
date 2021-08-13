@@ -49,7 +49,7 @@
 							</div>
 							<div class="form-group">
 								<label>결재선 지정</label> <select name="lineList"
-									class="form-control">
+									class="form-control" required="required">
 									<option>-- 결재선 지정 목록 --</option>
 									<c:forEach items="${ requestScope.lineList }" var="lineList">
 										<option value= ${ lineList.lineNo }>${ lineList.lineName }</option>
@@ -58,7 +58,7 @@
 							</div>
 							<div class="form-group">
 								<label>신청 목적</label> <select name="selfDevList"
-									class="form-control">
+									class="form-control" required="required">
 									<option>-- 자기개발비 신청 가능 목록 --</option>
 									<c:forEach items="${ requestScope.selfDevList }"
 										var="selfDevList">
@@ -68,16 +68,16 @@
 								</select>
 							</div>
 							<div class="form-group">
-								<label>자기개발비 사용일자</label> <input name="date"	class="form-control" type="date">
+								<label>자기개발비 사용일자</label> <input name="date"	class="form-control" type="date" required="required">
 							</div>
 							<div class="form-group">
 								<label>자기개발비 예상 청구 금액</label> <br>
-								<input name="selfDevCost" class="" type="number" width="100px">￦
+								<input name="selfDevCost" class="" type="number" width="100px" required="required">￦
 							</div>
 
 							<div class="form-group">
 								<label>신청 내용</label>
-								<textarea name="selfDevInfo" cols="30" rows="6"	class="form-control"></textarea>
+								<textarea name="selfDevInfo" cols="30" rows="6"	class="form-control" required="required"></textarea>
 							</div>
 
 							<div class="form-group">

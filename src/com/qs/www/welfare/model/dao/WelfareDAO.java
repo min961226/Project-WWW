@@ -42,11 +42,11 @@ public class WelfareDAO {
 		return session.insert("WelfareDAO.insertWelfareReport", welfareListDTO);
 	}
 
-	public int insertSelfDevelopmentItemContent(SqlSession session, WorkingDocumentItemDTO documentItemDTO) {
+	public int insertWelfareItemContent(SqlSession session, WorkingDocumentItemDTO documentItemDTO) {
 		return session.insert("ScheduleDAO.applyWorkingSystemItemContent", documentItemDTO);
 	}
 
-	public int insertSelfDevelopmentApprover(SqlSession session, ApproverPerReportDTO approverPerReportDTO) {
+	public int insertWelfareApprover(SqlSession session, ApproverPerReportDTO approverPerReportDTO) {
 		return session.insert("ScheduleDAO.applyWorkingSystemApprover", approverPerReportDTO);
 	}
 

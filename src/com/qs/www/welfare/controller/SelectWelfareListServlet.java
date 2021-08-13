@@ -27,7 +27,7 @@ public class SelectWelfareListServlet extends HttpServlet {
 				path = "/WEB-INF/views/welfare/welfareList.jsp";
 				request.setAttribute("welfareList", welfareList);
 			} else {
-				path = "/WEB-INF/views/common/error-404.jsp";
+				path = "/WEB-INF/views/common/error-500.jsp";
 				request.setAttribute("message", "복지 목록조회 실패!");
 			}
 			request.getRequestDispatcher(path).forward(request, response);

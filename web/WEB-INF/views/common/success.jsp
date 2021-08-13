@@ -52,6 +52,10 @@
 				successMessage = "야간 교통비 신청이 완료되었습니다."
 				movePath = "${ pageContext.servletContext.contextPath }/welfare/list/select";
 				break;
+			case "insertDomitory":
+				successMessage = "기숙사 입주 신청이 완료되었습니다."
+				movePath = "${ pageContext.servletContext.contextPath }/welfare/list/select";
+				break;
 			case "approvalProcess":
 				successMessage = "결재처리가 완료되었습니다."
 				movePath = "${ pageContext.servletContext.contextPath }/approval/waiting/select";

@@ -101,10 +101,10 @@ public class WelfareService {
 		return limitCost;
 	}
 
-	public int insertSelfDevelopmentItemContent(WorkingDocumentItemDTO documentItemDTO) {
+	public int insertWelfareItemContent(WorkingDocumentItemDTO documentItemDTO) {
 		SqlSession session = getSqlSession();
 
-		int result = welfareDAO.insertSelfDevelopmentItemContent(session, documentItemDTO);
+		int result = welfareDAO.insertWelfareItemContent(session, documentItemDTO);
 
 		if (result > 0) {
 			session.commit();
@@ -117,11 +117,11 @@ public class WelfareService {
 		return result;
 	}
 
-	public int insertSelfDevelopmentApprover(ApproverPerReportDTO approverPerReportDTO) {
+	public int insertWelfareApprover(ApproverPerReportDTO approverPerReportDTO) {
 
 		SqlSession session = getSqlSession();
 		
-		int result = welfareDAO.insertSelfDevelopmentApprover(session, approverPerReportDTO);
+		int result = welfareDAO.insertWelfareApprover(session, approverPerReportDTO);
 		
 		if(result > 0) {
 			session.commit();

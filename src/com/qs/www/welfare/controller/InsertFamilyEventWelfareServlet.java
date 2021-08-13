@@ -103,7 +103,7 @@ public class InsertFamilyEventWelfareServlet extends HttpServlet {
 			documentItemDTO.setPriority(priority);
 			documentItemDTO.setItemContent(item);	
 
-			result2 = welfareService.insertSelfDevelopmentItemContent(documentItemDTO);
+			result2 = welfareService.insertWelfareItemContent(documentItemDTO);
 
 			priority++;
 		}
@@ -121,7 +121,7 @@ public class InsertFamilyEventWelfareServlet extends HttpServlet {
 			approverPerReportDTO.setMemberNo(approver.getMemberNo());
 			approverPerReportDTO.setPriority(approver.getPriority());
 
-			result3 = welfareService.insertSelfDevelopmentApprover(approverPerReportDTO);
+			result3 = welfareService.insertWelfareApprover(approverPerReportDTO);
 		}
 		
 		String path = "";

@@ -78,7 +78,7 @@ public class SelectedWelfareServlet extends HttpServlet {
 					request.setAttribute("message", "복지 목록조회 실패!");
 				}
 			break;
-		case "기숙사 입주 현황":
+		case "기숙사입주신청서":
 			List<DomitoryListDTO> domitoryList = new WelfareService().selectDomitory();
 			path = "/WEB-INF/views/welfare/domitory.jsp";
 			request.setAttribute("domitoryList", domitoryList);
