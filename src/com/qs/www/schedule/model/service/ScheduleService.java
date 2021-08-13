@@ -70,6 +70,23 @@ public class ScheduleService {
 		
 		return result;
 	}
+	
+	public int applyWorkingSystemReferer(ApproverPerReportDTO approverPerReportDTO) {
+		
+        SqlSession session = getSqlSession();
+		
+		int result = scheduleDAO.applyWorkingSystemReferer(session, approverPerReportDTO);
+		
+		if(result > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+				
+		session.close();
+		
+		return result;
+	}
 
 	public int applyWorkingSystemMemberWorkLog(MemberWorkLogDTO memberWorkLogDTO) {
 		
@@ -98,6 +115,8 @@ public class ScheduleService {
 		
 		return workReportList;
 	}
+
+	
 	
 
 }

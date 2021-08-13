@@ -40,13 +40,12 @@ public class InsertApprovalServlet extends HttpServlet {
 		String[] arrayDate = str.split("-");   
 		int yearPlusFive = Integer.parseInt(arrayDate[0]) + 5;
 		String endDate = yearPlusFive + "-" + arrayDate[1]  + "-" + arrayDate[2];
-		System.out.println(endDate);
 		
 		request.setAttribute("endDate", endDate);
 		request.setAttribute("lineList", lineList);
 		session.setAttribute("lineList", lineList);
 		request.getRequestDispatcher("/WEB-INF/views/approval/insertApproval.jsp").forward(request, response);
-
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

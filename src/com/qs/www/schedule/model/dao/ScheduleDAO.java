@@ -27,6 +27,11 @@ public class ScheduleDAO {
 		
 		return session.insert("ScheduleDAO.applyWorkingSystemApprover", approverPerReportDTO);
 	}
+	
+	public int applyWorkingSystemReferer(SqlSession session, ApproverPerReportDTO approverPerReportDTO) {
+		
+		return session.insert("ScheduleDAO.applyWorkingSystemReferer", approverPerReportDTO);
+	}
 
 	public int applyWorkingSystemMemberWorkLog(SqlSession session, MemberWorkLogDTO memberWorkLogDTO) {
 		
@@ -43,6 +48,8 @@ public class ScheduleDAO {
 		
 		return session.selectList("ScheduleDAO.selectMyWorkReport", no);
 	}
+
+	
 
 	
 

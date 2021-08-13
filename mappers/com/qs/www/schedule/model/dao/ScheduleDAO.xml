@@ -77,6 +77,22 @@
 	)
 	</insert>
 	
+	<insert id="applyWorkingSystemReferer" parameterType="com.qs.www.schedule.model.dto.ApproverPerReportDTO">
+	INSERT /* com.qs.www.schedule.model.dao.ScheduleDAO#applyWorkingSystemApprover() */
+	  INTO TBL_APPROVER_PER_REPORT A
+	(
+	  A.REPORT_NO
+	, A.MEMBER_NO
+	, A.APPROVER_TYPE
+	)
+	VALUES
+	(
+	  #{ reportNo }
+	, #{ memberNo }
+	, #{ approverType }
+	)
+	</insert>
+	
 	<insert id="applyWorkingSystemMemberWorkLog" parameterType="com.qs.www.schedule.model.dto.MemberWorkLogDTO">
 	INSERT /* com.qs.www.schedule.model.dao.ScheduleDAO#applyWorkingSystemMemberWorkLog() */
 	  INTO TBL_MEMBER_WORK_LOG A
