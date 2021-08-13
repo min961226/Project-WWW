@@ -18,7 +18,7 @@ public class InsertFreeBoardServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String path = "/WEB-INF/views/board/detailFreeBoard.jsp";
+		String path = "/WEB-INF/views/board/insertFreeBoard.jsp";
 		
 		request.getRequestDispatcher(path).forward(request, response);
 		
@@ -28,6 +28,7 @@ public class InsertFreeBoardServlet extends HttpServlet {
 
 		
 //		int no = ((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo();
+		int no = Integer.parseInt(request.getParameter("title"));
 		String title = request.getParameter("title");
 		int member = Integer.parseInt(request.getParameter("member"));
 		String type = request.getParameter("type");

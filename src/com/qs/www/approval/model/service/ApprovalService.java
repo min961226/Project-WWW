@@ -9,15 +9,16 @@ import org.apache.ibatis.session.SqlSession;
 import com.qs.www.approval.model.dao.ApprovalDAO;
 import com.qs.www.approval.model.dto.ApprovalLineDTO;
 import com.qs.www.approval.model.dto.ApproverDTO;
+import com.qs.www.approval.model.dto.ApproverLogPerReportDTO;
 import com.qs.www.member.model.dto.MemberDTO;
 import com.qs.www.schedule.model.dto.ApproverPerReportDTO;
 import com.qs.www.schedule.model.dto.ReportDTO;
 import com.qs.www.schedule.model.dto.WorkingDocumentItemDTO;
 
 public class ApprovalService {
-	
+
 	private final ApprovalDAO approvalDAO;
-	
+
 	public ApprovalService() {
 		approvalDAO =new ApprovalDAO();
 	}
@@ -46,12 +47,12 @@ public class ApprovalService {
 		SqlSession session = getSqlSession();
 
 		int reportNum = approvalDAO.selectReportNum(session);
-		
+
 		if(reportNum > 0) {
-            session.commit();
-        } else {
-            session.rollback();
-        }
+			session.commit();
+		} else {
+			session.rollback();
+		}
 		session.close();
 
 		return reportNum;
@@ -91,12 +92,12 @@ public class ApprovalService {
 		SqlSession session = getSqlSession();
 
 		int result = approvalDAO.callbackSelectedReport(session, no);
-		
+
 		if(result > 0) {
-            session.commit();
-        } else {
-            session.rollback();
-        }
+			session.commit();
+		} else {
+			session.rollback();
+		}
 		session.close();
 
 		return result;
@@ -106,12 +107,12 @@ public class ApprovalService {
 		SqlSession session = getSqlSession();
 
 		int result = approvalDAO.callbackApproverPerReport(session, no);
-		
+
 		if(result > 0) {
-            session.commit();
-        } else {
-            session.rollback();
-        }
+			session.commit();
+		} else {
+			session.rollback();
+		}
 		session.close();
 
 		return result;
@@ -126,15 +127,77 @@ public class ApprovalService {
 
 		return APRList;
 	}
-
-	public MemberDTO selectMemberName(int membertNo) {
+	
+	public int insertALPR(ApproverLogPerReportDTO aLPR) {
 		SqlSession session = getSqlSession();
 
-		MemberDTO member = approvalDAO.selectMemberName(session, membertNo);
+		int result = approvalDAO.insertALPR(session, aLPR);
+
+		if(result > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+		session.close();
+
+		return result;
+	}
+	
+	public ApproverPerReportDTO selectThisTurnAPR(ApproverPerReportDTO thisAPR) {
+
+		SqlSession session = getSqlSession();
+
+		ApproverPerReportDTO APR = approvalDAO.selectThisTurnAPR(session, thisAPR);
 
 		session.close();
 
-		return member;
+		return APR;
 	}
+	
+	public int updateThisTurnAPR(ApproverPerReportDTO thisAPR) {
+		SqlSession session = getSqlSession();
+
+		int result = approvalDAO.updateThisTurnAPR(session, thisAPR);
+
+		if(result > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+		session.close();
+
+		return result;
+	}
+
+	public int updateNextTurnAPR(ApproverPerReportDTO thisAPR) {
+		SqlSession session = getSqlSession();
+
+		int result = approvalDAO.updateNextTurnAPR(session, thisAPR);
+
+		if(result > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+		session.close();
+
+		return result;
+	}
+
+	public int finishAppReport(ApproverPerReportDTO thisAPR) {
+		SqlSession session = getSqlSession();
+
+		int result = approvalDAO.finishAppReport(session, thisAPR);
+
+		if(result > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+		session.close();
+
+		return result;
+	}
+
 
 }

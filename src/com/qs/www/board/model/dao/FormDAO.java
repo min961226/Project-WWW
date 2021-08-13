@@ -14,4 +14,14 @@ public class FormDAO {
 		return session.selectList("FormDAO.selectAllFormList");
 	}
 
+	public int incrementFormCount(SqlSession session, int no) {
+		
+		return session.update("FormDAO.incrementFormCount", no);
+	}
+
+	public FormDTO selectFormDetail(SqlSession session, int no) {
+		
+		return session.selectOne("FormDAO.selectFormDetail", no);
+	}
+
 }

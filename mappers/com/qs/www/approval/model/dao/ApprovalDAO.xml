@@ -46,7 +46,16 @@
 		<result property="priority" column="PRIORITY" />
 		<result property="approverType" column="APPROVER_TYPE" />
 	</resultMap>
-	
+	<resultMap type="com.qs.www.approval.model.dto.ApproverLogPerReportDTO"
+		id="ALogPRResultMap">
+		<result property="reportNo" column="REPORT_NO" />
+		<result property="appLogNo" column="APP_LOG_NO" />
+		<result property="memberNo" column="MEMBER_NO" />
+		<result property="appDate" column="APP_DATE" />
+		<result property="appNote" column="APP_NOTE" />
+		<result property="appStatus" column="APP_STATUS" />
+	</resultMap>
+
 	<select id="selectApprovalLine" resultMap="approvalLineResultMap">
 		SELECT /* com.qs.www.approval.model.dao.ApprovalDAO#selectApprovalLine()*/
 			   A.*
@@ -87,14 +96,14 @@
 	</select>
 	<select id="selectReportItemList"
 		resultMap="reportItemResultMap">
-		SELECT /* com.qs.www.approval.model.dao.ApprovalDAO#selectOneReportDetail()*/
+		SELECT /* com.qs.www.approval.model.dao.ApprovalDAO#selectReportItemList()*/
 			   A.*
 		  FROM TBL_ITEM_CONTENT A
 		 WHERE A.REPORT_NO = #{ no }
 		 ORDER BY A.PRIORITY
 	</select>
 	 <update id="callbackSelectedReport">
-		UPDATE /* com.qs.www.approval.model.dao.ApprovalDAO#selectOneReportDetail()*/
+		UPDATE /* com.qs.www.approval.model.dao.ApprovalDAO#callbackSelectedReport"()*/
 		       TBL_REPORT A
 		   SET A.REPORT_STATUS = '회수'
 		 WHERE A.REPORT_NO = #{ no }
@@ -104,16 +113,67 @@
 		       TBL_APPROVER_PER_REPORT A
 		   SET A.APPROVER_TYPE = '미처리'
 		 WHERE A.REPORT_NO = #{ no }
+		   AND A.APPROVER_TYPE = '대기'
 	</update>
 	<select id="selectMyTurnAPR"
 		resultMap="APRResultMap">
-		SELECT /* com.qs.www.approval.model.dao.ApprovalDAO#selectOneReportDetail()*/
+		SELECT /* com.qs.www.approval.model.dao.ApprovalDAO#selectMyTurnAPR()*/
 			   A.*
 		  FROM TBL_APPROVER_PER_REPORT A
 		 WHERE A.MEMBER_NO = #{ no }
-		  AND  A.APPROVER_TYPE = '대기'
-		ORDER BY A.REPORT_NO DESC
+		   AND A.APPROVER_TYPE = '대기'
+		 ORDER BY A.REPORT_NO DESC
 	</select>
+	<insert id="insertALPR" parameterType="com.qs.www.approval.model.dto.ApproverLogPerReportDTO">
+	INSERT  /* com.qs.www.approval.model.dao.ApprovalDAO#insertALPR()*/
+	  INTO TBL_APPROVER_LOG_PER_REPORT A
+	(
+	  A.REPORT_NO
+	, A.APP_LOG_NO
+	, A.MEMBER_NO
+	, A.APP_DATE
+	, A.APP_NOTE
+	, A.APP_STATUS
+	)
+	VALUES
+	(
+	  #{ reportNo }
+	, SEQ_ALogPR_NO.NEXTVAL
+	, #{ memberNo }
+	, SYSDATE
+	, #{ appNote }
+	, #{ appStatus }
+	)
+	</insert>
+	<select id="selectThisTurnAPR"
+		resultMap="APRResultMap">
+		SELECT /* com.qs.www.approval.model.dao.ApprovalDAO#selectThisTurnAPR()*/
+			   A.*
+		  FROM TBL_APPROVER_PER_REPORT A
+		 WHERE A.MEMBER_NO = #{ memberNo }
+		   AND A.REPORT_NO = #{ reportNo }
+	</select>
+	<update id="updateThisTurnAPR">
+		UPDATE /* com.qs.www.approval.model.dao.ApprovalDAO#updateThisTurnAPR()*/
+		       TBL_APPROVER_PER_REPORT A
+		   SET A.APPROVER_TYPE = #{ approverType }
+		 WHERE A.MEMBER_NO = #{ memberNo }
+		   AND A.REPORT_NO = #{ reportNo }
+	</update>
+	<update id="updateNextTurnAPR">
+		UPDATE /* com.qs.www.approval.model.dao.ApprovalDAO#updateNextTurnAPR()*/
+		       TBL_APPROVER_PER_REPORT A
+		   SET A.APPROVER_TYPE = '대기'
+		 WHERE A.REPORT_NO = #{ reportNo }
+		   AND A.PRIORITY = #{ priority }
+	</update>
+	<update id="finishAppReport">
+		UPDATE /* com.qs.www.approval.model.dao.ApprovalDAO#finishAppReport()*/
+		       TBL_REPORT A
+		   SET A.REPORT_STATUS = #{ approverType }
+		 WHERE A.REPORT_NO = #{ reportNo }
+	</update>
+	
 </mapper>
 	    
 

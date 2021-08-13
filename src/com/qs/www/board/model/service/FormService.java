@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.qs.www.board.model.dao.FormDAO;
 import com.qs.www.board.model.dto.FormDTO;
+import com.qs.www.board.model.dto.FreeDTO;
 
 import static com.qs.www.common.mybatis.Template.getSqlSession;
 
@@ -29,6 +30,28 @@ public class FormService {
 		
 		return formList;
 		
+	}
+	public FormDTO selectFormDetail(int no) {
+		SqlSession session = getSqlSession();
+		FormDTO formDetail = null;
+		
+		int result = formDAO.incrementFormCount(session, no);
+		
+		if(result > 0) {
+			formDetail = formDAO.selectFormDetail(session, no);
+			
+			if(formDetail != null) {
+				session.commit();
+			} else {
+				session.rollback();
+			}
+		} else {
+			session.rollback();
+		}
+		
+		session.close();
+		
+		return formDetail;
 	}
 
 }

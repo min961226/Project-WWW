@@ -6,7 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.qs.www.approval.model.dto.ApprovalLineDTO;
 import com.qs.www.approval.model.dto.ApproverDTO;
-import com.qs.www.member.model.dto.MemberDTO;
+import com.qs.www.approval.model.dto.ApproverLogPerReportDTO;
 import com.qs.www.schedule.model.dto.ApproverPerReportDTO;
 import com.qs.www.schedule.model.dto.ReportDTO;
 import com.qs.www.schedule.model.dto.WorkingDocumentItemDTO;
@@ -57,10 +57,34 @@ public class ApprovalDAO {
 		
 		return session.selectList("ApprovalDAO.selectMyTurnAPR", no);
 	}
-
-	public MemberDTO selectMemberName(SqlSession session, int membertNo) {
+	
+	public int insertALPR(SqlSession session, ApproverLogPerReportDTO aLPR) {
 		
-		return session.selectOne("ApprovalDAO.selectMemberName", membertNo);
+		return session.insert("ApprovalDAO.insertALPR", aLPR);
 	}
+
+	public ApproverPerReportDTO selectThisTurnAPR(SqlSession session, ApproverPerReportDTO thisAPR) {
+		
+		return session.selectOne("ApprovalDAO.selectThisTurnAPR", thisAPR);
+	}
+
+	public int updateThisTurnAPR(SqlSession session, ApproverPerReportDTO thisAPR) {
+		
+		return session.update("ApprovalDAO.updateThisTurnAPR", thisAPR);
+	}
+
+	public int updateNextTurnAPR(SqlSession session, ApproverPerReportDTO thisAPR) {
+		
+		return session.update("ApprovalDAO.updateNextTurnAPR", thisAPR);
+	}
+
+	public int finishAppReport(SqlSession session, ApproverPerReportDTO thisAPR) {
+		
+		return session.update("ApprovalDAO.finishAppReport", thisAPR);
+	}
+
+
+
+	
 
 }

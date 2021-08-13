@@ -14,6 +14,7 @@ public class NoticeDTO {
 	private Date created;
 	private Date modified;
 	
+	
 
 	public NoticeDTO() {}
 
