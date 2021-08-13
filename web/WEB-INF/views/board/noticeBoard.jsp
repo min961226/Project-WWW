@@ -154,7 +154,7 @@
 				$tds[i].onclick = function() {
 					/* 게시물 번호까지 알아왔으니 이제 상세보기는 할 수 있겠지? */
 					const no = this.parentNode.children[0].innerText;
-					location.href = "${ pageContext.servletContext.contextPath }/notice/detail?no=" + no;
+					location.href = "${ pageContext.servletContext.contextPath }/board/notice/selectOne?no=" + no;
 				}
 				
 			}

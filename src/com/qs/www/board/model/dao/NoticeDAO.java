@@ -1,10 +1,12 @@
 package com.qs.www.board.model.dao;
 
-import java.util.List;
+import java.util.List;  
 
 import org.apache.ibatis.session.SqlSession;
 
-import com.qs.www.mng.board.model.dto.NoticeDTO;
+import com.qs.www.board.model.dto.NoticeDTO;
+
+
 
 public class NoticeDAO {
 	
@@ -14,4 +16,13 @@ public class NoticeDAO {
 		return session.selectList("NoticeDAO.selectAllNoticeList");
 	}
 
+	public NoticeDTO selectNoticeDetail(SqlSession session, int no) {
+		return session.selectOne("NoticeDAO.selectNoticeDetail", no);
+	}
+
+	public int incrementNoticeCount(SqlSession session, int no) {
+		return session.update("NoticeDAO.incrementNoticeCount", no);
+	}
 }
+
+

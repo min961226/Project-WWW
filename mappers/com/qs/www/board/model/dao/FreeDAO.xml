@@ -40,7 +40,6 @@
         , A.BOARD_TYPE
         , A.BOARD_COUNT
         , A.BOARD_BODY
-        , A.BOARD_YN
         , A.DELETE_YN
         , A.CREATED_DATE
         , A.MODIFIED_DATE
@@ -58,6 +57,8 @@
         , SYSDATE
         )
 	</insert>
+	
+	
 	
 		<update id="incrementFreeCount">
         UPDATE /* com.qs.www.board.model.dao.FreeDAO#incrementFreeCount() */

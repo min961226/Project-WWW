@@ -42,37 +42,8 @@
                                 <p class="content-group">
                                 </p>
                                 <table class="display datatable table table-stripped">
+
                                     <thead>
-                                        <tr bgcolor = "FFBC35">
-                                            <th>번호</th>
-                                            <th>제목</th>
-                                            <th>작성일</th>
-                                            <th>조회수</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>[내부결재문서] 기안서</td>
-                                            <td>2021-05-27</td>
-                                            <td>61</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>[일반문서] 업무정리</td>
-                                            <td>2021-05-26</td>
-                                            <td>63</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>[일반문서] 자동수발</td>
-                                            <td>2021-05-24</td>
-                                            <td>66</td>
-
-                                        </tr>
-                                    </tbody>
-                                                                        <thead>
                                         <tr bgcolor = "FFBC35">
                                             <th>번호</th>
                                             <th>제목</th>
@@ -149,7 +120,7 @@
 				$tds[i].onclick = function() {
 					/* 게시물 번호까지 알아왔으니 이제 상세보기는 할 수 있겠지? */
 					const no = this.parentNode.children[0].innerText;
-					location.href = "${ pageContext.servletContext.contextPath }/notice/detail?no=" + no;
+					location.href = "${ pageContext.servletContext.contextPath }/board/form/selectOne?no=" + no;
 				}
 				
 			}
