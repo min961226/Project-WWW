@@ -1,17 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="MainDAO">
-
-	<resultMap type="com.qs.www.main.model.dto.MainInfoDTO" id="mainInfoResultMap">
+	<resultMap type="com.qs.www.main.model.dto.CommutingLogDTO" id="commutingLogResultMap">
 		<id property="commuteNo" column="COMMUTE_NO"/>
 		<result property="yearMonth" column="YEAR_MONTH"/>
 		<result property="day" column="DAY"/>
 		<result property="inTime" column="IN_TIME"/>
 		<result property="outTime" column="OUT_TIME"/>
 	</resultMap>
+	
+	<resultMap type="com.qs.www.main.model.dto.WorkingLogDTO" id="workingLogResultMap">
+		<id property="workLogNo" column="WORK_LOG_NO"/>
+		<result property="workType" column="WORK_TYPE"/>
+		<result property="workNo" column="WORK_NO"/>
+		<result property="changeDate" column="CHANGE_DATE"/>
+	</resultMap>
 
-	<select id="selectMain" parameterType="com.qs.www.main.model.dto.MainInfoDTO" resultMap="mainInfoResultMap">
-        SELECT
+	<select id="selectCommutingLog" parameterType="com.qs.www.main.model.dto.WorkInfoDTO" resultMap="commutingLogResultMap">
+        SELECT /* com.qs.www.main.model.dao.MainDAO#selectCommutingLog() */
                A.COMMUTE_NO
              , A.YEAR_MONTH
              , A.DAY
@@ -19,6 +25,28 @@
              , A.OUT_TIME
           FROM TBL_COMMUTE A
          WHERE A.MEMBER_NO = #{ memberNo }
-           AND A.YEAR_MONTH || '-' || A.DAY BETWEEN #{ weekStartDate } AND #{ weekEndDate }
+           AND (A.YEAR_MONTH || '-' || A.DAY) BETWEEN #{ weekStartDate } AND #{ weekEndDate }
+	</select>
+	
+	<select id="selectWorkingLog" parameterType="com.qs.www.main.model.dto.WorkInfoDTO" resultMap="workingLogResultMap">
+        SELECT /* com.qs.www.main.model.dao.MainDAO#selectWorkingLog() */
+               A.MEMBER_WORK_LOG_NO
+             , A.WORK_TYPE
+             , A.WORK_NO
+             , A.CHANGE_DATE
+             , C.DAY_OF_WEEK
+             , C.CHECK_IN_TIME
+             , C.CHECK_OUT_TIME
+             , B.BREAK_START_TIME
+             , B.BREAK_END_TIME
+          FROM TBL_MEMBER_WORK_LOG A
+          JOIN TBL_CUSTOM_WORK B ON (A.WORK_NO = B.WORK_NO)
+          JOIN TBL_CUSTOM_WORKTIME C ON (B.WORK_NO = C.WORK_NO)
+         WHERE A.MEMBER_NO = '4'
+         <![CDATA[
+           AND A.CHANGE_DATE = (SELECT MAX(D.CHANGE_DATE)
+                                  FROM TBL_MEMBER_WORK_LOG D
+                                 WHERE D.CHANGE_DATE <= '2021-08-25')
+         ]]>
 	</select>
 </mapper>
