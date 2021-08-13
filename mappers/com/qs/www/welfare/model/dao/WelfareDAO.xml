@@ -37,6 +37,13 @@
 		<result property="TransBill" column="TRANS_BILL" />
 
 	</resultMap>
+	
+	<resultMap type="com.qs.www.welfare.model.dto.DomitoryListDTO" id="domitoryListResultMap">
+		<result property="domitoryManageNo" column="DOMITORY_MANAGE_NO" />
+		<result property="domitoryBlockNo" column="BLOCK_NO" />
+		<result property="roomNo" column="ROOM_NO" />
+		<result property="maxCapacity" column="MAX_CAPACITY" />
+	</resultMap>
 
 <select id="selectWelfareList" resultType="java.lang.String">
 	SELECT /* com.qs.www.welfare.model.dao.WelfareDAO#checkWelfareList()*/
@@ -133,6 +140,11 @@
 		   AND TRANS_BILL = 'N'
 	</select>
 	
+	<select id="selectDomitory" resultMap="domitoryListResultMap">
+		SELECT /* com.qs.www.welfare.model.dao.WelfareDAO#selectDomitory() */
+			   A.*
+		  FROM TBL_DOMITORY A
+	</select>
 	
 	
 </mapper>

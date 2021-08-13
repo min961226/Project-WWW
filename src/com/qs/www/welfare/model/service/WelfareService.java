@@ -4,9 +4,11 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
+import com.qs.www.board.model.dto.NoticeDTO;
 import com.qs.www.schedule.model.dto.ApproverPerReportDTO;
 import com.qs.www.schedule.model.dto.WorkingDocumentItemDTO;
 import com.qs.www.welfare.model.dao.WelfareDAO;
+import com.qs.www.welfare.model.dto.DomitoryListDTO;
 import com.qs.www.welfare.model.dto.FamilyEventDTO;
 import com.qs.www.welfare.model.dto.MemberOverTimeLogDTO;
 import com.qs.www.welfare.model.dto.WelfareListDTO;
@@ -160,6 +162,17 @@ public class WelfareService {
 		session.close();
 
 		return checkNightTrans;
+	}
+
+	public List<DomitoryListDTO> selectDomitory() {
+	
+		SqlSession session = getSqlSession();
+		
+		List<DomitoryListDTO> domitoryList = welfareDAO.selectDomitory(session);
+		
+		session.close();
+		
+		return domitoryList;
 	}
 
 
