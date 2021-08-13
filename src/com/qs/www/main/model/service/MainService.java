@@ -52,31 +52,33 @@ public class MainService {
 			// 근무 이력 조회
 			WorkingLogDTO workingLog = new WorkingLogDTO();
 			workingLog = mainDAO.selectWorkingLog(sqlSession, workInfo);
-			workingLog.setSelectedDate(selectedDate);
-			
-			// 근무 유형 조회
-			WorkingTypeDTO workingType = new WorkingTypeDTO();
-			workingType = mainDAO.selectWorkingType(sqlSession, workingLog);
-			
-			if(workingLog.getWorkType().equals("표준")) {
-				LocalDate date = LocalDate.parse(selectedDate);
-				DayOfWeek dayOfWeek = date.getDayOfWeek();
-				String[] week = {"월", "화", "수", "목", "금", "토", "일"};
-				int w = dayOfWeek.getValue() - 1;
-				workingType.setDayOfWeek(week[w]);
+				
+			if(workingLog != null) {
+				workingLog.setSelectedDate(selectedDate);
+				
+				// 근무 유형 조회
+				WorkingTypeDTO workingType = new WorkingTypeDTO();
+				workingType = mainDAO.selectWorkingType(sqlSession, workingLog);
+				// 표준근무제의 경우, 요일을 추가
+				if(workingLog.getWorkType().equals("표준")) {
+					LocalDate date = LocalDate.parse(selectedDate);
+					DayOfWeek dayOfWeek = date.getDayOfWeek();
+					String[] week = {"월", "화", "수", "목", "금", "토", "일"};
+					int w = dayOfWeek.getValue() - 1;
+					
+					workingType.setDayOfWeek(week[w]);
+				}
+				
+				workingLog.setWorkingType(workingType);
+				workingLogList.add(workingLog);
+				
+				// 날짜 추가(요일 변경)
+				selectedCalDate.add(Calendar.DATE, 1);
 			}
 			
-			workingLog.setWorkingType(workingType);
-			workingLogList.add(workingLog);
-			for(WorkingLogDTO workingLogA : workingLogList) {
-				System.out.println("A : " + workingLogA);
-			}
-			// 날짜 추가(요일 변경)
-			selectedCalDate.add(Calendar.DATE, 1);
+			mainDAO.selectWorkingLog(sqlSession, workInfo);
 		}
 		
-		mainDAO.selectWorkingLog(sqlSession, workInfo);
-
 		sqlSession.close();
 		
 		return workingLogList;
