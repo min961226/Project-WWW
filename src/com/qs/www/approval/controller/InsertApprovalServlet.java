@@ -40,7 +40,6 @@ public class InsertApprovalServlet extends HttpServlet {
 		String[] arrayDate = str.split("-");   
 		int yearPlusFive = Integer.parseInt(arrayDate[0]) + 5;
 		String endDate = yearPlusFive + "-" + arrayDate[1]  + "-" + arrayDate[2];
-		System.out.println(endDate);
 		
 		request.setAttribute("endDate", endDate);
 		request.setAttribute("lineList", lineList);
