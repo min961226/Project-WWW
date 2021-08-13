@@ -24,11 +24,11 @@
 					failedMessage = "프로필 수정에 실패했습니다."
 					movePath = "${ pageContext.servletContext.contextPath }"
 					break;
+					
 				case "insertApproval" :
 					failedMessage = "결재 신청이 실패헀습니다."
 					movePath =  "${ pageContext.servletContext.contextPath }/approval/applied/select";
 					break;
-
 					
 				case "insertWork" :
 					failedMessage = "근무신청이 실패했습니다."
@@ -43,19 +43,27 @@
 				case "callbackApproval" :
 					failedMessage = "결재회수가 실패했습니다."
 					movePath =  "${ pageContext.servletContext.contextPath }/approval/applied/select";
-
 					break;
-          
-         case "insertSelfDev" :	
+					
+				case "insertSelfDev" :	
 					failedMessage = "자기개발비 신청에 실패하였습니다."	
 					movePath =  "${ pageContext.servletContext.contextPath }/welfare/list/select";
-          break;
+                    break;
+                    
+				case "insertNightTrans":
+					failedMessage = "야간교통비 신청에 실패하였습니다."
+					movePath = "${ pageContext.servletContext.contextPath }/welfare/list/select";
+					break;
+					
+				case "approvalProcess" :
+					failedMessage = "결재처리가 실패헀습니다."
+					movePath =  "${ pageContext.servletContext.contextPath }/approval/waiting/select";
+					break;
+         
         
-        	case "insertNightTrans":
-				failedMessage = "야간교통비 신청에 실패하였습니다."
-				movePath = "${ pageContext.servletContext.contextPath }/welfare/list/select";
-				break;
+        	
 			}
+			    
 
 			alert(failedMessage);
 

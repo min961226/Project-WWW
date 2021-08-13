@@ -19,8 +19,7 @@ import com.qs.www.schedule.model.dto.WorkingDocumentItemDTO;
 public class SelectOneAppliedApprovalServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("결재요청함 상세보기");
-
+		
 		int no = Integer.parseInt(request.getParameter("no"));
 		//요청함에서 선택한 게시물의 살세정보 가져오기
 		ReportDTO selectedReport  = new ApprovalService().selectOneReportDetail(no);
