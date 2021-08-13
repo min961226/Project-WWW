@@ -59,6 +59,16 @@
         )
 	</insert>
 	
+		<update id="incrementFreeCount">
+        UPDATE /* com.qs.www.board.model.dao.FreeDAO#incrementFreeCount() */
+               TBL_BOARD A
+           SET A.BOARD_COUNT = (SELECT B.BOARD_COUNT
+                                   FROM TBL_BOARD B
+                                  WHERE B.BOARD_NO = #{ no }
+                                ) + 1
+         WHERE A.BOARD_NO = #{ no }
+	</update>
+	
 	<select id="selectFreeDetail" resultMap="freeResultMap">
        SELECT
                A.BOARD_NO

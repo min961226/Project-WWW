@@ -24,7 +24,7 @@ public class SelectOneFreeBoardServlet extends HttpServlet {
 		
 		String path = "";
 		if(freeDetail != null) {
-			path = "/WEB-INF/views/board/formBoard.jsp";
+			path = "/WEB-INF/views/board/detailFreeBoard.jsp";
 			request.setAttribute("free", freeDetail);
 		} else {
 			path = "/WEB-INF/views/common/failed.jsp";

@@ -22,11 +22,11 @@ public class FreeDAO {
 	public FreeDTO selectFreeDetail(SqlSession session, int no) {
 		
 		return session.selectOne("FreeDAO.selectFreeDetail", no);
+		
+		
 	}
-	//조회수
 	public int incrementFreeCount(SqlSession session, int no) {
 		
 		return session.update("FreeDAO.incrementFreeCount", no);
 	}
-
 }
