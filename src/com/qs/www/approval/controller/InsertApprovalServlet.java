@@ -46,7 +46,7 @@ public class InsertApprovalServlet extends HttpServlet {
 		session.setAttribute("lineList", lineList);
 		request.getRequestDispatcher("/WEB-INF/views/approval/insertApproval.jsp").forward(request, response);
 		
-		//asgas
+		//asg
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
