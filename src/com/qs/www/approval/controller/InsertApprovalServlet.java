@@ -70,7 +70,7 @@ public class InsertApprovalServlet extends HttpServlet {
 		System.out.println("lineName : " + lineName);
 		
 		String title = request.getParameter("title");
-		
+		//현재 등록할 차례의 결재번호 받아오기
 		int reportNo = new ApprovalService().selectReportNum();
 		
 		ReportDTO report = new ReportDTO();
@@ -110,7 +110,7 @@ public class InsertApprovalServlet extends HttpServlet {
 
 		int priority = 1;
 		int result2 = 0;
-
+		//상신별 항목작성내용 등록
 		for(String item : documentItem) {
 			WorkingDocumentItemDTO documentItemDTO = new WorkingDocumentItemDTO();
 			documentItemDTO.setReportNo(reportNo);
@@ -128,8 +128,8 @@ public class InsertApprovalServlet extends HttpServlet {
 		
 		//선택한 결재 라인에 등록되있는 결재자들 가져오기
 		List<ApproverDTO> approverList = new ApprovalService().selectApprover(lineNo);
-		System.out.println(approverList);
 		
+		//상신별 결재자 등록
 		int result3 = 0;
 		for(ApproverDTO approver : approverList) {
 			ApproverPerReportDTO approverPerReportDTO = new ApproverPerReportDTO();

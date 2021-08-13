@@ -49,7 +49,7 @@
 									<div class="col-sm-6">
 										<label>결재 제목</label>
 										<div class="col-md-12">
-											<input type="text" name="title" class="form-control">
+											<input type="text" name="title" class="form-control" required="required">
 										</div>
 									</div>
 								</div>
@@ -138,7 +138,7 @@
 									<label>내용</label>
 									<div class="col-lg-12">
 										<textarea name="body" rows="8" cols="5" class="form-control"
-											placeholder="내용을 입력해주세요"></textarea>
+											placeholder="내용을 입력해주세요" required="required"></textarea>
 									</div>
 								</div>
 								</div>

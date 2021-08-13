@@ -59,8 +59,8 @@ public class ScheduleService {
 		SqlSession session = getSqlSession();
 		
 		int result = scheduleDAO.applyWorkingSystemApprover(session, approverPerReportDTO);
-		
-		if(result > 0) {
+		int result2 = scheduleDAO.setFirstWorkingSystemApprover(session, approverPerReportDTO);
+		if(result > 0 && result2 > 0) {
 			session.commit();
 		} else {
 			session.rollback();

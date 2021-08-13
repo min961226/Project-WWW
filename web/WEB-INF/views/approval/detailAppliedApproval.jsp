@@ -141,7 +141,10 @@
 								
 								<div class="row">
                                     <div class="col-sm-12 text-center m-t-20">
-                                        <button type="submit" class="btn btn-primary btn-lg"> 회수하기 </button>
+                                        <c:set var = "no" value ="${ requestScope.selectedReport.reportStatus }" />
+				                        <c:if test="${  no eq '대기' }">
+                                            <button type="submit" class="btn btn-primary btn-lg"> 회수하기 </button>
+                                        </c:if>
                                         <button type="reset" class="btn btn-primary btn-lg" id="goBack">돌아가기</button>
                                     </div>
                                 </div>

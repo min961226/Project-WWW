@@ -1,5 +1,7 @@
 package com.qs.www.approval.model.service;
 
+import static com.qs.www.common.mybatis.Template.getSqlSession;
+
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -7,10 +9,10 @@ import org.apache.ibatis.session.SqlSession;
 import com.qs.www.approval.model.dao.ApprovalDAO;
 import com.qs.www.approval.model.dto.ApprovalLineDTO;
 import com.qs.www.approval.model.dto.ApproverDTO;
+import com.qs.www.member.model.dto.MemberDTO;
+import com.qs.www.schedule.model.dto.ApproverPerReportDTO;
 import com.qs.www.schedule.model.dto.ReportDTO;
 import com.qs.www.schedule.model.dto.WorkingDocumentItemDTO;
-
-import static com.qs.www.common.mybatis.Template.getSqlSession;
 
 public class ApprovalService {
 	
@@ -65,10 +67,10 @@ public class ApprovalService {
 		return reportList;
 	}
 
-	public ReportDTO selectOneReportDetail(int no) {
+	public ReportDTO selectOneReportDetail(int reportNo) {
 		SqlSession session = getSqlSession();
 
-		ReportDTO reportList = approvalDAO.selectOneReportDetail(session, no);
+		ReportDTO reportList = approvalDAO.selectOneReportDetail(session, reportNo);
 
 		session.close();
 
@@ -98,6 +100,41 @@ public class ApprovalService {
 		session.close();
 
 		return result;
+	}
+
+	public int callbackApproverPerReport(int no) {
+		SqlSession session = getSqlSession();
+
+		int result = approvalDAO.callbackApproverPerReport(session, no);
+		
+		if(result > 0) {
+            session.commit();
+        } else {
+            session.rollback();
+        }
+		session.close();
+
+		return result;
+	}
+
+	public List<ApproverPerReportDTO> selectMyTurnAPR(int no) {
+		SqlSession session = getSqlSession();
+
+		List<ApproverPerReportDTO>  APRList = approvalDAO.selectMyTurnAPR(session, no);
+
+		session.close();
+
+		return APRList;
+	}
+
+	public MemberDTO selectMemberName(int membertNo) {
+		SqlSession session = getSqlSession();
+
+		MemberDTO member = approvalDAO.selectMemberName(session, membertNo);
+
+		session.close();
+
+		return member;
 	}
 
 }

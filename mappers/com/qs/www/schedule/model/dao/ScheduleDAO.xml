@@ -98,6 +98,14 @@
 	, #{ changeReason }
 	)
 	</insert>
+  
+	<update id="setFirstWorkingSystemApprover">
+		UPDATE /* com.qs.www.approval.model.dao.ApprovalDAO#selectOneReportDetail()*/
+		       TBL_APPROVER_PER_REPORT A
+		   SET A.APPROVER_TYPE = '대기'
+		 WHERE A.REPORT_NO = #{ reportNo }
+		   AND A.PRIORITY = 1
+	</update>
 	
 	<select id="selectMyWorkReport" resultMap="reportResultMap">
 	SELECT /* com.qs.www.schedule.model.dao.ScheduleDAO#selectMyWorkReport() */
