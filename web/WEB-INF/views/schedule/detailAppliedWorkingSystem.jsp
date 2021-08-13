@@ -34,8 +34,8 @@
 										<label>결재 분류</label>
 										<div class="col-md-12">
 											<input class="form-control" value=
-											     <c:if test="${requestScope.selectedReport.documentNo eq 4}">"근무신청서"</c:if>
-											     <c:if test="${requestScope.selectedReport.documentNo eq 5}">"초과근무신청서"</c:if> disabled/>
+											     <c:if test="${ requestScope.selectedReport.documentNo eq 4 }">"근무신청서"</c:if>
+											     <c:if test="${ requestScope.selectedReport.documentNo eq 5 }">"초과근무신청서"</c:if> disabled/>
 										</div>
 									</div>
 									
@@ -75,7 +75,7 @@
 								<div class="col-sm-6">
 										<label>보존기간</label>
 										<div class="col-md-12">
-										<input class="form-control" value="~${ requestScope.endDate }"  disabled/>
+										<input class="form-control" value="~${ requestScope.preservedDate }"  disabled/>
 										</div>
 									</div>
 								
@@ -112,13 +112,6 @@
 										<label>종료일</label>
 										<div class="col-md-12">
 											<input class="form-control" value="${ requestScope.endDate }"  disabled/>
-										</div>
-									</div>
-									
-									<div class="col-sm-6">
-										<label>종료일</label>
-										<div class="col-md-12">
-											<input class="form-control" value="${ requestScope.reason }"  disabled/>
 										</div>
 									</div>
 									

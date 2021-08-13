@@ -23,6 +23,8 @@
 					<div class="col-xs-8">
 						<h4 class="page-title">근무 신청 현황</h4>
 					</div>
+					
+					<!-- 근무신청으로 이동하는 버튼 -->
 					<div class="col-xs-4 text-right m-b-30">
 						<a href="${ pageContext.servletContext.contextPath }/schedule/workingSystem/insert" class="btn btn-primary rounded pull-right"><i class="fa fa-plus"></i> 근무신청하기</a>
 					</div>
@@ -80,7 +82,6 @@
                         <div class="table-responsive">
                             <table class="table table-striped custom-table m-b-0 datatable">
                             
-								<tbody>
 								<thead>
 									<tr>
 										<!-- 시작일과 종료일도 뜨게 해주고 싶네 -->
@@ -90,7 +91,7 @@
 										<th>결재라인</th>
 										<th>상신일</th>
 										<th>진행상태</th>
-										<th rowspan="2">신청사유</th>                                     
+										<th>신청사유</th>                                     
 									</tr>
 								</thead>
                                	
@@ -98,7 +99,9 @@
                                 <c:forEach var="report" items="${ requestScope.reportList }">
                                 
                                 	<!-- 승인인지 여부만 확인. 승인 이외에는 빨간색으로 -->
+                                	<!-- 
                                 	<c:set var="isApproved" value="${ fn:contains(report.reportStatus, \"승인\") }"/>
+                                	-->
                                 	
 									<tr>
 										<td><c:out value="${ report.reportNo }"/></td>
@@ -107,6 +110,7 @@
 										<td><c:out value="${ report.reportTitle }"/></td>
 										<td><c:out value="${ report.lineName }"/></td>
 										<td><c:out value="${ report.reportDate }"/></td>
+										<!-- 
 										<td> 
 											<c:choose>
 												<c:when test="${ isApproved }">
@@ -117,41 +121,13 @@
 												</c:otherwise>
 											</c:choose>
 										</td>
+										-->
+										<td><c:out value="${ report.reportStatus }"/></td>
 										
 										<td><c:out value="${ report.reportNote }"/></td>
 									</tr>
 								</c:forEach>	
                                 
-								<tr>
-									<td><h2>Richard Miles</h2></td>
-                                    <td>Casual Leave</td>
-                                    <td>8 Aug 2017</td>
-                                    <td>8 Aug 2017</td>
-                                    <td>2 days</td>
-                                    <td>Going to Hospital</td>
-                                    <td class="text-center">
-                                        <div class="dropdown action-label">
-                                            <a class="btn btn-white btn-sm rounded dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
-                                                <i class="fa fa-dot-circle-o text-purple"></i> New <i class="caret"></i>
-                                            </a>
-                                            <ul class="dropdown-menu pull-right">
-                                                <li><a href="#"><i class="fa fa-dot-circle-o text-purple"></i> New</a></li>
-                                                <li><a href="#"><i class="fa fa-dot-circle-o text-info"></i> Pending</a></li>
-                                                <li><a href="#"><i class="fa fa-dot-circle-o text-success"></i> Approved</a></li>
-                                                <li><a href="#"><i class="fa fa-dot-circle-o text-danger"></i> Declined</a></li>
-                                            </ul>
-                                        </div>
-                                    </td>
-                                    <td class="text-right">
-                                        <div class="dropdown">
-                                            <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                                            <ul class="dropdown-menu pull-right">
-                                                <li><a href="#" title="Edit" data-toggle="modal" data-target="#edit_leave"><i class="fa fa-pencil m-r-5"></i> Edit</a></li>
-                                            </ul>
-                                        </div>
-                                    </td>
-                                </tr>
-								</tbody>
                             </table> <!-- 근무신청내용 end -->
                             
 						<!-- 페이징 부분 -->
@@ -190,63 +166,12 @@
 						</div>
 						
                         </div>
-                    </div>
-                </div>
-            </div>
-		</div>
-       
-       
-       <!-- 상세보기를 누르면 뜨는 모달  -->
-		<div id="edit_leave" class="modal custom-modal fade" role="dialog">
-            <div class="modal-dialog">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <div class="modal-content modal-md">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Edit Leave</h4>
-                    </div>
-                    <div class="modal-body">
-                        <form>
-                            <div class="form-group">
-                                <label>Leave Type <span class="text-danger">*</span></label>
-                                <select class="select">
-                                    <option>Select Leave Type</option>
-                                    <option>Casual Leave 12 Days</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>From <span class="text-danger">*</span></label>
-                                <div class="cal-icon">
-                                    <input class="form-control datetimepicker" value="01-01-2017" type="text">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label>To <span class="text-danger">*</span></label>
-                                <div class="cal-icon">
-                                    <input class="form-control datetimepicker" value="01-01-2017" type="text">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label>Number of days <span class="text-danger">*</span></label>
-                                <input class="form-control" readonly="" type="text" value="2">
-                            </div>
-                            <div class="form-group">
-                                <label>Remaining Leaves <span class="text-danger">*</span></label>
-                                <input class="form-control" readonly="" value="12" type="text">
-                            </div>
-                            <div class="form-group">
-                                <label>Leave Reason <span class="text-danger">*</span></label>
-                                <textarea rows="4" cols="5" class="form-control">Going to hospital</textarea>
-                            </div>
-                            <div class="m-t-20 text-center">
-                                <button class="btn btn-primary btn-lg">Save Changes</button>
-                            </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    
-    </div><!-- main-wrapper end -->
+    <!-- main-wrapper end -->
     
     <script>
 		if(document.getElementsByTagName("td")) {
@@ -263,13 +188,15 @@
 				}
 				
 				$tds[i].onclick = function() {
-					const no = this.parentNode.children[0].innerText; //결재번호가 0번째 td이므로, [0]의 innerText를 가져오기
+					const no = this.parentNode.children[0].innerText;
 					location.href = "${ pageContext.servletContext.contextPath }/schedule/workingSystem/selectOne?no=" + no;
 				}
 				
 			}
 			
 		}
+		
+		
 	</script>
 </body>
 
