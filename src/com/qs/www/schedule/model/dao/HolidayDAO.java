@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import com.qs.www.schedule.model.dto.HolidayLogDTO;
 import com.qs.www.schedule.model.dto.HolidayTypeDTO;
 import com.qs.www.schedule.model.dto.HolidayUseInfoDTO;
+import com.qs.www.schedule.model.dto.ReportDTO;
 
 public class HolidayDAO {
 	
@@ -28,6 +29,11 @@ public class HolidayDAO {
 	public int insertHolidayUseInfo(SqlSession session, HolidayUseInfoDTO holidayUseInfoDTO) {
 		
 		return session.insert("HolidayDAO.insertHolidayUseInfo", holidayUseInfoDTO);
+	}
+
+	public List<ReportDTO> selectMyholidayReport(SqlSession session, int no) {
+		
+		return session.selectList("HolidayDAO.selectMyholidayReport", no);
 	}
 
 

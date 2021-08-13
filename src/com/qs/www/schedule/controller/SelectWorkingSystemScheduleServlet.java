@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.qs.www.approval.model.service.ApprovalService;
 import com.qs.www.member.model.dto.MemberInfoDTO;
 import com.qs.www.schedule.model.dto.ReportDTO;
 import com.qs.www.schedule.model.service.ScheduleService;
@@ -23,14 +22,14 @@ public class SelectWorkingSystemScheduleServlet extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		
-		//로그인 중인 사용자가 올린 결재중, documentNo가  4인 문서(정규근무신청)
+		//로그인 중인 사용자가 올린 결재중, documentNo가  4, 5인 문서(근무신청, 초과근무신청)
 		int no = ((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo();
 
-		List<ReportDTO> reportList = new ApprovalService().selectMyReport(no); //수정해야함
+		List<ReportDTO> workReportList = new ScheduleService().selectMyWorkReport(no);
 
-		System.out.println(reportList);
+		System.out.println(workReportList);
 
-		request.setAttribute("reportList", reportList);
+		request.setAttribute("reportList", workReportList);
 		request.getRequestDispatcher("/WEB-INF/views/schedule/appliedWorkingSystem.jsp").forward(request, response);
 		
 		

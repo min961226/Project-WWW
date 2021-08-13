@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 
@@ -12,11 +13,265 @@
 </head>
 
 <body>
-    <div class="main-wrapper">
+    
+	<div class="main-wrapper">
 		<jsp:include page="../common/navbar.jsp"/>
         
-        
-    </div>
+		<div class="page-wrapper">
+			<div class="content container-fluid">
+            
+				<div class="row">
+					<div class="col-xs-8">
+						<h4 class="page-title">휴가 신청 현황</h4>
+					</div>
+					<div class="col-xs-4 text-right m-b-30">
+						<a href="${ pageContext.servletContext.contextPath }/schedule/holiday/insert" class="btn btn-primary rounded pull-right"><i class="fa fa-plus"></i> 휴가신청하기</a>
+					</div>
+				</div>
+				
+                <!-- 검색조건 -->
+                <div class="row filter-row">
+					<div class="col-sm-3 col-md-3 col-xs-6">
+						<div class="form-group form-focus select-focus">
+							<label class="control-label">휴가 유형</label>
+							<select class="select floating">
+								<option> -- Select 수정해야됨 -- </option>
+								<option>연차</option>
+								<option>반차</option>
+								<option>교육</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-md-3 col-xs-6">
+                        <div class="form-group form-focus select-focus">
+                            <label class="control-label">휴가신청 승인상태</label>
+                            <select class="select floating">
+								<option> -- Select -- </option>
+								<option> 승인 </option>
+                                <option> 반려 </option>
+                                <option> 대기 </option>
+                                <option> 미처리 </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-md-2 col-xs-6">
+                        <div class="form-group form-focus">
+                            <label class="control-label">시작일</label>
+                            <div class="cal-icon">
+                                <input class="form-control floating datetimepicker" type="text" name="startDate">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-md-2 col-xs-6">
+                        <div class="form-group form-focus">
+                            <label class="control-label">종료일</label>
+                            <div class="cal-icon">
+                                <input class="form-control floating datetimepicker" type="text" name="endDate">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-md-2 col-xs-6">
+                        <a href="#" class="btn btn-success btn-block"> Search </a>
+                    </div>
+                </div> <!-- 검색조건 end -->
+                
+                <!-- 근무신청내용 -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table table-striped custom-table m-b-0 datatable">
+                            
+								<tbody>
+								<thead>
+									<tr>
+										<!-- 시작일과 종료일도 뜨게 해주고 싶네 -->
+										<th>결재번호</th>
+										<th>결재분류</th>
+										<th>결재제목</th>
+										<th>결재라인</th>
+										<th>상신일</th>
+										<th>진행상태</th>
+										<th rowspan="2">신청사유</th>                                     
+									</tr>
+								</thead>
+                               	
+                               	
+                                <c:forEach var="holiday" items="${ requestScope.holidayReportList }">
+                                
+                                	<!-- 승인인지 여부만 확인 -->
+                                	<c:set var="isApproved" value="${ fn:contains(holiday.reportStatus, \"승인\") }"/>
+                                	
+									<tr>
+										<td><c:out value="${ holiday.reportNo }"/></td>
+										<td><c:if test="${ holiday.documentNo eq 6 }"><c:out value="휴가신청서"/></c:if></td>
+										<td><c:out value="${ holiday.reportTitle}"/></td>
+										<td><c:out value="${ holiday.lineName }"/></td>
+										<td><c:out value="${ holiday.reportDate }"/></td>
+										<td> 
+											<c:choose>
+												<c:when test="${ isApproved }">
+													<i class="fa fa-dot-circle-o text-success"></i><c:out value=" ${ holiday.reportStatus }"/>
+												</c:when>
+												<c:otherwise>
+													<i class="fa fa-dot-circle-o text-danger"></i><c:out value=" ${ holiday.reportStatus }"/>
+												</c:otherwise>
+											</c:choose>
+										</td>
+										
+										<td><c:out value="${ holiday.reportNote }"/></td>
+									</tr>
+								</c:forEach>	
+                                
+								<tr>
+									<td><h2>Richard Miles</h2></td>
+                                    <td>Casual Leave</td>
+                                    <td>8 Aug 2017</td>
+                                    <td>8 Aug 2017</td>
+                                    <td>2 days</td>
+                                    <td>Going to Hospital</td>
+                                    <td class="text-center">
+                                        <div class="dropdown action-label">
+                                            <a class="btn btn-white btn-sm rounded dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
+                                                <i class="fa fa-dot-circle-o text-purple"></i> New <i class="caret"></i>
+                                            </a>
+                                            <ul class="dropdown-menu pull-right">
+                                                <li><a href="#"><i class="fa fa-dot-circle-o text-purple"></i> New</a></li>
+                                                <li><a href="#"><i class="fa fa-dot-circle-o text-info"></i> Pending</a></li>
+                                                <li><a href="#"><i class="fa fa-dot-circle-o text-success"></i> Approved</a></li>
+                                                <li><a href="#"><i class="fa fa-dot-circle-o text-danger"></i> Declined</a></li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                    <td class="text-right">
+                                        <div class="dropdown">
+                                            <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                                            <ul class="dropdown-menu pull-right">
+                                                <li><a href="#" title="Edit" data-toggle="modal" data-target="#edit_leave"><i class="fa fa-pencil m-r-5"></i> Edit</a></li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+								</tbody>
+                            </table> <!-- 근무신청내용 end -->
+                            
+						<!-- 페이징 부분 -->
+						<div class="pagingArea" align="center">
+							<!-- 맨 앞으로 이동 버튼 -->
+	    					<button id="startPage"><<</button>
+		
+							<!-- 이전 페이지 버튼 -->
+							<c:if test="${ requestScope.selectCriteria.pageNo <= 1 }">
+								<button disabled><</button>
+							</c:if>
+							<c:if test="${ requestScope.selectCriteria.pageNo > 1 }">
+								<button id="prevPage"><</button>
+							</c:if>
+		
+							<!-- 숫자 버튼 -->
+							<c:forEach var="p" begin="${ requestScope.selectCriteria.startPage }" end="${ requestScope.selectCriteria.endPage }" step="1">
+								<c:if test="${ requestScope.selectCriteria.pageNo eq p }">
+									<button disabled><c:out value="${ p }"/></button>
+								</c:if>
+								<c:if test="${ requestScope.selectCriteria.pageNo ne p }">
+									<button onclick="pageButtonAction(this.innerText);"><c:out value="${ p }"/></button>
+								</c:if>
+							</c:forEach>
+		
+							<!-- 다음 페이지 버튼 -->
+							<c:if test="${ requestScope.selectCriteria.pageNo >= requestScope.selectCriteria.maxPage }">
+								<button disabled>></button>
+							</c:if>
+							<c:if test="${ requestScope.selectCriteria.pageNo < requestScope.selectCriteria.maxPage }">
+								<button id="nextPage">></button>
+							</c:if>
+		
+							<!-- 마지막 페이지로 이동 버튼 -->
+							<button id="maxPage">>></button> 
+						</div>
+						
+                        </div>
+                    </div>
+                </div>
+            </div>
+		</div>
+       
+       
+       <!-- 상세보기를 누르면 뜨는 모달 -->
+		<div id="edit_leave" class="modal custom-modal fade" role="dialog">
+            <div class="modal-dialog">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <div class="modal-content modal-md">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Edit Leave</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label>Leave Type <span class="text-danger">*</span></label>
+                                <select class="select">
+                                    <option>Select Leave Type</option>
+                                    <option>Casual Leave 12 Days</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>From <span class="text-danger">*</span></label>
+                                <div class="cal-icon">
+                                    <input class="form-control datetimepicker" value="01-01-2017" type="text">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>To <span class="text-danger">*</span></label>
+                                <div class="cal-icon">
+                                    <input class="form-control datetimepicker" value="01-01-2017" type="text">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Number of days <span class="text-danger">*</span></label>
+                                <input class="form-control" readonly="" type="text" value="2">
+                            </div>
+                            <div class="form-group">
+                                <label>Remaining Leaves <span class="text-danger">*</span></label>
+                                <input class="form-control" readonly="" value="12" type="text">
+                            </div>
+                            <div class="form-group">
+                                <label>Leave Reason <span class="text-danger">*</span></label>
+                                <textarea rows="4" cols="5" class="form-control">Going to hospital</textarea>
+                            </div>
+                            <div class="m-t-20 text-center">
+                                <button class="btn btn-primary btn-lg">Save Changes</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+    </div><!-- main-wrapper end -->
+    
+    <script>
+		if(document.getElementsByTagName("td")) {
+			const $tds = document.getElementsByTagName("td");
+			for(let i = 0; i < $tds.length; i++) {
+				
+				$tds[i].onmouseenter = function() {
+					this.parentNode.style.backgroundColor = "orangered";
+					this.parentNode.style.cursor = "pointer";
+				}
+				
+				$tds[i].onmouseout = function() {
+					this.parentNode.style.backgroundColor = "white";
+				}
+				
+				$tds[i].onclick = function() {
+					const no = this.parentNode.children[0].innerText; //결재번호가 0번째 td이므로, [0]의 innerText를 가져오기
+					location.href = "${ pageContext.servletContext.contextPath }/approval/applied/selectOne?no=" + no;
+				}
+				
+			}
+			
+		}
+	</script>
+</body>
 </body>
 
 </html>
