@@ -49,7 +49,6 @@
                                             <th>기안자</th>
                                             <th>결재라인</th>
                                             <th>결재 날짜</th>
-                                            <th>진행상태</th>
                                         </tr>
 
                                     </thead>
@@ -75,7 +74,6 @@
 											<td><c:out value="${ board.memberName }"/></td>
 											<td><c:out value="${ board.lineName }"/></td>
 											<td><c:out value="${ board.reportDate }"/></td>
-											<td><c:out value="${ board.reportStatus }"/></td>
 										</tr>
 										</c:forEach>
 
@@ -135,7 +133,10 @@
 					this.parentNode.style.backgroundColor = "white";
 				}
 				
-				
+				$tds[i].onclick = function() {
+					const no = this.parentNode.children[0].innerText;
+					location.href = "${ pageContext.servletContext.contextPath }/approval/waiting/selectOne?no=" + no;
+				}
 				
 			}
 			
