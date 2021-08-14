@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 public class SelectOneReceivedApprovalServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		System.out.println("수 참 상세");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

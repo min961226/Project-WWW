@@ -173,6 +173,15 @@
 		   SET A.REPORT_STATUS = #{ approverType }
 		 WHERE A.REPORT_NO = #{ reportNo }
 	</update>
+	<select id="selecReceivedAPR"
+		resultMap="APRResultMap">
+		SELECT /* com.qs.www.approval.model.dao.ApprovalDAO#selectMyTurnAPR()*/
+			   A.*
+		  FROM TBL_APPROVER_PER_REPORT A
+		 WHERE A.MEMBER_NO = #{ no }
+		   AND A.APPROVER_TYPE NOT IN ('미처리', '대기')
+		 ORDER BY A.REPORT_NO DESC
+	</select>
 	
 </mapper>
 	    
