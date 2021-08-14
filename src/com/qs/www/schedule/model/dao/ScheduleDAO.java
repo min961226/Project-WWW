@@ -8,6 +8,7 @@ import com.qs.www.approval.model.dto.ApproverDTO;
 import com.qs.www.schedule.model.dto.ApproverPerReportDTO;
 import com.qs.www.schedule.model.dto.HolidayTypeDTO;
 import com.qs.www.schedule.model.dto.MemberWorkLogDTO;
+import com.qs.www.schedule.model.dto.MonthlyWorkLogDTO;
 import com.qs.www.schedule.model.dto.ReportDTO;
 import com.qs.www.schedule.model.dto.WorkingDocumentItemDTO;
 
@@ -47,6 +48,30 @@ public class ScheduleDAO {
 	public List<ReportDTO> selectMyWorkReport(SqlSession session, int no) {
 		
 		return session.selectList("ScheduleDAO.selectMyWorkReport", no);
+	}
+	
+	/* 해당월의 지각횟수 count */
+	public int countLateTimeNum(SqlSession session, MonthlyWorkLogDTO monthlyWorkLogDTO) {
+		
+		return session.selectOne("ScheduleDAO.countLateTimeNum", monthlyWorkLogDTO);
+	}
+	
+	/* 해당월의 출근 미체크 횟수 count */
+	public int countNoCheckInTimeNum(SqlSession session, MonthlyWorkLogDTO monthlyWorkLogDTO) {
+		
+		return session.selectOne("ScheduleDAO.countNoCheckInTimeNum", monthlyWorkLogDTO);
+	}
+	
+	/* 해당월의 퇴근 미체크 횟수 count */
+	public int countNoCheckOutTimeNum(SqlSession session, MonthlyWorkLogDTO monthlyWorkLogDTO) {
+		
+		return session.selectOne("ScheduleDAO.countNoCheckOutTimeNum", monthlyWorkLogDTO);
+	}
+	
+	/* 오늘 퇴근체크 여부 확인 (count 사용) */
+	public int checkedOutToday(SqlSession session, MonthlyWorkLogDTO monthlyWorkLogDTO) {
+		
+		return session.selectOne("ScheduleDAO.checkedOutToday", monthlyWorkLogDTO);
 	}
 
 	

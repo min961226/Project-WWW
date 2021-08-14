@@ -31,15 +31,15 @@
                                     <tbody>
                                         <tr>
                                             <td>이번 달 근무일수</td>
-                                            <td colspan=2>13 / 22 일</td>
+                                            <td colspan=2><c:out value="${ requestScope.thisMonthWorkDateNum2 } / ${ requestScope.thisMonthWorkDateNum }"/></td>
                                             <td>이번 달 지각</td>
-                                            <td colspan=2>몇회인지 받아와야 함</td>
+                                            <td colspan=2><c:out value="${ requestScope.thisMonthlateNum } 회"/></td>
                                         </tr>
                                         <tr>
                                             <td>이번 달 출/퇴근 미체크</td>
-                                            <td colspan=2>2 / 2 일</td>
+                                            <td colspan=2><c:out value="${ requestScope.noCheckInTimeNum } 회  / ${ requestScope.noCheckOutTimeNum } 회"/></td>
                                             <td>오늘 퇴근 체크</td>
-                                            <td colspan=2>체크 대상인지 받아와야 함</td>
+                                            <td colspan=2><c:out value="${ requestScope.checkedOutToday }"/></td>
                                         </tr>
                                         <tr>
                                             <td>연 누적 지각</td>
@@ -62,9 +62,15 @@
                             <div class="card-block">
                                 <h5 class="text-bold card-title">근무시간 현황</h5>
                                 
+                                <div><h6><c:out value="${ requestScope.name } ( ${ requestScope.memberId } ) [ ${ requestScope.appWorkType }, ${ requestScope.workCode }]"/></h6></div>
                                 
+                                <div class="progress">
+                                	<div class="progress-bar progress-bar-striped bg-warning" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
                                 
-                                
+                                <div class="progress">
+                                	<div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: 50%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
                                 
                                 
                                 <!-- 월별시간 -->
@@ -107,8 +113,8 @@
                                 	</thead>
                                     <tbody>
                                         <tr>
-                                            <td>이번 달 근무일수</td>
-                                            <td>13 / 22 일</td>
+                                            <td><c:out value="${ sessionScope.memberInfo.name }"/></td>
+                                            <td></td>
                                             <td>이번 달 지각</td>
                                             <td>몇회인지 받아와야 함</td>
                                         </tr>

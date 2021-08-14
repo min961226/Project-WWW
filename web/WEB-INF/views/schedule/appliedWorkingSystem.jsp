@@ -37,8 +37,8 @@
 							<label class="control-label">근무제 유형</label>
 							<select class="select floating">
 								<option> -- Select -- </option>
-								<option>정규근무 신청</option>
-								<option>초과근무 신청</option>
+								<option>정규근무 신청 건</option>
+								<option>초과근무 신청 건</option>
 								<option>Loss of Pay</option>
                             </select>
                         </div>
