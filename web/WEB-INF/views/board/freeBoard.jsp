@@ -22,16 +22,23 @@
                         <h4 class="page-title">자유 게시판</h4>
                     </div>
                 </div>
+                
+                <!-- 검색 시작 -->
                 <div class="search-area" align="right">
+             	<form id="loginForm" action="${ pageContext.servletContext.contextPath }/board/free/select" method="get" style="display:inline-block">		
+			    <input type="hidden" name="currentPage" value="1">
 				<select id="searchCondition" name="searchCondition">
-					<option value="writer">작성자</option>
-					<option value="title">제목</option>
-					<option value="content">내용</option>
+					<option value="category" ${ requestScope.selectCriteria.searchCondition eq "category"? "selected": "" }>카테고리</option>
+					<option value="writer" ${ requestScope.selectCriteria.searchCondition eq "writer"? "selected": "" }>작성자</option>
+					<option value="title" ${ requestScope.selectCriteria.searchCondition eq "title"? "selected": "" }>제목</option>
+					<option value="content" ${ requestScope.selectCriteria.searchCondition eq "content"? "selected": "" }>내용</option>
 				</select>
-				<input type="search">
+				<input type="search" id="searchValue" name="searchValue" value="<c:out value="${ requestScope.selectCriteria.searchValue }"/>">
 				<button type="submit" >검색하기</button>
 				<button type="button" id="writeFree">작성하기</button>
-			</div>
+				</div>
+			
+			
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card-box">

@@ -23,7 +23,7 @@
                     </div>
                 </div>
                 <div class="row">
-                	<div class="col-lg-6">
+                	<div class="col-lg-12">
                         <div class="card-box">
                             <div class="card-block">
                                 <h5 class="text-bold card-title">이번 달 근태 통계</h5>
@@ -31,19 +31,19 @@
                                     <tbody>
                                         <tr>
                                             <td>이번 달 근무일수</td>
-                                            <td>13 / 22 일</td>
+                                            <td colspan=2>13 / 22 일</td>
                                             <td>이번 달 지각</td>
-                                            <td>몇회인지 받아와야 함</td>
+                                            <td colspan=2>몇회인지 받아와야 함</td>
                                         </tr>
                                         <tr>
                                             <td>이번 달 출/퇴근 미체크</td>
-                                            <td>2 / 2 일</td>
+                                            <td colspan=2>2 / 2 일</td>
                                             <td>오늘 퇴근 체크</td>
-                                            <td>체크 대상인지 받아와야 함</td>
+                                            <td colspan=2>체크 대상인지 받아와야 함</td>
                                         </tr>
                                         <tr>
                                             <td>연 누적 지각</td>
-                                            <td>받아와야 할까...?</td>
+                                            <td colspan=2>받아와야 할까...?</td>
                                             <td></td>
                                             <td></td>
                                         </tr>
@@ -57,7 +57,7 @@
                 
                                 
                 <div class="row">
-                	<div class="col-lg-6">
+                	<div class="col-lg-12">
                         <div class="card-box">
                             <div class="card-block">
                                 <h5 class="text-bold card-title">근무시간 현황</h5>
@@ -79,15 +79,20 @@
                 
                 
                 <div class="row">
-                	<div class="col-lg-6">
+                	<div class="col-lg-12">
                         <div class="card-box">
                             <div class="card-block">
-                            
+                            	
+                            	<!-- 버튼이 잘 되어야 하는디... -->
+                            	<div class="content container-fluid">
                             	<!-- 전월로 이동버튼 추가 -->
-                            	<button id="startPage"><<</button>
+                            	<button id="startPage"><</button>
+                            	<!-- 연도와 날짜도 받아야 함 -->
                                 <h5 class="text-bold card-title">2021년 7월</h5>
                                 <!-- 다음달로 이동버튼 추가-->
-                                <button id="maxPage">>></button> 
+                                <button id="maxPage">></button>
+                                </div>
+                            	 
                                 
                                 
                                 <!-- 월별시간 -->

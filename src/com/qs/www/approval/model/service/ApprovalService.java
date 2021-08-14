@@ -199,5 +199,15 @@ public class ApprovalService {
 		return result;
 	}
 
+	public List<ApproverPerReportDTO> selecReceivedAPR(int no) {
+		SqlSession session = getSqlSession();
+
+		List<ApproverPerReportDTO>  APRList = approvalDAO.selecReceivedAPR(session, no);
+
+		session.close();
+
+		return APRList;
+	}
+
 
 }
