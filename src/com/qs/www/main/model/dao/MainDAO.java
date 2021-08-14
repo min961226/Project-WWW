@@ -4,10 +4,10 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
-import com.qs.www.main.model.dto.CommutingLogDTO;
 import com.qs.www.main.model.dto.WorkInfoDTO;
 import com.qs.www.main.model.dto.WorkingLogDTO;
 import com.qs.www.main.model.dto.WorkingTypeDTO;
+import com.qs.www.mypage.model.dto.CommutingLogDTO;
 
 public class MainDAO {
 

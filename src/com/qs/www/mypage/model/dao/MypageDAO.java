@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.qs.www.member.model.dto.CheckQuestionDTO;
 import com.qs.www.member.model.dto.MemberInfoDTO;
+import com.qs.www.mypage.model.dto.CommutingLogDTO;
 
 public class MypageDAO {
 
@@ -15,5 +16,9 @@ public class MypageDAO {
 
 	public List<CheckQuestionDTO> selectQuestionList(SqlSession sqlSession) {
 		return sqlSession.selectList("MypageDAO.selectQuestionList");
+	}
+
+	public int insertCommute(SqlSession sqlSession, CommutingLogDTO commutingLog) {
+		return sqlSession.insert("MypageDAO.insertCommute", commutingLog);
 	}
 }

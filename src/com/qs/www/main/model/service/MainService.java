@@ -6,6 +6,7 @@ import static com.qs.www.common.mybatis.Template.getSqlSession;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -13,10 +14,10 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
 import com.qs.www.main.model.dao.MainDAO;
-import com.qs.www.main.model.dto.CommutingLogDTO;
 import com.qs.www.main.model.dto.WorkInfoDTO;
 import com.qs.www.main.model.dto.WorkingLogDTO;
 import com.qs.www.main.model.dto.WorkingTypeDTO;
+import com.qs.www.mypage.model.dto.CommutingLogDTO;
 
 public class MainService {
 	
@@ -39,7 +40,7 @@ public class MainService {
 	}
 	
 	// 근무 유형 및 시간 조회
-	public List<WorkingLogDTO> selectWorkingLog(WorkInfoDTO workInfo, Calendar selectedCalDate, SimpleDateFormat sdf) {
+	public List<WorkingLogDTO> selectWorkingLog(WorkInfoDTO workInfo) {
 		
 		SqlSession sqlSession = getSqlSession();
 
@@ -47,43 +48,34 @@ public class MainService {
 		
 		// 날짜별 근무 유형 및 시간 조회(월요일 ~ 일요일)
 		for(int i = 0; i < 7; i++) {
-
-			String selectedDate = sdf.format(selectedCalDate.getTime());
+			// 월요일부터 일요일까지 반복
+			LocalDate selectedLocalDate = workInfo.getSelectedLocalDate().plusDays(i);
+			// 해당 날짜를 String으로 형변환
+			String selectedDate = selectedLocalDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 			workInfo.setSelectedDate(selectedDate);
+			// 해당 날짜의 요일 구하기
+			DayOfWeek dayOfWeek = selectedLocalDate.getDayOfWeek();
+			String[] week = {"월", "화", "수", "목", "금", "토", "일"};
+			String selectedDayOfWeek = week[dayOfWeek.getValue() - 1];
 			
 			// 근무 이력 조회
 			WorkingLogDTO workingLog = new WorkingLogDTO();
 			workingLog = mainDAO.selectWorkingLog(sqlSession, workInfo);
-				
+			workingLog.setSelectedDate(selectedDate);
+			workingLog.setSelectedDayOfWeek(selectedDayOfWeek);
+			
 			if(workingLog != null) {
-				workingLog.setSelectedDate(selectedDate);
-				
 				// 근무 유형 조회
 				WorkingTypeDTO workingType = new WorkingTypeDTO();
 				workingType = mainDAO.selectWorkingType(sqlSession, workingLog);
-				// 표준근무제의 경우, 요일을 추가
-				if(workingLog.getWorkType().equals("표준")) {
-					LocalDate date = LocalDate.parse(selectedDate);
-					DayOfWeek dayOfWeek = date.getDayOfWeek();
-					String[] week = {"월", "화", "수", "목", "금", "토", "일"};
-					int w = dayOfWeek.getValue() - 1;
-					
-					workingType.setDayOfWeek(week[w]);
-				}
 				
 				workingLog.setWorkingType(workingType);
 				workingLogList.add(workingLog);
-				
-				// 날짜 추가(요일 변경)
-				selectedCalDate.add(Calendar.DATE, 1);
 			}
-			
-			mainDAO.selectWorkingLog(sqlSession, workInfo);
 		}
 		
 		sqlSession.close();
 		
 		return workingLogList;
 	}
-
 }

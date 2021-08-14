@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import com.qs.www.member.model.dto.CheckQuestionDTO;
 import com.qs.www.member.model.dto.MemberInfoDTO;
 import com.qs.www.mypage.model.dao.MypageDAO;
+import com.qs.www.mypage.model.dto.CommutingLogDTO;
 
 public class MypageService {
 	
@@ -42,6 +43,21 @@ public class MypageService {
 		}
 		
 		sqlSession.close();
+		
+		return result;
+	}
+
+	public int insertCommute(CommutingLogDTO commutingLog) {
+		
+		SqlSession sqlSession = getSqlSession();
+		
+		int result = mypageDAO.insertCommute(sqlSession, commutingLog);
+		
+		if(result > 0) {
+			sqlSession.commit();
+		} else {
+			sqlSession.rollback();
+		}
 		
 		return result;
 	}

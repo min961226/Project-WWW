@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="MainDAO">
-	<resultMap type="com.qs.www.main.model.dto.CommutingLogDTO" id="commutingLogResultMap">
+	<resultMap type="com.qs.www.mypage.model.dto.CommutingLogDTO" id="commutingLogResultMap">
 		<id property="commuteNo" column="COMMUTE_NO"/>
+		<result property="memberNo" column="MEMBER_NO"/>
 		<result property="yearMonth" column="YEAR_MONTH"/>
 		<result property="day" column="DAY"/>
 		<result property="inTime" column="IN_TIME"/>
@@ -11,9 +12,8 @@
 	
 	<resultMap type="com.qs.www.main.model.dto.WorkingLogDTO" id="workingLogResultMap">
 		<id property="workLogNo" column="MEMBER_WORK_LOG_NO"/>
-		<result property="workType" column="WORK_TYPE"/>
 		<result property="workNo" column="WORK_NO"/>
-		<result property="selectedDate" column="SELECTED_DATE"/>
+		<result property="workType" column="WORK_TYPE"/>
 		<result property="changeDate" column="CHANGE_DATE"/>
 	</resultMap>
 		
@@ -71,6 +71,7 @@
           FROM TBL_CUSTOM_WORK A
           JOIN TBL_CUSTOM_WORKTIME B ON (A.WORK_NO = B.WORK_NO)
          WHERE A.WORK_NO = #{ workNo }
+           AND B.DAY_OF_WEEK = #{ selectedDayOfWeek }
 		</if>
 	</select>
 </mapper>

@@ -43,9 +43,7 @@
 			<a id="mobile_btn" class="mobile_btn pull-left" href="#sidebar"><i class="fa fa-bars" aria-hidden="true"></i></a>
 			<ul class="nav navbar-nav navbar-right user-menu pull-right">
 				<li class="dropdown hidden-xs" id="in_time">
-					<a href="${ pageContext.servletContext.contextPath }/mypage/commute/insert">
-						<img src="${ pageContext.servletContext.contextPath }/assets/img/sign_in.png" alt=""></img>
-					</a>
+					<img src="${ pageContext.servletContext.contextPath }/assets/img/sign_in.png" alt=""></img>
 				</li>
 				<li class="dropdown hidden-xs" id="out_time">
 					<a href="#">
@@ -196,15 +194,22 @@
 	</div>
 	<div class="sidebar-overlay" data-reff=""></div>
 	<script>
-		$("#in_time").click(funtion() {
+		$("#in_time").click(function() {
 			$.ajax({
 				url: "${ pageContext.servletContext.contextPath }/mypage/commute/insert",
 				type: "post",
 				success: function(data, textStatus, xhr) {
-					console.log(data);
+					alert("출근 시간이 기록되었습니다.\n"
+						+ "현재 시각 : ["
+						+ data.yearMonth
+						+ "-"
+						+ data.day
+						+ " "
+						+ data.inTime
+						+ "]");
 				},
 				error: function(xhr, status, error) {
-					console.log(xhr);
+					alert(error);
 				}
 			});
 		});
