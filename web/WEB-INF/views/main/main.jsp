@@ -55,9 +55,9 @@
                                                 <th>초과 근무시간</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                        	<c:forEach var="item" items="${ list }" begin=0 end=1>
-                                        	</c:forEach>
+                                        <%-- <tbody>
+                                        	<c:forEach var="item" items="${ list }" begin=0 end=1> --%>
+                                        	<%-- </c:forEach> --%>
                                         </tbody>
                                     </table>
                                 </div>

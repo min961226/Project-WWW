@@ -41,42 +41,8 @@
                                 <p class="content-group">
                                 </p>
                                 <table class="display datatable table table-stripped">
-                                    <thead>
-                                        <tr bgcolor = "FFBC35">
-                                            <th >번호</th>
-                                            <th>제목</th>
-                                            <th>작성일</th>
-                                            <th>조회수</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>4</td>
-                                            <td >WWW 에어론 체어 서비스 연장 안내</td>
-                                            <td>2021.07.26</td>
-                                            <td>61</td>
 
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>WWW 관리자 정기교육 안내</td>
-                                            <td>2021.07.25</td>
-                                            <td>63</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>WWW 정기세미나 안내</td>
-                                            <td>2021.07.20</td>
-                                            <td>66</td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>WWW 정기세미나 안내</td>
-                                            <td>2021.06.27</td>
-                                            <td>22</td>
-                                        </tr>
 
-                                    </tbody>
                                         <thead>
                                         <tr bgcolor = "FFBC35">
                                             <th>번호</th>
