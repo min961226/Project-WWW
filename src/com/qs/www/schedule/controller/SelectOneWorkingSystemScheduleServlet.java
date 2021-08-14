@@ -41,7 +41,7 @@ public class SelectOneWorkingSystemScheduleServlet extends HttpServlet {
 		
 		//초과근무신청일경우
 		if(selectedReport.getDocumentNo() == 5) {
-			request.setAttribute("startDate", itemList.get(1).getItemContent());		//시작일시
+			request.setaAttribute("startDate", itemList.get(1).getItemContent());		//시작일시
 			request.setAttribute("endDate", itemList.get(2).getItemContent());			//종료일시
 			request.setAttribute("overtimeDuring", itemList.get(3).getItemContent());	//초과근무 기간시수
 			request.setAttribute("reason", itemList.get(4).getItemContent());			//사유
