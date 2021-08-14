@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
 import com.qs.www.schedule.model.dto.ApproverPerReportDTO;
+import com.qs.www.schedule.model.dto.ReportDTO;
 import com.qs.www.schedule.model.dto.WorkingDocumentItemDTO;
 import com.qs.www.welfare.model.dto.DomitoryListDTO;
 import com.qs.www.welfare.model.dto.FamilyEventDTO;
@@ -64,6 +65,10 @@ public class WelfareDAO {
 
 	public List<DomitoryListDTO> selectDomitory(SqlSession session) {
 		return session.selectList("WelfareDAO.selectDomitory");
+	}
+
+	public List<ReportDTO> selectAppliedWelfareList(SqlSession session, int no) {
+		return session.selectList("WelfareDAO.selectAppliedWelfareList", no);
 	}
 
 

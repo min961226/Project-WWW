@@ -57,6 +57,7 @@
                                             </tr>
                                         </thead>
 
+
                                         <tbody>
 
                                         	<c:forEach var="commutingLog" items="${ commutingLogList }" varStatus="status">
@@ -70,6 +71,7 @@
                                         	</c:forEach>
 
                                         </tbody>
+
                                     </table>
                                 </div>
                             </div>
