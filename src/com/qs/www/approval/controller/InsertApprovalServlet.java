@@ -83,13 +83,7 @@ public class InsertApprovalServlet extends HttpServlet {
 		//REPORT(상신) 추가
 		ScheduleService scheduleService = new ScheduleService();	
 		int result1 = scheduleService.applyWorkingSystem(report);
-		
-		
-		
-		
-		
-		
-		
+
 		
 		String body = request.getParameter("body");
 
@@ -131,13 +125,23 @@ public class InsertApprovalServlet extends HttpServlet {
 		//상신별 결재자 등록
 		int result3 = 0;
 		for(ApproverDTO approver : approverList) {
-			ApproverPerReportDTO approverPerReportDTO = new ApproverPerReportDTO();
-			approverPerReportDTO.setReportNo(reportNo);
-			approverPerReportDTO.setMemberNo(approver.getMemberNo());
-			approverPerReportDTO.setPriority(approver.getPriority());
+            ApproverPerReportDTO approverPerReportDTO = new ApproverPerReportDTO();
 
-			result3 = scheduleService.applyWorkingSystemApprover(approverPerReportDTO);
-		}
+            if(approver.getApproverType().equals("결재")) {
+                approverPerReportDTO.setReportNo(reportNo);
+                approverPerReportDTO.setMemberNo(approver.getMemberNo());
+                approverPerReportDTO.setPriority(approver.getPriority());
+
+                result3 = scheduleService.applyWorkingSystemApprover(approverPerReportDTO);
+            } else {
+                approverPerReportDTO.setReportNo(reportNo);
+                approverPerReportDTO.setMemberNo(approver.getMemberNo());
+                approverPerReportDTO.setApproverType(approver.getApproverType());
+
+                result3 = scheduleService.applyWorkingSystemReferer(approverPerReportDTO);
+            }
+
+        }
 		
 		
 		String path = "";

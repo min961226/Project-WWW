@@ -56,7 +56,9 @@
                                                 <th>초과 근무시간</th>
                                             </tr>
                                         </thead>
+
                                         <tbody>
+
                                         	<c:forEach var="commutingLog" items="${ commutingLogList }" varStatus="status">
                                         		<tr>
                                         			<td>${ commutingLog.yearMonth }${ commutingLog.day }</td>
@@ -66,6 +68,7 @@
                                         			<td>-</td>
                                         		</tr>
                                         	</c:forEach>
+
                                         </tbody>
                                     </table>
                                 </div>
