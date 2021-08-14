@@ -42,12 +42,12 @@
 			</div>
 			<a id="mobile_btn" class="mobile_btn pull-left" href="#sidebar"><i class="fa fa-bars" aria-hidden="true"></i></a>
 			<ul class="nav navbar-nav navbar-right user-menu pull-right">
-				<li class="dropdown hidden-xs">
-					<a href="#">
+				<li class="dropdown hidden-xs" id="in_time">
+					<a href="${ pageContext.servletContext.contextPath }/mypage/commute/insert">
 						<img src="${ pageContext.servletContext.contextPath }/assets/img/sign_in.png" alt=""></img>
 					</a>
 				</li>
-				<li class="dropdown hidden-xs">
+				<li class="dropdown hidden-xs" id="out_time">
 					<a href="#">
 						<img src="${ pageContext.servletContext.contextPath }/assets/img/sign_out.png" alt=""></img>
 					</a>
@@ -195,6 +195,20 @@
 	    </div>
 	</div>
 	<div class="sidebar-overlay" data-reff=""></div>
+	<script>
+		$("#in_time").click(funtion() {
+			$.ajax({
+				url: "${ pageContext.servletContext.contextPath }/mypage/commute/insert",
+				type: "post",
+				success: function(data, textStatus, xhr) {
+					console.log(data);
+				},
+				error: function(xhr, status, error) {
+					console.log(xhr);
+				}
+			});
+		});
+	</script>
     <script type="text/javascript" src="${ pageContext.servletContext.contextPath }/assets/js/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="${ pageContext.servletContext.contextPath }/assets/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="${ pageContext.servletContext.contextPath }/assets/js/jquery.slimscroll.js"></script>
