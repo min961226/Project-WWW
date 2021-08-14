@@ -24,7 +24,7 @@
 						<h4 class="page-title">복지 신청 현황</h4>
 					</div>
 					
-					<!-- 근무신청으로 이동하는 버튼 -->
+					<!-- 복지신청으로 이동하는 버튼 -->
 					<div class="col-xs-4 text-right m-b-30">
 						<a href="${ pageContext.servletContext.contextPath }/welfare/list/select" class="btn btn-primary rounded pull-right"><i class="fa fa-plus"></i> 복지신청하기</a>
 					</div>
@@ -34,18 +34,19 @@
                 <div class="row filter-row">
 					<div class="col-sm-3 col-md-3 col-xs-6">
 						<div class="form-group form-focus select-focus">
-							<label class="control-label">근무제 유형</label>
+							<label class="control-label">복지 유형</label>
 							<select class="select floating">
 								<option> -- Select -- </option>
-								<option>정규근무 신청</option>
-								<option>초과근무 신청</option>
-								<option>Loss of Pay</option>
+								<option>야간교통비 신청</option>
+								<option>경조사 신청</option>
+								<option>자기개발비 신청</option>
+								<option>기숙사 입주 신청</option>
                             </select>
                         </div>
                     </div>
                     <div class="col-sm-3 col-md-3 col-xs-6">
                         <div class="form-group form-focus select-focus">
-                            <label class="control-label">근무신청 승인상태</label>
+                            <label class="control-label">복지 신청 승인상태</label>
                             <select class="select floating">
 								<option> -- Select -- </option>
 								<option> 승인 </option>
@@ -86,8 +87,8 @@
 									<tr>
 										<!-- 시작일과 종료일도 뜨게 해주고 싶네 -->
 										<th>결재번호</th>
-										<th>결재분류</th>
-										<th>결재제목</th>
+										<th>복지 분류</th>
+										<th>신청 복지 제목</th>
 										<th>결재라인</th>
 										<th>상신일</th>
 										<th>진행상태</th>
@@ -108,7 +109,10 @@
 										<td><c:if test="${ welfareList.documentNo eq 7 }"><c:out value="야간교통비 신청"/></c:if>
 											<c:if test="${ welfareList.documentNo eq 8 }"><c:out value="경조사 신청"/></c:if>
 											<c:if test="${ welfareList.documentNo eq 9 }"><c:out value="자기개발비 신청"/></c:if>
-											<c:if test="${ welfareList.documentNo eq 10 }"><c:out value="기숙사 입주 신청"/></c:if> </td>
+											<c:if test="${ welfareList.documentNo eq 10 }"><c:out value="기숙사 입주 신청"/></c:if>
+											<c:if test="${ welfareList.documentNo eq 11 }"><c:out value="회의실 예약 신청서"/></c:if>
+											<c:if test="${ welfareList.documentNo eq 12 }"><c:out value="노트북 대여 신청서"/></c:if>
+											</td>
 										<td><c:out value="${ welfareList.reportTitle }"/></td>
 										<td><c:out value="${ welfareList.lineName }"/></td>
 										<td><c:out value="${ welfareList.reportDate }"/></td>
@@ -188,7 +192,7 @@
 				
 				$tds[i].onclick = function() {
 					const no = this.parentNode.children[0].innerText;
-					location.href = "${ pageContext.servletContext.contextPath }/schedule/workingSystem/selectOne?no=" + no;
+					location.href = "${ pageContext.servletContext.contextPath }/welfare/applied/selectOne?no=" + no;
 				}
 				
 			}

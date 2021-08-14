@@ -44,7 +44,10 @@
 				failedMessage = "결재회수가 실패했습니다."
 				movePath = "${ pageContext.servletContext.contextPath }/approval/applied/select";
 				break;
-
+			case "callbackWelfare":
+				failedMessage = "결재회수가 실패했습니다."
+				movePath = "${ pageContext.servletContext.contextPath }/welfare/applied/list/select";
+				break;
 			case "insertSelfDev":
 				failedMessage = "자기개발비 신청에 실패하였습니다."
 				movePath = "${ pageContext.servletContext.contextPath }/welfare/list/select";

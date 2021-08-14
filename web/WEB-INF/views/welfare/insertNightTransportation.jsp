@@ -39,14 +39,14 @@
 							<br>
 							<div class="form-group">
 								<label>결재선 지정</label> <select name="lineList" 	class="form-control" required="required">
-									<option>-- 결재선 지정 목록 --</option>
+									<option value="">-- 결재선 지정 목록 --</option>
 									<c:forEach items="${ requestScope.lineList }" var="lineList"><option value=${ lineList.lineNo }>${ lineList.lineName }</option>
 									</c:forEach>
 								</select>
 							</div>
 							<div class="form-group">
 								<label>추가 근무 근거</label> <select name="overTimeLog" class="form-control" required="required">
-									<option value=null>-- 결재 완료 야근 목록 --</option>
+									<option value="">-- 결재 완료 야근 목록 --</option>
 									<c:forEach items="${ requestScope.memberOverTimeLog }" var="memberOverTimeLog">
 										<option value ="${ memberOverTimeLog.overTimeStartDay } ${memberOverTimeLog.overTimeStartTime } ~ ${memberOverTimeLog.overTimeEndDay} ${ memberOverTimeLog.overTimeEndTime }"><c:out value="${ memberOverTimeLog.overTimeStartDay } ${memberOverTimeLog.overTimeStartTime } ~ ${memberOverTimeLog.overTimeEndDay} ${ memberOverTimeLog.overTimeEndTime } ( ${ memberOverTimeLog.overTimeHour}시간)" /></option>
 									</c:forEach>

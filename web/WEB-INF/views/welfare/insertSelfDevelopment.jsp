@@ -50,7 +50,7 @@
 							<div class="form-group">
 								<label>결재선 지정</label> <select name="lineList"
 									class="form-control" required="required">
-									<option>-- 결재선 지정 목록 --</option>
+									<option value="">-- 결재선 지정 목록 --</option>
 									<c:forEach items="${ requestScope.lineList }" var="lineList">
 										<option value= ${ lineList.lineNo }>${ lineList.lineName }</option>
 									</c:forEach>
@@ -59,7 +59,7 @@
 							<div class="form-group">
 								<label>신청 목적</label> <select name="selfDevList"
 									class="form-control" required="required">
-									<option>-- 자기개발비 신청 가능 목록 --</option>
+									<option value="">-- 자기개발비 신청 가능 목록 --</option>
 									<c:forEach items="${ requestScope.selfDevList }"
 										var="selfDevList">
 										<option><c:out value="${ selfDevList }" /></option>

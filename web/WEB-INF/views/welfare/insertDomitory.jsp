@@ -58,18 +58,18 @@
 							<br>
 							<div class="form-group">
 								<label>현 거주지</label> <input name="address" class="form-control"
-									type="text" value="${ requestScope.address }">
+									type="text" value="${ requestScope.address }" required="required">
 							</div>
 							<br>
 							<div class="form-group">
 								<label>입주 희망일</label> <input name="hopeDate"
-									class="form-control" type="date">
+									class="form-control" type="date" required="required">
 							</div>
 							<br>
 							<div class="form-group">
 								<label>결재선 지정</label> <select name="lineList"
 									class="form-control" required="required">
-									<option>-- 결재선 지정 목록 --</option>
+									<option value="">-- 결재선 지정 목록 --</option>
 									<c:forEach items="${ requestScope.lineList }" var="lineList">
 										<option value=${ lineList.lineNo }>${ lineList.lineName }</option>
 									</c:forEach>
