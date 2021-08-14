@@ -83,6 +83,11 @@ public class ApprovalDAO {
 		return session.update("ApprovalDAO.finishAppReport", thisAPR);
 	}
 
+	public List<ApproverPerReportDTO> selecReceivedAPR(SqlSession session, int no) {
+		
+		return session.selectList("ApprovalDAO.selecReceivedAPR", no);
+	}
+
 
 
 	
