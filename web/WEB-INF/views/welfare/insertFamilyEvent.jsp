@@ -30,9 +30,7 @@
 				</div>
 				<div class="row">
 					<div class="col-md-8 col-md-offset-2">
-						<form name="insertSelfDev"
-							action="${ pageContext.servletContext.contextPath }/welfare/familyEvent/insert"
-							method="POST">
+						<form name="insertSelfDev"	action="${ pageContext.servletContext.contextPath }/welfare/familyEvent/insert"	method="POST">
 							<div class="form-group">
 								<label>직원 ID</label> <input name="memberNo" class="form-control" type="text" value="${memberNo}" readonly="readonly" />
 							</div>
