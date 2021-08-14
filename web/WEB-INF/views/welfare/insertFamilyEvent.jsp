@@ -48,7 +48,7 @@
 							<br>
 							<label>경조사 종류</label> 
 							<select id="document" class="form-control" name="eventType" onchange="testChange(this)" required="required">
-								<option>-- 전체 경조사 --</option>
+								<option value="">-- 전체 경조사 --</option>
 								<option value="1">결혼</option>
 								<option value="2">출산</option>
 								<option value="3">회갑</option>
@@ -56,21 +56,21 @@
 							</select>
 							<div id="marrige" class="form-group" hidden>
 								<select id="selectBox" class="form-control" name="marrige">
-									<option>-- 관계 --</option>
+									<option value="">-- 관계 --</option>
 									<option value="본인">본인</option>
 									<option value="자녀">자녀</option>
 								</select>
 							</div>
 							<div id="childBirth" class="form-group" hidden>
 								<select id="selectBox" class="form-control" name="childBirth">
-									<option>-- 자녀 --</option>
+									<option value="">-- 자녀 --</option>
 									<option value="첫째/둘째">첫째/둘째</option>
 									<option value="셋째/넷째">셋째/넷째</option>
 								</select>
 							</div>
 							<div id="sixtyBirth" class="form-group" hidden>
 								<select id="selectBox" class="form-control" name="sixtyBirth">
-									<option>-- 관계 --</option>
+									<option value="">-- 관계 --</option>
 									<option value="본인">본인</option>
 									<option value="부모">부모</option>
 									<option value="조부모">조부모</option>
@@ -78,7 +78,7 @@
 							</div>
 							<div id="death" class="form-group" hidden>
 								<select id="selectBox" class="form-control" name="death">
-									<option>-- 관계 --</option>
+									<option value="">-- 관계 --</option>
 									<option value="본인">본인</option>
 									<option value="배우자">배우자</option>
 									<option value="자식">자식</option>
@@ -103,7 +103,7 @@
 							</div>
 							<div class="form-group">
 								<label>결재선 지정</label> <select name="lineList" 	class="form-control" required="required">
-									<option>-- 결재선 지정 목록 --</option>
+									<option value="">-- 결재선 지정 목록 --</option>
 									<c:forEach items="${ requestScope.lineList }" var="lineList"><option value=${ lineList.lineNo }>${ lineList.lineName }</option>
 									</c:forEach>
 								</select>

@@ -95,14 +95,13 @@ public class InsertNightTransportationWelfareServlet extends HttpServlet {
 				approverPerReportDTO.setPriority(approver.getPriority());
 
 				result3 = scheduleService.applyWorkingSystemApprover(approverPerReportDTO);
-			}
-//            } else {
-//                approverPerReportDTO.setReportNo(reportNo);
-//                approverPerReportDTO.setMemberNo(approver.getMemberNo());
-//                approverPerReportDTO.setApproverType(approver.getApproverType());
-//
-//                result3 = scheduleService.applyWorkingSystemReferer(approverPerReportDTO);
-//            }
+			} else {
+                approverPerReportDTO.setReportNo(reportNo);
+                approverPerReportDTO.setMemberNo(approver.getMemberNo());
+                approverPerReportDTO.setApproverType(approver.getApproverType());
+
+                result3 = scheduleService.applyWorkingSystemReferer(approverPerReportDTO);
+            }
 		}
 
 		String path = "";

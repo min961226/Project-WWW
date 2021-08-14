@@ -22,7 +22,6 @@ public class SelectAppliedWelfareListServlet extends HttpServlet {
 		System.out.println("복지 신청 내역");
 		HttpSession session = request.getSession();
 
-		// 로그인 중인 사용자가 올린 결재중, documentNo가 4, 5인 문서(근무신청, 초과근무신청)
 		int no = ((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo();
 
 		List<ReportDTO> appliedWelfareList= new WelfareService().selectAppliedWelfareList(no);
