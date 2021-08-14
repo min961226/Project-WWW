@@ -29,7 +29,7 @@ public class SelectOneWaitingApprovalServlet extends HttpServlet {
 		ReportDTO selectedReport  = new ApprovalService().selectOneReportDetail(no);
 
 		List<WorkingDocumentItemDTO> itemList = new ApprovalService().selectReportItemList(no);
-
+		List<ApproverLogPerReportDTO>ALPRList = new ApprovalService().selectALPRList(no);
 
 		//등록날짜를 보존기간으로 바꾸기
 		Date reportDate = selectedReport.getReportDate();
@@ -43,6 +43,7 @@ public class SelectOneWaitingApprovalServlet extends HttpServlet {
 		request.setAttribute("endDate", endDate);
 		request.setAttribute("selectedReport", selectedReport);
 		request.setAttribute("itemList", itemList);
+		request.setAttribute("ALPRList", ALPRList);
 		
 		//결재의 문서종류에 따라 항목명들을 키값으로 지정해서 request에 넣기
 		if(selectedReport.getDocumentNo() < 4) {

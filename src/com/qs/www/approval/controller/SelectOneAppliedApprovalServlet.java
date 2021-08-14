@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.qs.www.approval.model.dto.ApproverLogPerReportDTO;
 import com.qs.www.approval.model.service.ApprovalService;
 import com.qs.www.schedule.model.dto.ReportDTO;
 import com.qs.www.schedule.model.dto.WorkingDocumentItemDTO;
@@ -25,7 +26,7 @@ public class SelectOneAppliedApprovalServlet extends HttpServlet {
 		ReportDTO selectedReport  = new ApprovalService().selectOneReportDetail(no);
 
 		List<WorkingDocumentItemDTO> itemList = new ApprovalService().selectReportItemList(no);
-
+		List<ApproverLogPerReportDTO>ALPRList = new ApprovalService().selectALPRList(no);
 
 		//등록날짜를 보존기간으로 바꾸기
 		Date reportDate = selectedReport.getReportDate();
@@ -39,6 +40,7 @@ public class SelectOneAppliedApprovalServlet extends HttpServlet {
 		request.setAttribute("endDate", endDate);
 		request.setAttribute("selectedReport", selectedReport);
 //		request.setAttribute("itemList", itemList);
+		request.setAttribute("ALPRList", ALPRList);
 		
 		request.setAttribute("body", itemList.get(1).getItemContent());
 		if(selectedReport.getDocumentNo() == 3) {

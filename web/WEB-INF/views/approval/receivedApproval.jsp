@@ -31,7 +31,6 @@
 			<input type="search">
 			<button type="submit" style="background-color:orange;">검색하기</button>
 			
-			
 		</div>
                 <div class="row">
                     <div class="col-lg-12">

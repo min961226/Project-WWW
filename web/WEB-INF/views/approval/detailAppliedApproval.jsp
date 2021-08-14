@@ -138,7 +138,28 @@
 								</div>
 								</div>
 								
-								
+								<c:forEach var="line" items="${ requestScope.ALPRList }">
+								<div class="card-box col-lg-3">
+                                    <h4 class="card-title">${ line.memberName }님의 결재내용 조회</h4>
+                                    <div class="form-group">
+                                    
+                                        <div class="col-lg-10">
+                                          <label>결재처리</label>
+                                                 <input name="appStatus" value=${ line.appStatus } disabled/>
+                                        </div>
+								        <div class="col-md-12">
+									        <label>의견</label>
+									        <br>
+								        	<div class="col-sm-12">
+										        <textarea name="opinion" rows="4" cols="6" class="form-control"
+											        disabled>${ line.appNote }</textarea>
+											        <br><br>
+									        </div>
+								        </div>
+								        </div> 
+                                </div>
+                                </c:forEach>
+                                
 								<div class="row">
                                     <div class="col-sm-12 text-center m-t-20">
                                         <c:set var = "no" value ="${ requestScope.selectedReport.reportStatus }" />
