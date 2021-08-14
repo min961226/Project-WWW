@@ -1,8 +1,12 @@
 package com.qs.www.main.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAdjuster;
+import java.time.temporal.TemporalAdjusters;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -13,12 +17,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.swing.text.DateFormatter;
 
-import com.qs.www.main.model.dto.CommutingLogDTO;
 import com.qs.www.main.model.dto.WorkInfoDTO;
 import com.qs.www.main.model.dto.WorkingLogDTO;
 import com.qs.www.main.model.service.MainService;
 import com.qs.www.member.model.dto.MemberInfoDTO;
+import com.qs.www.mypage.model.dto.CommutingLogDTO;
 
 @WebServlet("/main")
 public class SelectMainServlet extends HttpServlet {
@@ -29,42 +34,36 @@ public class SelectMainServlet extends HttpServlet {
 		MemberInfoDTO memberInfo = (MemberInfoDTO) session.getAttribute("memberInfo");
 		
 		int memberNo = memberInfo.getMemberNo();
-		String appWorkType = memberInfo.getAppWorkType();
-		int workCode = memberInfo.getWorkCode();
-		String path = "";
 		
-		// 날짜 출력 양식
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		// 오늘 날짜
-		Calendar date = new GregorianCalendar();
-		String todayDate = sdf.format(date.getTime());
+		LocalDate currentDate = LocalDate.now();
+		String todayDate = currentDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 		// 이번주 월요일 날짜
-		date.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-		Calendar weekStartCalDate = date;
-		String weekStartDate = sdf.format(weekStartCalDate.getTime());
+		String weekStartDate = currentDate
+							.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY))
+							.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 		// 다음주 일요일 날짜
-		date.add(Calendar.DATE, 6);
-		Calendar weekEndCalDate = date;
-		String weekEndDate = sdf.format(weekEndCalDate.getTime());
-		// 요일별 날짜를 담을 변수
-		date.add(Calendar.DATE, -6);
-		Calendar selectedCalDate = date;
-		String selectedDate = sdf.format(selectedCalDate.getTime());
+		String weekEndDate = currentDate
+							.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY))
+							.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+		// 요일별 날짜를 담을 변수(월요일 ~ 일요일)
+		LocalDate selectedLocalDate = currentDate
+								.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
 		
 		WorkInfoDTO workInfo = new WorkInfoDTO();
 		workInfo.setMemberNo(memberNo);
-		workInfo.setAppWorkType(appWorkType);
-		workInfo.setWorkCode(workCode);
 		workInfo.setToday(todayDate);
 		workInfo.setWeekStartDate(weekStartDate);
 		workInfo.setWeekEndDate(weekEndDate);
-		workInfo.setSelectedDate(selectedDate);
+		workInfo.setSelectedLocalDate(selectedLocalDate);
 		
 		MainService mainService = new MainService();
 		
 		List<CommutingLogDTO> commutingLogList = mainService.selectCommutingLog(workInfo);
-		List<WorkingLogDTO> workingLogList = mainService.selectWorkingLog(workInfo, selectedCalDate, sdf);
-		
+		List<WorkingLogDTO> workingLogList = mainService.selectWorkingLog(workInfo);
+
+		String path = "";
+
 		request.setAttribute("workInfo", workInfo);
 		request.setAttribute("commutingLogList", commutingLogList);
 		request.setAttribute("workingLogList", workingLogList);

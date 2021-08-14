@@ -1,10 +1,11 @@
-package com.qs.www.main.model.dto;
+package com.qs.www.mypage.model.dto;
 
 import java.io.Serializable;
 
 public class CommutingLogDTO implements Serializable {
 	
 	private int commuteNo;
+	private int memberNo;
 	private String yearMonth;
 	private String day;
 	private String inTime;
@@ -12,9 +13,10 @@ public class CommutingLogDTO implements Serializable {
 	
 	public CommutingLogDTO() {}
 
-	public CommutingLogDTO(int commuteNo, String yearMonth, String day, String inTime, String outTime) {
+	public CommutingLogDTO(int commuteNo, int memberNo, String yearMonth, String day, String inTime, String outTime) {
 		super();
 		this.commuteNo = commuteNo;
+		this.memberNo = memberNo;
 		this.yearMonth = yearMonth;
 		this.day = day;
 		this.inTime = inTime;
@@ -27,6 +29,14 @@ public class CommutingLogDTO implements Serializable {
 
 	public void setCommuteNo(int commuteNo) {
 		this.commuteNo = commuteNo;
+	}
+
+	public int getMemberNo() {
+		return memberNo;
+	}
+
+	public void setMemberNo(int memberNo) {
+		this.memberNo = memberNo;
 	}
 
 	public String getYearMonth() {
@@ -63,7 +73,7 @@ public class CommutingLogDTO implements Serializable {
 
 	@Override
 	public String toString() {
-		return "CommutingLogDTO [commuteNo=" + commuteNo + ", yearMonth=" + yearMonth + ", day=" + day + ", inTime="
-				+ inTime + ", outTime=" + outTime + "]";
+		return "CommutingLogDTO [commuteNo=" + commuteNo + ", memberNo=" + memberNo + ", yearMonth=" + yearMonth
+				+ ", day=" + day + ", inTime=" + inTime + ", outTime=" + outTime + "]";
 	}
 }

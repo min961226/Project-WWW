@@ -23,4 +23,23 @@
          WHERE A.MEMBER_NO = #{ memberNo }
 	</update>
 	
+	<insert id="insertCommute" parameterType="com.qs.www.mypage.model.dto.CommutingLogDTO">
+        INSERT /* com.qs.www.mypage.model.dao.MypageDAO#insertCommute() */
+          INTO TBL_COMMUTE A
+        (
+          A.COMMUTE_NO
+        , A.MEMBER_NO
+        , A.YEAR_MONTH
+        , A.DAY
+        , A.IN_TIME
+        )
+        VALUES
+        (
+          SEQ_COMMUTE_NO.NEXTVAL
+        , #{ memberNo }
+        , #{ yearMonth }
+        , #{ day }
+        , #{ inTime }
+        )
+	</insert>
 </mapper>
