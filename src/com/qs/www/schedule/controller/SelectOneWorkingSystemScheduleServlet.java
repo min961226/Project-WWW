@@ -64,7 +64,6 @@ public class SelectOneWorkingSystemScheduleServlet extends HttpServlet {
 		
 		String path = "/WEB-INF/views/schedule/detailAppliedWorkingSystem.jsp";
 		request.getRequestDispatcher(path).forward(request, response);
-		System.out.println("dd");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
