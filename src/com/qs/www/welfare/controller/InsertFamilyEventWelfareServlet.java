@@ -15,6 +15,7 @@ import com.qs.www.approval.model.dto.ApproverDTO;
 import com.qs.www.approval.model.service.ApprovalService;
 import com.qs.www.schedule.model.dto.ApproverPerReportDTO;
 import com.qs.www.schedule.model.dto.WorkingDocumentItemDTO;
+import com.qs.www.schedule.model.service.ScheduleService;
 import com.qs.www.welfare.model.dto.FamilyEventDTO;
 import com.qs.www.welfare.model.dto.WelfareListDTO;
 import com.qs.www.welfare.model.service.WelfareService;
@@ -77,7 +78,7 @@ public class InsertFamilyEventWelfareServlet extends HttpServlet {
 		welfareListDTO.setMemberNo(request.getParameter("memberNo"));
 		welfareListDTO.setDocumentNo(documentNo);
 		welfareListDTO.setReportNote(request.getParameter("eventInfo"));
-		welfareListDTO.setLineName(request.getParameter("lineList"));
+		welfareListDTO.setLineName(lineName);
 		welfareListDTO.setWelfareTitle(welfareTitle);
 		System.out.println(welfareListDTO);
 		
@@ -117,11 +118,20 @@ public class InsertFamilyEventWelfareServlet extends HttpServlet {
 		int result3 = 0;
 		for(ApproverDTO approver : approverList) {
 			ApproverPerReportDTO approverPerReportDTO = new ApproverPerReportDTO();
-			approverPerReportDTO.setReportNo(reportNo);
-			approverPerReportDTO.setMemberNo(approver.getMemberNo());
-			approverPerReportDTO.setPriority(approver.getPriority());
+            ScheduleService scheduleService =new ScheduleService();
+            if(approver.getApproverType().equals("결재")) {
+                approverPerReportDTO.setReportNo(reportNo);
+                approverPerReportDTO.setMemberNo(approver.getMemberNo());
+                approverPerReportDTO.setPriority(approver.getPriority());
 
-			result3 = welfareService.insertWelfareApprover(approverPerReportDTO);
+                result3 = scheduleService.applyWorkingSystemApprover(approverPerReportDTO);}
+//            } else {
+//                approverPerReportDTO.setReportNo(reportNo);
+//                approverPerReportDTO.setMemberNo(approver.getMemberNo());
+//                approverPerReportDTO.setApproverType(approver.getApproverType());
+//
+//                result3 = scheduleService.applyWorkingSystemReferer(approverPerReportDTO);
+//            }
 		}
 		
 		String path = "";

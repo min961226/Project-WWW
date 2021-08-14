@@ -16,6 +16,17 @@
 
 	</resultMap>
 	
+	<resultMap type="com.qs.www.schedule.model.dto.ReportDTO" id="appliedWelfareResultMap">
+		<result property="reportNo" column="REPORT_NO" />
+		<result property="reportDate" column="REPORT_DATE" />
+		<result property="memberNo" column="MEMBER_NO" />
+		<result property="documentNo" column="DOCUMENT_NO" />
+		<result property="reportNote" column="REPORT_NOTE" />
+		<result property="reportStatus" column="REPORT_STATUS" />
+		<result property="lineName" column="LINE_NAME" />
+		<result property="reportTitle" column="REPORT_TITLE" />
+	</resultMap>
+	
 	<resultMap type="com.qs.www.welfare.model.dto.FamilyEventDTO" id="familyEventResultMap">
 		<result property="eventNo" column="EVENT_NO" />
 		<result property="eventType" column="EVENT_TYPE" />
@@ -145,6 +156,23 @@
 		SELECT /* com.qs.www.welfare.model.dao.WelfareDAO#selectDomitory() */
 			   A.*
 		  FROM TBL_DOMITORY A
+	</select>
+	
+	<select id="selectAppliedWelfareList" resultMap="appliedWelfareResultMap">
+	SELECT /* com.qs.www.welfare.model.dao.welfareDAO#selectAppliedWelfare() */
+	       A.REPORT_NO
+	     , A.REPORT_DATE
+	     , A.MEMBER_NO
+	     , A.DOCUMENT_NO
+	     , A.REPORT_NOTE
+	     , A.REPORT_STATUS
+	     , A.LINE_NAME
+	     , A.REPORT_TITLE
+	  FROM TBL_REPORT A
+	 WHERE A.MEMBER_NO = #{ no }
+	   AND A.DOCUMENT_NO IN (7,8,9,10,12)
+	   AND REPORT_STATUS != '회수'
+	 ORDER BY A.REPORT_NO DESC
 	</select>
 	
 	

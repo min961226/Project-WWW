@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.qs.www.board.model.dto.NoticeDTO;
 import com.qs.www.schedule.model.dto.ApproverPerReportDTO;
+import com.qs.www.schedule.model.dto.ReportDTO;
 import com.qs.www.schedule.model.dto.WorkingDocumentItemDTO;
 import com.qs.www.welfare.model.dao.WelfareDAO;
 import com.qs.www.welfare.model.dto.DomitoryListDTO;
@@ -120,17 +121,17 @@ public class WelfareService {
 	public int insertWelfareApprover(ApproverPerReportDTO approverPerReportDTO) {
 
 		SqlSession session = getSqlSession();
-		
+
 		int result = welfareDAO.insertWelfareApprover(session, approverPerReportDTO);
-		
-		if(result > 0) {
+
+		if (result > 0) {
 			session.commit();
 		} else {
 			session.rollback();
 		}
-				
+
 		session.close();
-		
+
 		return result;
 	}
 
@@ -165,15 +166,25 @@ public class WelfareService {
 	}
 
 	public List<DomitoryListDTO> selectDomitory() {
-	
+
 		SqlSession session = getSqlSession();
-		
+
 		List<DomitoryListDTO> domitoryList = welfareDAO.selectDomitory(session);
-		
+
 		session.close();
-		
+
 		return domitoryList;
 	}
 
+	public List<ReportDTO> selectAppliedWelfareList(int no) {
+		
+		SqlSession session = getSqlSession();
+
+		List<ReportDTO> workReportList = welfareDAO.selectAppliedWelfareList(session, no);
+
+		session.close();
+
+		return workReportList;
+	}
 
 }
