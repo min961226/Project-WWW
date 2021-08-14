@@ -29,4 +29,8 @@ public class FreeDAO {
 		
 		return session.update("FreeDAO.incrementFreeCount", no);
 	}
+	public int updateFree(SqlSession session, FreeDTO free) {
+		
+		return session.update("FreeDAO.updateFree", free);
+	}
 }
