@@ -54,6 +54,7 @@
 		<result property="appDate" column="APP_DATE" />
 		<result property="appNote" column="APP_NOTE" />
 		<result property="appStatus" column="APP_STATUS" />
+		<result property="memberName" column="NAME" />
 	</resultMap>
 
 	<select id="selectApprovalLine" resultMap="approvalLineResultMap">
@@ -102,7 +103,17 @@
 		 WHERE A.REPORT_NO = #{ no }
 		 ORDER BY A.PRIORITY
 	</select>
-	 <update id="callbackSelectedReport">
+	<select id="selectALPRList"
+		resultMap="ALogPRResultMap">
+		SELECT /* com.qs.www.approval.model.dao.ApprovalDAO#selectALPRList()*/
+			   A.*
+			 , B.NAME
+		  FROM TBL_APPROVER_LOG_PER_REPORT A
+		  JOIN TBL_MEMBER B ON (A.MEMBER_NO = B.MEMBER_NO )
+		 WHERE A.REPORT_NO = #{ no }
+		 ORDER BY A.APP_LOG_NO
+	</select>
+	<update id="callbackSelectedReport">
 		UPDATE /* com.qs.www.approval.model.dao.ApprovalDAO#callbackSelectedReport"()*/
 		       TBL_REPORT A
 		   SET A.REPORT_STATUS = '회수'

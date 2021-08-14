@@ -1,13 +1,13 @@
 package com.qs.www.board.model.service;
 
-import java.util.List; 
+import java.util.List;  
 
 import org.apache.ibatis.session.SqlSession;
 
 import com.qs.www.board.model.dao.FreeDAO;
 import com.qs.www.board.model.dto.FreeDTO;
 
-import static com.greedy.jsp.common.mybatis.Template.getSqlSession;
+
 import static com.qs.www.common.mybatis.Template.getSqlSession;
 
 public class FreeService {

@@ -124,14 +124,14 @@ public class InsertFamilyEventWelfareServlet extends HttpServlet {
                 approverPerReportDTO.setMemberNo(approver.getMemberNo());
                 approverPerReportDTO.setPriority(approver.getPriority());
 
-                result3 = scheduleService.applyWorkingSystemApprover(approverPerReportDTO);}
-//            } else {
-//                approverPerReportDTO.setReportNo(reportNo);
-//                approverPerReportDTO.setMemberNo(approver.getMemberNo());
-//                approverPerReportDTO.setApproverType(approver.getApproverType());
-//
-//                result3 = scheduleService.applyWorkingSystemReferer(approverPerReportDTO);
-//            }
+                result3 = scheduleService.applyWorkingSystemApprover(approverPerReportDTO);
+            } else {
+                approverPerReportDTO.setReportNo(reportNo);
+                approverPerReportDTO.setMemberNo(approver.getMemberNo());
+                approverPerReportDTO.setApproverType(approver.getApproverType());
+
+                result3 = scheduleService.applyWorkingSystemReferer(approverPerReportDTO);
+            }
 		}
 		
 		String path = "";

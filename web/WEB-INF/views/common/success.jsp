@@ -15,6 +15,7 @@
 			let movePath = "";
 
 			switch (successCode) {
+
 			
 				case "updateInfo":
 					successMessage = "프로필이 수정되었습니다."
@@ -70,6 +71,7 @@
 					successMessage = "기숙사 입주 신청이 완료되었습니다."
 					movePath = "${ pageContext.servletContext.contextPath }/welfare/list/select";
 					break;
+
 			}
 
 			alert(successMessage);

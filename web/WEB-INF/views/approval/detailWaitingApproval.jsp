@@ -7,6 +7,15 @@
 <head>
 <meta charset="UTF-8">
 <link rel="shortcut icon" type="image/x-icon" href="${ pageContext.servletContext.contextPath }/assets/img/favicon.png">
+
+ <link href="https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600,700" rel="stylesheet">
+ <link rel="stylesheet" type="text/css" href="${ pageContext.servletContext.contextPath }assets/css/bootstrap.min.css">
+ <link rel="stylesheet" type="text/css" href="${ pageContext.servletContext.contextPath }assets/css/font-awesome.min.css">
+ <link rel="stylesheet" type="text/css" href="${ pageContext.servletContext.contextPath }assets/css/select2.min.css">
+ <link rel="stylesheet" type="text/css" href="${ pageContext.servletContext.contextPath }assets/css/bootstrap-datetimepicker.min.css">
+ <link rel="stylesheet" type="text/css" href="${ pageContext.servletContext.contextPath }assets/plugins/summernote/dist/summernote.css">
+ <link rel="stylesheet" type="text/css" href="${ pageContext.servletContext.contextPath }assets/css/style.css">
+    
 <title>Wonderful Welfare Workspace</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
@@ -23,14 +32,7 @@
 				</div>
 				<div class="row">
 					<div class="col-lg-12">
-						
 
-							<form class="form-horizontal" action="${ pageContext.servletContext.contextPath }/approval/waiting/selectOne?no=${ requestScope.selectedReport.reportNo }" method="post">
-							
-							
-							  
-								
-							
 								<div class="form-group">
 									<div class="col-sm-6">
 										<label>결재 분류</label>
@@ -127,8 +129,6 @@
 								</div>
 								</c:if>
 								
-								
-								
 								<div class="form-group">
 								<div class="col-sm-12">
 									<label>내용</label>
@@ -138,8 +138,7 @@
 									</div>
 								</div>
 								</div>
-								
-								
+		
 								<div class="form-group">
 								<div class="col-sm-12">
 									<label>비고</label>
@@ -149,7 +148,29 @@
 									</div>
 								</div>
 								</div>
-								<div class="card-box">
+								<c:forEach var="line" items="${ requestScope.ALPRList }">
+								<div class="card-box col-lg-3">
+                                    <h4 class="card-title">${ line.memberName }님의 결재내용 조회</h4>
+                                    <div class="form-group">
+                                    
+                                        <div class="col-lg-10">
+                                          <label>결재처리</label>
+                                                 <input name="appStatus" value=${ line.appStatus } disabled/>
+                                        </div>
+								        <div class="col-md-12">
+									        <label>의견</label>
+									        <br>
+								        	<div class="col-sm-12">
+										        <textarea name="opinion" rows="4" cols="6" class="form-control"
+											        disabled>${ line.appNote }</textarea>
+											        
+									        </div>
+								        </div>
+								        </div> 
+                                </div>
+                                </c:forEach>
+								<form class="form-horizontal" action="${ pageContext.servletContext.contextPath }/approval/waiting/selectOne?no=${ requestScope.selectedReport.reportNo }" method="post">
+								<div class="card-box col-lg-12">
                                     <h4 class="card-title">결재처리함</h4>
                                     <div class="form-group">
                                     
@@ -173,6 +194,10 @@
 								        </div>
                                 </div>
 								
+								
+								
+								
+								
 								<div class="row">
                                     <div class="col-sm-12 text-center m-t-20">
                                         
@@ -180,11 +205,14 @@
                                         
                                         <button type="reset" class="btn btn-primary btn-lg" id="goBack">돌아가기</button>
                                     </div>
-                                </div>
+                                </div>	
 								
 							</form>
 						
-						
+						<div class="form-group">
+                                <label>Description</label>
+                                <textarea rows="4" cols="5" class="form-control summernote" placeholder="Enter your message here"></textarea>
+                            </div>
 						
 					</div>
 				</div>
@@ -193,7 +221,6 @@
 		</div>
 
 	</div>
-	<div class="sidebar-overlay" data-reff=""></div>
 	
 	<script>
     	
@@ -202,6 +229,14 @@
     		location.href = "${ pageContext.servletContext.contextPath }/approval/waiting/select"
     	}
     </script>
+    <script type="text/javascript" src="assets/js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="assets/js/jquery.slimscroll.js"></script>
+    <script type="text/javascript" src="assets/js/select2.min.js"></script>
+    <script type="text/javascript" src="assets/js/moment.min.js"></script>
+    <script type="text/javascript" src="assets/js/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/summernote/dist/summernote.min.js"></script>
+    <script type="text/javascript" src="assets/js/app.js"></script>
 </body>
 
 </html>

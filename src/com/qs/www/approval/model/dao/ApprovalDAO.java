@@ -42,6 +42,11 @@ public class ApprovalDAO {
 		
 		return session.selectList("ApprovalDAO.selectReportItemList", no);
 	}
+	
+	public List<ApproverLogPerReportDTO> selectALPRList(SqlSession session, int no) {
+		
+		return session.selectList("ApprovalDAO.selectALPRList", no);
+	}
 
 	public int callbackSelectedReport(SqlSession session, int no) {
 		
@@ -87,8 +92,6 @@ public class ApprovalDAO {
 		
 		return session.selectList("ApprovalDAO.selecReceivedAPR", no);
 	}
-
-
 
 	
 

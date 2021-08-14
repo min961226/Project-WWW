@@ -11,11 +11,12 @@ public class ApproverLogPerReportDTO implements Serializable{
 	private java.sql.Date appDate;
 	private String appNote;
 	private String appStatus;
+	private String memberName;
 	
 	public ApproverLogPerReportDTO() {}
-	
+
 	public ApproverLogPerReportDTO(int reportNo, int appLogNo, int memberNo, Date appDate, String appNote,
-			String appStatus) {
+			String appStatus, String memberName) {
 		super();
 		this.reportNo = reportNo;
 		this.appLogNo = appLogNo;
@@ -23,6 +24,7 @@ public class ApproverLogPerReportDTO implements Serializable{
 		this.appDate = appDate;
 		this.appNote = appNote;
 		this.appStatus = appStatus;
+		this.memberName = memberName;
 	}
 
 	public int getReportNo() {
@@ -73,11 +75,21 @@ public class ApproverLogPerReportDTO implements Serializable{
 		this.appStatus = appStatus;
 	}
 
+	public String getMemberName() {
+		return memberName;
+	}
+
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
+	}
+
 	@Override
 	public String toString() {
 		return "ApproverLogPerReportDTO [reportNo=" + reportNo + ", appLogNo=" + appLogNo + ", memberNo=" + memberNo
-				+ ", appDate=" + appDate + ", appNote=" + appNote + ", appStatus=" + appStatus + "]";
+				+ ", appDate=" + appDate + ", appNote=" + appNote + ", appStatus=" + appStatus + ", memberName="
+				+ memberName + "]";
 	}
+	
 	
 	
 

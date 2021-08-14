@@ -1,6 +1,6 @@
 package com.qs.www.board.controller;
 
-import java.io.IOException;
+import java.io.IOException; 
 import java.util.Date;
 
 import javax.servlet.ServletException;
@@ -28,6 +28,7 @@ public class InsertFreeBoardServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		HttpSession session = request.getSession();
 		int memberNo = ((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo();
 		String type = "자유";
@@ -39,9 +40,13 @@ public class InsertFreeBoardServlet extends HttpServlet {
 		newFree.setBody(body);
 		newFree.setMember(memberNo);
 		newFree.setType(type);
+		
+		System.out.println(newFree);
 
 		FreeService freeService = new FreeService();
 		int result = freeService.insertFree(newFree);
+		
+		System.out.println(result);
 		
 		String path = "";
 		if(result > 0) {

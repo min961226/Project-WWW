@@ -14,7 +14,6 @@ import com.qs.www.approval.model.dto.ApprovalLineDTO;
 import com.qs.www.approval.model.service.ApprovalService;
 import com.qs.www.board.model.service.NoticeService;
 import com.qs.www.member.model.dto.MemberInfoDTO;
-import com.qs.www.mng.board.model.dto.NoticeDTO;
 import com.qs.www.welfare.model.dto.DomitoryListDTO;
 import com.qs.www.welfare.model.dto.MemberOverTimeLogDTO;
 import com.qs.www.welfare.model.service.WelfareService;

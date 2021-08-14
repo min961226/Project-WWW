@@ -1,6 +1,6 @@
 package com.qs.www.board.controller;
 
-import java.io.IOException;
+import java.io.IOException; 
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.qs.www.board.model.dto.FormDTO;
 import com.qs.www.board.model.service.FormService;
 import com.qs.www.board.model.service.NoticeService;
-import com.qs.www.mng.board.model.dto.NoticeDTO;
 
 @WebServlet("/board/form/select")
 public class SelectFormBoardServlet extends HttpServlet {

@@ -8,9 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.greedy.jsp.member.model.dto.MemberDTO;
-import com.greedy.jsp.notice.model.dto.NoticeDTO;
-import com.greedy.jsp.notice.model.service.NoticeService;
+
 import com.qs.www.board.model.dto.FreeDTO;
 import com.qs.www.board.model.service.FreeService;
 import com.qs.www.member.model.dto.MemberInfoDTO;
@@ -26,6 +24,10 @@ public class UpdateFreeBoardServlet extends HttpServlet {
 		FreeDTO free = freeService.selectFreeDetail(no);
 		
 		String path = "";
+		
+		System.out.println(free);
+		System.out.println(path);
+		System.out.println(no);
 		if(free != null) {
 			path = "/WEB-INF/views/notice/updateFreeBoard.jsp";
 			request.setAttribute("free", free);
