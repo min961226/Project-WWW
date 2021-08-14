@@ -56,8 +56,8 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        	<c:forEach var="item" items="${ list }" begin=0 end=1>
-                                        	</c:forEach>
+                                        	<%-- <c:forEach var="item" items="${ list }" begin=0 end=1>
+                                        	</c:forEach> --%>
                                         </tbody>
                                     </table>
                                 </div>
