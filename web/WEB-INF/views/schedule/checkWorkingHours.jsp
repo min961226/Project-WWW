@@ -64,7 +64,13 @@
                                 
                                 <div><h6><c:out value="${ requestScope.name } ( ${ requestScope.memberId } ) [ ${ requestScope.appWorkType }, ${ requestScope.workCode }]"/></h6></div>
                                 
+                                <div class="progress">
+                                	<div class="progress-bar progress-bar-striped bg-warning" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
                                 
+                                <div class="progress">
+                                	<div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: 50%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
                                 
                                 
                                 <!-- 월별시간 -->
