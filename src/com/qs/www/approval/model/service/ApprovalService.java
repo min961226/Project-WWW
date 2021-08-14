@@ -87,6 +87,17 @@ public class ApprovalService {
 
 		return itemList;
 	}
+	
+	public List<ApproverLogPerReportDTO> selectALPRList(int no) {
+		
+		SqlSession session = getSqlSession();
+
+		List<ApproverLogPerReportDTO> ALPRList = approvalDAO.selectALPRList(session, no);
+
+		session.close();
+
+		return ALPRList;
+	}
 
 	public int callbackSelectedReport(int no) {
 		SqlSession session = getSqlSession();
