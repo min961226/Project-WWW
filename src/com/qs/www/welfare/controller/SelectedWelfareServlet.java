@@ -16,6 +16,7 @@ import com.qs.www.board.model.service.NoticeService;
 import com.qs.www.member.model.dto.MemberInfoDTO;
 import com.qs.www.welfare.model.dto.DomitoryListDTO;
 import com.qs.www.welfare.model.dto.MemberOverTimeLogDTO;
+import com.qs.www.welfare.model.dto.SeminarRoomDTO;
 import com.qs.www.welfare.model.service.WelfareService;
 
 import jdk.internal.misc.FileSystemOption;
@@ -83,13 +84,15 @@ public class SelectedWelfareServlet extends HttpServlet {
 			request.setAttribute("domitoryList", domitoryList);
 			break;
 		case "회의실예약신청서":
-			path = "/WEB-INF/views/welfare/detailSeminarRoom.jsp";
+			List<SeminarRoomDTO> seminarRoomList = new WelfareService().selectSeminarRoom();
+			path = "/WEB-INF/views/welfare/seminarRoom.jsp";
+			request.setAttribute("seminarRoomList", seminarRoomList);
 			break;
 		case "노트북대여신청서":
 			path = "/WEB-INF/views/welfare/insertLaptopRental.jsp";
 			break;
 		default:
-			path = "/WEB-INF/views/common/error-500.jsp";
+			path = "/WEB-INF/views/welfare/welfareList.jsp";
 			break;
 		}
 		request.getRequestDispatcher(path).forward(request, response);

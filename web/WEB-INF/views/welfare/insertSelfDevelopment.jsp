@@ -60,7 +60,7 @@
 								<label>신청 목적</label> <select name="selfDevList"
 									class="form-control" required="required">
 									<option value="">-- 자기개발비 신청 가능 목록 --</option>
-									<c:forEach items="${ requestScope.selfDevList }"
+									<c:forEach  items="${ requestScope.selfDevList }"
 										var="selfDevList">
 										<option><c:out value="${ selfDevList }" /></option>
 
