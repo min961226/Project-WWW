@@ -32,7 +32,7 @@ public class InsertCommuteToServlet extends HttpServlet {
 		LocalDateTime currentDateTime = LocalDateTime.now();
 		String currentYearMonth = currentDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM"));
 		String currentDay = currentDateTime.format(DateTimeFormatter.ofPattern("dd"));
-		String currentTime = currentDateTime.format(DateTimeFormatter.ofPattern("hh:mm"));
+		String currentTime = currentDateTime.format(DateTimeFormatter.ofPattern("HH:mm"));
 		
 		commutingLog.setMemberNo(memberNo);
 		commutingLog.setYearMonth(currentYearMonth);
@@ -51,10 +51,14 @@ public class InsertCommuteToServlet extends HttpServlet {
 						.create();
 		
 		response.setContentType("application/json, charset=UTF-8");
-
+		
 		String jsonString = "";
 		
-		jsonString = gson.toJson(commutingLog);
+		if(result > 0) {
+			jsonString = gson.toJson(commutingLog);
+		} else {
+			jsonString = gson.toJson("failed");
+		}
 		
 		PrintWriter out = response.getWriter();
 		
