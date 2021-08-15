@@ -43,7 +43,9 @@
 			<a id="mobile_btn" class="mobile_btn pull-left" href="#sidebar"><i class="fa fa-bars" aria-hidden="true"></i></a>
 			<ul class="nav navbar-nav navbar-right user-menu pull-right">
 				<li class="dropdown hidden-xs" id="in_time">
-					<img src="${ pageContext.servletContext.contextPath }/assets/img/sign_in.png" alt=""></img>
+					<a href="#">
+						<img src="${ pageContext.servletContext.contextPath }/assets/img/sign_in.png" alt=""></img>
+					</a>
 				</li>
 				<li class="dropdown hidden-xs" id="out_time">
 					<a href="#">
@@ -126,7 +128,7 @@
 	                    </li>
 	                    
 	                    <li class="menu-title">ADMIN</li>
-	                    <li class="submenu">
+	                    <li class="submenu" id="submenu_mng_employee">
 	                        <a href="#">
 	                            <span class="icon"><i class="fa fa-address-card" aria-hidden="true"></i></span>
 	                            <span>직원관리</span>
@@ -138,7 +140,7 @@
 	                            <li><a href="${ pageContext.servletContext.contextPath }/mng/employee/role/insert">권한 관리</a></li>
 	                        </ul>
 	                    </li>
-	                    <li class="submenu">
+	                    <li class="submenu" id="submenu_mng_working_system">
 	                        <a href="#">
 	                            <span class="icon"><i class="fa fa-table" aria-hidden="true"></i></span>
 	                            <span>근태관리</span>
@@ -150,7 +152,7 @@
 	                            <li><a href="${ pageContext.servletContext.contextPath }/mng/workingSystem/commute/select">직원 출퇴근 기록</a></li>
 	                        </ul>
 	                    </li>
-	                    <li class="submenu">
+	                    <li class="submenu" id="submenu_mng_holiday">
 	                        <a href="#">
 	                            <span class="icon"><i class="fa fa-rocket" aria-hidden="true"></i></span>
 	                            <span>휴가관리</span>
@@ -163,7 +165,7 @@
 	                            <li><a href="${ pageContext.servletContext.contextPath }/mng/holiday/rule/select">휴가일수 발생규칙</a></li>
 	                        </ul>
 	                    </li>
-	                    <li class="submenu">
+	                    <li class="submenu" id="submenu_mng_board">
 	                        <a href="#">
 	                            <span class="icon"><i class="fa fa-columns" aria-hidden="true"></i></span>
 	                            <span>게시판관리</span>
@@ -174,7 +176,7 @@
 	                            <li><a href="${ pageContext.servletContext.contextPath }/mng/board/form/select">서식게시판 관리</a></li>
 	                        </ul>
 	                    </li>
-	                    <li class="submenu">
+	                    <li class="submenu" id="submenu_mng_welfare" hidden="false">
 	                        <a href="#">
 	                            <span class="icon"><i class="fa fa-shopping-cart" aria-hidden="true"></i></span>
 	                            <span>복지관리</span>
@@ -199,14 +201,18 @@
 				url: "${ pageContext.servletContext.contextPath }/mypage/commute/insert",
 				type: "post",
 				success: function(data, textStatus, xhr) {
-					alert("출근 시간이 기록되었습니다.\n"
-						+ "현재 시각 : ["
-						+ data.yearMonth
-						+ "-"
-						+ data.day
-						+ " "
-						+ data.inTime
-						+ "]");
+					if(data.inTime == null) {
+						alert("출근 시간이 기록되었습니다.\n"
+							+ "현재 시각 : ["
+							+ data.yearMonth
+							+ "-"
+							+ data.day
+							+ " "
+							+ data.inTime
+							+ "]");
+					} else {
+						alert("이미 입력된 기록이 있습니다.");
+					}
 				},
 				error: function(xhr, status, error) {
 					alert(error);
