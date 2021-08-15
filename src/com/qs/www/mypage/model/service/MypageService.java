@@ -2,6 +2,8 @@ package com.qs.www.mypage.model.service;
 
 import static com.qs.www.common.mybatis.Template.getSqlSession;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -51,7 +53,7 @@ public class MypageService {
 		
 		SqlSession sqlSession = getSqlSession();
 		
-		String inTime = mypageDAO.selectCommute(sqlSession, commutingLog);
+		String inTime = mypageDAO.selectCommuteInTime(sqlSession, commutingLog);
 		
 		int result = 0;
 		if(inTime == null) {
@@ -62,6 +64,47 @@ public class MypageService {
 			} else {
 				sqlSession.rollback();
 			}
+		}
+		
+		return result;
+	}
+
+	public int updateCommute(CommutingLogDTO commutingLog, LocalDateTime currentDateTime) {
+		
+		SqlSession sqlSession = getSqlSession();
+		// 출퇴근 기록 조회
+		String outTime = mypageDAO.selectCommuteOutTime(sqlSession, commutingLog);
+		int result = 0;
+		
+		// 퇴근 기록이 없는 경우
+		if(outTime == null) {
+			// 현재 시간을 퇴근 시간으로 저장
+			outTime = commutingLog.getOutTime();
+			int outTimeHour = Integer.parseInt(outTime.substring(0, 2));
+			
+			if(outTimeHour < 6) {	// 현재 시간이 오전 6시 이전인 경우
+				// 전날 퇴근 기록을 조회
+				commutingLog.setYearMonth(currentDateTime.minusDays(1)
+						.format(DateTimeFormatter.ofPattern("yyyy-MM")));
+				commutingLog.setDay(currentDateTime.minusDays(1)
+						.format(DateTimeFormatter.ofPattern("dd")));
+				
+				String yesterdayOutTime = mypageDAO.selectCommuteOutTime(sqlSession, commutingLog);
+				if(yesterdayOutTime == null) { // 전날 퇴근 기록이 없는 경우 기록
+					result = mypageDAO.updateCommute(sqlSession, commutingLog);
+				}
+			} else {	// 현재 시간이 오전 6시 이후인 경우
+				// 새로운 출퇴근 기록으로 추가
+				result = mypageDAO.insertCommute(sqlSession, commutingLog);
+			}
+			
+			commutingLog.setOutTime(outTime);
+		}
+		
+		if(result > 0) {
+			sqlSession.commit();
+		} else {
+			sqlSession.rollback();
 		}
 		
 		return result;

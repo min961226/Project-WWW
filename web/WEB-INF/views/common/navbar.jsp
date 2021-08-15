@@ -17,6 +17,8 @@
     <link rel="stylesheet" type="text/css" href="${ pageContext.servletContext.contextPath }/assets/css/bootstrap-datetimepicker.min.css">
     <link rel="stylesheet" type="text/css" href="${ pageContext.servletContext.contextPath }/assets/plugins/morris/morris.css">
     <link rel="stylesheet" type="text/css" href="${ pageContext.servletContext.contextPath }/assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="${ pageContext.servletContext.contextPath }/assets/css/summernote/summernote-lite.css">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.css"rel="stylesheet">
 	<title>Wonderful Welfare Workspace</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
  	<style>
@@ -42,13 +44,13 @@
 			</div>
 			<a id="mobile_btn" class="mobile_btn pull-left" href="#sidebar"><i class="fa fa-bars" aria-hidden="true"></i></a>
 			<ul class="nav navbar-nav navbar-right user-menu pull-right">
-				<li class="dropdown hidden-xs" id="in_time">
-					<a href="#">
+				<li class="dropdown hidden-xs">
+					<a href="" id="in_time">
 						<img src="${ pageContext.servletContext.contextPath }/assets/img/sign_in.png" alt=""></img>
 					</a>
 				</li>
-				<li class="dropdown hidden-xs" id="out_time">
-					<a href="#">
+				<li class="dropdown hidden-xs">
+					<a href="" id="out_time">
 						<img src="${ pageContext.servletContext.contextPath }/assets/img/sign_out.png" alt=""></img>
 					</a>
 				</li>
@@ -176,7 +178,7 @@
 	                            <li><a href="${ pageContext.servletContext.contextPath }/mng/board/form/select">서식게시판 관리</a></li>
 	                        </ul>
 	                    </li>
-	                    <li class="submenu" id="submenu_mng_welfare" hidden="false">
+	                    <li class="submenu" id="submenu_mng_welfare">
 	                        <a href="#">
 	                            <span class="icon"><i class="fa fa-shopping-cart" aria-hidden="true"></i></span>
 	                            <span>복지관리</span>
@@ -201,7 +203,7 @@
 				url: "${ pageContext.servletContext.contextPath }/mypage/commute/insert",
 				type: "post",
 				success: function(data, textStatus, xhr) {
-					if(data.inTime == null) {
+					if(data.inTime != null) {
 						alert("출근 시간이 기록되었습니다.\n"
 							+ "현재 시각 : ["
 							+ data.yearMonth
@@ -219,6 +221,31 @@
 				}
 			});
 		});
+		
+		$("#out_time").click(function() {
+			$.ajax({
+				url: "${ pageContext.servletContext.contextPath }/mypage/commute/update",
+				type: "post",
+				success: function(data, textStatus, xhr) {
+					if(data.outTime != null) {
+						alert("퇴근 시간이 기록되었습니다.\n"
+							+ "현재 시각 : ["
+							+ data.yearMonth
+							+ "-"
+							+ data.day
+							+ " "
+							+ data.outTime
+							+ "]");
+					} else {
+						alert("이미 입력된 기록이 있습니다.");
+					}
+					console.log(data);
+				},
+				error: function(xhr, status, error) {
+					alert(error);
+				}
+			});
+		});
 	</script>
     <script type="text/javascript" src="${ pageContext.servletContext.contextPath }/assets/js/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="${ pageContext.servletContext.contextPath }/assets/js/bootstrap.min.js"></script>
@@ -229,5 +256,17 @@
     <script type="text/javascript" src="${ pageContext.servletContext.contextPath }/assets/plugins/morris/morris.min.js"></script>
     <script type="text/javascript" src="${ pageContext.servletContext.contextPath }/assets/plugins/raphael/raphael-min.js"></script>
     <script type="text/javascript" src="${ pageContext.servletContext.contextPath }/assets/js/app.js"></script>
+    <script	src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.js"></script>
+	<script src="${ pageContext.servletContext.contextPath }/assets/js/summernote/lang/summernote-ko-KR.js"></script>
+	<script>
+		$(document).ready(function() {
+			$('#summernote').summernote({
+				minHeight : 370,
+				maxHeight : null,
+				focus : true,
+				lang : 'ko-KR'
+			});
+		});
+	</script>
 </body>
 </html>

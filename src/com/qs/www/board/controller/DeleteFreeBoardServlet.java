@@ -11,8 +11,12 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/board/free/delete")
 public class DeleteFreeBoardServlet extends HttpServlet {
+	
+	
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		System.out.println("아무거나");
 		
 		  String path = "/WEB-INF/views/board/deleteFreeBoard.jsp";
 		  
