@@ -27,7 +27,8 @@
              , A.DELETE_YN
              , A.CREATED_DATE
              , A.MODIFIED_DATE
-         FROM TBL_BOARD A
+         	FROM TBL_BOARD A
+         	WHERE A.BOARD_TYPE = '자유'
 	</select>
 	
 	<insert id="insertFree" parameterType="com.qs.www.board.model.dto.FreeDTO" >
