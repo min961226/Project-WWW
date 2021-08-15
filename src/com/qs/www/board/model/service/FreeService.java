@@ -54,7 +54,7 @@ public class FreeService {
 	public FreeDTO selectFreeDetail(int no) {
 		
 		SqlSession session = getSqlSession();
-		FreeDTO freeDetail = null;
+		FreeDTO freeDetail = new FreeDTO();
 		
 		int result = freeDAO.incrementFreeCount(session, no);
 		

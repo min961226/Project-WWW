@@ -32,7 +32,7 @@
 							<form class="form-horizontal" action="${ pageContext.servletContext.contextPath }/board/free/insert" method="post">
 								<div class="form-group">	
 									<div class="col-sm-6">
-										<label>결재 제목</label>
+										<label>제목</label>
 										<div class="col-md-12">
 											<input type="text" name="title" class="form-control" required="required">
 										</div>
@@ -45,7 +45,7 @@
 								<div class="col-sm-6">
 									<label>첨부서류</label>
 									<div class="col-md-12">
-										<input class="form-control" type="file">
+										<input name="file" class="form-control" type="file">
 									</div>
 								</div>
 								</div>

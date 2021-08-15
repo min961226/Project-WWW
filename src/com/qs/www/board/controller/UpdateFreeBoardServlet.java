@@ -1,6 +1,6 @@
 package com.qs.www.board.controller;
-
-import java.io.IOException;
+ 
+import java.io.IOException;  
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 import com.qs.www.board.model.dto.FreeDTO;
 import com.qs.www.board.model.service.FreeService;
 import com.qs.www.member.model.dto.MemberInfoDTO;
-
+ 
 @WebServlet("/board/free/update")
 public class UpdateFreeBoardServlet extends HttpServlet {
 
@@ -29,11 +29,11 @@ public class UpdateFreeBoardServlet extends HttpServlet {
 		System.out.println(path);
 		System.out.println(no);
 		if(free != null) {
-			path = "/WEB-INF/views/notice/updateFreeBoard.jsp";
+			path = "/WEB-INF/views/board/updateFreeBoard.jsp";
 			request.setAttribute("free", free);
 		} else {
 			path = "/WEB-INF/views/common/failed.jsp";
-			request.setAttribute("message", "공지사항 수정용 조회하기 실패!");
+			request.setAttribute("message", "자유게시판 수정 조회하기 실패!");
 		}
 		
 		request.getRequestDispatcher(path).forward(request, response);
@@ -42,14 +42,18 @@ public class UpdateFreeBoardServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		int no = Integer.parseInt(request.getParameter("no"));
+		String no = request.getParameter("no");
 		String title = request.getParameter("title");
-		String body = request.getParameter("content");
+		String body = request.getParameter("body");
 		int memberNo = ((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo();
+		System.out.println("출력테스트");
+		System.out.println("no : " + no);
+		System.out.println(title);
+		System.out.println(body);
 		
 		FreeDTO free = new FreeDTO();
 
-		free.setNo(no);
+//		free.setNo(no);
 		free.setTitle(title);
 		free.setBody(body);
 		free.setMember(memberNo);
@@ -64,7 +68,7 @@ public class UpdateFreeBoardServlet extends HttpServlet {
 			request.setAttribute("successCode", "updateFree");
 		} else {
 			path = "/WEB-INF/views/common/failed.jsp";
-			request.setAttribute("message", "공지사항 수정에 실패");
+			request.setAttribute("message", "자유게시판 수정에 실패");
 		}
 
 		request.getRequestDispatcher(path).forward(request, response);
