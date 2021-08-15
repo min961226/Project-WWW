@@ -153,7 +153,11 @@
                                     <h4 class="card-title">${ line.memberName }님의 결재내용 조회</h4>
                                     <div class="form-group">
                                     
-                                        <div class="col-lg-10">
+                                        <div class="col-xs-6">
+                                          <label>결재날짜</label>
+                                                 <input name="appStatus" value=${ line.appDate } disabled/>
+                                        </div>
+                                        <div class="col-xs-6">
                                           <label>결재처리</label>
                                                  <input name="appStatus" value=${ line.appStatus } disabled/>
                                         </div>
@@ -209,11 +213,6 @@
 								
 							</form>
 						
-						<div class="form-group">
-                                <label>Description</label>
-                                <textarea rows="4" cols="5" class="form-control summernote" placeholder="Enter your message here"></textarea>
-                            </div>
-						
 					</div>
 				</div>
 			</div>
@@ -229,14 +228,6 @@
     		location.href = "${ pageContext.servletContext.contextPath }/approval/waiting/select"
     	}
     </script>
-    <script type="text/javascript" src="assets/js/jquery-3.2.1.min.js"></script>
-    <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="assets/js/jquery.slimscroll.js"></script>
-    <script type="text/javascript" src="assets/js/select2.min.js"></script>
-    <script type="text/javascript" src="assets/js/moment.min.js"></script>
-    <script type="text/javascript" src="assets/js/bootstrap-datetimepicker.min.js"></script>
-    <script type="text/javascript" src="assets/plugins/summernote/dist/summernote.min.js"></script>
-    <script type="text/javascript" src="assets/js/app.js"></script>
 </body>
 
 </html>
