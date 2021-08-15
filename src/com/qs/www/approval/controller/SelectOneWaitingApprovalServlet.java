@@ -137,6 +137,14 @@ public class SelectOneWaitingApprovalServlet extends HttpServlet {
 			// 4.a.2 변경하고 리턴값이 0(다음결재자가 존재하지 않음)일 시 결재한 상신번호에 대한 상신테이블의 상태를 '승인'으로 변경
 			if(result3 == 0) {
 				result3 = new ApprovalService().finishAppReport(thisAPR);
+				
+				//----------------근태, 휴가, 복지 내역 생성 삽입할 곳------------------
+				
+				
+				
+				//------------------------------------------------------------
+				
+				
 			}
 			System.out.println("성공당함 :"+ApproverStatus);
 			
@@ -146,11 +154,7 @@ public class SelectOneWaitingApprovalServlet extends HttpServlet {
 			System.out.println("반려당함 :"+ApproverStatus);
 		}
 		
-		//----------------근태, 휴가, 복지 내역 생성 삽입할 곳------------------
 		
-		
-		
-		//------------------------------------------------------------
 		
 		
 		String path = "";

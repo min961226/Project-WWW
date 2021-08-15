@@ -15,8 +15,10 @@
 		id="approverResultMap">
 		<result property="memberNo" column="MEMBER_NO" />
 		<result property="lineNo" column="LINE_NO" />
-		<result property="ApproverName" column="APPROVER_NAME" />
-		<result property="ApproverType" column="APPROVER_TYPE" />
+		<result property="approverName" column="APPROVER_NAME" />
+		<result property="approverType" column="APPROVER_TYPE" />
+		<result property="jobName" column="JOB_NAME" />
+		<result property="deptName" column="DEPT_NAME" />
 		<result property="priority" column="PRIORITY" />
 	</resultMap>
 	<resultMap type="com.qs.www.schedule.model.dto.ReportDTO"
@@ -56,6 +58,19 @@
 		<result property="appStatus" column="APP_STATUS" />
 		<result property="memberName" column="NAME" />
 	</resultMap>
+	<resultMap type="com.qs.www.member.model.dto.MemberInfoDTO" id="memberInfoResultMap">
+		<result property="memberNo" column="MEMBER_NO"/>
+		<result property="name" column="NAME"/>		
+		<association property="department" javaType="com.qs.www.member.model.dto.DepartmentDTO">
+			<id property="deptCode" column="DEPT_CODE"/>
+			<result property="deptName" column="DEPT_NAME"/>
+			<result property="deptCallNumber" column="DEPT_CALL_NUMBER"/>
+		</association>		
+		<association property="job" javaType="com.qs.www.member.model.dto.JobDTO">
+			<id property="jobCode" column="JOB_CODE"/>
+			<result property="jobName" column="JOB_NAME"/>
+		</association>
+	</resultMap>
 
 	<select id="selectApprovalLine" resultMap="approvalLineResultMap">
 		SELECT /* com.qs.www.approval.model.dao.ApprovalDAO#selectApprovalLine()*/
@@ -63,11 +78,23 @@
 		  FROM TBL_APPROVER_LINE A
 		 WHERE A.MEMBER_NO = #{ no }
 	</select>
+	<select id="selectApprovalOneLine" resultMap="approvalLineResultMap">
+		SELECT /* com.qs.www.approval.model.dao.ApprovalDAO#selectApprovalLine()*/
+			   A.*
+		  FROM TBL_APPROVER_LINE A
+		 WHERE A.LINE_NO = #{ lineNo }
+	</select>
 	<select id="selectApprover" resultMap="approverResultMap">
 		SELECT /* com.qs.www.approval.model.dao.ApprovalDAO#selectApprovalLine()*/
 			   A.*
+			 , C.DEPT_NAME
+			 , D.JOB_NAME
 		  FROM TBL_APPROVER A
+		 JOIN TBL_MEMBER B ON (A.MEMBER_NO = B.MEMBER_NO )
+		 JOIN TBL_DEPARTMENT C ON (B.DEPT_CODE = C.DEPT_CODE )
+		 JOIN TBL_JOB D ON (B.JOB_CODE = D.JOB_CODE )
 		 WHERE A.LINE_NO = #{ lineNo }
+		 ORDER BY A.PRIORITY
 	</select>
 
 	<select id="selectReportNum" resultType="_int">
@@ -193,7 +220,20 @@
 		   AND A.APPROVER_TYPE NOT IN ('미처리', '대기')
 		 ORDER BY A.REPORT_NO DESC
 	</select>
-	
+	<select id="selectMemberList" resultMap="memberInfoResultMap">
+        SELECT /* com.qs.www.approval.model.dao.ApprovalDAO##selectMemberList() */
+               A.MEMBER_NO
+             , A.NAME
+             , A.DEPT_CODE
+             , D.DEPT_NAME
+             , A.JOB_CODE
+             , E.JOB_NAME
+          FROM TBL_MEMBER A
+          LEFT JOIN TBL_DEPARTMENT D ON (A.DEPT_CODE = D.DEPT_CODE)
+          LEFT JOIN TBL_JOB E ON (A.JOB_CODE = E.JOB_CODE)
+         WHERE A.ENT_YN = 'N'
+          ORDER BY A.MEMBER_NO
+	</select>
 </mapper>
 	    
 

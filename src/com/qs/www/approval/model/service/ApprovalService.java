@@ -11,6 +11,7 @@ import com.qs.www.approval.model.dto.ApprovalLineDTO;
 import com.qs.www.approval.model.dto.ApproverDTO;
 import com.qs.www.approval.model.dto.ApproverLogPerReportDTO;
 import com.qs.www.member.model.dto.MemberDTO;
+import com.qs.www.member.model.dto.MemberInfoDTO;
 import com.qs.www.schedule.model.dto.ApproverPerReportDTO;
 import com.qs.www.schedule.model.dto.ReportDTO;
 import com.qs.www.schedule.model.dto.WorkingDocumentItemDTO;
@@ -31,6 +32,16 @@ public class ApprovalService {
 		session.close();
 
 		return lineList;
+	}
+	
+	public ApprovalLineDTO selectApprovalOneLine(int no) {
+		SqlSession session = getSqlSession();
+
+		ApprovalLineDTO  line = approvalDAO.selectApprovalOneLine(session, no);
+
+		session.close();
+
+		return line;
 	}
 
 	public List<ApproverDTO> selectApprover(int lineNo) {
@@ -218,6 +229,16 @@ public class ApprovalService {
 		session.close();
 
 		return APRList;
+	}
+
+	public List<MemberInfoDTO> selectMemberList() {
+		SqlSession session = getSqlSession();
+
+		List<MemberInfoDTO> memberList = approvalDAO.selectMemberList(session);
+
+		session.close();
+
+		return memberList;
 	}
 
 

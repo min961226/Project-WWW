@@ -143,7 +143,11 @@
                                     <h4 class="card-title">${ line.memberName }님의 결재내용 조회</h4>
                                     <div class="form-group">
                                     
-                                        <div class="col-lg-10">
+                                        <div class="col-xs-6">
+                                          <label>결재날짜</label>
+                                                 <input name="appStatus" value=${ line.appDate } disabled/>
+                                        </div>
+                                        <div class="col-xs-6">
                                           <label>결재처리</label>
                                                  <input name="appStatus" value=${ line.appStatus } disabled/>
                                         </div>
@@ -153,7 +157,7 @@
 								        	<div class="col-sm-12">
 										        <textarea name="opinion" rows="4" cols="6" class="form-control"
 											        disabled>${ line.appNote }</textarea>
-											        <br><br>
+											        
 									        </div>
 								        </div>
 								        </div> 
