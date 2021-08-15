@@ -9,6 +9,7 @@ import com.qs.www.schedule.model.dto.ApproverPerReportDTO;
 import com.qs.www.schedule.model.dto.HolidayTypeDTO;
 import com.qs.www.schedule.model.dto.MemberWorkLogDTO;
 import com.qs.www.schedule.model.dto.MonthlyWorkLogDTO;
+import com.qs.www.schedule.model.dto.OvertimeLogDTO;
 import com.qs.www.schedule.model.dto.ReportDTO;
 import com.qs.www.schedule.model.dto.WorkingDocumentItemDTO;
 
@@ -72,6 +73,12 @@ public class ScheduleDAO {
 	public int checkedOutToday(SqlSession session, MonthlyWorkLogDTO monthlyWorkLogDTO) {
 		
 		return session.selectOne("ScheduleDAO.checkedOutToday", monthlyWorkLogDTO);
+	}
+	
+	/* 초과근무시간 검색 */
+	public List<OvertimeLogDTO> selectOverTimeLog(SqlSession session, OvertimeLogDTO overtimeLogDTO) {
+		
+		return session.selectOne("ScheduleDAO.selectOverTimeLog", overtimeLogDTO);
 	}
 
 	

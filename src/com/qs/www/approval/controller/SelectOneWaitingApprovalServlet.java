@@ -138,12 +138,52 @@ public class SelectOneWaitingApprovalServlet extends HttpServlet {
 			if(result3 == 0) {
 				result3 = new ApprovalService().finishAppReport(thisAPR);
 				
-				//----------------근태, 휴가, 복지 내역 생성 삽입할 곳------------------
+
 				
+// 				/* 5. 근무제쪽 테이블에도 insert 해주기 */
+// 				/* 5-1. 커스텀근무제라면 커스텀근무제에도 추가 */
+// 				if(true) {}
 				
-				
-				//------------------------------------------------------------
-				
+// 				/* 5-2. 사원별근무제변경이력(TBL_MEMBER_WORK_LOG)에 insert */
+// 				java.sql.Date startDay = java.sql.Date.valueOf(request.getParameter("startDay"));
+// 				java.sql.Date endDay = java.sql.Date.valueOf(request.getParameter("endDay"));
+// 				java.util.Date endDate = endDay;
+// 				long longendDate = endDate.getTime();								//밀리세컨으로 변경
+// 				long longendNextDate = longendDate + (1 * 24 * 60 * 60 * 1000);		//하루를 추가
+// 				java.sql.Date endNextDate = new java.sql.Date(longendNextDate);		//다시 sql.Date 형태로 변경
+// 				System.out.println(endDay + " 와" + endNextDate);
+// 				//혹은 split한 다음에 날짜에 +1하고 다시 합치는 방법도 있다. 
+		
+// 				if(workType.equals("표준근무제")) {
+// 					workType = "표준";
+// 				} else {
+// 					workType = "커스텀";
+// 				}
+		
+// 				/* 5-1. 첫번째 변경이력. startDay 사용 */
+// 				MemberWorkLogDTO memberWorkLogDTO = new MemberWorkLogDTO();
+// 				memberWorkLogDTO.setMemberNo(((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo());
+// 				memberWorkLogDTO.setWorkType(workType);
+// 				memberWorkLogDTO.setWorkNo(workNo);
+// 				memberWorkLogDTO.setStartDay(startDay);
+// 				memberWorkLogDTO.setChangeReason(changeReason);
+// 				System.out.println("memberWorkLogDTO : " + memberWorkLogDTO);
+		
+// 				/* 5-2. 두번째 변경이력. endNextDate 사용. 다시 기본근태로 돌림 */
+// 				MemberWorkLogDTO memberWorkLogDTO2 = new MemberWorkLogDTO();
+// 				memberWorkLogDTO2.setMemberNo(((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo());
+// 				memberWorkLogDTO2.setWorkType("표준");
+// 				memberWorkLogDTO2.setWorkNo(1);
+// 				memberWorkLogDTO2.setStartDay(endNextDate);
+// 				memberWorkLogDTO2.setChangeReason("이전 근태신청의 기간만료");
+// 				System.out.println("memberWorkLogDTO2 : " + memberWorkLogDTO2);
+		
+// 				result5 = scheduleService.applyWorkingSystemMemberWorkLog(memberWorkLogDTO);
+// 				result6 = scheduleService.applyWorkingSystemMemberWorkLog(memberWorkLogDTO2);
+		
+// 				System.out.println(result5);
+// 				System.out.println(result6);
+
 				
 			}
 			System.out.println("성공당함 :"+ApproverStatus);

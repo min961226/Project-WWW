@@ -99,10 +99,8 @@
                                 <c:forEach var="report" items="${ requestScope.reportList }">
                                 
                                 	<!-- 승인인지 여부만 확인. 승인 이외에는 빨간색으로 -->
-                                	<!-- 
                                 	<c:set var="isApproved" value="${ fn:contains(report.reportStatus, \"승인\") }"/>
-                                	-->
-                                	
+                                	                                	
 									<tr>
 										<td><c:out value="${ report.reportNo }"/></td>
 										<td><c:if test="${ report.documentNo eq 4 }"><c:out value="근무신청서"/></c:if>
@@ -175,7 +173,7 @@
     
     <script>
 		if(document.getElementsByTagName("td")) {
-			const $tds = document.getElementsByTagName("td");
+			const $td = document.getElementsByTagName("td");
 			for(let i = 0; i < $tds.length; i++) {
 				
 				$tds[i].onmouseenter = function() {

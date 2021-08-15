@@ -5,10 +5,12 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAdjusters;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.Locale;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,12 +19,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.qs.www.main.model.dto.CommutingLogDTO;
 import com.qs.www.main.model.dto.WorkInfoDTO;
 import com.qs.www.main.model.dto.WorkingLogDTO;
 import com.qs.www.main.model.service.MainService;
 import com.qs.www.member.model.dto.MemberInfoDTO;
+import com.qs.www.mypage.model.dto.CommutingLogDTO;
 import com.qs.www.schedule.model.dto.MonthlyWorkLogDTO;
+import com.qs.www.schedule.model.dto.OvertimeLogDTO;
 import com.qs.www.schedule.model.service.ScheduleService;
 
 @WebServlet("/schedule/workingHours/select")
@@ -50,25 +53,7 @@ public class SelectWorkingHoursScheduleServlet extends HttpServlet {
 		String todayDate = sdf.format(date.getTime()); //밀리세컨단위 getTime을 sdf으로 변환
 		System.out.println("String 형식 todayDate : " + todayDate);
 		
-		// 이번주 월요일 날짜(weekStartDate)
-		date.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-		Calendar weekStartCalDate = date;
-		String weekStartDate = sdf.format(weekStartCalDate.getTime());
-		System.out.println("monday를 sdf으로 변환한 날짜 : " + weekStartDate);
-		
-		// 다음주 일요일 날짜(weekEndDate)
-		date.add(Calendar.DATE, 6);
-		Calendar weekEndCalDate = date;
-		String weekEndDate = sdf.format(weekEndCalDate.getTime());
-		System.out.println("sunday를 sdf으로 변환한 날짜 : " + weekEndDate);
-		
-		// 요일별 날짜를 담을 변수
-		date.add(Calendar.DATE, -6);
-		Calendar selectedCalDate = date;
-		String selectedDate = sdf.format(selectedCalDate.getTime());
-		System.out.println("monday부터 시작할 것이므로, date(지금은 일요일로 설정되어있음)에서 -6 : " + selectedCalDate);
-		
-				
+					
 		/* 1. 이번 달 근태 통계 */
 		/* 1-1. 이번달 근무일수가 몇일이고, 그 중 몇 일째인지 */
 		//오늘이 속한 해, 달, 오늘날짜
@@ -81,6 +66,9 @@ public class SelectWorkingHoursScheduleServlet extends HttpServlet {
 		int thisMonthFirstDate = date.getActualMinimum(Calendar.DATE);
 		int thisMonthLastDate = date.getActualMaximum(Calendar.DATE);
 		
+		
+		//번거로우므로 날짜의 요일명도 미리 만들어둔다
+		List<String> dayofWeekList = new ArrayList<>();
 		
 		int forStartDate = 1;
 		int thisMonthWorkDateNum = 0;
@@ -101,13 +89,13 @@ public class SelectWorkingHoursScheduleServlet extends HttpServlet {
 			//if문으로 정리하는게 더 간편할듯
 			//토, 일, (6, 7)이 아니면 workdate에 1일씩 늘려준다. 
 			switch(w) {
-			case 1 : thisMonthWorkDateNum++; break;
-			case 2 : thisMonthWorkDateNum++; break;
-			case 3 : thisMonthWorkDateNum++; break;
-			case 4 : thisMonthWorkDateNum++; break;
-			case 5 : thisMonthWorkDateNum++; break;
-			case 6 : break;
-			case 7 : break;
+			case 1 : dayofWeekList.add("월"); thisMonthWorkDateNum++; break;
+			case 2 : dayofWeekList.add("화"); thisMonthWorkDateNum++; break;
+			case 3 : dayofWeekList.add("수"); thisMonthWorkDateNum++; break;
+			case 4 : dayofWeekList.add("목"); thisMonthWorkDateNum++; break;
+			case 5 : dayofWeekList.add("금"); thisMonthWorkDateNum++; break;
+			case 6 : dayofWeekList.add("토"); break;
+			case 7 : dayofWeekList.add("일"); break;
 			}
 			
 			forStartDate++;												//for문을 다시 돌리기위해 날짜를 1 증가시킨다
@@ -146,6 +134,23 @@ public class SelectWorkingHoursScheduleServlet extends HttpServlet {
 		}		
 		System.out.println(todayMonthInt + "월 의 오늘까지 근무일 수 : " + thisMonthWorkDateNum2);
 		
+		//번거로우므로, 날짜들을 리스트로 만들어서 보낸다.
+		List<String> dayList = new ArrayList<>();
+		for(int inum = 1; inum < thisMonthLastDate + 1; inum++) {
+			String i = "";
+			
+			if(inum < 10) {
+			i = "0" + inum;
+			} else {
+			i = "" + inum;
+			}
+			
+			dayList.add(i);
+		}
+		
+		request.setAttribute("dayofWeekList", dayofWeekList);
+		request.setAttribute("dayList", dayList);
+		request.setAttribute("thisMonthLastDate", thisMonthLastDate);
 		request.setAttribute("thisMonthWorkDateNum", thisMonthWorkDateNum);
 		request.setAttribute("thisMonthWorkDateNum2", thisMonthWorkDateNum2);
 		
@@ -153,8 +158,8 @@ public class SelectWorkingHoursScheduleServlet extends HttpServlet {
 		/* 1-2. 이번달 지각횟수 */
 		java.sql.Date thisMonthFirst = Date.valueOf(LocalDate.of(todayYearInt, todayMonthInt, thisMonthFirstDate));
 		java.sql.Date thisMonthLast = Date.valueOf(LocalDate.of(todayYearInt, todayMonthInt, thisMonthLastDate));
-		System.out.println(thisMonthFirst);
-		System.out.println(thisMonthLast);
+		String thisMonthFirstString = thisMonthFirst + "";
+		String thisMonthLastString = thisMonthLast + "";
 		
 		MonthlyWorkLogDTO monthlyWorkLogDTO = new MonthlyWorkLogDTO();
 		monthlyWorkLogDTO.setMemberNo(memberNo);
@@ -198,40 +203,66 @@ public class SelectWorkingHoursScheduleServlet extends HttpServlet {
 		request.setAttribute("workCode", workCode);
 		
 		/* 2-2. 이번주 정규근무 시간과 잔여시간 */
-				
+		// 오늘 날짜
+		LocalDate currentDate = LocalDate.now(); //String todayDate는 위쪽에서 정의해둠
+		// 이번주 월요일 날짜
+		String weekStartDate = currentDate
+							.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY))
+							.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+		// 다음주 일요일 날짜
+		String weekEndDate = currentDate
+							.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY))
+							.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+		// 요일별 날짜를 담을 변수(월요일 ~ 일요일)
+		LocalDate selectedLocalDate = currentDate
+								.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
+		
 		WorkInfoDTO workInfo = new WorkInfoDTO();
 		workInfo.setMemberNo(memberNo);
-		workInfo.setAppWorkType(appWorkType);
-		workInfo.setWorkCode(workCode);
 		workInfo.setToday(todayDate);
 		workInfo.setWeekStartDate(weekStartDate);
 		workInfo.setWeekEndDate(weekEndDate);
-		workInfo.setSelectedDate(selectedDate);
+		workInfo.setSelectedLocalDate(selectedLocalDate);
 				
 		MainService mainService = new MainService();
-				
-		List<CommutingLogDTO> commutingLogList = mainService.selectCommutingLog(workInfo);
-		List<WorkingLogDTO> workingLogList = mainService.selectWorkingLog(workInfo, selectedCalDate, sdf);
-				
+		
+		//그 주의 출퇴근번호(SEQ), 연도-월(yyyyMM), 일(dd), 출근시간, 퇴근시간
+		List<CommutingLogDTO> commutingLogWeeklyList = mainService.selectCommutingLog(workInfo);
+		System.out.println("commutingLogList : " + commutingLogWeeklyList);
+		
+		//현재보다 작은 날 중 가장 가까운 변경이력의 근무제변경이력번호(SEQ), 변경후근무제유형, 변경후근무제유형코드, 변경일자
+		List<WorkingLogDTO> workingLogList = mainService.selectWorkingLog(workInfo);
+		System.out.println("workingLogList : " + workingLogList);
 		
 		/* 2-3. 이번주 초과근무 시간과 잔여시간 */
+		//정규근무시간 구하기
+		
+		
+		//초과시간 검색
+		OvertimeLogDTO overtimeLogDTO = new OvertimeLogDTO();
+		overtimeLogDTO.setMemberNo(memberNo);
+		overtimeLogDTO.setWeekStartDate(weekStartDate);
+		overtimeLogDTO.setWeekEndDate(weekEndDate);
+		List<OvertimeLogDTO> overTimeLogList = scheduleService.selectOverTimeLog(overtimeLogDTO);
+		System.out.println("overTimeLogList : " + overTimeLogList);
+		
+		int overtimeSum = 0;
+		if(overTimeLogList != null) {
+			for(OvertimeLogDTO overtimeLog : overTimeLogList) {
+				overtimeSum += overtimeLog.getOvertimeDuring();
+			}
+		}
+		request.setAttribute("overtimeSum", overtimeSum);
+		
 		/* 2-4. 이번달 일수대로 출근시간, 퇴근시간,  */
+		workInfo.setWeekStartDate(thisMonthFirstString); //주의 시작/끝이 아니라 월의 시작/끝을 넣어서 출력
+		workInfo.setWeekEndDate(thisMonthLastString);
+		List<CommutingLogDTO> commutingLogMontlyList = mainService.selectCommutingLog(workInfo);
+				
+		System.out.println("commutingLogMontlyList : " + commutingLogMontlyList);
+		request.setAttribute("commutingLogMontlyList", commutingLogMontlyList);
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+				
 		
 		String path = "/WEB-INF/views/schedule/checkWorkingHours.jsp";
 
