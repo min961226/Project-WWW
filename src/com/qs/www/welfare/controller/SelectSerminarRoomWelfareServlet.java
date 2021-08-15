@@ -33,7 +33,6 @@ public class SelectSerminarRoomWelfareServlet extends HttpServlet {
 		String deptName = ((MemberInfoDTO) session.getAttribute("memberInfo")).getDepartment().getDeptName();
 		String jobName = ((MemberInfoDTO) session.getAttribute("memberInfo")).getJob().getJobName();
 		String addressAll = ((MemberInfoDTO) session.getAttribute("memberInfo")).getAddress();
-		String address = addressAll.replace("$", " ");
 		List<ApprovalLineDTO> lineList = new ApprovalService().selectApprovalLine(memberNo);
 		
 		String manageNo = request.getParameter("no");
@@ -44,7 +43,6 @@ public class SelectSerminarRoomWelfareServlet extends HttpServlet {
 		request.setAttribute("jobName", jobName);
 		request.setAttribute("name", name);
 		request.setAttribute("lineList", lineList);
-		request.setAttribute("address", address);
 		request.setAttribute("manageNo", manageNo);
 
 		String path="";
