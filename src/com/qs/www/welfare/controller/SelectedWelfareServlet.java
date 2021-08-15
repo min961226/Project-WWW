@@ -92,7 +92,6 @@ public class SelectedWelfareServlet extends HttpServlet {
 			path = "/WEB-INF/views/common/error-500.jsp";
 			break;
 		}
-
 		request.getRequestDispatcher(path).forward(request, response);
 	}
 
