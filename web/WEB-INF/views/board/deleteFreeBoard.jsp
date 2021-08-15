@@ -29,7 +29,7 @@
 					<div class="col-lg-12">
 						
 
-							<form class="form-horizontal" action="${ pageContext.servletContext.contextPath }/board/free/insert" method="post">
+							<form class="form-horizontal" action="${ pageContext.servletContext.contextPath }/board/free/delete" method="get">
 										
 								<div class="form-group">
 									<div class="col-sm-6">
@@ -81,8 +81,9 @@
 								<div class="row">
                                     <div class="col-sm-12 text-center m-t-20">
                                         <button type="submit" class="btn btn-primary btn-lg" id="update"> 수정 </button>
-                                        <button type="reset" class="btn btn-primary btn-lg" >삭제</button>
+                                        <button type="reset" class="btn btn-primary btn-lg" id="delete">삭제</button>
                                         <button type="reset" class="btn btn-primary btn-lg" id="goBack">돌아가기</button>
+                                        <button type="reset" class="btn btn-primary btn-lg" id="delete" >삭제</button>                                  
                                     </div>
                                 </div>
 								
@@ -111,14 +112,16 @@
 	
     	const $goBack = document.getElementById("goBack");
     	$goBack.onclick = function() {
-    		location.href = "${ pageContext.servletContext.contextPath }/board/free/select"
+    	location.href = "${ pageContext.servletContext.contextPath }/board/free/select" 
     	}
     	
-    	const $goBack = document.getElementById("update");
+    	
+    	const $goBack = document.getElementById("delete");
     	$goBack.onclick = function() {
-    		location.href = "${ pageContext.servletContext.contextPath }/board/free/update"
+    	location.href = "${ pageContext.servletContext.contextPath }/board/free/delete"
     	}
     	
+
     	
     	
     </script>

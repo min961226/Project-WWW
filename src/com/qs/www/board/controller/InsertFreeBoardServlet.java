@@ -30,7 +30,7 @@ public class InsertFreeBoardServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		HttpSession session = request.getSession();
-		int memberNo = ((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo();
+//		int memberNo = ((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo();
 		String type = "자유";
 		String title = (String)request.getParameter("title");
 		String body = (String)request.getParameter("body");
@@ -38,7 +38,7 @@ public class InsertFreeBoardServlet extends HttpServlet {
 		FreeDTO newFree = new FreeDTO();
 		newFree.setTitle(title);
 		newFree.setBody(body);
-		newFree.setMember(memberNo);
+//		newFree.setMember(memberNo);
 		newFree.setType(type);
 		
 		System.out.println(newFree);

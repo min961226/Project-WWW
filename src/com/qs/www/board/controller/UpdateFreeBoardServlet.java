@@ -37,14 +37,15 @@ public class UpdateFreeBoardServlet extends HttpServlet {
 		}
 		
 		request.getRequestDispatcher(path).forward(request, response);
-		
 	}
+	
+	
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		String no = request.getParameter("no");
-		String title = request.getParameter("title");
-		String body = request.getParameter("body");
+		String title = (String)request.getParameter("title");
+		String body = (String)request.getParameter("body");
 		int memberNo = ((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo();
 		System.out.println("출력테스트");
 		System.out.println("no : " + no);

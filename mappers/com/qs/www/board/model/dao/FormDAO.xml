@@ -28,6 +28,9 @@
              , A.CREATED_DATE
              , A.MODIFIED_DATE
          FROM TBL_BOARD A
+         WHERE A.BOARD_TYPE = '문서'
+
+         
 	</select>
 	
 	<update id="incrementFormCount">
