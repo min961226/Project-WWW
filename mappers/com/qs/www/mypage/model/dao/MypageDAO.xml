@@ -23,6 +23,14 @@
          WHERE A.MEMBER_NO = #{ memberNo }
 	</update>
 	
+	<select id="selectCommute" parameterType="com.qs.www.mypage.model.dto.CommutingLogDTO" resultType="java.lang.String">
+        SELECT
+               A.IN_TIME
+          FROM TBL_COMMUTE A
+         WHERE A.YEAR_MONTH = #{ yearMonth }
+           AND A.DAY = #{ day }
+	</select>
+	
 	<insert id="insertCommute" parameterType="com.qs.www.mypage.model.dto.CommutingLogDTO">
         INSERT /* com.qs.www.mypage.model.dao.MypageDAO#insertCommute() */
           INTO TBL_COMMUTE A

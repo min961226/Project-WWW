@@ -18,6 +18,10 @@ public class MypageDAO {
 		return sqlSession.selectList("MypageDAO.selectQuestionList");
 	}
 
+	public String selectCommute(SqlSession sqlSession, CommutingLogDTO commutingLog) {
+		return sqlSession.selectOne("MypageDAO.selectCommute", commutingLog);
+	}
+	
 	public int insertCommute(SqlSession sqlSession, CommutingLogDTO commutingLog) {
 		return sqlSession.insert("MypageDAO.insertCommute", commutingLog);
 	}

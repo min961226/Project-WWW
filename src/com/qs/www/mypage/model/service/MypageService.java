@@ -51,12 +51,17 @@ public class MypageService {
 		
 		SqlSession sqlSession = getSqlSession();
 		
-		int result = mypageDAO.insertCommute(sqlSession, commutingLog);
+		String inTime = mypageDAO.selectCommute(sqlSession, commutingLog);
 		
-		if(result > 0) {
-			sqlSession.commit();
-		} else {
-			sqlSession.rollback();
+		int result = 0;
+		if(inTime == null) {
+			result = mypageDAO.insertCommute(sqlSession, commutingLog);
+			
+			if(result > 0) {
+				sqlSession.commit();
+			} else {
+				sqlSession.rollback();
+			}
 		}
 		
 		return result;

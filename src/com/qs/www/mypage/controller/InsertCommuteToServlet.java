@@ -43,26 +43,24 @@ public class InsertCommuteToServlet extends HttpServlet {
 		
 		int result = mypageService.insertCommute(commutingLog);
 		
-		if(result > 0) {
-			Gson gson = new GsonBuilder()
-							.setPrettyPrinting()
-							.setFieldNamingPolicy(FieldNamingPolicy.IDENTITY)
-							.serializeNulls()
-							.disableHtmlEscaping()
-							.create();
-			
-			String jsonString = gson.toJson(commutingLog);
-			
-			response.setContentType("application/json, charset=UTF-8");
-			PrintWriter out = response.getWriter();
-			
-			out.print(jsonString);
-			
-			out.flush();
-			out.close();
-		} else {
-			request.setAttribute("failedCode", "insertCommute");
-			request.getRequestDispatcher("/WEB-INF/views/common/failed.jsp").forward(request, response);
-		}
+		Gson gson = new GsonBuilder()
+						.setPrettyPrinting()
+						.setFieldNamingPolicy(FieldNamingPolicy.IDENTITY)
+						.serializeNulls()
+						.disableHtmlEscaping()
+						.create();
+		
+		response.setContentType("application/json, charset=UTF-8");
+
+		String jsonString = "";
+		
+		jsonString = gson.toJson(commutingLog);
+		
+		PrintWriter out = response.getWriter();
+		
+		out.print(jsonString);
+		
+		out.flush();
+		out.close();
 	}
 }
