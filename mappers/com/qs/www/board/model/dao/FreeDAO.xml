@@ -30,7 +30,7 @@
          FROM TBL_BOARD A
 	</select>
 	
-	<insert id="insertFree">
+	<insert id="insertFree" parameterType="com.qs.www.board.model.dto.FreeDTO" >
         INSERT /* com.qs.www.board.model.dao.FreeDAO#insertFree() */
           INTO TBL_BOARD A
         (
@@ -70,7 +70,7 @@
          WHERE A.BOARD_NO = #{ no }
 	</update>
 	
-	<select id="selectFreeDetail" resultMap="freeResultMap">
+	<select id="selectFreeDetail" resultMap="freeResultMap" parameterType="_int">
        SELECT
                A.BOARD_NO
              , A.BOARD_TITLE
@@ -85,7 +85,7 @@
          WHERE A.BOARD_NO = #{ no }
     </select>
     
-    	<update id="updateFree">
+    	<update id="updateFree" parameterType="com.qs.www.board.model.dto.FreeDTO"> 
 		UPDATE /* com.qs.www.board.model.dao.FreeDAO#updateFree()
 		*/
 		TBL_BOARD A

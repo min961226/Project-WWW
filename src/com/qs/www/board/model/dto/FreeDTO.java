@@ -125,7 +125,7 @@ public class FreeDTO {
 
 	@Override
 	public String toString() {
-		return "NoticeDTO [no=" + no + ", title=" + title + ", member=" + member + ", type=" + type + ", count=" + count
+		return "FreeDTO [no=" + no + ", title=" + title + ", member=" + member + ", type=" + type + ", count=" + count
 				+ ", body=" + body + ", delete=" + delete + ", created=" + created + ", modified=" + modified + "]";
 	}
 	

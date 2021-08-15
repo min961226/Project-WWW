@@ -61,10 +61,10 @@ public class MainService {
 			// 근무 이력 조회
 			WorkingLogDTO workingLog = new WorkingLogDTO();
 			workingLog = mainDAO.selectWorkingLog(sqlSession, workInfo);
-			workingLog.setSelectedDate(selectedDate);
-			workingLog.setSelectedDayOfWeek(selectedDayOfWeek);
 			
 			if(workingLog != null) {
+				workingLog.setSelectedDate(selectedDate);
+				workingLog.setSelectedDayOfWeek(selectedDayOfWeek);
 				// 근무 유형 조회
 				WorkingTypeDTO workingType = new WorkingTypeDTO();
 				workingType = mainDAO.selectWorkingType(sqlSession, workingLog);

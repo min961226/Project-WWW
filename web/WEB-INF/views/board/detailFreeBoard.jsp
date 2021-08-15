@@ -28,39 +28,22 @@
 				<div class="row">
 					<div class="col-lg-12">
 						
-
-							<form class="form-horizontal" action="${ pageContext.servletContext.contextPath }/board/free/insert" method="post">
-										
 								<div class="form-group">
 									<div class="col-sm-6">
 										<label>제목</label>
 										<div class="col-md-12">
 										
-										<input class="form-control" value="${ requestScope.free.title }"  disabled/>
+										<input name = "title" class="form-control" value="${ requestScope.free.title }"  disabled/>
 										</div>
 									</div>
 								</div>
 								
-								<div class="form-group">
-									<div class="col-sm-6">
-										<label>내용</label>
-										<div class="col-md-12">
-										
-										<input class="form-control" value="${ requestScope.free.body }"  disabled/>
-										</div>
-									</div>
-
-
-								</div>
-								
-
-					
 								<div class="form-group">
 								<div class="col-sm-12">
 									<label>내용</label>
 									<div class="col-lg-12">
 										<textarea name="body" rows="8" cols="5" class="form-control"
-											required="required" disabled></textarea>
+											required="required" disabled>${ requestScope.free.body }</textarea>
 									</div>
 								</div>
 								</div>
@@ -80,13 +63,13 @@
 								
 								<div class="row">
                                     <div class="col-sm-12 text-center m-t-20">
-                                        <button type="submit" class="btn btn-primary btn-lg" id="update"> 수정 </button>
+										<button class="btn btn-primary btn-lg" onclick="location.href='${ pageContext.servletContext.contextPath }/board/free/update?no=${ requestScope.free.no }'">수정하기</button>
                                         <button type="reset" class="btn btn-primary btn-lg" >삭제</button>
-                                        <button type="reset" class="btn btn-primary btn-lg" id="goBack">돌아가기</button>
+                                        <button type="reset" class="btn btn-primary btn-lg" id="goBack"> 돌아가기 </button>
                                     </div>
                                 </div>
 								
-							</form>
+							
 					</div>
 				</div>
 			</div>
@@ -114,10 +97,6 @@
     		location.href = "${ pageContext.servletContext.contextPath }/board/free/select"
     	}
     	
-    	const $goBack = document.getElementById("update");
-    	$goBack.onclick = function() {
-    		location.href = "${ pageContext.servletContext.contextPath }/board/free/update"
-    	}
     	
     	
     	
