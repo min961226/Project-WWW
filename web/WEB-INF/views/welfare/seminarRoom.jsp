@@ -34,23 +34,19 @@
                                 <table class="display datatable table table-stripped">
                                         <thead>
                                         <tr bgcolor = "FFBC35">
-                                            <th>번호</th>
-                                            <th>종류</th>
-                                            <th>동</th>
-                                            <th>호</th>
-                                            <th>현재 이용중인 인원</th>
-                                            <th>최대 인원</th>
+                                            <th>세미나실 번호</th>
+                                            <th>회의실명</th>
+                                            <th>빔프로젝터 보유여부</th>
+                                            <th>최대 수용 인원</th>
                                             <th>신청하기</th>
                                         </tr>
 
                                     </thead>
                                 		<c:forEach var="seminarRoom" items="${ requestScope.seminarRoomList }">
 										<tr>
-											<td><c:out value="${ seminarRoom.domitoryManageNo }"/></td>
-											<td>기숙사</td>
-											<td><c:out value="${ seminarRoom.domitoryBlockNo }"/> 동</td>
-											<td><c:out value="${ seminarRoom.roomNo }"/> 호</td>											
-											<td><c:out value="${ seminarRoom.currCapacity }"/> 명</td>
+											<td><c:out value="${ seminarRoom.roomNo }"/></td>
+											<td><c:out value="${ seminarRoom.roomName }"/></td>
+											<td><c:out value="${ seminarRoom.projectorYn }"/></td>											
 											<td><c:out value="${ seminarRoom.maxCapacity }"/> 명</td>
 											<td><button type="submit"> 신청하기 </button></td>
 										</tr>
@@ -114,7 +110,7 @@
 				$tds[i].onclick = function() {
 					/* 게시물 번호까지 알아왔으니 이제 상세보기는 할 수 있겠지? */
 					const no = this.parentNode.children[0].innerText;
-					location.href = "${ pageContext.servletContext.contextPath }/welfare/domitory/select?no=" + no;
+					location.href = "${ pageContext.servletContext.contextPath }/welfare/seminarRoom/select?no=" + no;
 				}
 				
 			}

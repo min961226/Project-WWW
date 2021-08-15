@@ -12,6 +12,7 @@ import com.qs.www.welfare.model.dao.WelfareDAO;
 import com.qs.www.welfare.model.dto.DomitoryListDTO;
 import com.qs.www.welfare.model.dto.FamilyEventDTO;
 import com.qs.www.welfare.model.dto.MemberOverTimeLogDTO;
+import com.qs.www.welfare.model.dto.SeminarRoomDTO;
 import com.qs.www.welfare.model.dto.WelfareListDTO;
 
 import static com.qs.www.common.mybatis.Template.getSqlSession;
@@ -185,6 +186,16 @@ public class WelfareService {
 		session.close();
 
 		return workReportList;
+	}
+
+	public List<SeminarRoomDTO> selectSeminarRoom() {
+		SqlSession session = getSqlSession();
+
+		List<SeminarRoomDTO> seminarRoomList = welfareDAO.selectSeminarRoom(session);
+
+		session.close();
+
+		return seminarRoomList;
 	}
 
 }

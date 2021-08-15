@@ -56,6 +56,15 @@
 		<result property="currCapacity" column="CURR_CAPACITY" />
 		<result property="maxCapacity" column="MAX_CAPACITY" />
 	</resultMap>
+	
+	<resultMap type="com.qs.www.welfare.model.dto.SeminarRoomDTO" id="seminarRoomListResultMap">
+		<result property="roomNo" column="MEETING_ROOM_NO" />
+		<result property="maxCapacity" column="MAX_CAPACITY" />
+		<result property="projectorYn" column="PROJECTOR_YN" />
+		<result property="roomName" column="ROOM_NAME" />
+	</resultMap>
+	
+	
 
 <select id="selectWelfareList" resultType="java.lang.String">
 	SELECT /* com.qs.www.welfare.model.dao.WelfareDAO#checkWelfareList()*/
@@ -173,6 +182,12 @@
 	   AND A.DOCUMENT_NO IN (7,8,9,10,12)
 	   AND REPORT_STATUS != '회수'
 	 ORDER BY A.REPORT_NO DESC
+	</select>
+	
+	<select id="selectSeminarRoom" resultMap="seminarRoomListResultMap">
+		SELECT /* com.qs.www.welfare.model.dao.WelfareDAO#selectSeminarRoom() */
+			   A.*
+		  FROM TBL_MEETING_ROOM A
 	</select>
 	
 	
