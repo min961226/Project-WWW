@@ -23,12 +23,22 @@
          WHERE A.MEMBER_NO = #{ memberNo }
 	</update>
 	
-	<select id="selectCommute" parameterType="com.qs.www.mypage.model.dto.CommutingLogDTO" resultType="java.lang.String">
-        SELECT
+	<select id="selectCommuteInTime" parameterType="com.qs.www.mypage.model.dto.CommutingLogDTO" resultType="java.lang.String">
+        SELECT /* com.qs.www.mypage.model.dao.MypageDAO#selectCommuteInTime() */
                A.IN_TIME
           FROM TBL_COMMUTE A
          WHERE A.YEAR_MONTH = #{ yearMonth }
            AND A.DAY = #{ day }
+           AND A.MEMBER_NO = #{ memberNo }
+	</select>
+	
+	<select id="selectCommuteOutTime" parameterType="com.qs.www.mypage.model.dto.CommutingLogDTO" resultType="java.lang.String">
+        SELECT /* com.qs.www.mypage.model.dao.MypageDAO#selectCommuteOutTime() */
+               A.OUT_TIME
+          FROM TBL_COMMUTE A
+         WHERE A.YEAR_MONTH = #{ yearMonth }
+           AND A.DAY = #{ day }
+           AND A.MEMBER_NO = #{ memberNo }
 	</select>
 	
 	<insert id="insertCommute" parameterType="com.qs.www.mypage.model.dto.CommutingLogDTO">
@@ -39,7 +49,12 @@
         , A.MEMBER_NO
         , A.YEAR_MONTH
         , A.DAY
+		<if test="inTime != null">
         , A.IN_TIME
+		</if>
+		<if test="outTime != null">
+        , A.OUT_TIME
+		</if>
         )
         VALUES
         (
@@ -47,7 +62,21 @@
         , #{ memberNo }
         , #{ yearMonth }
         , #{ day }
+		<if test="inTime != null">
         , #{ inTime }
+		</if>
+		<if test="outTime != null">
+        , #{ outTime }
+		</if>
         )
 	</insert>
+	
+	<update id="updateCommute" parameterType="com.qs.www.mypage.model.dto.CommutingLogDTO">
+        UPDATE /* com.qs.www.mypage.model.dao.MypageDAO#updateCommute() */
+               TBL_COMMUTE A
+           SET A.OUT_TIME = #{ outTime }
+         WHERE A.YEAR_MONTH = #{ yearMonth }
+           AND A.DAY = #{ day }
+           AND A.MEMBER_NO = #{ memberNo }
+	</update>
 </mapper>
