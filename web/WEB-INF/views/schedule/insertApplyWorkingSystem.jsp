@@ -105,12 +105,7 @@
                     </div>
                 </div>
                 
-                
-                
-                    <div class="topnav-dropdown-footer">
-                        <a href="chat.html">See all messages</a>
-                    </div>
-                </div>
+                    
             </div>
         </div>
         

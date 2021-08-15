@@ -13,6 +13,17 @@
 		<result property="reportTitle" column="REPORT_TITLE" />
 	</resultMap>
 	
+	<resultMap type="com.qs.www.schedule.model.dto.OvertimeLogDTO" id="overtimeResultMap">
+		<id property="memberOvertimeLogNo" column="MEMBER_OVERTIME_LOG_NO"/>
+		<result property="overtimeReportNo" column="OVERTIME_REPORT_NO"/>
+		<result property="overtimeStartDay" column="OVERTIME_START_DAY"/>
+		<result property="overtimeStartTime" column="OVERTIME_START_TIME"/>
+		<result property="overtimeEndDay" column="OVERTIME_END_DAY"/>
+		<result property="overtimeEndTime" column="OVERTIME_END_TIME"/>
+		<result property="overtimeDuring" column="OVERTIME_DURING"/>
+		<result property="transBill" column="TRANS_BILL"/>
+	</resultMap>
+	
 	<insert id="applyWorkingSystem" parameterType="com.qs.www.schedule.model.dto.ReportDTO">
 	INSERT /* com.qs.www.schedule.model.dao.ScheduleDAO#applyWorkingSystem() */
 	  INTO TBL_REPORT A
@@ -174,6 +185,22 @@
 	 WHERE A.MEMBER_NO = #{ memberNo }
 	   AND (A.YEAR_MONTH || '-' || A.DAY) = #{ selectedDate }
 	   AND A.OUT_TIME IS NULL
+	</select>
+	
+	<select id="selectOverTimeLog" parameterType="com.qs.www.schedule.model.dto.OvertimeLogDTO" resultMap="overtimeResultMap">
+	SELECT
+	       A.MEMBER_OVERTIME_LOG_NO
+	     , A.OVERTIME_REPORT_NO
+	     , A.MEMBER_NO
+	     , A.OVERTIME_START_DAY
+	     , A.OVERTIME_START_TIME
+	     , A.OVERTIME_END_DAY
+	     , A.OVERTIME_END_TIME
+	     , A.OVERTIME_DURING
+	     , A.TRANS_BILL
+	  FROM TBL_MEMBER_OVERTIME_LOG A
+	 WHERE A.MEMBER_NO = #{ memberNo }
+	   AND A.OVERTIME_START_DAY BETWEEN #{ weekStartDate } AND #{ weekEndDate }
 	</select>
 
 </mapper>
