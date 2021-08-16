@@ -78,6 +78,13 @@
 		<result property="reservTime" column="RESERV_TIME" />
 	</resultMap>
 	
+	<resultMap type="com.qs.www.welfare.model.dto.LaptopDTO" id="laptopListResultMap">
+		<result property="itemNo" column="ITEM_NO" />
+		<result property="itemCateGory" column="ITEM_CATEGORY" />
+		<result property="itemName" column="ITEM_NAME" />
+		<result property="reservationStatus" column="RESERVATION_STATUS" />
+	</resultMap>
+	
 	
 
 <select id="selectWelfareList" resultType="java.lang.String">
@@ -85,7 +92,7 @@
 		   A.DOCUMENT_NAME
 	  FROM TBL_DOCUMENT_FORM A
 	 WHERE CATEGORY_CODE = 'C2'
-       AND DOCUMENT_NAME LIKE '%신청서'
+       AND DOCUMENT_NAME LIKE '%신청'
 	   AND USE_YN = 'Y'
 </select>
 
@@ -94,13 +101,6 @@
 	SELECT /* com.qs.www.welfare.model.dao.WelfareDAO#checkSelfDevList()*/
 		   A. DEVELOPMENT_TYPE_NAME
 	  FROM TBL_SELF_DEVELOPMENT A
-</select>
-
-<select id="selectApproverLine" resultType="java.lang.String">
-	SELECT /* com.qs.www.welfare.model.dao.WelfareDAO#selectApproverLine()*/
-		   A.APPROVER_NAME
-	  FROM TBL_APPROVER A
-	 WHERE MEMBER_NO = #{ memberNo }
 </select>
 
 <insert id="insertWelfareReport" parameterType="com.qs.www.welfare.model.dto.WelfareListDTO">
@@ -244,5 +244,31 @@
 	, #{ seminarInfo }
 	)
 	</insert>
+	
+	<select id= "selectLaptopList" resultMap="laptopListResultMap">
+		SELECT /* com.qs.www.welfare.model.dao.WelfareDAO#selectLaptopList() */
+			   A.ITEM_NO
+			 , A.ITEM_CATEGORY
+			 , A.ITEM_NAME
+			 , A.RESERVATION_STATUS
+		  FROM TBL_LAPTOP A
+		 WHERE A.DELETE_YN = 'N'
+	</select>
+	
+	<select id= "selectOneLaptop" resultType="String">
+		SELECT /* com.qs.www.welfare.model.dao.WelfareDAO#selectLaptopList() */
+			   A.RESERVATION_STATUS
+		  FROM TBL_LAPTOP A
+		 WHERE A.DELETE_YN = 'N'
+		   AND A.ITEM_NO = #{ itemNo }
+	</select>
+	
+	<select id= "selectItemNameByItemNo" resultType="String">
+		SELECT /* com.qs.www.welfare.model.dao.WelfareDAO#selectItemNameByItemNo() */
+			   A.ITEM_NAME
+		  FROM TBL_LAPTOP A
+		 WHERE A.DELETE_YN = 'N'
+		   AND A.ITEM_NO = #{ itemNo }
+	</select>
 	
 </mapper>

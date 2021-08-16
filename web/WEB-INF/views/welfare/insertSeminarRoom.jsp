@@ -121,7 +121,7 @@
 		const $goBack = document.getElementById("goBack");
 
 		$goBack.onclick = function() {
-			location.href = "${ pageContext.servletContext.contextPath }/welfare/list/select"
+			location.href = "${ pageContext.servletContext.contextPath }/welfare/list/selected?selectedWelfare=회의실예약신청"
 		}
 	</script>
 </body>

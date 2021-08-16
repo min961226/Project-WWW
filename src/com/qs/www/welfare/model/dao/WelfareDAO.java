@@ -9,6 +9,7 @@ import com.qs.www.schedule.model.dto.ReportDTO;
 import com.qs.www.schedule.model.dto.WorkingDocumentItemDTO;
 import com.qs.www.welfare.model.dto.DomitoryListDTO;
 import com.qs.www.welfare.model.dto.FamilyEventDTO;
+import com.qs.www.welfare.model.dto.LaptopDTO;
 import com.qs.www.welfare.model.dto.MemberOverTimeLogDTO;
 import com.qs.www.welfare.model.dto.SeminarReservTimeDTO;
 import com.qs.www.welfare.model.dto.SeminarRoomDTO;
@@ -22,10 +23,6 @@ public class WelfareDAO {
 		return session.selectList("WelfareDAO.selectWelfareList");
 	}
 
-	public List<String> selectApproverLine(SqlSession session, int memberNo) {
-		return session.selectList("WelfareDAO.selectApproverLine", memberNo);
-	}
-	
 	public List<String> checkSelfDevList(SqlSession session) {
 		return session.selectList("WelfareDAO.checkSelfDevList");
 	}
@@ -88,6 +85,18 @@ public class WelfareDAO {
 
 	public int insertSeminarRoom(SqlSession session, SeminarRoomReservDTO seminarRoomReservDTO) {
 		return session.insert("WelfareDAO.insertSeminarRoom", seminarRoomReservDTO);
+	}
+
+	public List<LaptopDTO> selectLaptopList(SqlSession session) {
+		return session.selectList("WelfareDAO.selectLaptopList");
+	}
+
+	public String selectOneLaptop(SqlSession session, int itemNo) {
+		return session.selectOne("WelfareDAO.selectOneLaptop",itemNo);
+	}
+
+	public String selectItemNameByItemNo(SqlSession session, int itemNo) {
+		return session.selectOne("WelfareDAO.selectItemNameByItemNo",itemNo);
 	}
 
 

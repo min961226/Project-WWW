@@ -11,6 +11,7 @@ import com.qs.www.schedule.model.dto.WorkingDocumentItemDTO;
 import com.qs.www.welfare.model.dao.WelfareDAO;
 import com.qs.www.welfare.model.dto.DomitoryListDTO;
 import com.qs.www.welfare.model.dto.FamilyEventDTO;
+import com.qs.www.welfare.model.dto.LaptopDTO;
 import com.qs.www.welfare.model.dto.MemberOverTimeLogDTO;
 import com.qs.www.welfare.model.dto.SeminarReservTimeDTO;
 import com.qs.www.welfare.model.dto.SeminarRoomDTO;
@@ -46,16 +47,6 @@ public class WelfareService {
 		session.close();
 
 		return selfDevList;
-	}
-
-	public List<String> selectApproverLine(int memberNo) {
-		SqlSession session = getSqlSession();
-
-		List<String> approverLine = welfareDAO.selectApproverLine(session, memberNo);
-
-		session.close();
-
-		return approverLine;
 	}
 
 	public int selectReportNum() {
@@ -180,7 +171,7 @@ public class WelfareService {
 	}
 
 	public List<ReportDTO> selectAppliedWelfareList(int no) {
-		
+
 		SqlSession session = getSqlSession();
 
 		List<ReportDTO> workReportList = welfareDAO.selectAppliedWelfareList(session, no);
@@ -203,7 +194,7 @@ public class WelfareService {
 	public List<SeminarRoomReservDTO> selectSeminarRoomReserv(int roomNo) {
 		SqlSession session = getSqlSession();
 
-		List<SeminarRoomReservDTO> seminarRoomReserv = welfareDAO.selectSeminarRoomReserv(session,roomNo);
+		List<SeminarRoomReservDTO> seminarRoomReserv = welfareDAO.selectSeminarRoomReserv(session, roomNo);
 
 		session.close();
 
@@ -235,6 +226,36 @@ public class WelfareService {
 		session.close();
 
 		return insertSeminarRoomResult;
+	}
+
+	public List<LaptopDTO> selectLaptopList() {
+		SqlSession session = getSqlSession();
+
+		List<LaptopDTO> laptopList = welfareDAO.selectLaptopList(session);
+
+		session.close();
+
+		return laptopList;
+	}
+
+	public String selectOneLaptop(int itemNo) {
+		SqlSession session = getSqlSession();
+
+		String laptopStatus = welfareDAO.selectOneLaptop(session, itemNo);
+
+		session.close();
+
+		return laptopStatus;
+	}
+
+	public String selectItemNameByItemNo(int itemNo) {
+		SqlSession session = getSqlSession();
+
+		String itemName = welfareDAO.selectItemNameByItemNo(session, itemNo);
+
+		session.close();
+
+		return itemName;
 	}
 
 }

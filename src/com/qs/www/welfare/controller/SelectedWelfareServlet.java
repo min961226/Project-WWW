@@ -15,6 +15,7 @@ import com.qs.www.approval.model.service.ApprovalService;
 import com.qs.www.board.model.service.NoticeService;
 import com.qs.www.member.model.dto.MemberInfoDTO;
 import com.qs.www.welfare.model.dto.DomitoryListDTO;
+import com.qs.www.welfare.model.dto.LaptopDTO;
 import com.qs.www.welfare.model.dto.MemberOverTimeLogDTO;
 import com.qs.www.welfare.model.dto.SeminarRoomDTO;
 import com.qs.www.welfare.model.service.WelfareService;
@@ -29,67 +30,65 @@ public class SelectedWelfareServlet extends HttpServlet {
 		
 		String selectedWelfare = request.getParameter("selectedWelfare");
 		System.out.println(selectedWelfare);
+		System.out.println("복지선택완료");
 		
 		WelfareService welfareService = new WelfareService();
-
 		HttpSession session = request.getSession();
-		System.out.println("복지선택완료");
 
 		int memberNo = ((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo();
 		String name = ((MemberInfoDTO) session.getAttribute("memberInfo")).getName();
 		String deptName = ((MemberInfoDTO) session.getAttribute("memberInfo")).getDepartment().getDeptName();
 		String jobName = ((MemberInfoDTO) session.getAttribute("memberInfo")).getJob().getJobName();
-		List<String> approverLine = welfareService.selectApproverLine(memberNo);
 		List<ApprovalLineDTO> lineList = new ApprovalService().selectApprovalLine(memberNo);
 		
 		System.out.println(memberNo);
 		System.out.println(name);
 		System.out.println(deptName);
 		System.out.println(jobName);
-		System.out.println(approverLine);
+		System.out.println(lineList);
 		
 		request.setAttribute("memberNo", memberNo);
 		request.setAttribute("deptName", deptName);
 		request.setAttribute("jobName", jobName);
 		request.setAttribute("name", name);
-		request.setAttribute("approverLine", approverLine);
 		request.setAttribute("lineList", lineList);
 		
-		System.out.println(lineList);
 		
 		String path = "";
 		switch (selectedWelfare) {
-		case "야간교통비신청서":
+		case "야간교통비신청":
 			List<MemberOverTimeLogDTO> memberOverTimeLog = welfareService.checkNightTrans(memberNo);
-			path = "/WEB-INF/views/welfare/insertNightTransportation.jsp";
 			request.setAttribute("memberOverTimeLog", memberOverTimeLog);
+			path = "/WEB-INF/views/welfare/insertNightTransportation.jsp";
 			break;
-		case "경조사신청서":
+		case "경조사신청":
 			path = "/WEB-INF/views/welfare/insertFamilyEvent.jsp";
 			break;
-		case "자기개발비신청서":
+		case "자기개발비신청":
 			List<String> selfDevList = welfareService.checkSelfDevList();
 			System.out.println(selfDevList);
 				if(selfDevList != null) {
-					path = "/WEB-INF/views/welfare/insertSelfDevelopment.jsp";
 					request.setAttribute("selfDevList", selfDevList);
+					path = "/WEB-INF/views/welfare/insertSelfDevelopment.jsp";
 				} else {
-					path = "/WEB-INF/views/common/error-500.jsp";
 					request.setAttribute("message", "복지 목록조회 실패!");
+					path = "/WEB-INF/views/common/error-500.jsp";
 				}
 			break;
-		case "기숙사입주신청서":
-			List<DomitoryListDTO> domitoryList = new WelfareService().selectDomitory();
-			path = "/WEB-INF/views/welfare/domitory.jsp";
+		case "기숙사입주신청":
+			List<DomitoryListDTO> domitoryList = welfareService.selectDomitory();
 			request.setAttribute("domitoryList", domitoryList);
+			path = "/WEB-INF/views/welfare/domitory.jsp";
 			break;
-		case "회의실예약신청서":
-			List<SeminarRoomDTO> seminarRoomList = new WelfareService().selectSeminarRoom();
-			path = "/WEB-INF/views/welfare/seminarRoom.jsp";
+		case "회의실예약신청":
+			List<SeminarRoomDTO> seminarRoomList = welfareService.selectSeminarRoom();
 			request.setAttribute("seminarRoomList", seminarRoomList);
+			path = "/WEB-INF/views/welfare/seminarRoom.jsp";
 			break;
-		case "노트북대여신청서":
-			path = "/WEB-INF/views/welfare/insertLaptopRental.jsp";
+		case "노트북대여신청":
+			List<LaptopDTO> laptopList = welfareService.selectLaptopList();
+			request.setAttribute("laptopList", laptopList);
+			path = "/WEB-INF/views/welfare/laptopRental.jsp";
 			break;
 		default:
 			path = "/welfare/list/select";

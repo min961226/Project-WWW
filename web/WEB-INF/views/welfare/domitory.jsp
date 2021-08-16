@@ -93,6 +93,9 @@
                             </div>
                         </div>
                     </div>
+                    <div class="m-t-20 text-center">
+								<button type="reset" class="btn btn-primary btn-lg" id="goBack">돌아가기</button>
+					</div>
                 </div>
             </div>
 
@@ -119,6 +122,11 @@
 				
 			}
 			
+		}
+		const $goBack = document.getElementById("goBack");
+
+		$goBack.onclick = function() {
+			location.href = "${ pageContext.servletContext.contextPath }/welfare/list/select"
 		}
 		
 		/* 제이쿼리 이용하는 경우 */
