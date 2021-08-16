@@ -55,7 +55,7 @@ public class SelectOneFreeBoardServlet extends HttpServlet {
 		
 		FreeDTO free = new FreeDTO();
 
-//		free.setNo(no);
+		free.setNo(no);
 
 		free.setMember(memberNo);
 		System.out.println(free);

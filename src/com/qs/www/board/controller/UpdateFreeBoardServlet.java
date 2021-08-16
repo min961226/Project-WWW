@@ -43,7 +43,7 @@ public class UpdateFreeBoardServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		String no = request.getParameter("no");
+		int no = Integer.parseInt(request.getParameter("no"));
 		String title = (String)request.getParameter("title");
 		String body = (String)request.getParameter("body");
 		int memberNo = ((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo();
@@ -54,7 +54,7 @@ public class UpdateFreeBoardServlet extends HttpServlet {
 		
 		FreeDTO free = new FreeDTO();
 
-//		free.setNo(no);
+		free.setNo(no);
 		free.setTitle(title);
 		free.setBody(body);
 		free.setMember(memberNo);
@@ -69,7 +69,7 @@ public class UpdateFreeBoardServlet extends HttpServlet {
 			request.setAttribute("successCode", "updateFree");
 		} else {
 			path = "/WEB-INF/views/common/failed.jsp";
-			request.setAttribute("message", "자유게시판 수정에 실패");
+			request.setAttribute("failedCode", "updateFree");
 		}
 
 		request.getRequestDispatcher(path).forward(request, response);

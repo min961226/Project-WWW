@@ -25,58 +25,60 @@
 						<h4 class="page-title">게시판 상세보기</h4>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-lg-12">
-						
-								<div class="form-group">
-									<div class="col-sm-6">
-										<label>제목</label>
-										<div class="col-md-12">
-										
-										<input name = "title" class="form-control" value="${ requestScope.free.title }"  disabled/>
-										</div>
-									</div>
+				<div class="form-horizontal">
+					<div class="row">
+						<div class="form-group">
+							<div class="col-xs-12">
+								<label>제목</label>
+								<div class="col-md-12">
+									<input name = "title" class="form-control" value="${ requestScope.free.title }"  disabled/>
 								</div>
-								
-								<div class="form-group">
-								<div class="col-sm-12">
-									<label>내용</label>
-									<div class="col-lg-12">
-										<textarea name="body" rows="8" cols="5" class="form-control"
-											required="required" disabled>${ requestScope.free.body }</textarea>
-									</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group">
+							<div class="col-sm-12">
+								<label>작성자</label>
+								<div class="col-md-12">
+									<input name = "title" class="form-control" value="${ requestScope.free.name }"  disabled/>
 								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group">
+							<div class="col-sm-12">
+								<label>내용</label>
+								<div class="col-lg-12">
+								<textarea name="body" rows="8" cols="5" class="form-control"
+										required="required" disabled>${ requestScope.free.body }</textarea>
 								</div>
-								
-								<div class="form-group">
-								<div class="col-sm-6">
-									<label>첨부서류</label>
-									<div class="col-md-12">
-										<input class="form-control" type="file" disabled>
-									</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group">
+							<div class="col-sm-6">
+								<label>첨부서류</label>
+								<div class="col-md-12">
+									<input class="form-control" type="file" disabled>
 								</div>
-								</div>
-								
-								
-
-								
-								
-								<div class="row">
-                                    <div class="col-sm-12 text-center m-t-20">
-										<button class="btn btn-primary btn-lg" onclick="location.href='${ pageContext.servletContext.contextPath }/board/free/update?no=${ requestScope.free.no }'">수정하기</button>
-                                        <button type="reset" class="btn btn-primary btn-lg" >삭제</button>
-                                        <button type="reset" class="btn btn-primary btn-lg" id="goBack"> 돌아가기 </button>
-                                    </div>
-                                </div>
-								
-							
+							</div>
+						</div>
 					</div>
 				</div>
+				<div class="row">
+                	<div class="col-sm-12 text-center m-t-20">
+                		<button class="btn btn-primary btn-lg" onclick="location.href='${ pageContext.servletContext.contextPath }/board/free/update?no=${ requestScope.free.no }'">수정하기</button>
+                        <button type="reset" class="btn btn-primary btn-lg" >삭제</button>
+	                    <button type="reset" class="btn btn-primary btn-lg" id="goBack"> 돌아가기 </button>
+                    </div>
+	            </div>
 			</div>
-			
 		</div>
-
 	</div>
+
 	<div class="sidebar-overlay" data-reff=""></div>
 	
 	<script>

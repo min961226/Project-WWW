@@ -80,7 +80,7 @@
 				<button disabled><c:out value="${ p }"/></button>
 			</c:if>
 			<c:if test="${ requestScope.selectCriteria.pageNo ne p }">
-				<button onclick="pageButtonAction(this.innerText);"><c:out value="${ p }"/></button>
+				<button onclick="pageButtonAction(this.innerText);" name="choosepage"><c:out value="${ p }"/></button>
 			</c:if>
 		</c:forEach>
 		

@@ -13,13 +13,14 @@ public class FreeDTO {
 	private String delete;
 	private Date created;
 	private Date modified;
+	private String name;
 	
 
 	public FreeDTO() {}
 
 
 	public FreeDTO(int no, String title, int member, String type, int count, String body, String delete, Date created,
-			Date modified) {
+			Date modified, String name) {
 		super();
 		this.no = no;
 		this.title = title;
@@ -30,6 +31,7 @@ public class FreeDTO {
 		this.delete = delete;
 		this.created = created;
 		this.modified = modified;
+		this.name = name;
 	}
 
 
@@ -123,12 +125,24 @@ public class FreeDTO {
 	}
 
 
+	public String getName() {
+		return name;
+	}
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
 	@Override
 	public String toString() {
 		return "FreeDTO [no=" + no + ", title=" + title + ", member=" + member + ", type=" + type + ", count=" + count
-				+ ", body=" + body + ", delete=" + delete + ", created=" + created + ", modified=" + modified + "]";
+				+ ", body=" + body + ", delete=" + delete + ", created=" + created + ", modified=" + modified
+				+ ", name=" + name + "]";
 	}
 	
 	
+
 
 }
