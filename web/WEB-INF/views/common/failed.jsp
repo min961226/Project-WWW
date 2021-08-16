@@ -21,6 +21,11 @@
 					movePath = "${ pageContext.servletContext.contextPath }"
 					break;
 					
+				case "checkId" :
+					failedMessage = "일치하는 아이디가 없습니다."
+					movePath = "${ pageContext.servletContext.contextPath }/member/id/check"
+					break;
+					
 				case "insertCommute" :
 					failedMessage = "출근 시간 기록이 실패하였습니다."
 					movePath = "${ pageContext.servletContext.contextPath }"

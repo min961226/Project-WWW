@@ -114,7 +114,7 @@
 		                                    <label class="control-label col-lg-4">성별</label>
 		                                    <div class="col-md-8">
 		                                    	<label class="radio-inline">
-		                                			<input type="radio" name="gender" value="남" <c:if test="${ memberInfo.gender == '남'}">checked</c:if>>남
+		                                			<input type="radio" name="gender" value="남" <c:if test="${ memberInfo.gender == '남'}">checked</c:if> required>남
 		                            			</label>
 		                            			<label class="radio-inline">
 		                                			<input type="radio" name="gender" value="여"<c:if test="${ memberInfo.gender == '여'}">checked</c:if>>여
@@ -125,59 +125,63 @@
 	                                    	<label class="control-label col-lg-4">생년월일</label>
 	                                    	<div class="col-md-8">
 	                                            <div class="cal-icon">
-	                                               	<input type="text" class="form-control floating datetimepicker" name="birthday" value="${ memberInfo.birthday }">
+	                                               	<input type="text" class="form-control floating datetimepicker" name="birthday" value="${ memberInfo.birthday }" required>
 	                                            </div>
 	                                        </div>
 	                                	</div>
 	                                	<div class="form-group">
 		                                    <label class="control-label col-lg-4">주민등록번호</label>
 		                                    <div class="col-md-3">
-		                                        <input type="text" class="form-control" name="firstRrn" value="${ firstRrn }">
+		                                        <input type="text" class="form-control" name="firstRrn" value="${ firstRrn }" required>
 		                                    </div>
 		                                    <label class="control-label col-lg-1"> - </label>
 		                                    <div class="col-md-4">
-		                                        <input type="password" class="form-control" name="lastRrn" value="${ lastRrn }">
+		                                        <input type="password" class="form-control" name="lastRrn" value="${ lastRrn }" required>
 		                                    </div>
 	                                	</div>
 	                                	<div class="form-group">
 		                                    <label class="control-label col-lg-4">휴대전화</label>
 		                                    <div class="col-md-8">
-		                                        <input type="tel" class="form-control" name="phone" value="${ memberInfo.phone }">
+		                                        <input type="tel" class="form-control" name="phone" value="${ memberInfo.phone }" required>
 		                                    </div>
 		                                </div>
 		                                <div class="form-group">
 		                                    <label class="control-label col-lg-4">자택주소</label>
 		                                    <div class="col-md-8">
 		                                    	<div class="input-group">
-		                                    		<span><input type="text" class="form-control" name="zipCode" id="zipCode" value="${ zipCode }" readonly></span>
+		                                    		<span><input type="text" class="form-control" name="zipCode" id="zipCode" value="${ zipCode }" readonly required></span>
 	                                            	<span class="input-group-btn">
 														<button type="button" class="btn btn-primary" id="searchZipCode">검색</button>
 													</span>
 												</div>
-											</div>												
+											</div>
 		                                </div>
 		                                <div class="form-group">
 		                                    <label class="control-label col-lg-4"></label>
 		                                    <div class="col-md-8">
-		                                        <input type="text" class="form-control" name="address1" id="address1" value="${ address1 }" readonly>
+		                                        <input type="text" class="form-control" name="address1" id="address1" value="${ address1 }" readonly required>
 		                                    </div>
 		                                </div>
 		                                <div class="form-group">
 		                                    <label class="control-label col-lg-4"></label>
 		                                    <div class="col-md-8">
-		                                        <input type="text" class="form-control" name="address2" id="address2" value="${ address2 }">
+		                                        <input type="text" class="form-control" name="address2" id="address2" value="${ address2 }" required>
 		                                    </div>
 		                                </div>
 		                                <div class="form-group">
-		                                    <label class="control-label col-lg-4">비밀번호 확인<br> 질문</label>
+		                                    <label class="control-label col-lg-4">본인 확인 질문</label>
 		                                    <div class="col-md-8">
-		                                        <input type="text" class="form-control" name="question" value="${ memberInfo.checkQuestion.questionBody }">
+				                               	<select name="question" class="form-control" required>
+													<c:forEach items="${ requestScope.questionList }" var="question">
+														<option><c:out value="${ question }" /></option>
+													</c:forEach>
+												</select>
 		                                    </div>
 		                                </div>
 		                                <div class="form-group">
 		                                    <label class="control-label col-lg-4">답변</label>
 		                                    <div class="col-md-8">
-		                                        <input type="text" class="form-control" name="answer" value="${ memberInfo.questionAnswer }">
+		                                        <input type="text" class="form-control" name="answer" value="${ memberInfo.questionAnswer }" required>
 		                                    </div>
 		                                </div>
 			                        </div>

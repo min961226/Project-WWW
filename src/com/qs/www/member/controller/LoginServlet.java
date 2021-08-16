@@ -31,14 +31,17 @@ public class LoginServlet extends HttpServlet {
 		MemberInfoDTO loginMember = memberService.checkMember(requestMember);
 		
 		// 일치하는 로그인 정보를 session에 저장
+		String path = "";
 		if(loginMember != null) {
 			HttpSession session = request.getSession();
 			session.setAttribute("memberInfo", loginMember);
 			
 			response.sendRedirect(request.getContextPath());
 		} else {
+			path = "/WEB-INF/views/common/failed.jsp";
 			request.setAttribute("failedCode", "login");
-			request.getRequestDispatcher("/WEB-INF/views/common/failed.jsp").forward(request, response);
+			
+			request.getRequestDispatcher(path).forward(request, response);
 		}
 	}
 }
