@@ -234,6 +234,62 @@
          WHERE A.ENT_YN = 'N'
           ORDER BY A.MEMBER_NO
 	</select>
+	<select id="selectLineNum" resultType="_int">
+		SELECT
+		       LAST_NUMBER
+		  FROM USER_SEQUENCES
+		 WHERE SEQUENCE_NAME = 'SEQ_LINE_NO'
+	</select>
+	<insert id="insertLine" parameterType="com.qs.www.approval.model.dto.ApprovalLineDTO">
+	INSERT  /* com.qs.www.approval.model.dao.ApprovalDAO#insertLine()*/
+	  INTO TBL_APPROVER_LINE A
+	(
+	  A.LINE_NO
+	, A.LINE_NAME
+	, A.WORK_TYPE
+	, A.MEMBER_NO
+	)
+	VALUES
+	(
+	  SEQ_LINE_NO.NEXTVAL
+	, #{ lineName }
+	, #{ workType }
+	, #{ memberNo }
+	)
+	</insert>
+	<insert id="insertApprover" parameterType="com.qs.www.approval.model.dto.ApproverDTO">
+	INSERT  /* com.qs.www.approval.model.dao.ApprovalDAO#insertLine()*/
+	  INTO TBL_APPROVER A
+	(
+	  A.MEMBER_NO
+	, A.LINE_NO
+	, A.APPROVER_NAME
+	, A.APPROVER_TYPE
+	<if test="!'참조'.equals(approverType)">
+	, A.PRIORITY
+	</if>
+	)
+	VALUES
+	(
+	  #{ memberNo }
+	, #{ lineNo }
+	, #{ approverName }
+	, #{ approverType }
+	<if test="!'참조'.equals(approverType)">
+	, #{ priority }
+	</if>
+	)
+	</insert>
+	<delete id="deleteLine">
+	DELETE    /* com.qs.www.approval.model.dao.ApprovalDAO#deleteLine()*/
+	  FROM TBL_APPROVER_LINE A
+	 WHERE A.LINE_NO = #{ lineNo }
+	</delete>
+	<delete id="deleteApprover">
+	DELETE    /* com.qs.www.approval.model.dao.ApprovalDAO#deleteLine()*/
+	  FROM TBL_APPROVER A
+	 WHERE A.LINE_NO = #{ lineNo }
+	</delete>
 </mapper>
 	    
 

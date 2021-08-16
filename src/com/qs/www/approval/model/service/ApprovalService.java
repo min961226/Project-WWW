@@ -241,5 +241,68 @@ public class ApprovalService {
 		return memberList;
 	}
 
+	public int selectLineNum() {
+		SqlSession session = getSqlSession();
+
+		int lineNum = approvalDAO.selectLineNum(session);
+
+		if(lineNum > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+		session.close();
+
+		return lineNum;
+	}
+
+	public int insertLine(ApprovalLineDTO line) {
+		SqlSession session = getSqlSession();
+
+		int result = approvalDAO.insertLine(session, line);
+
+		if(result > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+		session.close();
+
+		return result;
+	}
+
+	public int insertApprover(ApproverDTO approver) {
+		SqlSession session = getSqlSession();
+
+		int result = approvalDAO.insertApprover(session, approver);
+
+		if(result > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+		session.close();
+
+		return result;
+	}
+
+	public int deleteLine(int lineNo) {
+		SqlSession session = getSqlSession();
+
+		int result1 = approvalDAO.deleteLine(session,lineNo);
+		int result2 = approvalDAO.deleteApprover(session,lineNo);
+		int result = 0;
+		if(result1 > 0 && result2 > 0) {
+			result = 1;
+			session.commit();
+		} else {
+			session.rollback();
+		}
+		session.close();
+
+		return result;
+	}
+
+
 
 }
