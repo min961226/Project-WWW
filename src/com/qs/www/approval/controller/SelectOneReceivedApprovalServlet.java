@@ -10,9 +10,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.qs.www.approval.model.dto.ApproverLogPerReportDTO;
 import com.qs.www.approval.model.service.ApprovalService;
+import com.qs.www.member.model.dto.MemberInfoDTO;
 import com.qs.www.schedule.model.dto.ReportDTO;
 import com.qs.www.schedule.model.dto.WorkingDocumentItemDTO;
 
@@ -20,6 +22,10 @@ import com.qs.www.schedule.model.dto.WorkingDocumentItemDTO;
 public class SelectOneReceivedApprovalServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+        HttpSession session = request.getSession();
+		
+		int memberNo = ((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo();
 		int no = Integer.parseInt(request.getParameter("no"));
 		//참조함에서 선택한 게시물의 살세정보 가져오기
 		ReportDTO selectedReport  = new ApprovalService().selectOneReportDetail(no);

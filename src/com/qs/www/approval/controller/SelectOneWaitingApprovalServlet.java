@@ -29,6 +29,9 @@ import com.qs.www.schedule.model.service.ScheduleService;
 public class SelectOneWaitingApprovalServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		
+		int memberNo = ((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo();
 		
 		int no = Integer.parseInt(request.getParameter("no"));
 		//대기함에서 선택한 게시물의 살세정보 가져오기

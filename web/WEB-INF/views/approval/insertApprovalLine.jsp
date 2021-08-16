@@ -38,9 +38,6 @@
 											</select>
 										</div>
 									</div>
-									
-									
-									
 									<div class="col-sm-6">
 										<label>결재라인 명</label>
 										<div class="col-md-12">
@@ -48,9 +45,9 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-xs-12 text-right m-b-30">
+								<!-- <div class="col-xs-12 text-right m-b-30">
 						            <a class="btn btn-primary rounded pull-right" onclick="addApprover('alim');"><i class="fa fa-plus"></i>결재자 추가</a>
-					            </div>
+					            </div> -->
 								  <div class="card-box col-lg-12">
 								  <h4 align="center"> 1번 결재자</h4>
                                        <div class="form-group">
@@ -65,12 +62,14 @@
 								               <select id="selectJob" class="form-control" name="app1"required="required">
 									               <option value="">-- 직위를 선택해주세요 --</option>
 									               <c:forEach var="memberINF" items="${ requestScope.memberList }">
-									              
 									                   <c:set var = "dp" value ="${ memberINF.department.deptCode }" />
-									                   <option value=${ memberINF.memberNo}>${ memberINF.department.deptName } - ${ memberINF.job.jobName} - ${ memberINF.name}</option>
+									                   <c:if test="${  memberINF.memberNo ne requestScope.memberNo }">
+									                   <option value="${ memberINF.memberNo}/${ memberINF.name}">${ memberINF.department.deptName } - ${ memberINF.job.jobName} - ${ memberINF.name}</option>
+									                   </c:if>  
 												   </c:forEach>
 								               </select>
 								            </div>
+								            
 								            <div class="col-xs-4">
 							                <label>결재순위</label>
                                                  <input type="text" name="priority-1" class="form-control" value='1번째 결재자의 결재순위는 1입니다.' disabled/>
@@ -91,11 +90,12 @@
 							                <div class="col-xs-4">
 							               <label>결재자 부서 -직위 - 성명 </label>
 								               <select id="selectJob" class="form-control" name="app2">
-									               <option value="a0">-- 결재자를 선택해주세요 --</option>
-									               <c:forEach var="memberINF" items="${ requestScope.memberList }">
-									              
+									               <option value="a0/z">-- 결재자를 선택해주세요 --</option>
+									               <c:forEach var="memberINF" items="${ requestScope.memberList }">        
 									                   <c:set var = "dp" value ="${ memberINF.department.deptCode }" />
-									                   <option value=${ memberINF.memberNo}>${ memberINF.department.deptName } - ${ memberINF.job.jobName} - ${ memberINF.name}</option>
+									                   <c:if test="${  memberINF.memberNo ne requestScope.memberNo }">
+									                   <option value="${ memberINF.memberNo}/${ memberINF.name}">${ memberINF.department.deptName } - ${ memberINF.job.jobName} - ${ memberINF.name}</option>
+									                   </c:if>  
 												   </c:forEach>
 								               </select>
 								            </div>
@@ -118,11 +118,13 @@
 							                <div class="col-xs-4">
 							               <label>결재자 부서 -직위 - 성명 </label>
 								               <select id="selectJob" class="form-control" name="app3">
-									               <option value="a0">-- 결재자를 선택해주세요 --</option>
+									               <option value="a1/z">-- 결재자를 선택해주세요 --</option>
 									               <c:forEach var="memberINF" items="${ requestScope.memberList }">
 									              
 									                   <c:set var = "dp" value ="${ memberINF.department.deptCode }" />
-									                   <option value=${ memberINF.memberNo}>${ memberINF.department.deptName } - ${ memberINF.job.jobName} - ${ memberINF.name}</option>
+									                   <c:if test="${  memberINF.memberNo ne requestScope.memberNo }">
+									                   <option value="${ memberINF.memberNo}/${ memberINF.name}">${ memberINF.department.deptName } - ${ memberINF.job.jobName} - ${ memberINF.name}</option>
+									                   </c:if>  
 												   </c:forEach>
 								               </select>
 								            </div>
@@ -145,11 +147,12 @@
 							                <div class="col-xs-4">
 							               <label>결재자 부서 -직위 - 성명 </label>
 								               <select id="selectJob" class="form-control" name="app4">
-									               <option value="a0">-- 결재자를 선택해주세요 --</option>
+									               <option value="a2/z">-- 결재자를 선택해주세요 --</option>
 									               <c:forEach var="memberINF" items="${ requestScope.memberList }">
-									              
 									                   <c:set var = "dp" value ="${ memberINF.department.deptCode }" />
-									                   <option value=${ memberINF.memberNo}>${ memberINF.department.deptName } - ${ memberINF.job.jobName} - ${ memberINF.name}</option>
+									                   <c:if test="${  memberINF.memberNo ne requestScope.memberNo }">
+									                   <option value="${ memberINF.memberNo}/${ memberINF.name}">${ memberINF.department.deptName } - ${ memberINF.job.jobName} - ${ memberINF.name}</option>
+									                   </c:if>  
 												   </c:forEach>
 								               </select>
 								            </div>
@@ -166,9 +169,9 @@
                                     </div>
                                 </div>
 								<h5>***결재라인 생성 시 주의 사항 : <br>
-								1. 1번 결재자는 필수적으로 선택해야합니다.<br>
-								2. 동일한 결재자를 여러명 올릴 수 없습니다.<br>
-								3. 역활종류가 '결재'인 사람이 1명 이상이어야 합니다.</h5>
+								1. 동일한 결재자를 여러명 올릴 수 없습니다.<br>
+								2. 전번 결재자를 지정하지않고 다음결재자만 선택할 시 다음결재자를 자동으로 전번결재자로 처리합니다.<br>
+								(ex : 2번 결재자를 선택하지 않고 3번결재자만 넣고 라인 생성 시 3번 결재자를 2번 결재자로 처리)</h5>
 							</form>
 					</div>
 				</div>
