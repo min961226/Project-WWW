@@ -1,17 +1,61 @@
 package com.qs.www.schedule.controller;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.qs.www.member.model.dto.DepartmentDTO;
+import com.qs.www.member.model.dto.MemberInfoDTO;
+import com.qs.www.schedule.model.dto.TeamWorkingHourDTO;
+import com.qs.www.schedule.model.service.ScheduleService;
 
 @WebServlet("/schedule/workingHours/team/select")
 public class SelectTeamWorkingHoursScheduleServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("팀 근무/휴가 조회");
+		
+		ScheduleService scheduleService = new ScheduleService();
+		
+		//기본정보
+		HttpSession session = request.getSession();	
+		MemberInfoDTO memberInfo = (MemberInfoDTO) session.getAttribute("memberInfo");
+		String name = memberInfo.getName();
+		String memberId = memberInfo.getMemberId();
+		int memberNo = memberInfo.getMemberNo();
+		String appWorkType = memberInfo.getAppWorkType();
+		int workCode = memberInfo.getWorkCode();
+		DepartmentDTO myDept = memberInfo.getDepartment();
+		
+		// 오늘 날짜
+		LocalDate currentDate = LocalDate.now();
+		
+		//나의 부서와 오늘날짜 기준으로 검색해야 하므로 HashMap을 만들어준다
+		HashMap<String, Object> deptAndDay = new HashMap<>();
+		deptAndDay.put("myDeptCode", myDept.getDeptCode());
+		deptAndDay.put("currentDate", currentDate);
+		
+		//같은부서 사람들의 근무 정보를 DTO로 담는다.
+		List<TeamWorkingHourDTO> teamWorkingHourList = scheduleService.selectteamWorkingHourList(deptAndDay);
+		System.out.println(teamWorkingHourList);
+		
+		//같은부서 사람들의 명단을 뽑는다. ... 필요없나?? 
+		//List<MemberInfoDTO> teamMemberInfoList = scheduleService.selectAllTeamMember(deptAndDay);
+		
+		//같은부서 사람들 중 휴가가 있는 사람의 정보를 DTO로 담는다. 
+//		List<HolidayLogDTO> teamHolidayLogList = scheduleService.selectteamHolidayLogList(deptAndDay);
+		
+		
+		
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

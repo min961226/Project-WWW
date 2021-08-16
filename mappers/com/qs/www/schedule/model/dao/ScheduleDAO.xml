@@ -24,6 +24,47 @@
 		<result property="transBill" column="TRANS_BILL"/>
 	</resultMap>
 	
+	<resultMap type="com.qs.www.schedule.model.dto.TeamWorkingHourDTO" id="TeamWorkingHourResultMap">
+		<result property="memberNo" column="MEMBER_NO"/>
+		<result property="memberId" column="MEMBER_ID"/>
+		<result property="name" column="NAME"/>
+		<result property="roleCode" column="ROLE_CODE"/>
+		<result property="roleName" column="ROLE_NAME"/>
+		<result property="deptCode" column="DEPT_CODE"/>
+		<result property="deptName" column="DEPT_NAME"/>
+		<result property="jobCode" column="JOB_CODE"/>
+		<result property="jobName" column="JOB_NAME"/>
+		
+		<result property="appWorkType" column="APP_WORK_TYPE"/>
+		<result property="workCode" column="WORK_CODE"/>
+		
+		<association property="standardWorkDTO" javaType="com.qs.www.schedule.model.dto.StandardWorkDTO">
+			<result property="workCode" column="WORK_CODE"/>
+			<result property="workName" column="WORK_NAME"/>
+			<result property="breakStartTime" column="BREAK_START_TIME"/>
+			<result property="breakEndTime" column="BREAK_END_TIME"/>
+			<result property="checkInTime" column="CHECK_IN_TIME"/>
+			<result property="checkOutTime" column="CHECK_OUT_TIME"/>			
+			<result property="activeYn" column="ACTIVE_YN"/>			
+		</association>
+		
+		<association property="customWorkDTO" javaType="com.qs.www.schedule.model.dto.CustomWorkDTO">
+			<result property="workNo" column="WORK_NO"/>
+			<result property="breakStartTime" column="BREAK_START_TIME"/>
+			<result property="breakEndTime" column="BREAK_END_TIME"/>
+			<result property="memberNo" column="MEMBER_NO"/>
+			<result property="activeYN" column="ACTIVE_YN"/>
+		</association>
+		
+		<association property="customWorkTimeDTO" javaType="com.qs.www.schedule.model.dto.CustomWorkTimeDTO">
+			<result property="workNo" column="WORK_NO"/>
+			<result property="dayOfWeek" column="DAY_OF_WEEK"/>
+			<result property="checkInTime" column="CHECK_IN_TIME"/>
+			<result property="checkOutTime" column="CHECK_OUT_TIME"/>
+		</association>
+	
+	</resultMap>
+	
 	<insert id="applyWorkingSystem" parameterType="com.qs.www.schedule.model.dto.ReportDTO">
 	INSERT /* com.qs.www.schedule.model.dao.ScheduleDAO#applyWorkingSystem() */
 	  INTO TBL_REPORT A
@@ -202,5 +243,40 @@
 	 WHERE A.MEMBER_NO = #{ memberNo }
 	   AND A.OVERTIME_START_DAY BETWEEN #{ weekStartDate } AND #{ weekEndDate }
 	</select>
+	
+	<select id="selectteamWorkingHourList" parameterType="hashmap" resultMap="TeamWorkingHourResultMap">
+	SELECT
+           A.MEMBER_NO
+         , A.MEMBER_ID
+         , A.NAME
+         , A.ROLE_CODE
+         , C.ROLE_NAME
+         , A.DEPT_CODE
+         , D.DEPT_NAME
+         , A.JOB_CODE
+         , E.JOB_NAME
+         , A.APP_WORK_TYPE
+         , A.WORK_CODE
+    <if test="appWorkType == '표준근무제'">
+         , F.*
+    </if>
+    <if test="appWorkType == '커스텀근무제'">
+         , G.*
+         , H.*
+    </if>
+      FROM TBL_MEMBER A
+      LEFT JOIN TBL_ROLE C ON (A.ROLE_CODE = C.ROLE_CODE)
+      LEFT JOIN TBL_DEPARTMENT D ON (A.DEPT_CODE = D.DEPT_CODE)
+      LEFT JOIN TBL_JOB E ON (A.JOB_CODE = E.JOB_CODE)
+   <if test="appWorkType == '표준근무제'">
+      LEFT JOIN TBL_STANDARD_WORK F ON (A.WORK_CODE = F.WORK_CODE)
+   </if>
+   <if test="appWorkType == '커스텀근무제'">
+      LEFT JOIN TBL_CUSTOM_WORK G ON (A.WORK_CODE = G.WORK_NO)
+      LEFT JOIN TBL_CUSTOM_WORKTIME H ON (G.WORK_NO = H.WORK_NO)
+   </if>
+    WHERE A.ENT_YN = 'N'
+      AND A.DEPT_CODE = #{ myDeptCode }
+   </select>
 
 </mapper>

@@ -1,15 +1,19 @@
 package com.qs.www.schedule.model.service;
 
+import com.qs.www.member.model.dto.DepartmentDTO;
+import com.qs.www.member.model.dto.MemberInfoDTO;
 import com.qs.www.schedule.model.dao.ScheduleDAO;
 import com.qs.www.schedule.model.dto.ApproverPerReportDTO;
 import com.qs.www.schedule.model.dto.MemberWorkLogDTO;
 import com.qs.www.schedule.model.dto.MonthlyWorkLogDTO;
 import com.qs.www.schedule.model.dto.OvertimeLogDTO;
 import com.qs.www.schedule.model.dto.ReportDTO;
+import com.qs.www.schedule.model.dto.TeamWorkingHourDTO;
 import com.qs.www.schedule.model.dto.WorkingDocumentItemDTO;
 
 import static com.qs.www.common.mybatis.Template.getSqlSession;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -166,6 +170,7 @@ public class ScheduleService {
 		return isCheckedOut;
 	}
 
+	/* 해당 기간동안 overtime 기록을 가져오기 */
 	public List<OvertimeLogDTO> selectOverTimeLog(OvertimeLogDTO overtimeLogDTO) {
 		
 		SqlSession session = getSqlSession();
@@ -176,6 +181,20 @@ public class ScheduleService {
 		
 		return overTimeLogList;
 	}
+	
+	/* 팀근무조회를 위해, 같은부서 사람들의 정보를 DTO로 담는다.*/
+	public List<TeamWorkingHourDTO> selectteamWorkingHourList(HashMap<String, Object> deptAndDay) {
+		
+		SqlSession session = getSqlSession();
+		
+		List<TeamWorkingHourDTO> teamWorkingHourList = scheduleDAO.selectteamWorkingHourList(session, deptAndDay);
+		
+		session.close();
+		
+		return teamWorkingHourList;
+	}
+	
+	
 
 	
 	

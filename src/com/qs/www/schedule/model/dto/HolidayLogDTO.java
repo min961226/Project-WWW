@@ -2,6 +2,7 @@ package com.qs.www.schedule.model.dto;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.time.LocalDate;
 
 public class HolidayLogDTO implements Serializable{
 	
@@ -14,11 +15,15 @@ public class HolidayLogDTO implements Serializable{
 	private String holidayDuringDate;			//기간일수
 	private String ruleCode;					//규칙코드(규칙으로 발생한 경우)
 	private String isProducedByRule;			//규칙생성여부(규칙으로 만들어진 것인지 판단)
+	private HolidayUseInfoDTO holidayUseInfoDTO;
+	
+	private LocalDate selectedDate;
 	
 	public HolidayLogDTO() {}
 
 	public HolidayLogDTO(int holidayLogNo, int memberNo, Date logOccurDate, String logNote, String logType,
-			int holidayCode, String holidayDuringDate, String ruleCode, String isProducedByRule) {
+			int holidayCode, String holidayDuringDate, String ruleCode, String isProducedByRule,
+			HolidayUseInfoDTO holidayUseInfoDTO, LocalDate selectedDate) {
 		super();
 		this.holidayLogNo = holidayLogNo;
 		this.memberNo = memberNo;
@@ -29,6 +34,8 @@ public class HolidayLogDTO implements Serializable{
 		this.holidayDuringDate = holidayDuringDate;
 		this.ruleCode = ruleCode;
 		this.isProducedByRule = isProducedByRule;
+		this.holidayUseInfoDTO = holidayUseInfoDTO;
+		this.selectedDate = selectedDate;
 	}
 
 	public int getHolidayLogNo() {
@@ -103,15 +110,33 @@ public class HolidayLogDTO implements Serializable{
 		this.isProducedByRule = isProducedByRule;
 	}
 
+	public HolidayUseInfoDTO getHolidayUseInfoDTO() {
+		return holidayUseInfoDTO;
+	}
+
+	public void setHolidayUseInfoDTO(HolidayUseInfoDTO holidayUseInfoDTO) {
+		this.holidayUseInfoDTO = holidayUseInfoDTO;
+	}
+
+	public LocalDate getSelectedDate() {
+		return selectedDate;
+	}
+
+	public void setSelectedDate(LocalDate selectedDate) {
+		this.selectedDate = selectedDate;
+	}
+
 	@Override
 	public String toString() {
 		return "HolidayLogDTO [holidayLogNo=" + holidayLogNo + ", memberNo=" + memberNo + ", logOccurDate="
 				+ logOccurDate + ", logNote=" + logNote + ", logType=" + logType + ", holidayCode=" + holidayCode
 				+ ", holidayDuringDate=" + holidayDuringDate + ", ruleCode=" + ruleCode + ", isProducedByRule="
-				+ isProducedByRule + "]";
+				+ isProducedByRule + ", holidayUseInfoDTO=" + holidayUseInfoDTO + ", selectedDate=" + selectedDate
+				+ "]";
 	}
+
 	
-	
+
 	
 	
 }

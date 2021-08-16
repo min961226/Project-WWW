@@ -1,16 +1,19 @@
 package com.qs.www.schedule.model.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
 import com.qs.www.approval.model.dto.ApproverDTO;
+import com.qs.www.member.model.dto.DepartmentDTO;
 import com.qs.www.schedule.model.dto.ApproverPerReportDTO;
 import com.qs.www.schedule.model.dto.HolidayTypeDTO;
 import com.qs.www.schedule.model.dto.MemberWorkLogDTO;
 import com.qs.www.schedule.model.dto.MonthlyWorkLogDTO;
 import com.qs.www.schedule.model.dto.OvertimeLogDTO;
 import com.qs.www.schedule.model.dto.ReportDTO;
+import com.qs.www.schedule.model.dto.TeamWorkingHourDTO;
 import com.qs.www.schedule.model.dto.WorkingDocumentItemDTO;
 
 public class ScheduleDAO {
@@ -79,6 +82,13 @@ public class ScheduleDAO {
 	public List<OvertimeLogDTO> selectOverTimeLog(SqlSession session, OvertimeLogDTO overtimeLogDTO) {
 		
 		return session.selectOne("ScheduleDAO.selectOverTimeLog", overtimeLogDTO);
+	}
+	
+	/* 같은 팀 사람들의 근무정보를 검색 */
+	//<if test="appWorkType == '표준근무제'">로 하는게 맞을지는 모르겠네..
+	public List<TeamWorkingHourDTO> selectteamWorkingHourList(SqlSession session, HashMap<String, Object> deptAndDay) {
+		
+		return session.selectList("ScheduleDAO.selectteamWorkingHourList", deptAndDay);
 	}
 
 	
