@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
+encoding//web/WEB-INF/views/board/test.jsp=UTF-8
 encoding//web/WEB-INF/views/common/error-404.jsp=UTF-8
 encoding//web/WEB-INF/views/common/navbar.jsp=UTF-8
 encoding//web/WEB-INF/views/main/main.jsp=UTF-8
