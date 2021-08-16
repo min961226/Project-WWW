@@ -9,13 +9,13 @@ import com.qs.www.member.model.dto.MemberInfoDTO;
 import com.qs.www.mypage.model.dto.CommutingLogDTO;
 
 public class MypageDAO {
+	
+	public List<CheckQuestionDTO> selectQuestionList(SqlSession sqlSession) {
+		return sqlSession.selectList("MypageDAO.selectQuestionList");
+	}
 
 	public int updateInfo(SqlSession sqlSession, MemberInfoDTO memberInfo) {
 		return sqlSession.update("MypageDAO.updateInfo", memberInfo);
-	}
-
-	public List<CheckQuestionDTO> selectQuestionList(SqlSession sqlSession) {
-		return sqlSession.selectList("MypageDAO.selectQuestionList");
 	}
 
 	public String selectCommuteInTime(SqlSession sqlSession, CommutingLogDTO commutingLog) {

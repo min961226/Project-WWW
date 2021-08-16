@@ -157,7 +157,7 @@
 	                                    </div>
 	                                </div>
 	                                <div class="form-group">
-	                                    <label class="control-label col-lg-4">비밀번호 확인<br>질문</label>
+	                                    <label class="control-label col-lg-4">본인 확인 질문</label>
 	                                    <div class="col-md-8">
 	                                        <input type="text" class="form-control" name="question" value="${ memberInfo.checkQuestion.questionBody }" readonly>
 	                                    </div>

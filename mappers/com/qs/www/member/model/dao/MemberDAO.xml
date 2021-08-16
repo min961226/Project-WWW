@@ -45,6 +45,18 @@
 		</association>
 	</resultMap>
 	
+	<resultMap type="com.qs.www.member.model.dto.CheckPwdDTO" id="checkPwdResultMap">
+		<id property="memberId" column="MEMBER_ID"/>
+		<result property="name" column="NAME"/>
+		<result property="email" column="EMAIL"/>
+		<result property="questionAnswer" column="QUESTION_ANSWER"/>
+		
+		<association property="question" javaType="com.qs.www.member.model.dto.CheckQuestionDTO">
+			<id property="questionCode" column="QUESTION_CODE"/>
+			<result property="questionBody" column="QUESTION_BODY"/>
+		</association>
+	</resultMap>
+	
 	<select id="selectEncryptedPwd" parameterType="java.lang.String" resultType="java.lang.String">
         SELECT /* com.qs.www.member.model.dao.MemberDAO#selectEncryptedPwd() */
                A.PASSWORD
@@ -54,7 +66,7 @@
 	</select>
 	
 	<select id="selectLoginMember" parameterType="java.lang.String" resultMap="memberInfoResultMap">
-        SELECT /* com.qs.www.member.model.dao.MypageDAO#selectInfo() */
+        SELECT /* com.qs.www.member.model.dao.MemberDAO#selectLoginMember() */
                A.MEMBER_NO
              , A.MEMBER_ID
              , A.PASSWORD
@@ -91,10 +103,28 @@
 	</select>
 	
 	<select id="selectMemberId" parameterType="com.qs.www.member.model.dto.MemberDTO" resultType="java.lang.String">
-        SELECT
+        SELECT /* com.qs.www.member.model.dao.MemberDAO#selectMemberId() */
                A.MEMBER_ID
           FROM TBL_MEMBER A
          WHERE A.NAME = #{ name }
            AND A.EMAIL = #{ email }
+	</select>
+	
+	<select id="selectMemberPwd" parameterType="com.qs.www.member.model.dto.CheckPwdDTO" resultMap="checkPwdResultMap">
+        SELECT /* com.qs.www.member.model.dao.MemberDAO#selectMemberPwd() */
+               A.MEMBER_ID
+             , A.NAME
+             , A.EMAIL
+             , A.QUESTION_CODE
+             , B.QUESTION_BODY
+             , A.QUESTION_ANSWER
+          FROM TBL_MEMBER A
+          LEFT JOIN TBL_CHECK_QUESTION B ON (A.QUESTION_CODE = B.QUESTION_CODE)
+         WHERE A.ENT_YN = 'N'
+           AND A.MEMBER_ID = #{ memberId }
+           AND A.NAME = #{ name }
+           AND A.EMAIL = #{ email }
+           AND B.QUESTION_CODE = #{ question.questionCode }
+           AND A.QUESTION_ANSWER = #{ questionAnswer }
 	</select>
 </mapper>

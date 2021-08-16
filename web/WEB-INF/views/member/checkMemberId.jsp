@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="${ pageContext.servletContext.contextPath }/assets/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="${ pageContext.servletContext.contextPath }/assets/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="${ pageContext.servletContext.contextPath }/assets/css/style.css">
-<title>Insert title here</title>
+	<title>Wonderful Welfare Workspace</title>
 </head>
 <body>
 	<div class="main-wrapper">

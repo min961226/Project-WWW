@@ -3,9 +3,9 @@ package com.qs.www.member.model.service;
 import static com.qs.www.common.mybatis.Template.getSqlSession;
 
 import org.apache.ibatis.session.SqlSession;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.qs.www.member.model.dao.MemberDAO;
+import com.qs.www.member.model.dto.CheckPwdDTO;
 import com.qs.www.member.model.dto.MemberDTO;
 import com.qs.www.member.model.dto.MemberInfoDTO;
 
@@ -49,5 +49,22 @@ public class MemberService {
 		sqlSession.close();
 		
 		return findId;
+	}
+
+	public int checkMemberPwd(CheckPwdDTO checkPwd) {
+		
+		SqlSession sqlSession = getSqlSession();
+		
+		CheckPwdDTO checkedMember = memberDAO.selectMemberPwd(sqlSession, checkPwd);
+		
+		int result = 0;
+		
+		if(checkedMember != null) {
+			result = 1;
+		}
+		
+		sqlSession.close();
+		
+		return result;
 	}
 }

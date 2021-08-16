@@ -20,9 +20,15 @@ public class SelectMypageServlet extends HttpServlet {
 		String address = ((MemberInfoDTO) session.getAttribute("memberInfo")).getAddress();
 		String rrn = ((MemberInfoDTO) session.getAttribute("memberInfo")).getRrn();
 		
-		String zipCode = address.split("\\$")[0];
-		String address1 = address.split("\\$")[1];
-		String address2 = address.split("\\$")[2];
+		String zipCode = "";
+		String address1 = "";
+		String address2 = "";
+		
+		if(address != null) {
+			zipCode = address.split("\\$")[0];
+			address1 = address.split("\\$")[1];
+			address2 = address.split("\\$")[2];
+		}
 		
 		String firstRrn = rrn.split("-")[0];
 		String lastRrn = rrn.split("-")[1];
