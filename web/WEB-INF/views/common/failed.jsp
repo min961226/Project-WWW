@@ -21,6 +21,11 @@
 					movePath = "${ pageContext.servletContext.contextPath }"
 					break;
 					
+				case "checkId" :
+					failedMessage = "일치하는 아이디가 없습니다."
+					movePath = "${ pageContext.servletContext.contextPath }/member/id/check"
+					break;
+					
 				case "insertCommute" :
 					failedMessage = "출근 시간 기록이 실패하였습니다."
 					movePath = "${ pageContext.servletContext.contextPath }"
@@ -74,6 +79,7 @@
 					failedMessage = "해당시간의 세미나실은 대여중입니다."
 					movePath = "${ pageContext.servletContext.contextPath }/welfare/list/select";
 					break;
+
 				case "alreadyInsertedLaptop" :
 					failedMessage = "해당 품목은 이미 대여중입니다."
 					movePath = "${ pageContext.servletContext.contextPath }/welfare/list/selected?selectedWelfare=노트북대여신청";
@@ -86,6 +92,17 @@
 					failedMessage = "노트북 대여 신청에 실패하였습니다"
 					movePath = "${ pageContext.servletContext.contextPath }/welfare/list/select";
 					break;
+
+				case "insertAppLine" :
+					failedMessage = "결재라인생성에 실패했습니다."
+					movePath = "${ pageContext.servletContext.contextPath }/approval/line/select";
+					break;
+				case "deleteLine" :
+					failedMessage = "결재라인 삭제에 실패헀습니다."
+					movePath = "${ pageContext.servletContext.contextPath }/approval/line/select";
+					break;
+
+
 			}
 
 			alert(failedMessage);

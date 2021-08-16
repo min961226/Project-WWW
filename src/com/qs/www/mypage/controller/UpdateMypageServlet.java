@@ -21,8 +21,8 @@ public class UpdateMypageServlet extends HttpServlet {
 		
 		MypageService mypageService = new MypageService();
 		List<CheckQuestionDTO> questionList = mypageService.selectQuestionList();
-		
 		System.out.println(questionList);
+		request.setAttribute("questionList", questionList);
 		
 		request.getRequestDispatcher("/WEB-INF/views/mypage/updateInfo.jsp").forward(request, response);
 	}

@@ -32,12 +32,15 @@ public class CheckMemberIdServlet extends HttpServlet {
 		String path="";
 		if(findId != null) {
 			path = "/WEB-INF/views/member/resultCheckMemberId.jsp";
-			request.setAttribute("findName", name);
-			request.setAttribute("findId", findId);
+			request.setAttribute("checkName", name);
+			request.setAttribute("checkId", findId);
 			
 			request.getRequestDispatcher(path).forward(request, response);
 		} else {
-			System.out.println("not Find Id");
+			path = "/WEB-INF/views/common/failed.jsp";
+			request.setAttribute("failedCode", "checkId");
+			
+			request.getRequestDispatcher(path).forward(request, response);
 		}
 	}
 }

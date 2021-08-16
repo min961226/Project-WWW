@@ -2,6 +2,7 @@ package com.qs.www.member.model.dao;
 
 import org.apache.ibatis.session.SqlSession;
 
+import com.qs.www.member.model.dto.CheckPwdDTO;
 import com.qs.www.member.model.dto.MemberDTO;
 import com.qs.www.member.model.dto.MemberInfoDTO;
 
@@ -17,5 +18,9 @@ public class MemberDAO {
 
 	public String selectMemberId(SqlSession sqlSession, MemberDTO member) {
 		return sqlSession.selectOne("MemberDAO.selectMemberId", member);
+	}
+
+	public CheckPwdDTO selectMemberPwd(SqlSession sqlSession, CheckPwdDTO checkPwd) {
+		return sqlSession.selectOne("MemberDAO.selectMemberPwd");
 	}
 }

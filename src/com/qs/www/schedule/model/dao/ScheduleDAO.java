@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import com.qs.www.approval.model.dto.ApproverDTO;
 import com.qs.www.member.model.dto.DepartmentDTO;
 import com.qs.www.schedule.model.dto.ApproverPerReportDTO;
+import com.qs.www.schedule.model.dto.HolidayLogDTO;
 import com.qs.www.schedule.model.dto.HolidayTypeDTO;
 import com.qs.www.schedule.model.dto.MemberWorkLogDTO;
 import com.qs.www.schedule.model.dto.MonthlyWorkLogDTO;
@@ -84,11 +85,17 @@ public class ScheduleDAO {
 		return session.selectOne("ScheduleDAO.selectOverTimeLog", overtimeLogDTO);
 	}
 	
-	/* 같은 팀 사람들의 근무정보를 검색 */
-	//<if test="appWorkType == '표준근무제'">로 하는게 맞을지는 모르겠네..
+	/* 같은 팀 사람들의 오늘 근무정보를 List로 검색 */
+	//'커스텀근무제'일 시, CHANGE_DATE에 조건을 줘야 하는 거 아닌지...(MainDAO.xml의 selectWorkingLog참고)
 	public List<TeamWorkingHourDTO> selectteamWorkingHourList(SqlSession session, HashMap<String, Object> deptAndDay) {
 		
 		return session.selectList("ScheduleDAO.selectteamWorkingHourList", deptAndDay);
+	}
+	
+	/* 같은 팀 사람들의 오늘 근무정보를 List로 검색 */
+	public List<HolidayLogDTO> selectteamHolidayLogList(SqlSession session, HashMap<String, Object> deptAndDay) {
+		
+		return session.selectList("ScheduleDAO.selectteamHolidayLogList", deptAndDay);
 	}
 
 	

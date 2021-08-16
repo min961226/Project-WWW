@@ -25,72 +25,56 @@
 						<h4 class="page-title">게시판 상세보기</h4>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-lg-12">
-						
-
-							<form class="form-horizontal" action="${ pageContext.servletContext.contextPath }/board/form/selectOne" method="get">
-										
-								<div class="form-group">
-									<div class="col-sm-6">
-										<label>제목</label>
-										<div class="col-md-12">
-										
-										<input class="form-control" value="${ requestScope.form.title }"  disabled/>
-										</div>
-									</div>
+				<div class="form-horizontal">
+					<div class="row">
+						<div class="form-group">
+							<div class="col-xs-12">
+								<label>제목</label>
+								<div class="col-md-12">
+									<input name = "title" class="form-control" value="${ requestScope.form.title }"  disabled/>
 								</div>
-								
-								<div class="form-group">
-									<div class="col-sm-6">
-										<label>내용</label>
-										<div class="col-md-12">
-										
-										<input class="form-control" value="${ requestScope.form.body }"  disabled/>
-										</div>
-									</div>
-
-
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group">
+							<div class="col-sm-12">
+								<label>작성자</label>
+								<div class="col-md-12">
+									<input name = "name" class="form-control" value="${ requestScope.form.name }"  disabled/>
 								</div>
-								
-
-					
-								<div class="form-group">
-								<div class="col-sm-12">
-									<label>내용</label>
-									<div class="col-lg-12">
-										<textarea name="body" rows="8" cols="5" class="form-control"
-											required="required" disabled></textarea>
-									</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group">
+							<div class="col-sm-12">
+								<label>내용</label>
+								<div class="col-lg-12">
+								<textarea name="body" rows="8" cols="5" class="form-control"
+										required="required" disabled>${ requestScope.form.body }</textarea>
 								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group">
+							<div class="col-sm-6">
+								<label>첨부서류</label>
+								<div class="col-md-12">
+									<input class="form-control" type="file" disabled>
 								</div>
-								
-								<div class="form-group">
-								<div class="col-sm-6">
-									<label>첨부서류</label>
-									<div class="col-md-12">
-										<input class="form-control" type="file" disabled>
-									</div>
-								</div>
-								</div>
-								
-								
-
-								
-								
-								<div class="row">
-                                    <div class="col-sm-12 text-center m-t-20">
-                                        <button type="reset" class="btn btn-primary btn-lg" id="goBack">돌아가기</button>
-                                    </div>
-                                </div>
-								
-							</form>
+							</div>
+						</div>
 					</div>
 				</div>
+				<div class="row">
+                	<div class="col-sm-12 text-center m-t-20">
+	                    <button type="reset" class="btn btn-primary btn-lg" id="goBack"> 돌아가기 </button>
+                    </div>
+	            </div>
 			</div>
-			
 		</div>
-
 	</div>
 	<div class="sidebar-overlay" data-reff=""></div>
 	

@@ -104,6 +104,32 @@ public class ApprovalDAO {
 		return session.selectList("ApprovalDAO.selectMemberList");
 	}
 
+	public int selectLineNum(SqlSession session) {
+		
+		return session.selectOne("ApprovalDAO.selectLineNum");
+	}
+
+	public int insertLine(SqlSession session, ApprovalLineDTO line) {
+		
+		return session.insert("ApprovalDAO.insertLine", line);
+	}
+
+	public int insertApprover(SqlSession session, ApproverDTO approver) {
+		
+		return session.insert("ApprovalDAO.insertApprover", approver);
+	}
+
+	public int deleteLine(SqlSession session, int lineNo) {
+		
+		return session.delete("ApprovalDAO.deleteLine",lineNo);
+	}
+
+	public int deleteApprover(SqlSession session, int lineNo) {
+		
+		return session.delete("ApprovalDAO.deleteApprover",lineNo);
+	}
+
+
 	
 
 

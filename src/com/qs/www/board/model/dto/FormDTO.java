@@ -13,13 +13,14 @@ public class FormDTO {
 	private String delete;
 	private Date created;
 	private Date modified;
+	private String name;
 	
 
 	public FormDTO() {}
 
 
 	public FormDTO(int no, String title, int member, String type, int count, String body, String delete, Date created,
-			Date modified) {
+			Date modified, String name) {
 		super();
 		this.no = no;
 		this.title = title;
@@ -30,6 +31,7 @@ public class FormDTO {
 		this.delete = delete;
 		this.created = created;
 		this.modified = modified;
+		this.name = name;
 	}
 
 
@@ -123,12 +125,22 @@ public class FormDTO {
 	}
 
 
+	public String getName() {
+		return name;
+	}
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
 	@Override
 	public String toString() {
-		return "NoticeDTO [no=" + no + ", title=" + title + ", member=" + member + ", type=" + type + ", count=" + count
-				+ ", body=" + body + ", delete=" + delete + ", created=" + created + ", modified=" + modified + "]";
+		return "FormDTO [no=" + no + ", title=" + title + ", member=" + member + ", type=" + type + ", count=" + count
+				+ ", body=" + body + ", delete=" + delete + ", created=" + created + ", modified=" + modified
+				+ ", name=" + name + "]";
 	}
-	
-	
 
+	
 }

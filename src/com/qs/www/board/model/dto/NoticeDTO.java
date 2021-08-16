@@ -13,14 +13,16 @@ public class NoticeDTO {
 	private String delete;
 	private Date created;
 	private Date modified;
+	private String name;
 	
 	
 
 	public NoticeDTO() {}
 
 
+
 	public NoticeDTO(int no, String title, int member, String type, int count, String body, String delete, Date created,
-			Date modified) {
+			Date modified, String name) {
 		super();
 		this.no = no;
 		this.title = title;
@@ -31,7 +33,9 @@ public class NoticeDTO {
 		this.delete = delete;
 		this.created = created;
 		this.modified = modified;
+		this.name = name;
 	}
+
 
 
 	public int getNo() {
@@ -39,9 +43,11 @@ public class NoticeDTO {
 	}
 
 
+
 	public void setNo(int no) {
 		this.no = no;
 	}
+
 
 
 	public String getTitle() {
@@ -49,9 +55,11 @@ public class NoticeDTO {
 	}
 
 
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
+
 
 
 	public int getMember() {
@@ -59,9 +67,11 @@ public class NoticeDTO {
 	}
 
 
+
 	public void setMember(int member) {
 		this.member = member;
 	}
+
 
 
 	public String getType() {
@@ -69,9 +79,11 @@ public class NoticeDTO {
 	}
 
 
+
 	public void setType(String type) {
 		this.type = type;
 	}
+
 
 
 	public int getCount() {
@@ -79,9 +91,11 @@ public class NoticeDTO {
 	}
 
 
+
 	public void setCount(int count) {
 		this.count = count;
 	}
+
 
 
 	public String getBody() {
@@ -89,9 +103,11 @@ public class NoticeDTO {
 	}
 
 
+
 	public void setBody(String body) {
 		this.body = body;
 	}
+
 
 
 	public String getDelete() {
@@ -99,9 +115,11 @@ public class NoticeDTO {
 	}
 
 
+
 	public void setDelete(String delete) {
 		this.delete = delete;
 	}
+
 
 
 	public Date getCreated() {
@@ -109,9 +127,11 @@ public class NoticeDTO {
 	}
 
 
+
 	public void setCreated(Date created) {
 		this.created = created;
 	}
+
 
 
 	public Date getModified() {
@@ -119,15 +139,30 @@ public class NoticeDTO {
 	}
 
 
+
 	public void setModified(Date modified) {
 		this.modified = modified;
 	}
 
 
+
+	public String getName() {
+		return name;
+	}
+
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+
 	@Override
 	public String toString() {
 		return "NoticeDTO [no=" + no + ", title=" + title + ", member=" + member + ", type=" + type + ", count=" + count
-				+ ", body=" + body + ", delete=" + delete + ", created=" + created + ", modified=" + modified + "]";
+				+ ", body=" + body + ", delete=" + delete + ", created=" + created + ", modified=" + modified
+				+ ", name=" + name + "]";
 	}
 	
 	

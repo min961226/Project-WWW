@@ -4,6 +4,7 @@ import com.qs.www.member.model.dto.DepartmentDTO;
 import com.qs.www.member.model.dto.MemberInfoDTO;
 import com.qs.www.schedule.model.dao.ScheduleDAO;
 import com.qs.www.schedule.model.dto.ApproverPerReportDTO;
+import com.qs.www.schedule.model.dto.HolidayLogDTO;
 import com.qs.www.schedule.model.dto.MemberWorkLogDTO;
 import com.qs.www.schedule.model.dto.MonthlyWorkLogDTO;
 import com.qs.www.schedule.model.dto.OvertimeLogDTO;
@@ -192,6 +193,17 @@ public class ScheduleService {
 		session.close();
 		
 		return teamWorkingHourList;
+	}
+
+	public List<HolidayLogDTO> selectteamHolidayLogList(HashMap<String, Object> deptAndDay) {
+		
+		SqlSession session = getSqlSession();
+		
+		List<HolidayLogDTO> teamHolidayLogList = scheduleDAO.selectteamHolidayLogList(session, deptAndDay);
+		
+		session.close();
+		
+		return teamHolidayLogList;
 	}
 	
 	
