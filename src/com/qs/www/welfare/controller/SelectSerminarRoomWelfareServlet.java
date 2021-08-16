@@ -1,6 +1,9 @@
 package com.qs.www.welfare.controller;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -13,40 +16,49 @@ import javax.servlet.http.HttpSession;
 import com.qs.www.approval.model.dto.ApprovalLineDTO;
 import com.qs.www.approval.model.service.ApprovalService;
 import com.qs.www.member.model.dto.MemberInfoDTO;
+import com.qs.www.welfare.model.dto.SeminarReservTimeDTO;
+import com.qs.www.welfare.model.dto.SeminarRoomDTO;
+import com.qs.www.welfare.model.dto.SeminarRoomReservDTO;
 import com.qs.www.welfare.model.service.WelfareService;
 
 @WebServlet("/welfare/seminarRoom/select")
 public class SelectSerminarRoomWelfareServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("회의실 예약");
+		System.out.println("세미나실 예약");
 		
 		WelfareService welfareService = new WelfareService();
 		HttpSession session = request.getSession();
-
+		
+		int roomNo = Integer.parseInt(request.getParameter("no"));
+		List<SeminarRoomReservDTO> seminarRoomReserv = welfareService.selectSeminarRoomReserv(roomNo); 
+		List<SeminarReservTimeDTO> seminarReservTime = welfareService.selectSeminarReservTime();
+		
+		System.out.println(roomNo);
+		System.out.println(seminarRoomReserv);
+		System.out.println(seminarReservTime);
+		
 		int memberNo = ((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo();
 		String name = ((MemberInfoDTO) session.getAttribute("memberInfo")).getName();
 		String deptName = ((MemberInfoDTO) session.getAttribute("memberInfo")).getDepartment().getDeptName();
 		String jobName = ((MemberInfoDTO) session.getAttribute("memberInfo")).getJob().getJobName();
-		String addressAll = ((MemberInfoDTO) session.getAttribute("memberInfo")).getAddress();
-		List<ApprovalLineDTO> lineList = new ApprovalService().selectApprovalLine(memberNo);
-		
-		String manageNo = request.getParameter("no");
-		System.out.println(manageNo);
+		LocalDate sysDate = LocalDate.now();
+		LocalDate sysNextDate = sysDate.plusDays(1);
+		LocalDate sysTwiceNextDate = sysDate.plusDays(2);
 		
 		request.setAttribute("memberNo", memberNo);
 		request.setAttribute("deptName", deptName);
 		request.setAttribute("jobName", jobName);
 		request.setAttribute("name", name);
-		request.setAttribute("lineList", lineList);
-		request.setAttribute("manageNo", manageNo);
-
+		request.setAttribute("seminarRoomReserv", seminarRoomReserv);
+		request.setAttribute("roomNo", roomNo);
+		request.setAttribute("seminarReservTime", seminarReservTime);
+		request.setAttribute("sysDate", sysDate);
+		request.setAttribute("sysNextDate", sysNextDate);
+		request.setAttribute("sysTwiceNextDate", sysTwiceNextDate);
+		
 		String path="";
-		path = "/WEB-INF/views/welfare/insertDomitory.jsp";
+		path = "/WEB-INF/views/welfare/insertSeminarRoom.jsp";
 		
 		request.getRequestDispatcher(path).forward(request, response);
 	}
