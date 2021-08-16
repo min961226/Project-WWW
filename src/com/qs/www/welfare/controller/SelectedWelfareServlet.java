@@ -92,7 +92,7 @@ public class SelectedWelfareServlet extends HttpServlet {
 			path = "/WEB-INF/views/welfare/insertLaptopRental.jsp";
 			break;
 		default:
-			path = "/WEB-INF/views/welfare/welfareList.jsp";
+			path = "/welfare/list/select";
 			break;
 		}
 		request.getRequestDispatcher(path).forward(request, response);
