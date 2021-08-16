@@ -45,6 +45,11 @@
 								</tr>
 							</table>
 							
+							<div class="form-group">
+                                <label>직위</label>
+                                <textarea rows="6" cols="30" id="text">${requestScope.requestContent}</textarea>
+                                <% %>
+                            </div>
 						</form>
 					</div>
 				</div>
@@ -55,6 +60,7 @@
 	</script>
 	<script src="/assets/js/summernote/lang/summernote-ko-KR.js"></script>
 	<script>
+	$('#text').summernote('code', '${board_data.BOARD_CONTENT}');
 		$(document).ready(function() {
 			$('#summernote').summernote({
 				minHeight : 370,

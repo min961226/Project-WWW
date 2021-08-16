@@ -1,12 +1,13 @@
 package com.qs.www.board.model.service;
 
-import java.util.List;  
+import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
 import com.qs.www.board.model.dao.FreeDAO;
 import com.qs.www.board.model.dto.FreeDTO;
-
+import com.qs.www.common.paging.SelectCriteria;
 
 import static com.qs.www.common.mybatis.Template.getSqlSession;
 
@@ -20,11 +21,11 @@ public class FreeService {
 		
 	}
 	//자유게시판 목록조회
-	public List<FreeDTO> selectAllFreeList() {
+	public List<FreeDTO> selectAllFreeList(SelectCriteria selectCriteria) {
 		
 		SqlSession session = getSqlSession();
 		
-		List<FreeDTO> freeList = freeDAO.selectAllFreeList(session);
+		List<FreeDTO> freeList = freeDAO.selectAllFreeList(session, selectCriteria);
 		
 		session.close();
 		
@@ -89,6 +90,17 @@ public class FreeService {
 		session.close();
 
 		return result;
+	}
+
+	public int selectAllCount(Map<String, String> searchMap) {
+
+		SqlSession session = getSqlSession();
+		
+		int count = freeDAO.selectAllCount(session,searchMap);
+		
+		session.close();
+		
+		return count;
 	}
 
 }

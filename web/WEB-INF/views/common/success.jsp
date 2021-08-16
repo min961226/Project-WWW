@@ -52,6 +52,11 @@
 					movePath = "${ pageContext.servletContext.contextPath }/board/free/select";
 					break;
 					
+				case "updateFree" :
+					successMessage = "자유게시글 업데이트 완료되었습니다."
+					movePath = "${ pageContext.servletContext.contextPath }/board/free/select";
+					break;
+					
 				case "insertSelfDev" :
 					successMessage = "자기개발비 신청이 완료되었습니다."
 					movePath = "${ pageContext.servletContext.contextPath }/welfare/list/select";
