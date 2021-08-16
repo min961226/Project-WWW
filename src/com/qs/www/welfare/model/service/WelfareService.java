@@ -12,7 +12,9 @@ import com.qs.www.welfare.model.dao.WelfareDAO;
 import com.qs.www.welfare.model.dto.DomitoryListDTO;
 import com.qs.www.welfare.model.dto.FamilyEventDTO;
 import com.qs.www.welfare.model.dto.MemberOverTimeLogDTO;
+import com.qs.www.welfare.model.dto.SeminarReservTimeDTO;
 import com.qs.www.welfare.model.dto.SeminarRoomDTO;
+import com.qs.www.welfare.model.dto.SeminarRoomReservDTO;
 import com.qs.www.welfare.model.dto.WelfareListDTO;
 
 import static com.qs.www.common.mybatis.Template.getSqlSession;
@@ -196,6 +198,43 @@ public class WelfareService {
 		session.close();
 
 		return seminarRoomList;
+	}
+
+	public List<SeminarRoomReservDTO> selectSeminarRoomReserv(int roomNo) {
+		SqlSession session = getSqlSession();
+
+		List<SeminarRoomReservDTO> seminarRoomReserv = welfareDAO.selectSeminarRoomReserv(session,roomNo);
+
+		session.close();
+
+		return seminarRoomReserv;
+	}
+
+	public List<SeminarReservTimeDTO> selectSeminarReservTime() {
+		SqlSession session = getSqlSession();
+
+		List<SeminarReservTimeDTO> seminarReservTime = welfareDAO.selectSeminarReservTime(session);
+
+		session.close();
+
+		return seminarReservTime;
+	}
+
+	public int insertSeminarRoom(SeminarRoomReservDTO seminarRoomReservDTO) {
+
+		SqlSession session = getSqlSession();
+
+		int insertSeminarRoomResult = welfareDAO.insertSeminarRoom(session, seminarRoomReservDTO);
+
+		if (insertSeminarRoomResult > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+
+		session.close();
+
+		return insertSeminarRoomResult;
 	}
 
 }

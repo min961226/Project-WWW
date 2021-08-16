@@ -64,6 +64,20 @@
 		<result property="roomName" column="ROOM_NAME" />
 	</resultMap>
 	
+	<resultMap type="com.qs.www.welfare.model.dto.SeminarRoomReservDTO" id="seminarRoomReservResultMap">
+		<result property="meetingRoomNo" column="MEETING_ROOM_NO" />
+		<result property="memberNo" column="MEMBER_NO" />
+		<result property="useDate" column="USE_DATE" />
+		<result property="reservTime" column="RESERV_TIME" />
+		<result property="reservNo" column="RESERV_TIME_NO" />
+		<result property="seminarInfo" column="SEMINAR_INFO" />
+	</resultMap>
+	
+	<resultMap type="com.qs.www.welfare.model.dto.SeminarReservTimeDTO" id="seminarReservTimeResultMap">
+		<result property="reservNo" column="RESERV_NO" />
+		<result property="reservTime" column="RESERV_TIME" />
+	</resultMap>
+	
 	
 
 <select id="selectWelfareList" resultType="java.lang.String">
@@ -168,20 +182,20 @@
 	</select>
 	
 	<select id="selectAppliedWelfareList" resultMap="appliedWelfareResultMap">
-	SELECT /* com.qs.www.welfare.model.dao.welfareDAO#selectAppliedWelfare() */
-	       A.REPORT_NO
-	     , A.REPORT_DATE
-	     , A.MEMBER_NO
-	     , A.DOCUMENT_NO
-	     , A.REPORT_NOTE
-	     , A.REPORT_STATUS
-	     , A.LINE_NAME
-	     , A.REPORT_TITLE
-	  FROM TBL_REPORT A
-	 WHERE A.MEMBER_NO = #{ no }
-	   AND A.DOCUMENT_NO IN (7,8,9,10,12)
-	   AND REPORT_STATUS != '회수'
-	 ORDER BY A.REPORT_NO DESC
+		SELECT /* com.qs.www.welfare.model.dao.welfareDAO#selectAppliedWelfare() */
+	    	   A.REPORT_NO
+	     	 , A.REPORT_DATE
+	     	 , A.MEMBER_NO
+	     	 , A.DOCUMENT_NO
+	     	 , A.REPORT_NOTE
+	     	 , A.REPORT_STATUS
+	     	 , A.LINE_NAME
+	     	 , A.REPORT_TITLE
+	  	  FROM TBL_REPORT A
+	 	 WHERE A.MEMBER_NO = #{ no }
+	       AND A.DOCUMENT_NO IN (7,8,9,10,12)
+	       AND REPORT_STATUS != '회수'
+	     ORDER BY A.REPORT_NO DESC
 	</select>
 	
 	<select id="selectSeminarRoom" resultMap="seminarRoomListResultMap">
@@ -190,5 +204,45 @@
 		  FROM TBL_MEETING_ROOM A
 	</select>
 	
+	<select id= "selectSeminarRoomReserv" resultMap="seminarRoomReservResultMap">
+		SELECT /* com.qs.www.welfare.model.dao.WelfareDAO#selectSeminarRoomReserv() */
+			   LOG.MEETING_ROOM_NO
+			 , LOG.MEMBER_NO
+			 , LOG.USE_DATE
+			 , LOG.RESERV_TIME_NO
+			 , TIME.RESERV_TIME
+		  FROM TBL_MEETING_ROOM_LOG LOG, TBL_MEETING_ROOM_TIME TIME
+		 WHERE LOG.RESERV_TIME_NO = TIME.RESERV_NO
+		   AND LOG.MEETING_ROOM_NO = #{ roomNo }
+   		   AND LOG.USE_DATE >= SYSDATE-1
+	</select>
+	
+	<select id= "selectSeminarReservTime" resultMap="seminarReservTimeResultMap">
+		SELECT /* com.qs.www.welfare.model.dao.WelfareDAO#selectSeminarRoomReserv() */
+			   A.*
+		  FROM TBL_MEETING_ROOM_TIME A
+		 ORDER BY A.RESERV_NO
+	</select>
+	
+	<insert id="insertSeminarRoom" parameterType="com.qs.www.welfare.model.dto.SeminarRoomReservDTO">
+
+	INSERT /* com.qs.www.welfare.model.dao.WelfareDAO#insertSeminarRoom() */
+	  INTO TBL_MEETING_ROOM_LOG A
+	(
+	  A.MEETING_ROOM_NO
+	, A.MEMBER_NO
+	, A.USE_DATE
+	, A.RESERV_TIME_NO
+	, A.SEMINAR_INFO
+	)
+	VALUES
+	(
+	  #{ meetingRoomNo }
+	, #{ memberNo }
+	, #{ useDate }
+	, #{ reservNo }
+	, #{ seminarInfo }
+	)
+	</insert>
 	
 </mapper>

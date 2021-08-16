@@ -71,6 +71,10 @@
 					successMessage = "기숙사 입주 신청이 완료되었습니다."
 					movePath = "${ pageContext.servletContext.contextPath }/welfare/list/select";
 					break;
+				case "insertSeminarRoom" :
+					successMessage = "세미나실 대여신청이 완료되었습니다."
+					movePath = "${ pageContext.servletContext.contextPath }/welfare/list/select";
+					break;
 
 			}
 

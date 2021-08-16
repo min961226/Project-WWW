@@ -10,7 +10,9 @@ import com.qs.www.schedule.model.dto.WorkingDocumentItemDTO;
 import com.qs.www.welfare.model.dto.DomitoryListDTO;
 import com.qs.www.welfare.model.dto.FamilyEventDTO;
 import com.qs.www.welfare.model.dto.MemberOverTimeLogDTO;
+import com.qs.www.welfare.model.dto.SeminarReservTimeDTO;
 import com.qs.www.welfare.model.dto.SeminarRoomDTO;
+import com.qs.www.welfare.model.dto.SeminarRoomReservDTO;
 import com.qs.www.welfare.model.dto.WelfareListDTO;
 
 
@@ -74,6 +76,18 @@ public class WelfareDAO {
 
 	public List<SeminarRoomDTO> selectSeminarRoom(SqlSession session) {
 		return session.selectList("WelfareDAO.selectSeminarRoom");
+	}
+
+	public List<SeminarRoomReservDTO> selectSeminarRoomReserv(SqlSession session, int roomNo) {
+		return session.selectList("WelfareDAO.selectSeminarRoomReserv", roomNo);
+	}
+
+	public List<SeminarReservTimeDTO> selectSeminarReservTime(SqlSession session) {
+		return session.selectList("WelfareDAO.selectSeminarReservTime");
+	}
+
+	public int insertSeminarRoom(SqlSession session, SeminarRoomReservDTO seminarRoomReservDTO) {
+		return session.insert("WelfareDAO.insertSeminarRoom", seminarRoomReservDTO);
 	}
 
 

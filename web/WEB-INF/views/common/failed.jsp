@@ -67,7 +67,11 @@
 					break;
 					
 				case "insertDomitory" :
-					successMessage = "기숙사 입주 신청이 완료되었습니다."
+					failedMessage = "기숙사 입주 신청이 완료되었습니다."
+					movePath = "${ pageContext.servletContext.contextPath }/welfare/list/select";
+					break;
+				case "insertSeminarRoom" :
+					failedMessage = "해당시간의 세미나실은 대여중입니다."
 					movePath = "${ pageContext.servletContext.contextPath }/welfare/list/select";
 					break;
 
