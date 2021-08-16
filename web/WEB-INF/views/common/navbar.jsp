@@ -1,3 +1,4 @@
+<%@page import="com.qs.www.member.model.dto.MemberInfoDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -198,6 +199,10 @@
 	</div>
 	<div class="sidebar-overlay" data-reff=""></div>
 	<script>
+		$(document).ready(function() {
+		});
+		
+		
 		$("#in_time").click(function() {
 			$.ajax({
 				url: "${ pageContext.servletContext.contextPath }/mypage/commute/insert",

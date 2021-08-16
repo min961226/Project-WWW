@@ -38,9 +38,9 @@
                                 <button class="btn btn-primary btn-block account-btn" type="submit">Login</button>
                             </div>
                             <div class="text-center">
-                                <span><a href="forgot-password.html">아이디 찾기</a></span>
+                                <span><a href="${ pageContext.servletContext.contextPath }/member/id/check">아이디 찾기</a></span>
                                 <span> | </span>
-                                <span><a href="forgot-password.html">비밀번호 찾기</a></span>
+                                <span><a href="${ pageContext.servletContext.contextPath }/member/pwd/check">비밀번호 찾기</a></span>
                             </div>
                         </form>
                     </div>

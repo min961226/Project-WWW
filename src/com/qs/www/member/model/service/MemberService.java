@@ -39,4 +39,15 @@ public class MemberService {
 		
 		return loginMember;
 	}
+
+	public String checkMemberId(MemberDTO member) {
+		
+		SqlSession sqlSession = getSqlSession();
+		
+		String findId = memberDAO.selectMemberId(sqlSession, member);
+		
+		sqlSession.close();
+		
+		return findId;
+	}
 }
