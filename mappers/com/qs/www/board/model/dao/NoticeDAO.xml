@@ -13,6 +13,7 @@
 		<result property="delete" column="DELETE_YN"/>	
 		<result property="created" column="CREATED_DATE"/>	
 		<result property="modified" column="MODIFIED_DATE"/>	
+		<result property="name" column="NAME"/>
 		
 	</resultMap>
 	
@@ -27,7 +28,7 @@
              , A.DELETE_YN
              , A.CREATED_DATE
              , A.MODIFIED_DATE
-         FROM TBL_BOARD A
+          FROM TBL_BOARD A
          WHERE A.BOARD_TYPE = '공지'
 	</select>
 	
@@ -41,7 +42,7 @@
          WHERE A.BOARD_NO = #{ no }
 	</update>
 	
-	<select id="selectNoticeDetail" resultMap="noticeResultMap">
+	<select id="selectNoticeDetail" resultMap="noticeResultMap" parameterType="_int">
        SELECT
                A.BOARD_NO
              , A.BOARD_TITLE
@@ -52,8 +53,89 @@
              , A.DELETE_YN
              , A.CREATED_DATE
              , A.MODIFIED_DATE
+             , D.NAME
          FROM TBL_BOARD A
+          LEFT JOIN TBL_MEMBER D ON(A.MEMBER_NO = D.MEMBER_NO)
          WHERE A.BOARD_NO = #{ no }
     </select>
+    
+    <select id="selectAllCount" resultType="_int" parameterType="hashmap">
+        SELECT /* com.qs.www.board.model.dao.NoticeDAO#selectAllCount() */
+               COUNT(*)
+          FROM TBL_BOARD A
+    	<where>
+			<if test="searchCondition == 'name'">
+	           B.NAME LIKE '%' || #{ searchValue } || '%'	
+			</if>
+			<if test="searchCondition == 'title'">
+	           A.BOARD_TITLE LIKE '%' || #{ searchValue } || '%' 	
+			</if>
+			<if test="searchCondition == 'body'">
+	           A.BOARD_BODY LIKE '%' || #{ searchValue } || '%' 	
+			</if>
+			AND A.DELETE_YN = 'N'
+            AND A.BOARD_TYPE = '공지'
+    	</where>
+	</select>
+	
+		<select id="selectBoardList" resultMap="noticeResultMap">
+         SELECT 
+                C.RNUM
+        	  , C.BOARD_NO
+              , C.BOARD_TITLE
+         	  , C.MEMBER_NO
+              , C.BOARD_TYPE
+              , C.BOARD_COUNT
+              , C.BOARD_BODY
+              , C.DELETE_YN
+              , C.CREATED_DATE
+              , C.MODIFIED_DATE
+              , C.NAME
+          FROM (SELECT ROWNUM RNUM
+          			 , B.BOARD_NO
+                     , B.BOARD_TITLE
+           			 , B.MEMBER_NO
+		             , B.BOARD_TYPE
+		             , B.BOARD_COUNT
+		             , B.BOARD_BODY
+		             , B.DELETE_YN
+		             , B.CREATED_DATE
+		             , B.MODIFIED_DATE
+		             , B.NAME
+                  FROM (SELECT A.BOARD_NO
+             				 , A.BOARD_TITLE
+             				 , A.MEMBER_NO
+				             , A.BOARD_TYPE
+				             , A.BOARD_COUNT
+				             , A.BOARD_BODY
+				             , A.DELETE_YN
+				             , A.CREATED_DATE
+				             , A.MODIFIED_DATE
+				             , D.NAME
+                          FROM TBL_BOARD A
+	      				  LEFT JOIN TBL_MEMBER D ON(A.MEMBER_NO = D.MEMBER_NO)
+    					<where>
+							<if test="searchCondition == 'name'">
+	           				   D.NAME LIKE '%' || #{ searchValue } || '%'	
+							</if>
+							<if test="searchCondition == 'title'">
+	           				   A.BOARD_TITLE LIKE '%' || #{ searchValue } || '%' 	
+							</if>
+							<if test="searchCondition == 'body'">
+	           				   A.BOARD_BODY LIKE '%' || #{ searchValue } || '%' 	
+							</if>
+	       				   AND A.DELETE_YN = 'N'
+	       				   AND A.BOARD_TYPE = '공지'
+    					</where>
+                         ORDER BY A.BOARD_NO DESC
+                        ) B
+                  <![CDATA[
+                  WHERE ROWNUM <= #{ endRow }
+                  ]]>
+               ) C
+         WHERE C.RNUM >= #{ startRow }     
+	</select>
+	
+	
 
 </mapper>
