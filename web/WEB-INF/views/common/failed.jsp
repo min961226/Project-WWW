@@ -67,14 +67,25 @@
 					break;
 					
 				case "insertDomitory" :
-					failedMessage = "기숙사 입주 신청이 완료되었습니다."
+					failedMessage = "기숙사 입주 신청에 실패하였습니다."
 					movePath = "${ pageContext.servletContext.contextPath }/welfare/list/select";
 					break;
 				case "insertSeminarRoom" :
 					failedMessage = "해당시간의 세미나실은 대여중입니다."
 					movePath = "${ pageContext.servletContext.contextPath }/welfare/list/select";
 					break;
-
+				case "alreadyInsertedLaptop" :
+					failedMessage = "해당 품목은 이미 대여중입니다."
+					movePath = "${ pageContext.servletContext.contextPath }/welfare/list/selected?selectedWelfare=노트북대여신청";
+					break;
+				case "insertLaptopDateError" :
+					failedMessage = "대여는 2주 이상 할 수 없습니다"
+					movePath = "${ pageContext.servletContext.contextPath }/welfare/list/selected?selectedWelfare=노트북대여신청";
+					break;
+				case "insertLaptop" :
+					failedMessage = "노트북 대여 신청에 실패하였습니다"
+					movePath = "${ pageContext.servletContext.contextPath }/welfare/list/select";
+					break;
 			}
 
 			alert(failedMessage);

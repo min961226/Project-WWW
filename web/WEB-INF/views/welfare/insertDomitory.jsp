@@ -96,7 +96,7 @@
 		const $goBack = document.getElementById("goBack");
 
 		$goBack.onclick = function() {
-			location.href = "${ pageContext.servletContext.contextPath }/welfare/list/select"
+			location.href = "${ pageContext.servletContext.contextPath }/welfare/list/selected?selectedWelfare=기숙사입주신청"
 		}
 	</script>
 </body>
