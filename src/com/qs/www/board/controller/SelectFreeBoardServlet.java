@@ -47,8 +47,6 @@ public class SelectFreeBoardServlet extends HttpServlet {
 		searchMap.put("searchCondition", searchCondition);
 		searchMap.put("searchValue", searchValue);
 		
-		
-		
 		Pagenation pagenation = new Pagenation();
 		
 		
@@ -84,7 +82,7 @@ public class SelectFreeBoardServlet extends HttpServlet {
 			request.setAttribute("freeList", freeList);
 		} else {
 			path = "/WEB-INF/views/common/error-404.jsp";
-			request.setAttribute("message", "공지사항 조회 실패!");
+			request.setAttribute("message", "자유게시판 조회 실패!");
 		}
 		
 		request.getRequestDispatcher(path).forward(request, response);

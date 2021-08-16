@@ -51,7 +51,7 @@
 							<div class="col-sm-12">
 								<label>내용</label>
 								<div class="col-lg-12">
-								<textarea name="body" rows="8" cols="5" class="form-control"
+								<textarea name="name" rows="8" cols="5" class="form-control"
 										required="required" disabled>${ requestScope.free.body }</textarea>
 								</div>
 							</div>
