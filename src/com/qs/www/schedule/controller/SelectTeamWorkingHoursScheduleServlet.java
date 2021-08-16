@@ -1,6 +1,7 @@
 package com.qs.www.schedule.controller;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import com.qs.www.member.model.dto.DepartmentDTO;
 import com.qs.www.member.model.dto.MemberInfoDTO;
+import com.qs.www.schedule.model.dto.HolidayLogDTO;
 import com.qs.www.schedule.model.dto.TeamWorkingHourDTO;
 import com.qs.www.schedule.model.service.ScheduleService;
 
@@ -37,25 +39,31 @@ public class SelectTeamWorkingHoursScheduleServlet extends HttpServlet {
 		
 		// 오늘 날짜
 		LocalDate currentDate = LocalDate.now();
+		Date currentDateSql = Date.valueOf(currentDate);
 		
 		//나의 부서와 오늘날짜 기준으로 검색해야 하므로 HashMap을 만들어준다
 		HashMap<String, Object> deptAndDay = new HashMap<>();
 		deptAndDay.put("myDeptCode", myDept.getDeptCode());
-		deptAndDay.put("currentDate", currentDate);
+		deptAndDay.put("currentDate", currentDateSql);
+		System.out.println("myDeptCode : " + myDept.getDeptCode());
+		System.out.println("currentDate : " + currentDateSql);
 		
 		//같은부서 사람들의 근무 정보를 DTO로 담는다.
 		List<TeamWorkingHourDTO> teamWorkingHourList = scheduleService.selectteamWorkingHourList(deptAndDay);
-		System.out.println(teamWorkingHourList);
+		System.out.println("teamWorkingHourList : " + teamWorkingHourList);
+		request.setAttribute("teamWorkingHourList", teamWorkingHourList);
 		
 		//같은부서 사람들의 명단을 뽑는다. ... 필요없나?? 
 		//List<MemberInfoDTO> teamMemberInfoList = scheduleService.selectAllTeamMember(deptAndDay);
 		
 		//같은부서 사람들 중 휴가가 있는 사람의 정보를 DTO로 담는다. 
-//		List<HolidayLogDTO> teamHolidayLogList = scheduleService.selectteamHolidayLogList(deptAndDay);
+		List<HolidayLogDTO> teamHolidayLogList = scheduleService.selectteamHolidayLogList(deptAndDay);
+		System.out.println("teamHolidayLogList : " + teamHolidayLogList);
+		request.setAttribute("teamHolidayLogList", teamHolidayLogList);
 		
-		
-		
-		
+		String path = "/WEB-INF/views/schedule/checkWoringHoursOfTeam.jsp";
+
+		request.getRequestDispatcher(path).forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
