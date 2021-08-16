@@ -34,7 +34,6 @@
 		<result property="deptName" column="DEPT_NAME"/>
 		<result property="jobCode" column="JOB_CODE"/>
 		<result property="jobName" column="JOB_NAME"/>
-		
 		<result property="appWorkType" column="APP_WORK_TYPE"/>
 		<result property="workCode" column="WORK_CODE"/>
 		
@@ -62,7 +61,25 @@
 			<result property="checkInTime" column="CHECK_IN_TIME"/>
 			<result property="checkOutTime" column="CHECK_OUT_TIME"/>
 		</association>
+	</resultMap>
 	
+	<resultMap type="com.qs.www.schedule.model.dto.HolidayLogDTO" id="teamHolidayLogResultMap">
+		<result property="holidayLogNo" column="HOLIDAY_LOG_NO"/>
+		<result property="memberNo" column="MEMBER_NO"/>
+		<result property="logOccurDate" column="LOG_OCCUR_DATE"/>
+		<result property="logNote" column="LOG_NOTE"/>
+		<result property="logType" column="LOG_TYPE"/>
+		<result property="holidayCode" column="HOLIDAY_CODE"/>
+		<result property="holidayDuringDate" column="HOLIDAY_DURING_DATE"/>
+		<result property="ruleCode" column="RULE_CODE"/>
+		<result property="isProducedByRule" column="IS_PRODUCED_BY_RULE"/>
+		
+		<association property="holidayUseInfoDTO" javaType="com.qs.www.schedule.model.dto.HolidayUseInfoDTO">
+			<result property="holidayLogNo" column="HOLIDAY_LOG_NO"/>
+			<result property="holidayStartDay" column="HOLIDAY_START_DAY"/>
+			<result property="holidayEndDay" column="HOLIDAY_END_DAY"/>
+			<result property="holidayReportNo" column="HOLIDAY_REPORT_NO"/>
+		</association>
 	</resultMap>
 	
 	<insert id="applyWorkingSystem" parameterType="com.qs.www.schedule.model.dto.ReportDTO">
@@ -258,25 +275,43 @@
          , A.APP_WORK_TYPE
          , A.WORK_CODE
     <if test="appWorkType == '표준근무제'">
-         , F.*
+         , B.WORK_NAME
+         , B.CHECK_IN_TIME
+         , B.CHECK_OUT_TIME
     </if>
     <if test="appWorkType == '커스텀근무제'">
+         , F.*
          , G.*
-         , H.*
     </if>
       FROM TBL_MEMBER A
       LEFT JOIN TBL_ROLE C ON (A.ROLE_CODE = C.ROLE_CODE)
       LEFT JOIN TBL_DEPARTMENT D ON (A.DEPT_CODE = D.DEPT_CODE)
       LEFT JOIN TBL_JOB E ON (A.JOB_CODE = E.JOB_CODE)
    <if test="appWorkType == '표준근무제'">
-      LEFT JOIN TBL_STANDARD_WORK F ON (A.WORK_CODE = F.WORK_CODE)
+      LEFT JOIN TBL_STANDARD_WORK B ON (A.WORK_CODE = B.WORK_CODE)
    </if>
    <if test="appWorkType == '커스텀근무제'">
-      LEFT JOIN TBL_CUSTOM_WORK G ON (A.WORK_CODE = G.WORK_NO)
-      LEFT JOIN TBL_CUSTOM_WORKTIME H ON (G.WORK_NO = H.WORK_NO)
+      LEFT JOIN TBL_CUSTOM_WORK F ON (A.WORK_CODE = F.WORK_NO)
+      LEFT JOIN TBL_CUSTOM_WORKTIME G ON (F.WORK_NO = G.WORK_NO)
    </if>
     WHERE A.ENT_YN = 'N'
       AND A.DEPT_CODE = #{ myDeptCode }
+   </select>
+   
+   <select id="selectteamHolidayLogList" parameterType="hashmap" resultMap="teamHolidayLogResultMap">
+   SELECT
+          B.HOLIDAY_LOG_NO
+        , B.MEMBER_NO
+        , B.LOG_NOTE
+        , B.HOLIDAY_CODE
+        , C.*
+     FROM TBL_MEMBER A
+     LEFT JOIN TBL_MEMBER_HOLIDAY_LOG B ON (A.MEMBER_NO = B.MEMBER_NO)
+     LEFT JOIN TBL_HOLIDAY_USE_INFO C ON (B.HOLIDAY_LOG_NO = C.HOLIDAY_LOG_NO)
+    WHERE A.ENT_YN = 'N'
+      AND A.DEPT_CODE = #{ myDeptCode }
+      AND B.LOG_TYPE = '사용'
+      AND #{ currentDate } between C.HOLIDAY_START_DAY AND C.HOLIDAY_END_DAY
    </select>
 
 </mapper>
