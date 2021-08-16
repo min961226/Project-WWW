@@ -1,3 +1,4 @@
+<%@page import="com.qs.www.member.model.dto.MemberInfoDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -176,7 +177,7 @@
 	                            <li><a href="${ pageContext.servletContext.contextPath }/mng/board/form/select">서식게시판 관리</a></li>
 	                        </ul>
 	                    </li>
-	                    <li class="submenu" id="submenu_mng_welfare" hidden="false">
+	                    <li class="submenu" id="submenu_mng_welfare">
 	                        <a href="#">
 	                            <span class="icon"><i class="fa fa-shopping-cart" aria-hidden="true"></i></span>
 	                            <span>복지관리</span>
@@ -196,6 +197,10 @@
 	</div>
 	<div class="sidebar-overlay" data-reff=""></div>
 	<script>
+		$(document).ready(function() {
+		});
+		
+		
 		$("#in_time").click(function() {
 			$.ajax({
 				url: "${ pageContext.servletContext.contextPath }/mypage/commute/insert",

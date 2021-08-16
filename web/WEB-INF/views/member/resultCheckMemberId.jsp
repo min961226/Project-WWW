@@ -23,22 +23,20 @@
                             	<img src="${ pageContext.servletContext.contextPath }/assets/img/www_icon.png" alt="">
                             </a>
                         </div>
-                        <form action="${ pageContext.servletContext.contextPath }/member/id/check" method="post">
-                            <div class="form-group form-focus">
-                                <label class="control-label">이름</label>
-                                <input class="form-control floating" type="text" name="name" required>
-                            </div>
-                            <div class="form-group form-focus">
-                                <label class="control-label">E-mail</label>
-                                <input class="form-control floating" type="email" name="email" required>
-                            </div>
-                            <div class="form-group text-center">
-                                <button class="btn btn-primary btn-block account-btn" type="submit">아이디 찾기</button>
-                            </div>
-                            <div class="text-center">
-                                <a href="${ pageContext.servletContext.contextPath }">로그인 화면으로 돌아가기</a>
-                            </div>
-                        </form>
+                        <div class="form-group text-center">
+	                        <div>
+	                            <label class="control-label">${ requestScope.findName } 님의 아이디는</label>
+	                        </div>
+	                        <div class="name">
+	                            <h3><label class="card-box">${ requestScope.findId }</label></h3>
+	                        </div>
+	                        <div>
+	                            <label class="control-label">입니다.</label>
+	                        </div>
+	                        <div class="text-center">
+	                            <button type="button" class="btn btn-primary btn-block account-btn" id="goLogin">로그인 화면으로</button>
+	                        </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -48,5 +46,12 @@
     <script type="text/javascript" src="${ pageContext.servletContext.contextPath }/assets/js/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="${ pageContext.servletContext.contextPath }/assets/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="${ pageContext.servletContext.contextPath }/assets/js/app.js"></script>
+    <script>
+	    const $goLogin = document.getElementById("goLogin");
+		
+		$goLogin.onclick = function() {
+			location.href = "${ pageContext.servletContext.contextPath }";
+		}
+    </script>
 </body>
 </html>

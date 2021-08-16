@@ -89,4 +89,12 @@
          WHERE A.ENT_YN = 'N'
            AND A.MEMBER_ID = #{ memberId }
 	</select>
+	
+	<select id="selectMemberId" parameterType="com.qs.www.member.model.dto.MemberDTO" resultType="java.lang.String">
+        SELECT
+               A.MEMBER_ID
+          FROM TBL_MEMBER A
+         WHERE A.NAME = #{ name }
+           AND A.EMAIL = #{ email }
+	</select>
 </mapper>

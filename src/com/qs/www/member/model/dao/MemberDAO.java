@@ -7,12 +7,15 @@ import com.qs.www.member.model.dto.MemberInfoDTO;
 
 public class MemberDAO {
 
-	public String selectEncryptedPwd(SqlSession session, String memberId) {
-		return session.selectOne("MemberDAO.selectEncryptedPwd", memberId);
+	public String selectEncryptedPwd(SqlSession sqlSession, String memberId) {
+		return sqlSession.selectOne("MemberDAO.selectEncryptedPwd", memberId);
 	}
 
-	public MemberInfoDTO selectLoginMember(SqlSession session, String memberId) {	
-		return session.selectOne("MemberDAO.selectLoginMember", memberId);
+	public MemberInfoDTO selectLoginMember(SqlSession sqlSession, String memberId) {	
+		return sqlSession.selectOne("MemberDAO.selectLoginMember", memberId);
 	}
 
+	public String selectMemberId(SqlSession sqlSession, MemberDTO member) {
+		return sqlSession.selectOne("MemberDAO.selectMemberId", member);
+	}
 }
