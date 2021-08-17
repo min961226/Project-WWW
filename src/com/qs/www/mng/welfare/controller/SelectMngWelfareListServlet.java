@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.qs.www.mng.welfare.model.dto.WelfareYnDTO;
+import com.qs.www.mng.welfare.model.service.MngWelfareService;
 import com.qs.www.welfare.model.service.WelfareService;
 
 @WebServlet("/mng/welfare/list/select")
@@ -17,9 +19,9 @@ public class SelectMngWelfareListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("시행 복지 관리");
 		
-		WelfareService welfareService = new WelfareService();
-		List<String> welfareYn = welfareService.selectWelfareYn();
-		
+		MngWelfareService mngWelfareService = new MngWelfareService();
+		List<WelfareYnDTO> welfareYn = mngWelfareService.selectWelfareYn();
+		System.out.println(welfareYn);
 		request.setAttribute("welfareYn", welfareYn);
 		String path = "/WEB-INF/views/mngwelfare/welfare.jsp"; 
 		request.getRequestDispatcher(path).forward(request, response);
