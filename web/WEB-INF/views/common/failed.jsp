@@ -51,6 +51,11 @@
 					movePath = "${ pageContext.servletContext.contextPath }/approval/applied/select";
 					break;
 					
+				case "callbackWelfare" :
+					failedMessage = "신청 복지 회수에 실패했습니다."
+					movePath = "${ pageContext.servletContext.contextPath }/welfare/applied/list/select";
+					break;
+					
 				case "insertWork" :
 					failedMessage = "근무 신청이 실패했습니다."
 					movePath = "${ pageContext.servletContext.contextPath }";
@@ -100,6 +105,10 @@
 				case "deleteLine" :
 					failedMessage = "결재라인 삭제에 실패헀습니다."
 					movePath = "${ pageContext.servletContext.contextPath }/approval/line/select";
+					break;
+				case "deleteSeminarRoom" :
+					failedMessage = "회의실 예약 삭제를 실패하였습니다."
+					movePath = "${ pageContext.servletContext.contextPath }/welfare/applied/list/seminarRoom/select";
 					break;
 
 

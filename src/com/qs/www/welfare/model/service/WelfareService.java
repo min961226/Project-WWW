@@ -258,4 +258,41 @@ public class WelfareService {
 		return itemName;
 	}
 
+	public List<SeminarRoomReservDTO> selectSeminarRoomByMemberNo(int no) {
+		SqlSession session = getSqlSession();
+
+		List<SeminarRoomReservDTO> seminarRoomList = welfareDAO.selectSeminarRoomByMemberNo(session, no);
+
+		session.close();
+
+		return seminarRoomList;
+	}
+
+	public SeminarRoomReservDTO selectAppliedSeminarRoom(SeminarRoomReservDTO seminarRoomReservDTO) {
+		SqlSession session = getSqlSession();
+
+		SeminarRoomReservDTO seminarRoom = welfareDAO.selectAppliedSeminarRoom(session, seminarRoomReservDTO);
+
+		session.close();
+
+		return seminarRoom;
+	}
+
+	public int deleteAppliedSeminarRoom(SeminarRoomReservDTO seminarRoomReservDTO) {
+		
+		SqlSession session = getSqlSession();
+
+		int deleteAppliedSeminarRoomResult = welfareDAO.deleteAppliedSeminarRoom(session, seminarRoomReservDTO);
+
+		if (deleteAppliedSeminarRoomResult > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+
+		session.close();
+
+		return deleteAppliedSeminarRoomResult;
+	}
+
 }

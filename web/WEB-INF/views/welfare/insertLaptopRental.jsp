@@ -50,7 +50,7 @@
 							<div class="form-group">
 								<label>대여 품목 번호</label> <br> <input name="itemNo"
 									class="form-control" type="text" width="100px"
-									readonly="readonly" value=" ${ requestScope.itemNo }">
+									readonly="readonly" value="${ requestScope.itemNo }">
 							</div>
 							<div class="form-group">
 								<label>대여 품목명</label> <br> <input name="itemName"

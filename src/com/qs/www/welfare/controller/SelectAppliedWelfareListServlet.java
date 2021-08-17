@@ -13,6 +13,8 @@ import javax.servlet.http.HttpSession;
 import com.qs.www.member.model.dto.MemberInfoDTO;
 import com.qs.www.schedule.model.dto.ReportDTO;
 import com.qs.www.schedule.model.service.ScheduleService;
+import com.qs.www.welfare.model.dto.SeminarRoomDTO;
+import com.qs.www.welfare.model.dto.SeminarRoomReservDTO;
 import com.qs.www.welfare.model.service.WelfareService;
 
 @WebServlet("/welfare/applied/list/select")

@@ -126,6 +126,7 @@
 	                        </a>
 	                        <ul class="list-unstyled" style="display: none;">
 	                            <li><a href="${ pageContext.servletContext.contextPath }/welfare/list/select">복지 신청</a></li>
+	                            <li><a href="${ pageContext.servletContext.contextPath }/welfare/applied/list/seminarRoom/select">회의실 예약신청 내역</a></li>
 	                            <li><a href="${ pageContext.servletContext.contextPath }/welfare/applied/list/select">복지 신청 내역</a></li>
 	                        </ul>
 	                    </li>

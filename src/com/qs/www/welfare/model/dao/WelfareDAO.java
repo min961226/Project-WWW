@@ -99,6 +99,18 @@ public class WelfareDAO {
 		return session.selectOne("WelfareDAO.selectItemNameByItemNo",itemNo);
 	}
 
+	public List<SeminarRoomReservDTO> selectSeminarRoomByMemberNo(SqlSession session, int no) {
+		return session.selectList("WelfareDAO.selectSeminarRoomByMemberNo",no);
+	}
+
+	public SeminarRoomReservDTO selectAppliedSeminarRoom(SqlSession session,SeminarRoomReservDTO seminarRoomReservDTO) {
+		return session.selectOne("WelfareDAO.selectAppliedSeminarRoom",seminarRoomReservDTO);
+	}
+
+	public int deleteAppliedSeminarRoom(SqlSession session, SeminarRoomReservDTO seminarRoomReservDTO) {
+		return session.delete("WelfareDAO.deleteAppliedSeminarRoom", seminarRoomReservDTO);
+	}
+
 
 
 

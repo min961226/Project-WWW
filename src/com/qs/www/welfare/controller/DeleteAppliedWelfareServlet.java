@@ -17,6 +17,7 @@ public class DeleteAppliedWelfareServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		int no = Integer.parseInt(request.getParameter("no"));
 		//상신 테이블에서 결재상태를 회수로 변경
 		int result1 =  new ApprovalService().callbackSelectedReport(no);

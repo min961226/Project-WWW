@@ -21,7 +21,7 @@
             
 				<div class="row">
 					<div class="col-xs-8">
-						<h4 class="page-title">복지 신청 현황</h4>
+						<h4 class="page-title">복지 신청 내역</h4>
 					</div>
 					
 					<!-- 복지신청으로 이동하는 버튼 -->
@@ -41,6 +41,7 @@
 								<option>경조사 신청</option>
 								<option>자기개발비 신청</option>
 								<option>기숙사 입주 신청</option>
+								<option>노트북 대여 신청</option>
                             </select>
                         </div>
                     </div>
@@ -84,9 +85,18 @@
                             <table class="table table-striped custom-table m-b-0 datatable">
                             
 								<thead>
+								<tr style="background-color: #ffbc34">
+										<th rowspan="1" ><h4><b>복지 신청 내역</b></h4></th>   
+										<th></th>
+										<th></th>
+										<th></th>
+										<th></th>
+										<th></th>
+										<th></th>
+									</tr>
 									<tr>
 										<!-- 시작일과 종료일도 뜨게 해주고 싶네 -->
-										<th>결재번호</th>
+										<th style="width: 150px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;결재 번호</th>
 										<th>복지 분류</th>
 										<th>신청 복지 제목</th>
 										<th>결재라인</th>
@@ -105,13 +115,13 @@
                                 	-->
                                 	
 									<tr>
-										<td><c:out value="${ welfareList.reportNo }"/></td>
+										<td align="center"><c:out value="${ welfareList.reportNo }"/></td>
 										<td><c:if test="${ welfareList.documentNo eq 7 }"><c:out value="야간교통비 신청"/></c:if>
 											<c:if test="${ welfareList.documentNo eq 8 }"><c:out value="경조사 신청"/></c:if>
 											<c:if test="${ welfareList.documentNo eq 9 }"><c:out value="자기개발비 신청"/></c:if>
 											<c:if test="${ welfareList.documentNo eq 10 }"><c:out value="기숙사 입주 신청"/></c:if>
-											<c:if test="${ welfareList.documentNo eq 11 }"><c:out value="회의실 예약 신청서"/></c:if>
-											<c:if test="${ welfareList.documentNo eq 12 }"><c:out value="노트북 대여 신청서"/></c:if>
+											<c:if test="${ welfareList.documentNo eq 11 }"><c:out value="세미나실 예약 신청"/></c:if>
+											<c:if test="${ welfareList.documentNo eq 12 }"><c:out value="노트북 대여 신청"/></c:if>
 											</td>
 										<td><c:out value="${ welfareList.reportTitle }"/></td>
 										<td><c:out value="${ welfareList.lineName }"/></td>
@@ -171,6 +181,9 @@
                         </div>
                         </div>
                     </div>
+                    <br>
+                    <br>
+                   
                 </div>
             </div>
         </div>
@@ -189,10 +202,10 @@
 				$tds[i].onmouseout = function() {
 					this.parentNode.style.backgroundColor = "white";
 				}
-				
 				$tds[i].onclick = function() {
 					const no = this.parentNode.children[0].innerText;
 					location.href = "${ pageContext.servletContext.contextPath }/welfare/applied/selectOne?no=" + no;
+					
 				}
 				
 			}

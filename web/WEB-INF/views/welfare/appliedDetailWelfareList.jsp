@@ -38,10 +38,11 @@
 									<label>복지 분류</label>
 									<div class="col-md-12">
 										<input class="form-control"
-											value=<c:if test="${ requestScope.selectedReport.documentNo eq 7 }">"야간교통비 신청서"</c:if>
-											<c:if test="${ requestScope.selectedReport.documentNo eq 8 }">"경조사 신청서"</c:if>
-											<c:if test="${ requestScope.selectedReport.documentNo eq 9 }">"자기개발비 신청서"</c:if>
-											<c:if test="${ requestScope.selectedReport.documentNo eq 10 }">"기숙사 입주 신청서"</c:if>
+											value=<c:if test="${ requestScope.selectedReport.documentNo eq 7 }">"야간교통비 신청"</c:if>
+											<c:if test="${ requestScope.selectedReport.documentNo eq 8 }">"경조사 신청"</c:if>
+											<c:if test="${ requestScope.selectedReport.documentNo eq 9 }">"자기개발비 신청"</c:if>
+											<c:if test="${ requestScope.selectedReport.documentNo eq 10 }">"기숙사 입주 신청"</c:if>
+											<c:if test="${ requestScope.selectedReport.documentNo eq 12 }">"노트북 대여 신청"</c:if>
 											disabled />
 									</div>
 								</div>
@@ -76,14 +77,9 @@
 							</div>
 
 							<div class="form-group">
-								<div class="col-sm-6">
-									<label>첨부서류</label>
-									<div class="col-md-12">
-										<input class="form-control" type="file">
-									</div>
-								</div>
 
-								<div class="col-sm-6">
+
+								<div class="col-sm-12">
 									<label>보존기간</label>
 									<div class="col-md-12">
 										<input class="form-control"
@@ -91,7 +87,7 @@
 									</div>
 								</div>
 							</div>
-							
+
 							<c:set var="no"
 								value="${ requestScope.selectedReport.documentNo }" />
 							<c:if test="${ no eq 7 }">
@@ -114,7 +110,12 @@
 										</div>
 									</div>
 								</div>
-
+								<div class="col-sm-6">
+									<label>첨부서류</label>
+									<div class="col-md-12">
+										<input class="form-control" type="file">
+									</div>
+								</div>
 
 								<!-- 흠 이건 id가 달린 div인데, 뭐가 다른지 궁금하네 -->
 								<div id="area3" class="form-group"></div>
@@ -160,20 +161,27 @@
 								</div>
 
 								<div class="form-group">
-									<div class="col-sm-12">
+									<div class="col-sm-6">
 										<label>장소</label>
 										<div class="col-lg-12">
 											<input class="form-control"
 												value="${ requestScope.eventPlace }" disabled />
 										</div>
 									</div>
+									<div class="col-sm-6">
+									<label>첨부서류</label>
+									<div class="col-md-12">
+										<input class="form-control" type="file">
+									</div>
+								</div>
 								</div>
 
 								<!-- 흠 이건 id가 달린 div인데, 뭐가 다른지 궁금하네 -->
 								<div id="area3" class="form-group"></div>
 							</c:if>
 
-							<c:if test="${ no eq 9 }">		<%--자기개발비 신청 내역 --%>
+							<c:if test="${ no eq 9 }">
+								<%--자기개발비 신청 내역 --%>
 								<div class="form-group">
 
 									<!-- 유형코드도 c:if로 해서 한글로 표시되도록 하고싶다 -->
@@ -203,13 +211,18 @@
 										</div>
 									</div>
 								</div>
-
+								<div class="col-sm-6">
+									<label>첨부서류</label>
+									<div class="col-md-12">
+										<input class="form-control" type="file">
+									</div>
+								</div>
 							</c:if>
-							
-							<c:if test="${ no eq 10 }">		<%--자기개발비 신청 내역 --%>
+
+							<c:if test="${ no eq 10 }">
+								<%--기숙사 신청 내역 --%>
 								<div class="form-group">
 
-									<!-- 유형코드도 c:if로 해서 한글로 표시되도록 하고싶다 -->
 									<div class="col-sm-6">
 										<label>현 거주지</label>
 										<div class="col-md-12">
@@ -228,51 +241,29 @@
 								</div>
 							</c:if>
 
-							<c:if test="${ no eq 5 }">
-								<div id="area3" class="form-group">
+							<c:if test="${ no eq 12 }">
+								<%--노트북 대여 신청 내역 --%>
+								<div class="form-group">
+
 
 									<div class="col-sm-6">
-										<label>시작일</label>
+										<label>대여 품목 번호</label>
 										<div class="col-md-12">
-											<input class="form-control"
-												value="${ requestScope.startDate }" disabled />
-										</div>
-									</div>
-
-									<div class="col-sm-6">
-										<label>시작시간</label>
-										<div class="col-md-12">
-											<input class="form-control"
-												value="${ requestScope.startDateTime }" disabled />
-										</div>
-									</div>
-
-									<div class="col-sm-6">
-										<label>종료일</label>
-										<div class="col-md-12">
-											<input class="form-control" value="${ requestScope.endDate }"
+											<input class="form-control" value="${ requestScope.itemNo }"
 												disabled />
 										</div>
 									</div>
-
 									<div class="col-sm-6">
-										<label>종료시간</label>
+										<label>반납일</label>
 										<div class="col-md-12">
 											<input class="form-control"
-												value="${ requestScope.endDateTime }" disabled />
+												value="${ requestScope.returnDate }" disabled />
 										</div>
 									</div>
-
-									<div class="col-sm-6">
-										<label>초과근무 기간시수</label>
-										<div class="col-md-12">
-											<input class="form-control"
-												value="${ requestScope.overtimeDuring }" disabled />
-										</div>
-									</div>
-
 								</div>
 							</c:if>
+
+
 
 
 
@@ -280,7 +271,8 @@
 								<div class="col-sm-12">
 									<label>신청사유</label>
 									<div class="col-lg-12">
-										<textarea name="note" rows="5" cols="5" class="form-control" disabled>${ requestScope.reason }</textarea>
+										<textarea name="note" rows="5" cols="5" class="form-control"
+											disabled>${ requestScope.reason }</textarea>
 									</div>
 								</div>
 							</div>
