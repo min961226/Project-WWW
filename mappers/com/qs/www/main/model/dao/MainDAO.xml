@@ -8,6 +8,8 @@
 		<result property="day" column="DAY"/>
 		<result property="inTime" column="IN_TIME"/>
 		<result property="outTime" column="OUT_TIME"/>
+		<result property="lateYn" column="LATE_YN"/>
+		<result property="leaveEarlyYn" column="LEAVE_EARLY_YN"/>
 	</resultMap>
 	
 	<resultMap type="com.qs.www.main.model.dto.WorkingLogDTO" id="workingLogResultMap">
@@ -32,6 +34,8 @@
              , A.DAY
              , A.IN_TIME
              , A.OUT_TIME
+             , A.LATE_YN
+             , A.LEAVE_EARLY_YN
           FROM TBL_COMMUTE A
          WHERE A.MEMBER_NO = #{ memberNo }
            AND (A.YEAR_MONTH || '-' || A.DAY) BETWEEN #{ weekStartDate } AND #{ weekEndDate }

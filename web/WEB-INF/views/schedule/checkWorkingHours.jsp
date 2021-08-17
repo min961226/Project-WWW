@@ -95,6 +95,8 @@
                             	 
                                 <c:set var="thisMonthLastDate" value="${ requestScope.thisMonthLastDate }" scope="request"/>
                                 
+                                <div><c:out value="${ requestScope.commutingLogMontlyList }"/>
+	                    		</div>
                                 <!-- 월별시간 -->
                                 <table class="table table-striped">
                                 	<thead>
@@ -138,6 +140,7 @@
                                             	<td><div style="font-size : 8px">
                                             		<c:out value="${ monthlyinCommutingLog.inTime }"/></div></td>
                                             </c:forEach>
+                                            
                                             
                                             <%-- <c:forEach var="dates" items="${ requestScope.dayList }">
                                             	

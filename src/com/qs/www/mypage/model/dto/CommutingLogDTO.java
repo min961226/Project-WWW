@@ -10,10 +10,15 @@ public class CommutingLogDTO implements Serializable {
 	private String day;
 	private String inTime;
 	private String outTime;
+	private String lateYn;
+	private String leaveEarlyYn;
+	
+	private String dayOfWeek;
 	
 	public CommutingLogDTO() {}
 
-	public CommutingLogDTO(int commuteNo, int memberNo, String yearMonth, String day, String inTime, String outTime) {
+	public CommutingLogDTO(int commuteNo, int memberNo, String yearMonth, String day, String inTime, String outTime,
+			String lateYn, String leaveEarlyYn, String dayOfWeek) {
 		super();
 		this.commuteNo = commuteNo;
 		this.memberNo = memberNo;
@@ -21,6 +26,9 @@ public class CommutingLogDTO implements Serializable {
 		this.day = day;
 		this.inTime = inTime;
 		this.outTime = outTime;
+		this.lateYn = lateYn;
+		this.leaveEarlyYn = leaveEarlyYn;
+		this.dayOfWeek = dayOfWeek;
 	}
 
 	public int getCommuteNo() {
@@ -71,9 +79,38 @@ public class CommutingLogDTO implements Serializable {
 		this.outTime = outTime;
 	}
 
+	public String getLateYn() {
+		return lateYn;
+	}
+
+	public void setLateYn(String lateYn) {
+		this.lateYn = lateYn;
+	}
+
+	public String getLeaveEarlyYn() {
+		return leaveEarlyYn;
+	}
+
+	public void setLeaveEarlyYn(String leaveEarlyYn) {
+		this.leaveEarlyYn = leaveEarlyYn;
+	}
+
+	public String getDayOfWeek() {
+		return dayOfWeek;
+	}
+
+	public void setDayOfWeek(String dayOfWeek) {
+		this.dayOfWeek = dayOfWeek;
+	}
+
 	@Override
 	public String toString() {
 		return "CommutingLogDTO [commuteNo=" + commuteNo + ", memberNo=" + memberNo + ", yearMonth=" + yearMonth
-				+ ", day=" + day + ", inTime=" + inTime + ", outTime=" + outTime + "]";
+				+ ", day=" + day + ", inTime=" + inTime + ", outTime=" + outTime + ", lateYn=" + lateYn
+				+ ", leaveEarlyYn=" + leaveEarlyYn + ", dayOfWeek=" + dayOfWeek + "]";
 	}
+
+	
+
+	
 }
