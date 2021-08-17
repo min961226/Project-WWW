@@ -166,9 +166,10 @@
         SELECT /* com.qs.www.board.model.dao.FreeDAO#selectAllCount() */
                COUNT(*)
           FROM TBL_BOARD A
+          LEFT JOIN TBL_MEMBER D ON(A.MEMBER_NO = D.MEMBER_NO)
     	<where>
 			<if test="searchCondition == 'name'">
-	           B.NAME LIKE '%' || #{ searchValue } || '%'	
+	           D.NAME LIKE '%' || #{ searchValue } || '%'	
 			</if>
 			<if test="searchCondition == 'title'">
 	           A.BOARD_TITLE LIKE '%' || #{ searchValue } || '%' 	
@@ -178,6 +179,7 @@
 			</if>
 			AND A.DELETE_YN = 'N'
             AND A.BOARD_TYPE = '자유'
+            
     	</where>
 	</select>
 	

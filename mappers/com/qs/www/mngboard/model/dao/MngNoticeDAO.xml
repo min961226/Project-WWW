@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="NoticeDAO">
-	<resultMap type="com.qs.www.board.model.dto.NoticeDTO" id="noticeResultMap">
+<mapper namespace="MngNoticeDAO">
+	<resultMap type="com.qs.www.mng.board.model.dto.MngNoticeDTO" id="mngnoticeResultMap">
 		<id property="no" column="BOARD_NO"/>
 		<result property="title" column="BOARD_TITLE"/>
 		<result property="member" column="MEMBER_NO"/>
@@ -17,8 +17,8 @@
 		
 	</resultMap>
 	
-	<select id="selectAllNoticeList" resultMap="noticeResultMap">
-        SELECT /* com.qs.www.board.model.dao.NoticeDAO#selectAllNoticeList() */
+		<select id="selectAllMngNoticeList" resultMap="mngnoticeResultMap">
+        SELECT /* com.qs.www.mng.board.model.dao.MngNoticeDAO#selectAllMngNoticeList() */
                A.BOARD_NO
              , A.BOARD_TITLE
              , A.MEMBER_NO
@@ -32,8 +32,8 @@
          WHERE A.BOARD_TYPE = '공지'
 	</select>
 	
-	<update id="incrementNoticeCount">
-        UPDATE /* com.qs.www.board.model.dao.NoticeDAO#incrementNoticeCount() */
+	<update id="incrementMngNoticeCount">
+        UPDATE /* com.qs.www.mng.board.model.dao.MngNoticeDAO#incrementMngNoticeCount() */
                TBL_BOARD A
            SET A.BOARD_COUNT = (SELECT B.BOARD_COUNT
                                    FROM TBL_BOARD B
@@ -42,7 +42,7 @@
          WHERE A.BOARD_NO = #{ no }
 	</update>
 	
-	<select id="selectNoticeDetail" resultMap="noticeResultMap" parameterType="_int">
+	<select id="selectMngNoticeDetail" resultMap="mngnoticeResultMap" parameterType="_int">
        SELECT
                A.BOARD_NO
              , A.BOARD_TITLE
@@ -60,7 +60,7 @@
     </select>
     
     <select id="selectAllCount" resultType="_int" parameterType="hashmap">
-        SELECT /* com.qs.www.board.model.dao.NoticeDAO#selectAllCount() */
+        SELECT /* com.qs.www.mng.board.model.dao.MngNoticeDAO#selectAllCount() */
                COUNT(*)
           FROM TBL_BOARD A
           LEFT JOIN TBL_MEMBER D ON(A.MEMBER_NO = D.MEMBER_NO)
@@ -79,7 +79,7 @@
     	</where>
 	</select>
 	
-		<select id="selectBoardList" resultMap="noticeResultMap">
+	<select id="selectBoardList" resultMap="mngnoticeResultMap">
          SELECT 
                 C.RNUM
         	  , C.BOARD_NO
@@ -136,5 +136,5 @@
                ) C
          WHERE C.RNUM >= #{ startRow }     
 	</select>
-
+	
 </mapper>

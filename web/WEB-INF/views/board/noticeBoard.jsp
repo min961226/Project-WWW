@@ -25,7 +25,7 @@
                 
                 <!-- 검색 시작 -->
                 <div class="search-area" align="right">
-             		<form id="loginForm" action="${ pageContext.servletContext.contextPath }/board/free/select" method="get" style="display:inline-block">		
+             		<form id="loginForm" action="${ pageContext.servletContext.contextPath }/board/notice/select" method="get" style="display:inline-block">		
 			    		<input type="hidden" name="currentPage" value="1">
 						<select id="searchCondition" name="searchCondition">
 							
