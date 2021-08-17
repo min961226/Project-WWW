@@ -1,4 +1,4 @@
-package com.qs.www.welfare.controller;
+ackage com.qs.www.welfare.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;

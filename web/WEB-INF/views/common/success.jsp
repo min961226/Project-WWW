@@ -37,6 +37,11 @@
 					movePath = "${ pageContext.servletContext.contextPath }/approval/applied/select";
 					break;
 					
+				case "callbackWelfare" :
+					successMessage = "신청 복지 회수가 완료되었습니다."
+					movePath = "${ pageContext.servletContext.contextPath }/welfare/applied/list/select";
+					break;
+					
 				case "insertWork" :
 					successMessage = "근무신청이 상신되었습니다."
 					movePath = "${ pageContext.servletContext.contextPath }/schedule/workingSystem/insert";
@@ -76,6 +81,7 @@
 					successMessage = "기숙사 입주 신청이 완료되었습니다."
 					movePath = "${ pageContext.servletContext.contextPath }/welfare/list/select";
 					break;
+					
 				case "insertSeminarRoom" :
 					successMessage = "세미나실 대여신청이 완료되었습니다."
 					movePath = "${ pageContext.servletContext.contextPath }/welfare/list/select";
@@ -92,6 +98,10 @@
 					successMessage = "결재라인을 삭제하였습니다."
 					movePath = "${ pageContext.servletContext.contextPath }/approval/line/select";
 					break;
+				case "deleteSeminarRoom" :
+					successMessage = "회의실 예약을 삭제하였습니다."
+					movePath = "${ pageContext.servletContext.contextPath }/welfare/applied/list/seminarRoom/select";
+					break;
 				case "updateAppLine" :
 					successMessage = "결재라인을 수정하였습니다."
 					movePath = "${ pageContext.servletContext.contextPath }/approval/line/selectOne?no=${ requestScope.lineNo  }";					
@@ -100,7 +110,7 @@
 					successMessage = "게시글을 삭제하였습니다."
 					movePath = "${ pageContext.servletContext.contextPath }/board/free/select";
 					break;
-					
+				
 
 			}
 

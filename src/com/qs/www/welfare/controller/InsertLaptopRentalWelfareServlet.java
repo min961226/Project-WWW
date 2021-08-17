@@ -27,7 +27,7 @@ public class InsertLaptopRentalWelfareServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String welfareTitle = "노트북 대여 신청서"; // 결재 제목
-		int documentNo = 10; // 야간 교통비 신청 문서 번호
+		int documentNo = 12; // 노트북 대여 신청 문서 번호
 		
 		WelfareService welfareService = new WelfareService();
 		int lineNo = Integer.parseInt(request.getParameter("lineList"));

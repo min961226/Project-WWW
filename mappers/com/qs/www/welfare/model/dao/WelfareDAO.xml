@@ -204,6 +204,19 @@
 		  FROM TBL_MEETING_ROOM A
 	</select>
 	
+	<select id="selectSeminarRoomByMemberNo" resultMap="seminarRoomReservResultMap">
+		SELECT /* com.qs.www.welfare.model.dao.WelfareDAO#selectSeminarRoomByMemberNo() */
+			   LOG.MEETING_ROOM_NO
+			 , LOG.USE_DATE
+			 , LOG.RESERV_TIME_NO
+			 , TIME.RESERV_TIME
+			 , LOG.SEMINAR_INFO
+		  FROM TBL_MEETING_ROOM_LOG LOG, TBL_MEETING_ROOM_TIME TIME
+		 WHERE LOG.RESERV_TIME_NO = TIME.RESERV_NO
+		   AND LOG.MEMBER_NO = #{ no }
+	     ORDER BY LOG.USE_DATE DESC
+	</select>
+	
 	<select id= "selectSeminarRoomReserv" resultMap="seminarRoomReservResultMap">
 		SELECT /* com.qs.www.welfare.model.dao.WelfareDAO#selectSeminarRoomReserv() */
 			   LOG.MEETING_ROOM_NO
@@ -270,5 +283,22 @@
 		 WHERE A.DELETE_YN = 'N'
 		   AND A.ITEM_NO = #{ itemNo }
 	</select>
+	
+	<select id= "selectAppliedSeminarRoom" resultMap="seminarRoomReservResultMap">
+		SELECT /* com.qs.www.welfare.model.dao.WelfareDAO#selectAppliedSeminarRoom() */
+			   A.*
+		  FROM TBL_MEETING_ROOM_LOG A
+		 WHERE A.MEETING_ROOM_NO = #{ meetingRoomNo }
+		   AND A.USE_DATE = #{ useDate }
+		   AND A.RESERV_TIME_NO = #{ reservNo }
+	</select>
+	
+	<delete id="deleteAppliedSeminarRoom" parameterType="com.qs.www.welfare.model.dto.SeminarReservTimeDTO">
+		DELETE
+		  FROM TBL_MEETING_ROOM_LOG A
+		 WHERE A.MEETING_ROOM_NO = #{ meetingRoomNo }
+		   AND A.USE_DATE = #{ useDate }
+		   AND A.RESERV_TIME_NO = #{ reservNo }
+	</delete>
 	
 </mapper>

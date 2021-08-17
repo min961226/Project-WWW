@@ -184,11 +184,7 @@
                                         <button type="reset" class="btn btn-primary btn-lg" id="goBack">돌아가기</button>
                                     </div>
                                 </div>
-								
 							</form>
-						
-						
-						
 					</div>
 				</div>
 			</div>
