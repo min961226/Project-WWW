@@ -35,7 +35,7 @@
 						</select>
 						<input type="search" id="searchValue" name="searchValue" value="<c:out value="${ requestScope.selectCriteria.searchValue }"/>">
 					<button type="submit" >검색하기</button>
-					<button type="button" id="writeFree">작성하기</button>
+					<!-- <button type="button" id="writeFree">작성하기</button> -->
 					</form>
 				</div>
 			
@@ -67,9 +67,12 @@
 	                            
 	                            		<%-- 페이지 처리 --%>
 								<jsp:include page="../common/paging.jsp"/>
-	                            
-		                        
-
+	                           
+	                          	 <div class="search-area" align="left">
+			             		<form id="loginForm" action="${ pageContext.servletContext.contextPath }/board/free/select" method="get" style="display:inline-block">							
+								<button type="button" id="writeFree">작성하기</button>
+								</form>
+								</div>  		                      
                             </div>
                         </div>
                     </div>
@@ -77,6 +80,7 @@
             </div>
         </div>
     </div>
+                    
    	<script>
 		if(document.getElementsByTagName("td")) {
 			const $tds = document.getElementsByTagName("td");

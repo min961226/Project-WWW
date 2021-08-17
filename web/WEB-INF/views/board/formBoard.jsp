@@ -53,7 +53,7 @@
 	                                        <th>수정 날짜</th>
 	                                    </tr>
 	                                </thead>
-	                                <c:forEach var="board" items="${ requestScope.noticeList }">
+	                                <c:forEach var="board" items="${ requestScope.formList }">
 										<tr>
 											<td><c:out value="${ board.no }"/></td>
 											<td><c:out value="${ board.title }"/></td>

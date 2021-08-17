@@ -110,21 +110,27 @@
            AND A.EMAIL = #{ email }
 	</select>
 	
+	<select id="selectQuestionCode" parameterType="java.lang.String" resultType="java.lang.String">
+        SELECT /* com.qs.www.member.model.dao.MemberDAO#selectQuestionCode() */
+               A.QUESTION_CODE
+          FROM TBL_CHECK_QUESTION A
+         WHERE A.QUESTION_BODY = #{ questionBody }
+	</select>
+	
 	<select id="selectMemberPwd" parameterType="com.qs.www.member.model.dto.CheckPwdDTO" resultMap="checkPwdResultMap">
         SELECT /* com.qs.www.member.model.dao.MemberDAO#selectMemberPwd() */
                A.MEMBER_ID
              , A.NAME
              , A.EMAIL
-             , A.QUESTION_CODE
              , B.QUESTION_BODY
              , A.QUESTION_ANSWER
           FROM TBL_MEMBER A
-          LEFT JOIN TBL_CHECK_QUESTION B ON (A.QUESTION_CODE = B.QUESTION_CODE)
+          LEFT JOIN TBL_CHECK_QUESTION B ON (A.QUESTION_CODE = B.QUESTION_CODE) 
          WHERE A.ENT_YN = 'N'
            AND A.MEMBER_ID = #{ memberId }
            AND A.NAME = #{ name }
            AND A.EMAIL = #{ email }
-           AND B.QUESTION_CODE = #{ question.questionCode }
+           AND A.QUESTION_CODE = #{ question.questionCode }
            AND A.QUESTION_ANSWER = #{ questionAnswer }
 	</select>
 </mapper>

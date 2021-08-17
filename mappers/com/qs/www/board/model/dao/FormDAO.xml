@@ -29,7 +29,7 @@
              , A.CREATED_DATE
              , A.MODIFIED_DATE
          FROM TBL_BOARD A
-         WHERE A.BOARD_TYPE = '문서'
+         WHERE A.BOARD_TYPE = '문서서식'
 
          
 	</select>
@@ -76,7 +76,7 @@
 	           A.BOARD_BODY LIKE '%' || #{ searchValue } || '%' 	
 			</if>
 			AND A.DELETE_YN = 'N'
-            AND A.BOARD_TYPE = '공지'
+            AND A.BOARD_TYPE = '문서서식'
     	</where>
 	</select>
 	
@@ -127,7 +127,7 @@
 	           				   A.BOARD_BODY LIKE '%' || #{ searchValue } || '%' 	
 							</if>
 	       				   AND A.DELETE_YN = 'N'
-	       				   AND A.BOARD_TYPE = '문서'
+	       				   AND A.BOARD_TYPE = '문서서식'
     					</where>
                          ORDER BY A.BOARD_NO DESC
                         ) B

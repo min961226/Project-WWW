@@ -94,8 +94,13 @@
 					break;
 				case "updateAppLine" :
 					successMessage = "결재라인을 수정하였습니다."
-					movePath = "${ pageContext.servletContext.contextPath }/approval/line/selectOne?no=${ requestScope.lineNo  }";
+					movePath = "${ pageContext.servletContext.contextPath }/approval/line/selectOne?no=${ requestScope.lineNo  }";					
+          break;
+				case "deleteFree" :
+					successMessage = "게시글을 삭제하였습니다."
+					movePath = "${ pageContext.servletContext.contextPath }/board/free/select";
 					break;
+					
 
 			}
 
