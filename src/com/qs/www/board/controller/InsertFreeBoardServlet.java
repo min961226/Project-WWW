@@ -31,7 +31,7 @@ public class InsertFreeBoardServlet extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		int memberNo = ((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo();
-		String type = "문서";
+		String type = "자유";
 		String title = (String)request.getParameter("title");
 		String body = (String)request.getParameter("body");
 		

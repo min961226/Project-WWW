@@ -71,7 +71,7 @@
 				<div class="row">
                 	<div class="col-sm-12 text-center m-t-20">
                 		<button class="btn btn-primary btn-lg" onclick="location.href='${ pageContext.servletContext.contextPath }/board/free/update?no=${ requestScope.free.no }'">수정하기</button>
-                        <button type="reset" class="btn btn-primary btn-lg" >삭제</button>
+                        <button class="btn btn-primary btn-lg" onclick="location.href='${ pageContext.servletContext.contextPath }/board/free/delete?no=${ requestScope.free.no  }'">삭제하기</button>
 	                    <button type="reset" class="btn btn-primary btn-lg" id="goBack"> 돌아가기 </button>
                     </div>
 	            </div>

@@ -129,6 +129,11 @@ public class ApprovalDAO {
 		return session.delete("ApprovalDAO.deleteApprover",lineNo);
 	}
 
+	public int updateLine(SqlSession session, ApprovalLineDTO line) {
+		
+		return session.update("ApprovalDAO.updateLine", line);
+	}
+
 
 	
 

@@ -67,8 +67,7 @@
 								
 								<div class="row">
                                     <div class="col-sm-12 text-center m-t-20">
-                                        
-                                        <button type="submit" class="btn btn-primary btn-lg" hide> 수정하기 </button>
+                                        <button class="btn btn-primary btn-lg" onclick="location.href='${ pageContext.servletContext.contextPath }/approval/line/update?no=${ requestScope.line.lineNo  }'">수정하기</button>
                                         <button class="btn btn-primary btn-lg" onclick="location.href='${ pageContext.servletContext.contextPath }/approval/line/delete?no=${ requestScope.line.lineNo  }'">삭제하기</button>
                                         <button type="reset" class="btn btn-primary btn-lg" id="goBack">돌아가기</button>
                                     </div>

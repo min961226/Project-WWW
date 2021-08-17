@@ -102,5 +102,22 @@ public class FreeService {
 		
 		return count;
 	}
+	public int deleteFree(int no) {
+		SqlSession session = getSqlSession();
+
+		int result1 = freeDAO.deleteFree(session,no);
+		int result = 0;
+		if(result1 > 0) {
+			result = 1;
+			session.commit();
+		} else {
+			session.rollback();
+		}
+		session.close();
+
+		return result;
+	}
+
+
 
 }

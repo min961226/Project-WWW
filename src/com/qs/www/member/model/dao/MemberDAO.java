@@ -19,8 +19,12 @@ public class MemberDAO {
 	public String selectMemberId(SqlSession sqlSession, MemberDTO member) {
 		return sqlSession.selectOne("MemberDAO.selectMemberId", member);
 	}
+	
+	public String selectQuestionCode(SqlSession sqlSession, String questionBody) {
+		return sqlSession.selectOne("MemberDAO.selectQuestionCode", questionBody);
+	}
 
 	public CheckPwdDTO selectMemberPwd(SqlSession sqlSession, CheckPwdDTO checkPwd) {
-		return sqlSession.selectOne("MemberDAO.selectMemberPwd");
+		return sqlSession.selectOne("MemberDAO.selectMemberPwd", checkPwd);
 	}
 }

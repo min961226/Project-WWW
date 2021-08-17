@@ -42,12 +42,6 @@
                                             <td>오늘 퇴근 체크</td>
                                             <td colspan=2><c:out value="${ requestScope.checkedOutToday }"/></td>
                                         </tr>
-                                        <tr>
-                                            <td>연 누적 지각</td>
-                                            <td colspan=2>받아와야 할까...?</td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
                                         
                                     </tbody>
                                 </table>
@@ -94,7 +88,7 @@
                             	<!-- 전월로 이동버튼 추가 -->
                             	<button id="startPage"><</button>
                             	<!-- 연도와 날짜도 받아야 함 -->
-                                <h5 class="text-bold card-title">2021년 8월 -- 이것도 수정해야 함</h5>
+                                <h5 class="text-bold card-title"><c:out value="${ requestScope.thisYear }년  ${ requestScope.thisMonth }월 "/></h5>
                                 <!-- 다음달로 이동버튼 추가-->
                                 <button id="maxPage">></button>
                                 </div>
