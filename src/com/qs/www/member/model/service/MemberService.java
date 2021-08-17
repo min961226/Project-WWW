@@ -57,7 +57,7 @@ public class MemberService {
 		
 		String questionBody = checkPwd.getQuestion().getQuestionBody();
 		String questionCode = memberDAO.selectQuestionCode(sqlSession, questionBody);
-		
+		System.out.println("Code : " + questionCode);
 		int result = 0;
 		
 		if(questionCode != null) {

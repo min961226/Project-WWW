@@ -44,8 +44,18 @@ public class CheckMemberPwdServlet extends HttpServlet {
 		
 		MemberService memberService = new MemberService();
 		int result = memberService.checkMemberPwd(checkPwd);
+		String path = "";
 		
-		System.out.println(result);
-		
+		if(result > 0) {
+			path = "/WEB-INF/views/member/updateMemberPwd.jsp";
+			request.setAttribute("memberId", memberId);
+			
+			request.getRequestDispatcher(path).forward(request, response);
+		} else {
+			path = "/WEB-INF/views/common/failed.jsp";
+			request.setAttribute("failedCode", "checkPwd");
+			
+			request.getRequestDispatcher(path).forward(request, response);
+		}
 	}
 }
