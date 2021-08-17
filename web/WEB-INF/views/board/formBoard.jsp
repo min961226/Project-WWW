@@ -96,10 +96,6 @@
 					location.href = "${ pageContext.servletContext.contextPath }/board/form/selectOne?no=" + no;
 				}
 				
-				const $goBack = document.getElementById("writeFree");
-		    	$goBack.onclick = function() {
-		    		location.href = "${ pageContext.servletContext.contextPath }/board/notice/insert"
-		    	}
 				
 			}
 			

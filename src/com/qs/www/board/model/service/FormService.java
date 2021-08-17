@@ -1,13 +1,12 @@
 package com.qs.www.board.model.service;
 
-import java.util.List;
+import java.util.List; 
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
 import com.qs.www.board.model.dao.FormDAO;
 import com.qs.www.board.model.dto.FormDTO;
-import com.qs.www.board.model.dto.FreeDTO;
 import com.qs.www.common.paging.SelectCriteria;
 
 import static com.qs.www.common.mybatis.Template.getSqlSession;
@@ -35,7 +34,7 @@ public class FormService {
 	}
 	public FormDTO selectFormDetail(int no) {
 		SqlSession session = getSqlSession();
-		FormDTO formDetail = null;
+		FormDTO formDetail = new FormDTO();
 		
 		int result = formDAO.incrementFormCount(session, no);
 		

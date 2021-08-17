@@ -1,6 +1,6 @@
 package com.qs.www.board.model.dao;
 
-import java.util.List;
+import java.util.List; 
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -13,7 +13,7 @@ public class FormDAO {
 	public List<FormDTO> selectAllFormList(SqlSession session, SelectCriteria selectCriteria) {
 		
 		
-		return session.selectList("FormDAO.selectAllFormList");
+		return session.selectList("FormDAO.selectBoardList", selectCriteria);
 	}
 
 	public int incrementFormCount(SqlSession session, int no) {

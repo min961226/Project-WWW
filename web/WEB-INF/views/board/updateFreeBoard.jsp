@@ -92,7 +92,7 @@
 
 		const $goBack = document.getElementById("goBack");
 		$goBack.onclick = function() {
-			location.href = "${ pageContext.servletContext.contextPath }/board/free/selectOne"
+			location.href = "${ pageContext.servletContext.contextPath }/board/free/select"
 		}
 
 		/*     	const $goBack = document.getElementById("update");

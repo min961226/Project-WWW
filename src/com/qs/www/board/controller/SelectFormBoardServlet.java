@@ -1,6 +1,6 @@
 package com.qs.www.board.controller;
 
-import java.io.IOException;
+import java.io.IOException; 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,9 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.qs.www.board.model.dto.FormDTO;
-import com.qs.www.board.model.dto.NoticeDTO;
 import com.qs.www.board.model.service.FormService;
-import com.qs.www.board.model.service.NoticeService;
 import com.qs.www.common.paging.Pagenation;
 import com.qs.www.common.paging.SelectCriteria;
 

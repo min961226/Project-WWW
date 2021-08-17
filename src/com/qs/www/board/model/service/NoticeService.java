@@ -1,12 +1,11 @@
 package com.qs.www.board.model.service;
 
-import java.util.List;
+import java.util.List; 
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
 import com.qs.www.board.model.dao.NoticeDAO;
-import com.qs.www.board.model.dto.FreeDTO;
 import com.qs.www.board.model.dto.NoticeDTO;
 import com.qs.www.common.paging.SelectCriteria;
 
