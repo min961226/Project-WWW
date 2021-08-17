@@ -28,8 +28,7 @@
 
 
 						<form class="form-horizontal"
-							action="${ pageContext.servletContext.contextPath }/mng/welfare/applied/list/delete?no=${ requestScope.selectedReport.reportNo }"
-							method="post">
+							action="${ pageContext.servletContext.contextPath }/mng/welfare/applied/list/delete?no=${ requestScope.selectedReport.reportNo }" method="post" onsubmit="return askAgain();">
 
 
 
@@ -318,6 +317,19 @@
 		$goBack.onclick = function() {
 			location.href = "${ pageContext.servletContext.contextPath }/mng/welfare/applied/select"
 		}
+		
+		function askAgain(){
+
+            var yn;
+            yn = confirm('신청된 결재를 회수하시겠습니까?');
+
+            if(yn == true){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
 	</script>
 </body>
 
