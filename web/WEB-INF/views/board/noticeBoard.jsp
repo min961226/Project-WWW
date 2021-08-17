@@ -25,7 +25,7 @@
                 
                 <!-- 검색 시작 -->
                 <div class="search-area" align="right">
-             		<form id="loginForm" action="${ pageContext.servletContext.contextPath }/board/notice/select" method="get" style="display:inline-block">		
+             		<form id="loginForm" action="${ pageContext.servletContext.contextPath }/board/free/select" method="get" style="display:inline-block">		
 			    		<input type="hidden" name="currentPage" value="1">
 						<select id="searchCondition" name="searchCondition">
 							
@@ -35,6 +35,7 @@
 						</select>
 						<input type="search" id="searchValue" name="searchValue" value="<c:out value="${ requestScope.selectCriteria.searchValue }"/>">
 					<button type="submit" >검색하기</button>
+					<!-- <button type="button" id="writeFree">작성하기</button> -->
 					</form>
 				</div>
 			
@@ -66,9 +67,8 @@
 	                            
 	                            		<%-- 페이지 처리 --%>
 								<jsp:include page="../common/paging.jsp"/>
-	                            
-		                        
-
+	                           
+ 		                      
                             </div>
                         </div>
                     </div>
@@ -76,6 +76,7 @@
             </div>
         </div>
     </div>
+                    
    	<script>
 		if(document.getElementsByTagName("td")) {
 			const $tds = document.getElementsByTagName("td");
@@ -95,12 +96,7 @@
 					const no = this.parentNode.children[0].innerText;
 					location.href = "${ pageContext.servletContext.contextPath }/board/notice/selectOne?no=" + no;
 				}
-				
-				const $goBack = document.getElementById("writeFree");
-		    	$goBack.onclick = function() {
-		    		location.href = "${ pageContext.servletContext.contextPath }/board/notice/insert"
-		    	}
-				
+								
 			}
 			
 		}

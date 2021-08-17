@@ -105,7 +105,7 @@
 	           				   A.BOARD_BODY LIKE '%' || #{ searchValue } || '%' 	
 							</if>
 	       				   AND A.DELETE_YN = 'N'
-	       				   AND A.BOARD_TYPE = '공지'
+	       				   AND A.BOARD_TYPE = '자유'
     					</where>
                          ORDER BY A.BOARD_NO DESC
                         ) B

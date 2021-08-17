@@ -26,6 +26,16 @@
 					</div>
 				</div>
 				<div class="form-horizontal">
+										<div class="row">
+						<div class="form-group">
+							<div class="col-xs-12">
+								<label>작성날짜</label>
+								<div class="col-md-12">
+									<input name = "title" class="form-control" value="${ requestScope.notice.created }"  disabled/>
+								</div>
+							</div>
+						</div>
+					</div>
 					<div class="row">
 						<div class="form-group">
 							<div class="col-xs-12">
@@ -36,6 +46,7 @@
 							</div>
 						</div>
 					</div>
+					
 					<div class="row">
 						<div class="form-group">
 							<div class="col-sm-12">

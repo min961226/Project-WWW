@@ -135,7 +135,5 @@
                ) C
          WHERE C.RNUM >= #{ startRow }     
 	</select>
-	
-	
 
 </mapper>

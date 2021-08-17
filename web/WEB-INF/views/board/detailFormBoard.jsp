@@ -29,6 +29,16 @@
 					<div class="row">
 						<div class="form-group">
 							<div class="col-xs-12">
+								<label>작성날짜</label>
+								<div class="col-md-12">
+									<input name = "title" class="form-control" value="${ requestScope.form.created }"  disabled/>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group">
+							<div class="col-xs-12">
 								<label>제목</label>
 								<div class="col-md-12">
 									<input name = "title" class="form-control" value="${ requestScope.form.title }"  disabled/>
