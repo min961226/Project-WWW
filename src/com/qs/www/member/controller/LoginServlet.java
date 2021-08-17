@@ -45,7 +45,10 @@ public class LoginServlet extends HttpServlet {
 			workInfo.setMemberNo(loginMember.getMemberNo());
 			workInfo.setSelectedDate(todayDate);
 			
+			System.out.println(workInfo);
+			
 			WorkingLogDTO workingLog = memberService.selectWorkingLog(workInfo);
+			System.out.println(workingLog);
 			loginMember.setAppWorkType(workingLog.getWorkType());
 			loginMember.setWorkCode(workingLog.getWorkNo());
 			
