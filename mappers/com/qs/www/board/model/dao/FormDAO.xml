@@ -31,7 +31,6 @@
          FROM TBL_BOARD A
          WHERE A.BOARD_TYPE = '문서서식'
 
-         
 	</select>
 	
 	<update id="incrementFormCount">
@@ -44,7 +43,7 @@
          WHERE A.BOARD_NO = #{ no }
 	</update>
 	
-	<select id="selectFormDetail" resultMap="formResultMap">
+	<select id="selectFormDetail" resultMap="formResultMap" parameterType="_int">
        SELECT
                A.BOARD_NO
              , A.BOARD_TITLE

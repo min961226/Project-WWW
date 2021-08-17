@@ -1,5 +1,6 @@
 package com.qs.www.approval.model.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -18,6 +19,10 @@ public class ApprovalDAO {
 		
 		return session.selectList("ApprovalDAO.selectApprovalLine", no);
 	}
+    public List<ApprovalLineDTO> selectApprovalLineByMap(SqlSession session, HashMap<String, Object> selectedInfoMap) {
+		
+		return session.selectList("ApprovalDAO.selectApprovalLineByMap", selectedInfoMap);
+	}
 	
 	public ApprovalLineDTO selectApprovalOneLine(SqlSession session, int no) {
 		
@@ -34,9 +39,9 @@ public class ApprovalDAO {
 		return session.selectOne("ApprovalDAO.selectReportNum");
 	}
 
-	public List<ReportDTO> selectMyReport(SqlSession session, int no) {
+	public List<ReportDTO> selectMyReport(SqlSession session, HashMap<String, Object> selectedInfoMap) {
 		
-		return session.selectList("ApprovalDAO.selectMyReport", no);
+		return session.selectList("ApprovalDAO.selectMyReport", selectedInfoMap);
 	}
 
 	public ReportDTO selectOneReportDetail(SqlSession session, int reportNo) {

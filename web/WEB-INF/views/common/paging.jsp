@@ -45,12 +45,31 @@
 	<script>
 	
 		const currentPage = window.location.pathname;
-		let link = "";
-		
-		if(currentPage == "${ pageContext.servletContext.contextPath }/board/notice/select"){
-			link = "${ pageContext.servletContext.contextPath }/board/notice/select";
-		}
-		let searchText = "";
+
+
+	    let link = "";
+	
+	    let searchText = "";
+	    
+	    switch (currentPage) {
+
+		case "${ pageContext.servletContext.contextPath }/board/notice/select":
+			 link = "/WWW/board/notice/select";
+			break;
+			
+		case "${ pageContext.servletContext.contextPath }/welfare/applied/list/select":
+			 link = "/WWW/welfare/applied/list/select";
+			break;
+			
+		case "${ pageContext.servletContext.contextPath }/board/form/select":
+			 link = "/WWW/board/form/select";
+			break;
+			
+
+			
+			
+	    }
+
 		
 		if(${ !empty requestScope.selectCriteria.searchCondition? true: false }) {
 			searchText += "&searchCondition=${ requestScope.selectCriteria.searchCondition }";

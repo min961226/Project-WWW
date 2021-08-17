@@ -11,9 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.qs.www.board.model.dto.FreeDTO;
 import com.qs.www.board.model.dto.NoticeDTO;
-import com.qs.www.board.model.service.FreeService;
 import com.qs.www.board.model.service.NoticeService;
 import com.qs.www.common.paging.Pagenation;
 import com.qs.www.common.paging.SelectCriteria;
