@@ -25,6 +25,11 @@ public class SelectApprovalLineServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		HttpSession session = request.getSession();
+		//로그인 중인 사용자가 올린 결재(상신, 상신 별 항목> 가져오기
+        int memberNo = ((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo();
+        
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		/* 목록보기를 눌렀을 시 가장 처음에 보여지는 페이지는 1페이지이다.
 		 * 파라미터로 전달되는 페이지가 있는 경우 currentPage는 파라미터로 전달받은 페이지 수 이다.
 		 * */
@@ -48,11 +53,15 @@ public class SelectApprovalLineServlet extends HttpServlet {
 		searchMap.put("searchCondition", searchCondition);
 		searchMap.put("searchValue", searchValue);
 		
+		HashMap<String, Object> countMap = new HashMap<>();
+		countMap.put("memberNo", memberNo);
+		countMap.put("searchMap", searchMap);
+		
 		Pagenation pagenation = new Pagenation();
 		
 		
 		//totalCount 는 DB에 가서 총 게시물 수를 세어와야 함 count(*) 중, where 삭제안된거.
-		int totalCount = new FreeService().selectAllCount(searchMap);
+		int totalCount = new ApprovalService().selectAPPLineCount(countMap);
 
 		//limit는 한 페이지에서 보여지는 게시물 수
 		int limit = 10;
@@ -72,18 +81,17 @@ public class SelectApprovalLineServlet extends HttpServlet {
 		
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		
-		HttpSession session = request.getSession();
-		//로그인 중인 사용자가 올린 결재(상신, 상신 별 항목> 가져오기
-        int memberNo = ((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo();
+		
 		
 		HashMap<String, Object> selectedInfoMap = new HashMap<>();
 		selectedInfoMap.put("memberNo", memberNo);
 		selectedInfoMap.put("selectCriteria", selectCriteria);
 
 		List<ApprovalLineDTO> lineList = new ApprovalService().selectApprovalLineByMap(selectedInfoMap);
-		Collections.reverse(lineList);
+//		Collections.reverse(lineList);
 		System.out.println(lineList);
 		request.setAttribute("lineList", lineList);
+		request.setAttribute("selectCriteria", selectCriteria);
 		request.getRequestDispatcher("/WEB-INF/views/approval/approvalLine.jsp").forward(request, response);
 	}
 

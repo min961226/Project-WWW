@@ -21,24 +21,52 @@
                     <div class="col-xs-12">
                         <h4 class="page-title">결재대기함</h4>
                     </div>
+                    </div>
                 </div>
+                
+                <!-- 검색 시작 -->
                 <div class="search-area" align="right">
-			<select id="searchCondition" name="searchCondition">
-				<option value="writer">작성자</option>
-				<option value="title">제목</option>
-				<option value="content">내용</option>
-			</select>
-			<input type="search">
-			<button type="submit" style="background-color:orange;">검색하기</button>
-			
-			
-		</div>
+             		<form id="loginForm" action="${ pageContext.servletContext.contextPath }/approval/waiting/select" method="get" style="display:inline-block">		
+			    		<input type="hidden" name="currentPage" value="1">
+						<select id="searchCondition" name="searchCondition">
+						    <option value="title" ${ requestScope.selectCriteria.searchCondition eq "title"? "selected": "" }>제목</option>
+						    <option value="docCategory" ${ requestScope.selectCriteria.searchCondition eq "docCategory"? "selected": "" }>문서분류</option>
+							<option value="name" ${ requestScope.selectCriteria.searchCondition eq "name"? "selected": "" }>기안자</option>
+							<option value="content" ${ requestScope.selectCriteria.searchCondition eq "content"? "selected": "" }>비고</option>
+						</select>
+						<input type="search" id="searchValue" name="searchValue" value="<c:out value="${ requestScope.selectCriteria.searchValue }"/>">
+					<button type="submit" >검색하기</button>
+					<!-- <button type="button" id="writeFree">작성하기</button> -->
+					</form>
+				</div>
+				
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="card-box">
                             <div class="card-block">
                                 <p class="content-group">
                                 </p>
+                                
+                                
+                                
+                                
+                                
+                                <!-- 탭바 -->
+                                <div>
+                                <ul class="nav nav-tabs nav-tabs-top nav-justified">
+                                <li class="active"><a onclick="selectDoCate1()" data-toggle="tab">전체</a></li>
+                                <li><a onclick="selectDoCate2()" data-toggle="tab">업무</a></li>
+                                <li><a onclick="selectDoCate3()" data-toggle="tab">복지</a></li>
+                                <li><a onclick="selectDoCate4()" data-toggle="tab">근태</a></li>
+                                <li><a onclick="selectDoCate5()" data-toggle="tab">휴가</a></li>
+                                </ul>
+                                <br><br>
+                                </div>
+                                
+                                
+                                
+                                
+                                
                                 <table class="display datatable table table-stripped">
                                    
                                    <thead>
@@ -78,39 +106,8 @@
 										</c:forEach>
 
                                 </table>
-                                <div class="pagingArea" align="center">
-		<!-- 맨 앞으로 이동 버튼 -->
-	    <button id="startPage"><<</button>
-		
-		<!-- 이전 페이지 버튼 -->
-		<c:if test="${ requestScope.selectCriteria.pageNo <= 1 }">
-			<button disabled><</button>
-		</c:if>
-		<c:if test="${ requestScope.selectCriteria.pageNo > 1 }">
-			<button id="prevPage"><</button>
-		</c:if>
-		
-		<!-- 숫자 버튼 -->
-		<c:forEach var="p" begin="${ requestScope.selectCriteria.startPage }" end="${ requestScope.selectCriteria.endPage }" step="1">
-			<c:if test="${ requestScope.selectCriteria.pageNo eq p }">
-				<button disabled><c:out value="${ p }"/></button>
-			</c:if>
-			<c:if test="${ requestScope.selectCriteria.pageNo ne p }">
-				<button onclick="pageButtonAction(this.innerText);"><c:out value="${ p }"/></button>
-			</c:if>
-		</c:forEach>
-		
-		<!-- 다음 페이지 버튼 -->
-		<c:if test="${ requestScope.selectCriteria.pageNo >= requestScope.selectCriteria.maxPage }">
-			<button disabled>></button>
-		</c:if>
-		<c:if test="${ requestScope.selectCriteria.pageNo < requestScope.selectCriteria.maxPage }">
-			<button id="nextPage">></button>
-		</c:if>
-		
-		<!-- 마지막 페이지로 이동 버튼 -->
-		<button id="maxPage">>></button> 
-	</div>
+                               <%-- 페이지 처리 --%>
+								<jsp:include page="../common/paging.jsp"/>
                             </div>
                         </div>
                     </div>
@@ -120,6 +117,25 @@
     </div>
     
     <script>
+    
+        if(document.getElementsByTagName("li")) {
+        	function selectDoCate1() {
+            	location.href = "${ pageContext.servletContext.contextPath }/approval/waiting/select";
+            }
+        	function selectDoCate2() {
+            	location.href = "${ pageContext.servletContext.contextPath }/approval/waiting/select?currentPage=1&searchCondition=docCategory&searchValue=업무";
+            }
+        	function selectDoCate3() {
+            	location.href = "${ pageContext.servletContext.contextPath }/approval/waiting/select?currentPage=1&searchCondition=docCategory&searchValue=복지";
+            }
+        	function selectDoCate4() {
+            	location.href = "${ pageContext.servletContext.contextPath }/approval/waiting/select?currentPage=1&searchCondition=docCategory&searchValue=근태";
+            }
+        	function selectDoCate5() {
+            	location.href = "${ pageContext.servletContext.contextPath }/approval/waiting/select?currentPage=1&searchCondition=docCategory&searchValue=휴가";
+            }
+        }
+
 		if(document.getElementsByTagName("td")) {
 			const $tds = document.getElementsByTagName("td");
 			for(let i = 0; i < $tds.length; i++) {

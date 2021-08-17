@@ -64,6 +64,9 @@
 		case "${ pageContext.servletContext.contextPath }/board/form/select":
 			 link = "/WWW/board/form/select";
 			break;
+		case "${ pageContext.servletContext.contextPath }/approval/line/select":
+			 link = "/WWW/approval/line/select";
+			break;
 			
 
 			

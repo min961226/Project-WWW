@@ -88,17 +88,15 @@
                    FROM TBL_APPROVER_LINE A
 	      	       LEFT JOIN TBL_MEMBER D ON(A.MEMBER_NO = D.MEMBER_NO)
     		    <where>
-				    <if test="searchCondition == 'name'">
-	           				    D.NAME LIKE '%' || #{ selectCriteria.searchValue } || '%'	
+					<if test="selectCriteria.searchCondition == 'title'">
+	           			A.LINE_NAME LIKE '%' || #{ selectCriteria.searchValue } || '%' 	
 					</if>
-					<if test="searchCondition == 'title'">
-	           			A.BOARD_TITLE LIKE '%' || #{ selectCriteria.searchValue } || '%' 	
-					</if>
-					<if test="searchCondition == 'body'">
-	           			A.BOARD_BODY LIKE '%' || #{ selectCriteria.searchValue } || '%' 	
+					<if test="selectCriteria.searchCondition == 'content'">
+	           			A.WORK_TYPE LIKE '%' || #{ selectCriteria.searchValue } || '%' 	
 					</if>
 	       			AND A.MEMBER_NO = #{ memberNo }
     			</where>
+    			ORDER BY A.LINE_NO DESC
                 ) B
           <![CDATA[
           WHERE ROWNUM <= #{ selectCriteria.endRow }
@@ -142,14 +140,11 @@
                    FROM TBL_REPORT A
 	      	       LEFT JOIN TBL_MEMBER D ON(A.MEMBER_NO = D.MEMBER_NO)
     		    <where>
-				    <if test="searchCondition == 'name'">
-	           				    D.NAME LIKE '%' || #{ selectCriteria.searchValue } || '%'	
+					<if test="selectCriteria.searchCondition == 'title'">
+	           			A.REPORT_TITLE LIKE '%' || #{ selectCriteria.searchValue } || '%' 	
 					</if>
-					<if test="searchCondition == 'title'">
-	           			A.BOARD_TITLE LIKE '%' || #{ selectCriteria.searchValue } || '%' 	
-					</if>
-					<if test="searchCondition == 'body'">
-	           			A.BOARD_BODY LIKE '%' || #{ selectCriteria.searchValue } || '%' 	
+					<if test="selectCriteria.searchCondition == 'body'">
+	           			A.REPORT_NOTE LIKE '%' || #{ selectCriteria.searchValue } || '%' 	
 					</if>
 	       			AND A.MEMBER_NO = #{ memberNo }
 	       			AND 4 > A.DOCUMENT_NO
@@ -163,7 +158,6 @@
         ) C
    WHERE C.RNUM >= #{ selectCriteria.startRow } 
 	</select>
-
 	<select id="selectOneReportDetail"
 		resultMap="reportResultMap">
 		SELECT /* com.qs.www.approval.model.dao.ApprovalDAO#selectOneReportDetail()*/
@@ -173,6 +167,46 @@
 		  JOIN TBL_MEMBER B ON (A.MEMBER_NO = B.MEMBER_NO )
 		 WHERE A.REPORT_NO = #{ reportNo }
 	</select>
+	<select id="selectReportDetail"
+		resultMap="reportResultMap">
+			SELECT /* com.qs.www.approval.model.dao.ApprovalDAO#selectReportDetail()*/
+           C.*
+     FROM (SELECT ROWNUM RNUM
+          		, B.*
+            FROM (SELECT 
+                         A.*
+			           , D.NAME
+                   FROM TBL_REPORT A
+	      	       LEFT JOIN TBL_MEMBER D ON(A.MEMBER_NO = D.MEMBER_NO)
+	      	       LEFT JOIN TBL_DOCUMENT_FORM E ON(A.DOCUMENT_NO = E.DOCUMENT_NO)
+                   LEFT JOIN TBL_DOCUMENT_CATEGORY F ON(E.CATEGORY_CODE = F.CATEGORY_CODE )
+    		    <where>
+    		        <if test="selectCriteria.searchCondition == 'name'">
+    		            D.NAME LIKE '%' || #{ selectCriteria.searchValue } || '%'
+    		        </if>
+					<if test="selectCriteria.searchCondition == 'title'">
+	           			A.REPORT_TITLE LIKE '%' || #{ selectCriteria.searchValue } || '%' 	
+					</if>
+					<if test="selectCriteria.searchCondition == 'body'">
+	           			A.REPORT_NOTE LIKE '%' || #{ selectCriteria.searchValue } || '%' 	
+					</if>
+					<if test="selectCriteria.searchCondition == 'docCategory'">
+	           			F.CATEGORY_NAME LIKE '%' || #{ selectCriteria.searchValue } || '%' 	
+					</if>
+	       			AND A.REPORT_NO IN
+	       			<foreach item="item" index="index" collection="reportNoList" open="(" separator="," close=")">
+	       			#{item}
+                    </foreach>
+    			</where>
+    			ORDER BY A.REPORT_NO DESC
+                ) B
+          <![CDATA[
+          WHERE ROWNUM <= #{ selectCriteria.endRow }
+          ]]>
+        ) C
+   WHERE C.RNUM >= #{ selectCriteria.startRow } 
+	</select>
+	
 	<select id="selectReportItemList"
 		resultMap="reportItemResultMap">
 		SELECT /* com.qs.www.approval.model.dao.ApprovalDAO#selectReportItemList()*/
@@ -348,6 +382,66 @@
 	         , A.WORK_TYPE = #{ workType }
 		 WHERE A.LINE_NO = #{ lineNo }
 	</update>
+	<select id="selectAppliedAPPCount" resultType="_int" parameterType="hashmap">
+        SELECT /* com.qs.www.approval.model.dao.ApprovalDAO#selectAppliedAPPCount"()*/
+               COUNT(*)
+         FROM TBL_REPORT A
+    	        <where>  
+					<if test="searchMap.searchCondition == 'title'">
+	           			A.REPORT_TITLE LIKE '%' || #{ searchMap.searchValue } || '%' 	
+					</if>
+					<if test="searchMap.searchCondition == 'body'">
+	           			A.REPORT_NOTE LIKE '%' || #{ searchMap.searchValue } || '%' 	
+					</if>
+	       			AND A.MEMBER_NO = #{ memberNo }
+	       			AND 4 > A.DOCUMENT_NO
+	       			AND REPORT_STATUS != '회수'
+    			</where>
+    			 ORDER BY A.REPORT_NO DESC
+	</select>
+	<select id="selectWaitingAPPCount" resultType="_int" parameterType="hashmap">
+        SELECT /* com.qs.www.approval.model.dao.ApprovalDAO#selectWaitingAPPCount"()*/
+               COUNT(*)
+           FROM TBL_REPORT A
+      LEFT JOIN TBL_MEMBER D ON(A.MEMBER_NO = D.MEMBER_NO)
+      LEFT JOIN TBL_DOCUMENT_FORM E ON(A.DOCUMENT_NO = E.DOCUMENT_NO)
+      LEFT JOIN TBL_DOCUMENT_CATEGORY F ON(E.CATEGORY_CODE = F.CATEGORY_CODE )
+    		    <where>
+    		        <if test="searchMap.searchCondition == 'name'">
+    		            D.NAME LIKE '%' || #{ searchMap.searchValue } || '%'
+    		        </if>
+					<if test="searchMap.searchCondition == 'title'">
+	           			A.REPORT_TITLE LIKE '%' || #{ searchMap.searchValue } || '%' 	
+					</if>
+					<if test="searchMap.searchCondition == 'body'">
+	           			A.REPORT_NOTE LIKE '%' || #{ searchMap.searchValue } || '%' 	
+					</if>
+					<if test="searchMap.searchCondition == 'docCategory'">
+	           			F.CATEGORY_NAME LIKE '%' || #{ searchMap.searchValue } || '%' 	
+					</if>
+	       			AND A.REPORT_NO IN
+	       			<foreach item="item" index="index" collection="reportNoList" open="(" separator="," close=")">
+	       			#{item}
+                    </foreach>
+    			</where>
+    			ORDER BY A.REPORT_NO DESC
+	</select>
+	<select id="selectAPPLineCount" resultType="_int" parameterType="hashmap">
+        SELECT /* com.qs.www.approval.model.dao.ApprovalDAO#selectAPPLineCount"()*/
+               COUNT(*)
+          FROM TBL_APPROVER_LINE A
+          LEFT JOIN TBL_MEMBER D ON(A.MEMBER_NO = D.MEMBER_NO)
+    	        <where>
+					<if test="searchMap.searchCondition == 'title'">
+	           			A.LINE_NAME LIKE '%' || #{ searchMap.searchValue } || '%' 	
+					</if>
+					<if test="searchMap.searchCondition == 'content'">
+	           			A.WORK_TYPE LIKE '%' || #{ searchMap.searchValue } || '%' 	
+					</if>
+	       			AND A.MEMBER_NO = #{ memberNo }
+    	        </where>
+    	ORDER BY A.LINE_NO DESC
+	</select>
 </mapper>
 	    
 

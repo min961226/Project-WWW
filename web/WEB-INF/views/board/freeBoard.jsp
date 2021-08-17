@@ -44,6 +44,9 @@
 	                <div class="col-lg-12">
 	                    <div class="card-box">
 	                    	<div class="card-block">
+
+	                    		</div>
+
 	                            <table class="display datatable table table-stripped">
 	                                <thead>
 	                                    <tr bgcolor = "FFBC35">
