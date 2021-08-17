@@ -45,6 +45,8 @@
 	<script>
 	
 		const currentPage = window.location.pathname;
+
+
 	    let link = "";
 	
 	    let searchText = "";
@@ -67,6 +69,7 @@
 			
 			
 	    }
+
 		
 		if(${ !empty requestScope.selectCriteria.searchCondition? true: false }) {
 			searchText += "&searchCondition=${ requestScope.selectCriteria.searchCondition }";

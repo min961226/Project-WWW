@@ -4,6 +4,10 @@ import static com.qs.www.common.mybatis.Template.getSqlSession;
 
 import org.apache.ibatis.session.SqlSession;
 
+import com.qs.www.main.model.dao.MainDAO;
+import com.qs.www.main.model.dto.WorkInfoDTO;
+import com.qs.www.main.model.dto.WorkingLogDTO;
+import com.qs.www.main.model.dto.WorkingTypeDTO;
 import com.qs.www.member.model.dao.MemberDAO;
 import com.qs.www.member.model.dto.CheckPwdDTO;
 import com.qs.www.member.model.dto.MemberDTO;
@@ -12,9 +16,11 @@ import com.qs.www.member.model.dto.MemberInfoDTO;
 public class MemberService {
 	
 	private final MemberDAO memberDAO;
+	private final MainDAO mainDAO;
 	
 	public MemberService() {
 		memberDAO = new MemberDAO();
+		mainDAO = new MainDAO();
 	}
 
 	public MemberInfoDTO checkMember(MemberDTO requestMember) {
@@ -73,5 +79,17 @@ public class MemberService {
 		sqlSession.close();
 		
 		return result;
+	}
+
+	public WorkingLogDTO selectWorkingLog(WorkInfoDTO workInfo) {
+		
+		SqlSession sqlSession = getSqlSession();
+		
+		WorkingLogDTO workingLog = new WorkingLogDTO();
+		workingLog = mainDAO.selectWorkingLog(sqlSession, workInfo);
+		
+		sqlSession.close();
+		
+		return workingLog;
 	}
 }

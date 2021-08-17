@@ -31,6 +31,9 @@
 </head>
 
 <body>
+	<%-- 페이지 처리 --%>
+	<jsp:include page="../common/paging.jsp"/>
+	
 	<div class="main-wrapper">
 		<div class="header">
 			<div class="header-left">
