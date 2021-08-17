@@ -44,7 +44,12 @@
 	
 	<script>
 	
-		const link = "${ pageContext.servletContext.contextPath }/board/notice/select";
+		const currentPage = window.location.pathname;
+		let link = "";
+		
+		if(currentPage == "${ pageContext.servletContext.contextPath }/board/notice/select"){
+			link = "${ pageContext.servletContext.contextPath }/board/notice/select";
+		}
 		let searchText = "";
 		
 		if(${ !empty requestScope.selectCriteria.searchCondition? true: false }) {

@@ -25,13 +25,14 @@
                             </a>
                         </div>
                         <form action="${ pageContext.servletContext.contextPath }/member/pwd/update" method="post">
+                            <input type="text" name="memberId" value="${ memberId }" hidden="hidden">
                             <div class="form-group form-focus">
                                 <label class="control-label">새 비밀번호 입력</label>
-                                <input class="form-control floating" type="password" name="change_pwd">
+                                <input class="form-control floating" type="password" name="changePwd">
                             </div>
                             <div class="form-group form-focus">
                                 <label class="control-label">새 비밀번호 입력 확인</label>
-                                <input class="form-control floating" type="password" name="change_pwd2">
+                                <input class="form-control floating" type="password" name="changePwd2">
                             </div>
                             <div class="form-group text-center">
                                 <button class="btn btn-primary btn-block account-btn" type="submit">비밀번호 변경</button>

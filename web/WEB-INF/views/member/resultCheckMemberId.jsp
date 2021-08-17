@@ -25,13 +25,10 @@
                         </div>
                         <div class="form-group text-center">
 	                        <div>
-	                            <label class="control-label">${ requestScope.findName } 님의 아이디는</label>
+	                            <label class="control-label">${ requestScope.checkName } 님의 아이디 입니다.</label>
 	                        </div>
 	                        <div class="name">
-	                            <h3><label class="card-box">${ requestScope.findId }</label></h3>
-	                        </div>
-	                        <div>
-	                            <label class="control-label">입니다.</label>
+	                            <label class="card-box">${ requestScope.checkId }</label>
 	                        </div>
 	                        <div class="text-center">
 	                            <button type="button" class="btn btn-primary btn-block account-btn" id="goLogin">로그인 화면으로</button>

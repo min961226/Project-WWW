@@ -31,6 +31,11 @@
 					movePath = "${ pageContext.servletContext.contextPath }/member/pwd/check";
 					break;
 					
+				case "matchPwd" :
+					failedMessage = "비밀번호가 일치하지 않습니다.";
+					movePath = "${ pageContext.servletContext.contextPath }/member/pwd/update";
+					break;
+					
 				case "insertCommute" :
 					failedMessage = "출근 시간 기록이 실패하였습니다.";
 					movePath = "${ pageContext.servletContext.contextPath }";
@@ -55,10 +60,10 @@
 					failedMessage = "결재회수가 실패했습니다.";
 					movePath = "${ pageContext.servletContext.contextPath }/approval/applied/select";
 					break;
-					
-				case "callbackWelfare" :
-					failedMessage = "신청 복지 회수에 실패했습니다."
-					movePath = "${ pageContext.servletContext.contextPath }/welfare/applied/list/select";
+
+				case "updateAppLine" :
+					failedMessage = "결재라인수정에 실패했습니다."
+					movePath = "${ pageContext.servletContext.contextPath }/approval/line/selectOne?no=${ requestScope.lineNo  }";
 					break;
 					
 				case "insertWork" :
@@ -106,6 +111,11 @@
 					movePath = "${ pageContext.servletContext.contextPath }/welfare/list/select";
 					break;
 
+				case "callbackWelfare" :
+					failedMessage = "신청 복지 회수에 실패했습니다."
+					movePath = "${ pageContext.servletContext.contextPath }/welfare/applied/list/select";
+					break;
+					
 				case "insertAppLine" :
 					failedMessage = "결재라인 생성에 실패했습니다.";
 					movePath = "${ pageContext.servletContext.contextPath }/approval/line/select";
@@ -115,16 +125,11 @@
 					failedMessage = "결재라인 삭제에 실패헀습니다.";
 					movePath = "${ pageContext.servletContext.contextPath }/approval/line/select";
 					break;
+					
 				case "deleteSeminarRoom" :
 					failedMessage = "회의실 예약 삭제를 실패하였습니다."
 					movePath = "${ pageContext.servletContext.contextPath }/welfare/applied/list/seminarRoom/select";
 					break;
-
-				case "updateAppLine" :
-					failedMessage = "결재라인수정에 실패했습니다."
-					movePath = "${ pageContext.servletContext.contextPath }/approval/line/selectOne?no=${ requestScope.lineNo  }";
-					break;
-
 			}
 
 			alert(failedMessage);
