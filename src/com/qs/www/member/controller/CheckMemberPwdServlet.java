@@ -35,12 +35,11 @@ public class CheckMemberPwdServlet extends HttpServlet {
 		String answer = request.getParameter("answer");
 		
 		CheckPwdDTO checkPwd = new CheckPwdDTO();
-		CheckQuestionDTO checkQuestion = new CheckQuestionDTO();
 		checkPwd.setMemberId(memberId);
 		checkPwd.setName(name);
 		checkPwd.setEmail(email);
-		checkQuestion.setQuestionBody(question);
-		checkPwd.setQuestion(checkQuestion);
+		checkPwd.setQuestion(new CheckQuestionDTO());
+		checkPwd.getQuestion().setQuestionBody(question);
 		checkPwd.setQuestionAnswer(answer);
 		
 		MemberService memberService = new MemberService();

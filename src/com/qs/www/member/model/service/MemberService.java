@@ -55,12 +55,19 @@ public class MemberService {
 		
 		SqlSession sqlSession = getSqlSession();
 		
-		CheckPwdDTO checkedMember = memberDAO.selectMemberPwd(sqlSession, checkPwd);
+		String questionBody = checkPwd.getQuestion().getQuestionBody();
+		String questionCode = memberDAO.selectQuestionCode(sqlSession, questionBody);
 		
 		int result = 0;
 		
-		if(checkedMember != null) {
-			result = 1;
+		if(questionCode != null) {
+			checkPwd.getQuestion().setQuestionCode(questionCode);
+
+			CheckPwdDTO checkedMember = memberDAO.selectMemberPwd(sqlSession, checkPwd);
+			
+			if(checkedMember != null) {
+				result = 1;
+			}
 		}
 		
 		sqlSession.close();
