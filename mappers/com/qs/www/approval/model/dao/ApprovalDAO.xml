@@ -78,6 +78,34 @@
 		  FROM TBL_APPROVER_LINE A
 		 WHERE A.MEMBER_NO = #{ no }
 	</select>
+	<select id="selectApprovalLineByMap" resultMap="approvalLineResultMap">
+		SELECT /* com.qs.www.approval.model.dao.ApprovalDAO#selectApprovalLineByMap()*/ 
+           C.*
+     FROM (SELECT ROWNUM RNUM
+          		, B.*
+            FROM (SELECT 
+                         A.*
+                   FROM TBL_APPROVER_LINE A
+	      	       LEFT JOIN TBL_MEMBER D ON(A.MEMBER_NO = D.MEMBER_NO)
+    		    <where>
+				    <if test="searchCondition == 'name'">
+	           				    D.NAME LIKE '%' || #{ selectCriteria.searchValue } || '%'	
+					</if>
+					<if test="searchCondition == 'title'">
+	           			A.BOARD_TITLE LIKE '%' || #{ selectCriteria.searchValue } || '%' 	
+					</if>
+					<if test="searchCondition == 'body'">
+	           			A.BOARD_BODY LIKE '%' || #{ selectCriteria.searchValue } || '%' 	
+					</if>
+	       			AND A.MEMBER_NO = #{ memberNo }
+    			</where>
+                ) B
+          <![CDATA[
+          WHERE ROWNUM <= #{ selectCriteria.endRow }
+          ]]>
+        ) C
+   WHERE C.RNUM >= #{ selectCriteria.startRow }
+	</select>
 	<select id="selectApprovalOneLine" resultMap="approvalLineResultMap">
 		SELECT /* com.qs.www.approval.model.dao.ApprovalDAO#selectApprovalLine()*/
 			   A.*
@@ -105,14 +133,37 @@
 	</select>
 	<select id="selectMyReport"
 		resultMap="reportResultMap">
-		SELECT /* com.qs.www.approval.model.dao.ApprovalDAO#selectMyReport()*/
-			   A.*
-		 FROM TBL_REPORT A
-		WHERE A.MEMBER_NO = #{ no }
-		  AND 4 > A.DOCUMENT_NO
-		  AND REPORT_STATUS != '회수'
-		ORDER BY A.REPORT_NO DESC
+		SELECT /* com.qs.www.approval.model.dao.ApprovalDAO#selectMyReport()*/ 
+           C.*
+     FROM (SELECT ROWNUM RNUM
+          		, B.*
+            FROM (SELECT 
+                         A.*
+                   FROM TBL_REPORT A
+	      	       LEFT JOIN TBL_MEMBER D ON(A.MEMBER_NO = D.MEMBER_NO)
+    		    <where>
+				    <if test="searchCondition == 'name'">
+	           				    D.NAME LIKE '%' || #{ selectCriteria.searchValue } || '%'	
+					</if>
+					<if test="searchCondition == 'title'">
+	           			A.BOARD_TITLE LIKE '%' || #{ selectCriteria.searchValue } || '%' 	
+					</if>
+					<if test="searchCondition == 'body'">
+	           			A.BOARD_BODY LIKE '%' || #{ selectCriteria.searchValue } || '%' 	
+					</if>
+	       			AND A.MEMBER_NO = #{ memberNo }
+	       			AND 4 > A.DOCUMENT_NO
+	       			AND REPORT_STATUS != '회수'
+    			</where>
+                ORDER BY A.REPORT_NO DESC
+                ) B
+          <![CDATA[
+          WHERE ROWNUM <= #{ selectCriteria.endRow }
+          ]]>
+        ) C
+   WHERE C.RNUM >= #{ selectCriteria.startRow } 
 	</select>
+
 	<select id="selectOneReportDetail"
 		resultMap="reportResultMap">
 		SELECT /* com.qs.www.approval.model.dao.ApprovalDAO#selectOneReportDetail()*/

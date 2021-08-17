@@ -2,6 +2,7 @@ package com.qs.www.approval.model.service;
 
 import static com.qs.www.common.mybatis.Template.getSqlSession;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -34,6 +35,15 @@ public class ApprovalService {
 		return lineList;
 	}
 	
+	public List<ApprovalLineDTO> selectApprovalLineByMap(HashMap<String, Object> selectedInfoMap) {
+		SqlSession session = getSqlSession();
+
+		List<ApprovalLineDTO> lineList = approvalDAO.selectApprovalLineByMap(session, selectedInfoMap);
+
+		session.close();
+
+		return lineList;
+	}
 	public ApprovalLineDTO selectApprovalOneLine(int no) {
 		SqlSession session = getSqlSession();
 
@@ -69,10 +79,10 @@ public class ApprovalService {
 		return reportNum;
 	}
 
-	public List<ReportDTO> selectMyReport(int no) {
+	public List<ReportDTO> selectMyReport(HashMap<String, Object> selectedInfoMap) {
 		SqlSession session = getSqlSession();
 
-		List<ReportDTO> reportList = approvalDAO.selectMyReport(session, no);
+		List<ReportDTO> reportList = approvalDAO.selectMyReport(session, selectedInfoMap);
 
 		session.close();
 

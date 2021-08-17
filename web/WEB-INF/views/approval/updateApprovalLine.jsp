@@ -52,7 +52,7 @@
 								  <h4 align="center"> 1번 결재자</h4>
                                        <div class="form-group">
                                            <div class="col-xs-4">
-                                           <label>역활종류</label>
+                                           <label>역할종류</label>
                                                 <select class="form-control" name="appType1" required="required">
 								                    <option value="결재">결재</option>
 							                    </select>
@@ -81,7 +81,7 @@
 								  <h4 align="center"> 2번 결재자</h4>
                                        <div class="form-group">
                                            <div class="col-xs-4">
-                                           <label>역활종류</label>
+                                           <label>역할종류</label>
                                                 <select id="workMethod" class="form-control" name="appType2" onchange="testChange1(this)">
 								                    <option value="참조">참조</option>
 								                    <option value="결재">결재</option>
@@ -109,7 +109,7 @@
 								  <h4 align="center"> 3번 결재자</h4>
                                        <div class="form-group">
                                            <div class="col-xs-4">
-                                           <label>역활종류</label>
+                                           <label>역할종류</label>
                                                 <select id="workMethod2" class="form-control" name="appType3" onchange="testChange2(this)">
 								                    <option value="참조">참조</option>
 								                    <option value="결재">결재</option>
@@ -138,7 +138,7 @@
 								  <h4 align="center"> 4번 결재자</h4>
                                        <div class="form-group">
                                            <div class="col-xs-4">
-                                           <label>역활종류</label>
+                                           <label>역할종류</label>
                                                 <select id="workMethod3" class="form-control" name="appType4" onchange="testChange3(this)">
 								                    <option value="참조">참조</option>
 								                    <option value="결재">결재</option>
