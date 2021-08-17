@@ -52,7 +52,8 @@
          <![CDATA[
            AND A.CHANGE_DATE = (SELECT MAX(B.CHANGE_DATE)
                                   FROM TBL_MEMBER_WORK_LOG B
-                                 WHERE B.CHANGE_DATE <= #{ selectedDate })
+                                 WHERE B.CHANGE_DATE <= #{ selectedDate }
+                                   AND B.MEMBER_NO = #{ memberNo })
          ]]>
 	</select>
 	
