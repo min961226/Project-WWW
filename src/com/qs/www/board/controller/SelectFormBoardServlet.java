@@ -75,6 +75,7 @@ public class SelectFormBoardServlet extends HttpServlet {
 		String path = "";
 		if(formList != null) {
 			path = "/WEB-INF/views/board/formBoard.jsp";
+			request.setAttribute("selectCriteria", selectCriteria);
 			request.setAttribute("formList", formList);
 		} else {
 			path = "/WEB-INF/views/common/error-404.jsp";
