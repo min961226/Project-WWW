@@ -286,10 +286,17 @@
 	 WHERE A.LINE_NO = #{ lineNo }
 	</delete>
 	<delete id="deleteApprover">
-	DELETE    /* com.qs.www.approval.model.dao.ApprovalDAO#deleteLine()*/
+	DELETE    /* com.qs.www.approval.model.dao.ApprovalDAO#deleteApprover*/
 	  FROM TBL_APPROVER A
 	 WHERE A.LINE_NO = #{ lineNo }
 	</delete>
+	<update id="updateLine">
+		UPDATE /* com.qs.www.approval.model.dao.ApprovalDAO#updateLine"()*/
+		       TBL_APPROVER_LINE A
+		   SET A.LINE_NAME = #{ lineName }
+	         , A.WORK_TYPE = #{ workType }
+		 WHERE A.LINE_NO = #{ lineNo }
+	</update>
 </mapper>
 	    
 

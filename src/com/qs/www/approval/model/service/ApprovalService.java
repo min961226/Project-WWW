@@ -303,6 +303,35 @@ public class ApprovalService {
 		return result;
 	}
 
+	public int updateLine(ApprovalLineDTO line) {
+		SqlSession session = getSqlSession();
+
+		int result = approvalDAO.updateLine(session, line);
+
+		if(result > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+		session.close();
+
+		return result;
+	}
+
+	public int deleteApprover(int lineNo) {
+		SqlSession session = getSqlSession();
+		
+		int result = approvalDAO.deleteApprover(session,lineNo);
+		if(result > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+		session.close();
+
+		return result;
+	}
+
 
 
 }
