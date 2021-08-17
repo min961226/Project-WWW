@@ -11,7 +11,6 @@ import com.qs.www.schedule.model.dto.ApproverPerReportDTO;
 import com.qs.www.schedule.model.dto.HolidayLogDTO;
 import com.qs.www.schedule.model.dto.HolidayTypeDTO;
 import com.qs.www.schedule.model.dto.MemberWorkLogDTO;
-import com.qs.www.schedule.model.dto.MonthlyWorkLogDTO;
 import com.qs.www.schedule.model.dto.OvertimeLogDTO;
 import com.qs.www.schedule.model.dto.ReportDTO;
 import com.qs.www.schedule.model.dto.TeamWorkingHourDTO;
@@ -56,28 +55,28 @@ public class ScheduleDAO {
 	}
 	
 	/* 해당월의 지각횟수 count */
-	public int countLateTimeNum(SqlSession session, MonthlyWorkLogDTO monthlyWorkLogDTO) {
-		
-		return session.selectOne("ScheduleDAO.countLateTimeNum", monthlyWorkLogDTO);
-	}
-	
-	/* 해당월의 출근 미체크 횟수 count */
-	public int countNoCheckInTimeNum(SqlSession session, MonthlyWorkLogDTO monthlyWorkLogDTO) {
-		
-		return session.selectOne("ScheduleDAO.countNoCheckInTimeNum", monthlyWorkLogDTO);
-	}
-	
-	/* 해당월의 퇴근 미체크 횟수 count */
-	public int countNoCheckOutTimeNum(SqlSession session, MonthlyWorkLogDTO monthlyWorkLogDTO) {
-		
-		return session.selectOne("ScheduleDAO.countNoCheckOutTimeNum", monthlyWorkLogDTO);
-	}
-	
-	/* 오늘 퇴근체크 여부 확인 (count 사용) */
-	public int checkedOutToday(SqlSession session, MonthlyWorkLogDTO monthlyWorkLogDTO) {
-		
-		return session.selectOne("ScheduleDAO.checkedOutToday", monthlyWorkLogDTO);
-	}
+//	public int countLateTimeNum(SqlSession session, MonthlyWorkLogDTO monthlyWorkLogDTO) {
+//		
+//		return session.selectOne("ScheduleDAO.countLateTimeNum", monthlyWorkLogDTO);
+//	}
+//	
+//	/* 해당월의 출근 미체크 횟수 count */
+//	public int countNoCheckInTimeNum(SqlSession session, MonthlyWorkLogDTO monthlyWorkLogDTO) {
+//		
+//		return session.selectOne("ScheduleDAO.countNoCheckInTimeNum", monthlyWorkLogDTO);
+//	}
+//	
+//	/* 해당월의 퇴근 미체크 횟수 count */
+//	public int countNoCheckOutTimeNum(SqlSession session, MonthlyWorkLogDTO monthlyWorkLogDTO) {
+//		
+//		return session.selectOne("ScheduleDAO.countNoCheckOutTimeNum", monthlyWorkLogDTO);
+//	}
+//	
+//	/* 오늘 퇴근체크 여부 확인 (count 사용) */
+//	public int checkedOutToday(SqlSession session, MonthlyWorkLogDTO monthlyWorkLogDTO) {
+//		
+//		return session.selectOne("ScheduleDAO.checkedOutToday", monthlyWorkLogDTO);
+//	}
 	
 	/* 초과근무시간 검색 */
 	public List<OvertimeLogDTO> selectOverTimeLog(SqlSession session, OvertimeLogDTO overtimeLogDTO) {

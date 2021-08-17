@@ -1,6 +1,8 @@
 package com.qs.www.schedule.model.dto;
 
-public class CustomWorkDTO {
+import java.io.Serializable;
+
+public class CustomWorkDTO implements Serializable {
 	
 	private int workNo;
 	private String breakStartTime;

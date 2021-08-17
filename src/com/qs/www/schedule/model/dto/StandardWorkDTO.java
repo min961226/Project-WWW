@@ -1,6 +1,8 @@
 package com.qs.www.schedule.model.dto;
 
-public class StandardWorkDTO {
+import java.io.Serializable;
+
+public class StandardWorkDTO implements Serializable {
 	
 	private int workCode;
 	private String workName;
