@@ -295,4 +295,15 @@ public class WelfareService {
 		return deleteAppliedSeminarRoomResult;
 	}
 
+	public List<String> selectWelfareYn() {
+
+		SqlSession session = getSqlSession();
+
+		List<String> welfareYn = welfareDAO.selectWelfareYn(session);
+
+		session.close();
+
+		return welfareYn;
+	}
+
 }
