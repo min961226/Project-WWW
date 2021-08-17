@@ -22,17 +22,18 @@
                         <h4 class="page-title">결재요청함</h4>
                     </div>
                 </div>
+                 <!-- 검색 시작 -->
                 <div class="search-area" align="right">
-			<select id="searchCondition" name="searchCondition">
-				<option value="writer">작성자</option>
-				<option value="title">제목</option>
-				<option value="content">내용</option>
-			</select>
-			<input type="search">
-			<button type="submit" style="background-color:orange;">검색하기</button>
-			
-			
-		</div>
+             		<form id="loginForm" action="${ pageContext.servletContext.contextPath }/approval/applied/select" method="get" style="display:inline-block">		
+			    		<input type="hidden" name="currentPage" value="1">
+						<select id="searchCondition" name="searchCondition">
+							<option value="title" ${ requestScope.selectCriteria.searchCondition eq "title"? "selected": "" }>제목</option>
+							<option value="content" ${ requestScope.selectCriteria.searchCondition eq "content"? "selected": "" }>비고</option>
+						</select>
+						<input type="search" id="searchValue" name="searchValue" value="<c:out value="${ requestScope.selectCriteria.searchValue }"/>">
+					<button type="submit" >검색하기</button>
+					<!-- <button type="button" id="writeFree">작성하기</button> -->
+					</form>
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="card-box">

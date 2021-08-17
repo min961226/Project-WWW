@@ -22,16 +22,20 @@
                         <h4 class="page-title">수신참조함</h4>
                     </div>
                 </div>
+                 <!-- 검색 시작 -->
                 <div class="search-area" align="right">
-			<select id="searchCondition" name="searchCondition">
-				<option value="writer">작성자</option>
-				<option value="title">제목</option>
-				<option value="content">내용</option>
-			</select>
-			<input type="search">
-			<button type="submit" style="background-color:orange;">검색하기</button>
-			
-		</div>
+             		<form id="loginForm" action="${ pageContext.servletContext.contextPath }/approval/received/select" method="get" style="display:inline-block">		
+			    		<input type="hidden" name="currentPage" value="1">
+						<select id="searchCondition" name="searchCondition">
+						    <option value="title" ${ requestScope.selectCriteria.searchCondition eq "title"? "selected": "" }>제목</option>
+							<option value="name" ${ requestScope.selectCriteria.searchCondition eq "name"? "selected": "" }>기안자</option>
+							<option value="content" ${ requestScope.selectCriteria.searchCondition eq "content"? "selected": "" }>비고</option>
+						</select>
+						<input type="search" id="searchValue" name="searchValue" value="<c:out value="${ requestScope.selectCriteria.searchValue }"/>">
+					<button type="submit" >검색하기</button>
+					<!-- <button type="button" id="writeFree">작성하기</button> -->
+					</form>
+				</div>
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="card-box">
@@ -79,39 +83,8 @@
 										</c:forEach>
 
                                 </table>
-                                <div class="pagingArea" align="center">
-		<!-- 맨 앞으로 이동 버튼 -->
-	    <button id="startPage"><<</button>
-		
-		<!-- 이전 페이지 버튼 -->
-		<c:if test="${ requestScope.selectCriteria.pageNo <= 1 }">
-			<button disabled><</button>
-		</c:if>
-		<c:if test="${ requestScope.selectCriteria.pageNo > 1 }">
-			<button id="prevPage"><</button>
-		</c:if>
-		
-		<!-- 숫자 버튼 -->
-		<c:forEach var="p" begin="${ requestScope.selectCriteria.startPage }" end="${ requestScope.selectCriteria.endPage }" step="1">
-			<c:if test="${ requestScope.selectCriteria.pageNo eq p }">
-				<button disabled><c:out value="${ p }"/></button>
-			</c:if>
-			<c:if test="${ requestScope.selectCriteria.pageNo ne p }">
-				<button onclick="pageButtonAction(this.innerText);"><c:out value="${ p }"/></button>
-			</c:if>
-		</c:forEach>
-		
-		<!-- 다음 페이지 버튼 -->
-		<c:if test="${ requestScope.selectCriteria.pageNo >= requestScope.selectCriteria.maxPage }">
-			<button disabled>></button>
-		</c:if>
-		<c:if test="${ requestScope.selectCriteria.pageNo < requestScope.selectCriteria.maxPage }">
-			<button id="nextPage">></button>
-		</c:if>
-		
-		<!-- 마지막 페이지로 이동 버튼 -->
-		<button id="maxPage">>></button> 
-	</div>
+                                <%-- 페이지 처리 --%>
+								<jsp:include page="../common/paging.jsp"/>
                             </div>
                         </div>
                     </div>
