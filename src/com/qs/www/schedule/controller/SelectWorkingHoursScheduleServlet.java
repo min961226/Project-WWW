@@ -205,6 +205,11 @@ public class SelectWorkingHoursScheduleServlet extends HttpServlet {
 		/* 2-2. 이번주 정규근무 시간과 잔여시간 */
 		// 오늘 날짜
 		LocalDate currentDate = LocalDate.now(); //String todayDate는 위쪽에서 정의해둠
+		String currentDateStr = currentDate + "";
+		String[] currentDateArr = currentDateStr.split("-");
+		request.setAttribute("thisYear", currentDateArr[0]);
+		request.setAttribute("thisMonth", currentDateArr[1]);
+		
 		// 이번주 월요일 날짜
 		String weekStartDate = currentDate
 							.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY))
