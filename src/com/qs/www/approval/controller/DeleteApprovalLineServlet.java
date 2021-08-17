@@ -6,14 +6,18 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.qs.www.approval.model.service.ApprovalService;
+import com.qs.www.member.model.dto.MemberInfoDTO;
 
 @WebServlet("/approval/line/delete")
 public class DeleteApprovalLineServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("삭 제!");
+		HttpSession session = request.getSession();
+		int no = ((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo();
+		
 		int lineNo = Integer.parseInt(request.getParameter("no"));
 
 		int result =  new ApprovalService().deleteLine(lineNo);

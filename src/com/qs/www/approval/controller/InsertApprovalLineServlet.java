@@ -24,7 +24,6 @@ public class InsertApprovalLineServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		int memberNo = ((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo();
 		List<MemberInfoDTO> memberList = new ApprovalService().selectMemberList();
-		System.out.println(memberList);
 		//		memberList.get(0).getJob().getJobName()
 		request.setAttribute("memberNo",memberNo);
 		request.setAttribute("memberList", memberList);

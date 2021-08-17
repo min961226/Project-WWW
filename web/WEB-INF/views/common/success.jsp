@@ -80,11 +80,10 @@
 					successMessage = "세미나실 대여신청이 완료되었습니다."
 					movePath = "${ pageContext.servletContext.contextPath }/welfare/list/select";
 					break;
-
 				case "insertLaptop" :
 					successMessage = "노트북 대여신청이 완료되었습니다."
 					movePath = "${ pageContext.servletContext.contextPath }/welfare/list/select";
-
+					break;
 				case "insertAppLine" :
 					successMessage = "새로운 결재라인이 생성되었습니다."
 					movePath = "${ pageContext.servletContext.contextPath }/approval/line/select";
@@ -93,6 +92,10 @@
 					successMessage = "결재라인을 삭제하였습니다."
 					movePath = "${ pageContext.servletContext.contextPath }/approval/line/select";
 					break;
+				case "updateAppLine" :
+					successMessage = "결재라인을 수정하였습니다."
+					movePath = "${ pageContext.servletContext.contextPath }/approval/line/selectOne?no=${ requestScope.lineNo  }";					
+          break;
 				case "deleteFree" :
 					successMessage = "게시글을 삭제하였습니다."
 					movePath = "${ pageContext.servletContext.contextPath }/board/free/select";
