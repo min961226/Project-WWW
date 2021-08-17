@@ -45,68 +45,58 @@ public class SelectWorkingHoursScheduleServlet extends HttpServlet {
 		int memberNo = memberInfo.getMemberNo();
 		String appWorkType = memberInfo.getAppWorkType();
 		int workCode = memberInfo.getWorkCode();
-
-		// 날짜 출력 양식
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		// 오늘 날짜(todayDate)
-		Calendar date = new GregorianCalendar();
-		String todayDate = sdf.format(date.getTime()); //밀리세컨단위 getTime을 sdf으로 변환
-		System.out.println("String 형식 todayDate : " + todayDate);
-
+		
 
 		/* 1. 이번 달 근태 통계 */
 		/* 1-1. 이번달 근무일수가 몇일이고, 그 중 몇 일째인지 */
 		//오늘이 속한 해, 달, 오늘날짜
-		String[] arrayToday = todayDate.split("-");
-		int todayYearInt = Integer.parseInt(arrayToday[0]);
-		int todayMonthInt = Integer.parseInt(arrayToday[1]); 
-		int todayDateInt = Integer.parseInt(arrayToday[2]); 
+		LocalDate currentDate = LocalDate.now(); //String todayDate는 위쪽에서 정의해둠
+		String currentDateStr = currentDate + "";
+		String[] currentDateArr = currentDateStr.split("-");
+		request.setAttribute("thisYear", currentDateArr[0]);
+		request.setAttribute("thisMonth", currentDateArr[1]);
+		
+		int todayYearInt = Integer.parseInt(currentDateArr[0]);
+		int todayMonthInt = Integer.parseInt(currentDateArr[1]); 
+		int todayDateInt = Integer.parseInt(currentDateArr[2]); 
 
 		//해당 월의 시작일과 종료일
+		Calendar date = new GregorianCalendar();
 		int thisMonthFirstDate = date.getActualMinimum(Calendar.DATE);
 		int thisMonthLastDate = date.getActualMaximum(Calendar.DATE);
 
+		
+		/* 1-2. 오늘까지 근무일수 */
+		int forStartDate2 = 1;
+		int thisMonthWorkDateNum2 = 0;
+		for(int i = thisMonthFirstDate; i < todayDateInt + 1; i++) {
+			
+			String forStartDatestr = forStartDate2 + ""; 
+			if(forStartDate2 < 10) {
+				forStartDatestr = "0" + forStartDatestr;					
+			}			
+			
+			String ForStartDate = currentDateArr[0] + "-" + currentDateArr[1] + "-" + forStartDatestr;
+			
+			LocalDate fordate = LocalDate.parse(ForStartDate); 
+			DayOfWeek dayOfWeek = fordate.getDayOfWeek();
+			int w = dayOfWeek.getValue(); //from 1 (Monday) to 7 (Sunday)
+			
+			//if문으로 정리하는게 더 간편할듯
+			switch(w) {
+			case 1 : thisMonthWorkDateNum2++; break;
+			case 2 : thisMonthWorkDateNum2++; break;
+			case 3 : thisMonthWorkDateNum2++; break;
+			case 4 : thisMonthWorkDateNum2++; break;
+			case 5 : thisMonthWorkDateNum2++; break;
+			case 6 : break;
+			case 7 : break;
+			}
+			
+			forStartDate2++;
+		}		
 
-
-
-		/* 1-2. 이번달 지각횟수 */
-		java.sql.Date thisMonthFirst = Date.valueOf(LocalDate.of(todayYearInt, todayMonthInt, thisMonthFirstDate));
-		java.sql.Date thisMonthLast = Date.valueOf(LocalDate.of(todayYearInt, todayMonthInt, thisMonthLastDate));
-		String thisMonthFirstString = thisMonthFirst + "";
-		String thisMonthLastString = thisMonthLast + "";
-
-		//		MonthlyWorkLogDTO monthlyWorkLogDTO = new MonthlyWorkLogDTO();
-		//		monthlyWorkLogDTO.setMemberNo(memberNo);
-		//		monthlyWorkLogDTO.setMonthStartDate(thisMonthFirst);
-		//		monthlyWorkLogDTO.setMonthEndDate(thisMonthLast);
-
-		//		int thisMonthlateNum = scheduleService.countLateTimeNum(monthlyWorkLogDTO);
-		//		System.out.println("이번달 지각횟수 : " + thisMonthlateNum);
-		//		request.setAttribute("thisMonthlateNum", thisMonthlateNum);
-		//		
-		//		
-		//		/* 1-3. 이번달 출/퇴근 미체크 횟수가 몇번인지 */
-		//		String monthAndYear = arrayToday[0] + "-" + arrayToday[1];
-		//		monthlyWorkLogDTO.setMonthAndYear(monthAndYear);
-		//		int noCheckInTimeNum = scheduleService.countNoCheckInTimeNum(monthlyWorkLogDTO);
-		//		System.out.println("이번달 출근미체크 횟수 : " + noCheckInTimeNum);
-		//		request.setAttribute("noCheckInTimeNum", noCheckInTimeNum);
-		//		
-		//		int noCheckOutTimeNum = scheduleService.countNoCheckOutTimeNum(monthlyWorkLogDTO);
-		//		System.out.println("이번달 퇴근미체크 횟수 : " + noCheckOutTimeNum);
-		//		request.setAttribute("noCheckOutTimeNum", noCheckOutTimeNum);
-
-		/* 1-4. 오늘 퇴근체크를 했는지 */
-		//		String checkedOutToday = "";
-		//		monthlyWorkLogDTO.setSelectedDate(todayDate);
-		//		int isCheckedOut = scheduleService.checkedOutToday(monthlyWorkLogDTO);
-		//		if(isCheckedOut >= 1) {
-		//			checkedOutToday = "퇴근체크 완료";
-		//		} else if(isCheckedOut == 0) {
-		//			checkedOutToday = "퇴근체크 대상";
-		//		}
-		//		System.out.println("퇴근체크 여부 : " + checkedOutToday);
-		//		request.setAttribute("checkedOutToday", checkedOutToday);
+	
 
 
 		/* 2. 근무시간 현황 */
@@ -117,12 +107,7 @@ public class SelectWorkingHoursScheduleServlet extends HttpServlet {
 		request.setAttribute("workCode", workCode);
 
 		/* 2-2. 이번주 정규근무 시간과 잔여시간 */
-		// 오늘 날짜
-		LocalDate currentDate = LocalDate.now(); //String todayDate는 위쪽에서 정의해둠
-		String currentDateStr = currentDate + "";
-		String[] currentDateArr = currentDateStr.split("-");
-		request.setAttribute("thisYear", currentDateArr[0]);
-		request.setAttribute("thisMonth", currentDateArr[1]);
+		// 오늘 날짜는 위에서 선언&초기화 했음
 
 		// 이번주 월요일 날짜
 		String weekStartDate = currentDate
@@ -138,7 +123,7 @@ public class SelectWorkingHoursScheduleServlet extends HttpServlet {
 
 		WorkInfoDTO workInfo = new WorkInfoDTO();
 		workInfo.setMemberNo(memberNo);
-		workInfo.setToday(todayDate);
+		workInfo.setToday(currentDateStr);
 		workInfo.setWeekStartDate(weekStartDate);
 		workInfo.setWeekEndDate(weekEndDate);
 		workInfo.setSelectedLocalDate(selectedLocalDate);
@@ -175,6 +160,11 @@ public class SelectWorkingHoursScheduleServlet extends HttpServlet {
 
 
 		/* 2-4. 이번달 일수대로 출근시간, 퇴근시간,  */
+		java.sql.Date thisMonthFirst = Date.valueOf(LocalDate.of(todayYearInt, todayMonthInt, thisMonthFirstDate));
+		java.sql.Date thisMonthLast = Date.valueOf(LocalDate.of(todayYearInt, todayMonthInt, thisMonthLastDate));
+		String thisMonthFirstString = thisMonthFirst + "";
+		String thisMonthLastString = thisMonthLast + "";
+		
 		WorkInfoDTO workInfo3 = new WorkInfoDTO();
 		workInfo3.setMemberNo(memberNo);	
 		workInfo3.setWeekStartDate(thisMonthFirstString); //주의 시작/끝이 아니라 월의 시작/끝을 넣어서 출력
@@ -188,9 +178,8 @@ public class SelectWorkingHoursScheduleServlet extends HttpServlet {
 		//view에 넘길 용도로 만든 List
 		List<DailyCommuteDTO> dailyCommuteList = new ArrayList<>(); //이걸 써먹을라 했는데...
 		
-		int forStartDate = 1;
-		int thisMonthWorkDateNum = 0; //이번달 총 근무일수
-		int thisMonthWorkDateNum2 = 0; //오늘까지 근무일수
+		int forStartDate = 1;			//1일부터 시작
+		int thisMonthWorkDateNum = 0; 	//이번 달 총 근무일수
 		for(int i = 0; i < thisMonthLastDate; i++) {
 			
 			String forStartDatestr = forStartDate + "";					//일단위를 String으로 바꾼다. 만약 10 이하라면 0을 붙여준다.
@@ -198,12 +187,20 @@ public class SelectWorkingHoursScheduleServlet extends HttpServlet {
 				forStartDatestr = "0" + forStartDatestr;					
 			}			
 
-			String ForStartDate = arrayToday[0] + "-" + arrayToday[1] + "-" + forStartDatestr; //연, 월, 일을 합쳐서 문자열로 표시한다.
+			String ForStartDate = currentDateArr[0] + "-" + currentDateArr[1] + "-" + forStartDatestr; //연, 월, 일을 합쳐서 문자열로 표시한다.
 
 			//view에 넘길 용도로 만든 DTO
 			DailyCommuteDTO dailyCommuteDTO = new DailyCommuteDTO();
-			dailyCommuteDTO.setDateNum(forStartDatestr); 			//날짜 셋팅
-			dailyCommuteList.add(dailyCommuteDTO);					//일단 날짜값만 넣어둔 DTO를 List에 add. 안 하면 Nullpointer난다.
+			dailyCommuteDTO.setDateNum(forStartDatestr); 					// 1.날짜 셋팅
+			dailyCommuteList.add(dailyCommuteDTO);							//일단 날짜값만 넣어둔 DTO를 List에 add. 안 하면 NullPointerException
+			
+			//가져온 commuteLog DTO 중, 날짜(forStartDatestr)가 일치하는 것의 DTO를 가지고 온다. 
+			CommutingLogDTO getDTO = new CommutingLogDTO();
+			for(int j = 0; j < commutingLogMontlyList.size(); j++) {
+				if(commutingLogMontlyList.get(j).getDay().equals(forStartDatestr)) {
+					getDTO = commutingLogMontlyList.get(j);
+				}
+			}
 			
 			LocalDate fordate = LocalDate.parse(ForStartDate); 
 			DayOfWeek dayOfWeek = fordate.getDayOfWeek();
@@ -211,41 +208,114 @@ public class SelectWorkingHoursScheduleServlet extends HttpServlet {
 			
 			//토, 일, (6, 7)이 아니면 workdate에 1일씩 늘려준다. 
 			switch(w) {
-			case 1 : dailyCommuteList.get(i).setDayOfWeek("월");
+			case 1 : dailyCommuteDTO.setDayOfWeek("월");							// 2.요일셋팅
+					dailyCommuteDTO.setCheckInTime(getDTO.getInTime());			// 3.출근시간셋팅
+					dailyCommuteDTO.setCheckOutTime(getDTO.getOutTime()); 		// 4.퇴근시간셋팅
+					dailyCommuteDTO.setLateYn(getDTO.getLateYn());				// 5.지각여부셋팅
+					dailyCommuteDTO.setLeaveEarlyYn(getDTO.getLeaveEarlyYn());	// 6.조퇴여부셋팅
+					thisMonthWorkDateNum++; 									// 이번 달 총 근무일수에 1을 더해준다
+					break;
+			case 2 : dailyCommuteDTO.setDayOfWeek("화");
+					dailyCommuteDTO.setCheckInTime(getDTO.getInTime());			
+					dailyCommuteDTO.setCheckOutTime(getDTO.getOutTime()); 		
+					dailyCommuteDTO.setLateYn(getDTO.getLateYn());				
+					dailyCommuteDTO.setLeaveEarlyYn(getDTO.getLeaveEarlyYn());	
 					thisMonthWorkDateNum++; 
 					break;
-			case 2 : dailyCommuteList.get(i).setDayOfWeek("화");
-					thisMonthWorkDateNum++; 
-					break;
-			case 3 : dailyCommuteList.get(i).setDayOfWeek("수");
+			case 3 : dailyCommuteDTO.setDayOfWeek("수");
+					dailyCommuteDTO.setCheckInTime(getDTO.getInTime());			
+					dailyCommuteDTO.setCheckOutTime(getDTO.getOutTime()); 		
+					dailyCommuteDTO.setLateYn(getDTO.getLateYn());				
+					dailyCommuteDTO.setLeaveEarlyYn(getDTO.getLeaveEarlyYn());	
 					thisMonthWorkDateNum++; 
 					break;
 			case 4 : dailyCommuteList.get(i).setDayOfWeek("목");
+					dailyCommuteDTO.setCheckInTime(getDTO.getInTime());			
+					dailyCommuteDTO.setCheckOutTime(getDTO.getOutTime()); 		
+					dailyCommuteDTO.setLateYn(getDTO.getLateYn());				
+					dailyCommuteDTO.setLeaveEarlyYn(getDTO.getLeaveEarlyYn());	
 					thisMonthWorkDateNum++; 
 					break;
 			case 5 : dailyCommuteList.get(i).setDayOfWeek("금");
+					dailyCommuteDTO.setCheckInTime(getDTO.getInTime());			
+					dailyCommuteDTO.setCheckOutTime(getDTO.getOutTime()); 		
+					dailyCommuteDTO.setLateYn(getDTO.getLateYn());				
+					dailyCommuteDTO.setLeaveEarlyYn(getDTO.getLeaveEarlyYn());	
 					thisMonthWorkDateNum++; 
 					break;
 			case 6 : dailyCommuteList.get(i).setDayOfWeek("토"); 
+					dailyCommuteDTO.setCheckInTime(getDTO.getInTime());			
+					dailyCommuteDTO.setCheckOutTime(getDTO.getOutTime()); 		
+					dailyCommuteDTO.setLateYn(getDTO.getLateYn());				
+					dailyCommuteDTO.setLeaveEarlyYn(getDTO.getLeaveEarlyYn());	
 					break;
 			case 7 : dailyCommuteList.get(i).setDayOfWeek("일"); 
 					break;
 			}
 			
-			System.out.println("dailyCommuteList에 값 넣음 : " + dailyCommuteList);
-			forStartDate++;												//for문을 다시 돌리기위해 날짜를 1 증가시킨다
+			forStartDate++;		//for문에서 다음 날짜를 돌리기위해, 1 증가시킨다
 		}		
 		System.out.println(todayMonthInt + "월 의 총 근무일 수 : " + thisMonthWorkDateNum + "/ 오늘까지 근무일수 : " + thisMonthWorkDateNum2);
+		
 		request.setAttribute("thisMonthWorkDateNum", thisMonthWorkDateNum);
 		request.setAttribute("thisMonthWorkDateNum2", thisMonthWorkDateNum2);
-		
-		request.setAttribute("commutingLogMontlyList", commutingLogMontlyList);
 		request.setAttribute("dailyCommuteList", dailyCommuteList);
-
-
-
+		
+		
+		/* 1-2. 이번달 지각횟수 */
+		int thisMonthlateNum = 0;
+		for(CommutingLogDTO dto : commutingLogMontlyList) {
+			if(dto.getLateYn() != null && dto.getLateYn().equals("Y")) {
+				thisMonthlateNum++;
+			}
+		}
+		System.out.println("이번달 지각횟수 : " + thisMonthlateNum);
+		request.setAttribute("thisMonthlateNum", thisMonthlateNum);
+		
+		/* 1-3. 이번달 조퇴횟수 */
+		int thisMonthLeaveEarlyNum = 0;
+		for(CommutingLogDTO dto : commutingLogMontlyList) {
+			if(dto.getLeaveEarlyYn() != null && dto.getLeaveEarlyYn().equals("Y")) {
+				thisMonthLeaveEarlyNum++;
+			}
+		}
+		System.out.println("이번달 조퇴횟수 : " + thisMonthLeaveEarlyNum);
+		request.setAttribute("thisMonthLeaveEarlyNum", thisMonthLeaveEarlyNum);
+	
+		/* 1-4. 이번달 출근 미체크 횟수 */
+		int noCheckInTimeNum = 0;
+		for(CommutingLogDTO dto : commutingLogMontlyList) {
+			if(dto.getInTime() == null) {
+				noCheckInTimeNum++;
+			}
+		}
+		System.out.println("이번 달 출근미체크 : " + noCheckInTimeNum);
+		request.setAttribute("noCheckInTimeNum", noCheckInTimeNum);
+		
+		/* 1-4. 이번달 퇴근 미체크 횟수 */
+		int noCheckOutTimeNum = 0;
+		for(CommutingLogDTO dto : commutingLogMontlyList) {
+			if(dto.getInTime() == null) {
+				noCheckOutTimeNum++;
+			}
+		}
+		System.out.println("이번 달 퇴근미체크 : " + noCheckOutTimeNum);
+		request.setAttribute("noCheckOutTimeNum", noCheckOutTimeNum);
+		
+		/* 1-5. 오늘 퇴근체크를 했는지 */
+		int checkedOutToday = 0;
+		for(CommutingLogDTO dto : commutingLogMontlyList) {
+			if(dto.getDay().equals(currentDateArr[2])) {
+				if(dto.getOutTime() != null) {
+					checkedOutToday = 1;
+				}
+			}
+		}
+		System.out.println("오늘 퇴근체크를 안 했으면 0 : " + checkedOutToday);
+		request.setAttribute("checkedOutToday", checkedOutToday);
+		
+		
 		String path = "/WEB-INF/views/schedule/checkWorkingHours.jsp";
-
 		request.getRequestDispatcher(path).forward(request, response);
 	}
 
