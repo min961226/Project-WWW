@@ -179,15 +179,20 @@ public class SelectWorkingHoursScheduleServlet extends HttpServlet {
 		workInfo3.setMemberNo(memberNo);	
 		workInfo3.setWeekStartDate(thisMonthFirstString); //주의 시작/끝이 아니라 월의 시작/끝을 넣어서 출력
 		workInfo3.setWeekEndDate(thisMonthLastString);
-		List<CommutingLogDTO> commutingLogMontlyList = mainService.selectCommutingLog(workInfo3);
-
-		List<DailyCommuteDTO> dailyCommuteList = new ArrayList<>();
-
+		List<CommutingLogDTO> commutingLogMontlyList = mainService.selectCommutingLog(workInfo3); //OK
+		for(CommutingLogDTO dto : commutingLogMontlyList) {
+			System.out.println(dto);
+		}
+		
+		
+		//view에 넘길 용도로 만든 List
+		List<DailyCommuteDTO> dailyCommuteList = new ArrayList<>(); //이걸 써먹을라 했는데...
+		
 		int forStartDate = 1;
 		int thisMonthWorkDateNum = 0; //이번달 총 근무일수
 		int thisMonthWorkDateNum2 = 0; //오늘까지 근무일수
 		for(int i = 0; i < thisMonthLastDate; i++) {
-
+			
 			String forStartDatestr = forStartDate + "";					//일단위를 String으로 바꾼다. 만약 10 이하라면 0을 붙여준다.
 			if(forStartDate < 10) {
 				forStartDatestr = "0" + forStartDatestr;					
@@ -195,54 +200,45 @@ public class SelectWorkingHoursScheduleServlet extends HttpServlet {
 
 			String ForStartDate = arrayToday[0] + "-" + arrayToday[1] + "-" + forStartDatestr; //연, 월, 일을 합쳐서 문자열로 표시한다.
 
+			//view에 넘길 용도로 만든 DTO
+			DailyCommuteDTO dailyCommuteDTO = new DailyCommuteDTO();
+			dailyCommuteDTO.setDateNum(forStartDatestr); 			//날짜 셋팅
+			dailyCommuteList.add(dailyCommuteDTO);					//일단 날짜값만 넣어둔 DTO를 List에 add. 안 하면 Nullpointer난다.
+			
 			LocalDate fordate = LocalDate.parse(ForStartDate); 
 			DayOfWeek dayOfWeek = fordate.getDayOfWeek();
 			int w = dayOfWeek.getValue(); 								//from 1 (Monday) to 7 (Sunday)
-
+			
 			//토, 일, (6, 7)이 아니면 workdate에 1일씩 늘려준다. 
 			switch(w) {
-			case 1 : dailyCommuteList.get(i).setDateNum(forStartDatestr);
-					dailyCommuteList.get(i).setDayOfWeek("월");
+			case 1 : dailyCommuteList.get(i).setDayOfWeek("월");
 					thisMonthWorkDateNum++; 
-					thisMonthWorkDateNum2++;
 					break;
-			case 2 : dailyCommuteList.get(i).setDateNum(forStartDatestr);
-					dailyCommuteList.get(i).setDayOfWeek("화");
+			case 2 : dailyCommuteList.get(i).setDayOfWeek("화");
 					thisMonthWorkDateNum++; 
-					thisMonthWorkDateNum2++;
 					break;
-			case 3 : dailyCommuteList.get(i).setDateNum(forStartDatestr);
-					dailyCommuteList.get(i).setDayOfWeek("수");
+			case 3 : dailyCommuteList.get(i).setDayOfWeek("수");
 					thisMonthWorkDateNum++; 
-					thisMonthWorkDateNum2++;
 					break;
-			case 4 : dailyCommuteList.get(i).setDateNum(forStartDatestr);
-					dailyCommuteList.get(i).setDayOfWeek("목");
+			case 4 : dailyCommuteList.get(i).setDayOfWeek("목");
 					thisMonthWorkDateNum++; 
-					thisMonthWorkDateNum2++;
 					break;
-			case 5 : dailyCommuteList.get(i).setDateNum(forStartDatestr);
-					dailyCommuteList.get(i).setDayOfWeek("금");
+			case 5 : dailyCommuteList.get(i).setDayOfWeek("금");
 					thisMonthWorkDateNum++; 
-					thisMonthWorkDateNum2++;
 					break;
-			case 6 : dailyCommuteList.get(i).setDateNum(forStartDatestr);
-					dailyCommuteList.get(i).setDayOfWeek("토"); 
+			case 6 : dailyCommuteList.get(i).setDayOfWeek("토"); 
 					break;
-			case 7 : dailyCommuteList.get(i).setDateNum(forStartDatestr);
-					dailyCommuteList.get(i).setDayOfWeek("일"); 
+			case 7 : dailyCommuteList.get(i).setDayOfWeek("일"); 
 					break;
 			}
-
+			
+			System.out.println("dailyCommuteList에 값 넣음 : " + dailyCommuteList);
 			forStartDate++;												//for문을 다시 돌리기위해 날짜를 1 증가시킨다
 		}		
 		System.out.println(todayMonthInt + "월 의 총 근무일 수 : " + thisMonthWorkDateNum + "/ 오늘까지 근무일수 : " + thisMonthWorkDateNum2);
 		request.setAttribute("thisMonthWorkDateNum", thisMonthWorkDateNum);
 		request.setAttribute("thisMonthWorkDateNum2", thisMonthWorkDateNum2);
-
-
-		System.out.println("commutingLogMontlyList : " + commutingLogMontlyList);
-		System.out.println("dailyCommuteList : " + dailyCommuteList);
+		
 		request.setAttribute("commutingLogMontlyList", commutingLogMontlyList);
 		request.setAttribute("dailyCommuteList", dailyCommuteList);
 

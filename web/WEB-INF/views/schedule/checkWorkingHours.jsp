@@ -97,6 +97,8 @@
                                 
                                 <div><c:out value="${ requestScope.commutingLogMontlyList }"/>
 	                    		</div>
+	                    		<div><c:out value="${ requestScope.dailyCommuteList }"/>
+	                    		</div>
                                 <!-- 월별시간 -->
                                 <table class="table table-striped">
                                 	<thead>

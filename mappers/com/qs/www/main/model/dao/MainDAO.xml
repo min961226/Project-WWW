@@ -39,6 +39,7 @@
           FROM TBL_COMMUTE A
          WHERE A.MEMBER_NO = #{ memberNo }
            AND (A.YEAR_MONTH || '-' || A.DAY) BETWEEN #{ weekStartDate } AND #{ weekEndDate }
+         order by a.day
 	</select>
 	
 	<select id="selectWorkingLog" parameterType="com.qs.www.main.model.dto.WorkInfoDTO" resultMap="workingLogResultMap">
