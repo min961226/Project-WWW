@@ -38,5 +38,8 @@ public class FreeDAO {
 	public int selectAllCount(SqlSession session, Map<String, String> searchMap) {
 		return session.selectOne("FreeDAO.selectAllCount", searchMap);
 	}
+	public int deleteFree(SqlSession session, int no) {
+		return session.delete("FreeDAO.deleteFree",no);
+	}
 	
 }

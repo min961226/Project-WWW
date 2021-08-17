@@ -92,8 +92,12 @@
 				case "deleteLine" :
 					successMessage = "결재라인을 삭제하였습니다."
 					movePath = "${ pageContext.servletContext.contextPath }/approval/line/select";
-
 					break;
+				case "deleteFree" :
+					successMessage = "게시글을 삭제하였습니다."
+					movePath = "${ pageContext.servletContext.contextPath }/board/free/select";
+					break;
+					
 
 			}
 
