@@ -64,9 +64,10 @@
         SELECT /* com.qs.www.board.model.dao.FormDAO#selectAllCount() */
                COUNT(*)
           FROM TBL_BOARD A
+          LEFT JOIN TBL_MEMBER D ON(A.MEMBER_NO = D.MEMBER_NO)
     	<where>
 			<if test="searchCondition == 'name'">
-	           B.NAME LIKE '%' || #{ searchValue } || '%'	
+	           D.NAME LIKE '%' || #{ searchValue } || '%'	
 			</if>
 			<if test="searchCondition == 'title'">
 	           A.BOARD_TITLE LIKE '%' || #{ searchValue } || '%' 	

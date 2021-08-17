@@ -29,9 +29,9 @@
 			    		<input type="hidden" name="currentPage" value="1">
 						<select id="searchCondition" name="searchCondition">
 							
-							<option value="writer" ${ requestScope.selectCriteria.searchCondition eq "writer"? "selected": "" }>작성자</option>
+							<option value="name" ${ requestScope.selectCriteria.searchCondition eq "name"? "selected": "" }>작성자</option>
 							<option value="title" ${ requestScope.selectCriteria.searchCondition eq "title"? "selected": "" }>제목</option>
-							<option value="content" ${ requestScope.selectCriteria.searchCondition eq "content"? "selected": "" }>내용</option>
+							<option value="body" ${ requestScope.selectCriteria.searchCondition eq "body"? "selected": "" }>내용</option>
 						</select>
 						<input type="search" id="searchValue" name="searchValue" value="<c:out value="${ requestScope.selectCriteria.searchValue }"/>">
 					<button type="submit" >검색하기</button>
@@ -44,7 +44,9 @@
 	                <div class="col-lg-12">
 	                    <div class="card-box">
 	                    	<div class="card-block">
+
 	                    		</div>
+
 	                            <table class="display datatable table table-stripped">
 	                                <thead>
 	                                    <tr bgcolor = "FFBC35">
