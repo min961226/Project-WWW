@@ -111,6 +111,10 @@ public class WelfareDAO {
 		return session.delete("WelfareDAO.deleteAppliedSeminarRoom", seminarRoomReservDTO);
 	}
 
+	public List<String> selectWelfareYn(SqlSession session) {
+		return session.selectList("WelfareDAO.selectWelfareYn");
+	}
+
 
 
 

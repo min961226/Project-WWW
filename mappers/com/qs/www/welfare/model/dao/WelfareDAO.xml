@@ -301,4 +301,11 @@
 		   AND A.RESERV_TIME_NO = #{ reservNo }
 	</delete>
 	
+	<select id= "selectWelfareYn" resultType="String">
+		SELECT /* com.qs.www.welfare.model.dao.WelfareDAO#selectWelfareYn() */
+			   A.USE_YN
+		  FROM TBL_DOCUMENT_FORM A
+		 WHERE A.DOCUMENT_NO IN(7,8,9,10,11,12)
+	</select>
+	
 </mapper>
