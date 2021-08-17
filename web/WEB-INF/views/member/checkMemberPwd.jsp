@@ -39,9 +39,9 @@
                             </div>
                             <div class="form-group form-focus">
                                	<select name="question" class="form-control">
-                                <option class="control-option">== 본인 확인 질문 ==</option>
+                                <option class="control-option" value="">== 본인 확인 질문 ==</option>
 								<c:forEach items="${ requestScope.questionList }" var="question">
-									<option><c:out value="${ question }" /></option>
+									<option value="${ question }"><c:out value="${ question }" /></option>
 								</c:forEach>
 								</select>
                             </div>
