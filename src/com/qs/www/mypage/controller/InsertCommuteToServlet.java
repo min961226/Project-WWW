@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.qs.www.main.model.dto.WorkingLogDTO;
 import com.qs.www.member.model.dto.MemberInfoDTO;
 import com.qs.www.mypage.model.dto.CommutingLogDTO;
 import com.qs.www.mypage.model.service.MypageService;
@@ -25,7 +26,10 @@ public class InsertCommuteToServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		HttpSession session = request.getSession();
-		int memberNo = ((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo();
+		MemberInfoDTO memberInfo = (MemberInfoDTO) session.getAttribute("memberInfo");
+		int memberNo = memberInfo.getMemberNo();
+		String appWorkType = memberInfo.getAppWorkType();
+		int workCode = memberInfo.getWorkCode();
 		
 		// 시간 정보 저장
 		CommutingLogDTO commutingLog = new CommutingLogDTO();
@@ -41,7 +45,12 @@ public class InsertCommuteToServlet extends HttpServlet {
 		
 		MypageService mypageService = new MypageService();
 		
+		// 출근 시간 기록
 		int result = mypageService.insertCommute(commutingLog);
+		
+		// 적용 근무제도 조회
+		WorkingLogDTO workingLog = new WorkingLogDTO();
+		
 		
 		Gson gson = new GsonBuilder()
 						.setPrettyPrinting()
@@ -51,7 +60,7 @@ public class InsertCommuteToServlet extends HttpServlet {
 						.create();
 		
 		response.setContentType("application/json, charset=UTF-8");
-		
+
 		String jsonString = "";
 		
 		if(result > 0) {

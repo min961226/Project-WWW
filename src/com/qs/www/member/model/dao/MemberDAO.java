@@ -27,4 +27,8 @@ public class MemberDAO {
 	public CheckPwdDTO selectMemberPwd(SqlSession sqlSession, CheckPwdDTO checkPwd) {
 		return sqlSession.selectOne("MemberDAO.selectMemberPwd", checkPwd);
 	}
+
+	public int updateMemberPwd(SqlSession sqlSession, MemberDTO changePwdMember) {
+		return sqlSession.update("MemberDAO.updateMemberPwd", changePwdMember);
+	}
 }

@@ -2,6 +2,8 @@ package com.qs.www.mypage.model.dto;
 
 import java.io.Serializable;
 
+import com.qs.www.main.model.dto.WorkingLogDTO;
+
 public class CommutingLogDTO implements Serializable {
 	
 	private int commuteNo;
@@ -10,6 +12,7 @@ public class CommutingLogDTO implements Serializable {
 	private String day;
 	private String inTime;
 	private String outTime;
+	private WorkingLogDTO workingLog;
 	private String lateYn;
 	private String leaveEarlyYn;
 	
@@ -18,7 +21,7 @@ public class CommutingLogDTO implements Serializable {
 	public CommutingLogDTO() {}
 
 	public CommutingLogDTO(int commuteNo, int memberNo, String yearMonth, String day, String inTime, String outTime,
-			String lateYn, String leaveEarlyYn, String dayOfWeek) {
+			WorkingLogDTO workingLog, String lateYn, String leaveEarlyYn, String dayOfWeek) {
 		super();
 		this.commuteNo = commuteNo;
 		this.memberNo = memberNo;
@@ -26,6 +29,7 @@ public class CommutingLogDTO implements Serializable {
 		this.day = day;
 		this.inTime = inTime;
 		this.outTime = outTime;
+		this.workingLog = workingLog;
 		this.lateYn = lateYn;
 		this.leaveEarlyYn = leaveEarlyYn;
 		this.dayOfWeek = dayOfWeek;
@@ -79,6 +83,14 @@ public class CommutingLogDTO implements Serializable {
 		this.outTime = outTime;
 	}
 
+	public WorkingLogDTO getWorkingLog() {
+		return workingLog;
+	}
+
+	public void setWorkingLog(WorkingLogDTO workingLog) {
+		this.workingLog = workingLog;
+	}
+
 	public String getLateYn() {
 		return lateYn;
 	}
@@ -106,11 +118,7 @@ public class CommutingLogDTO implements Serializable {
 	@Override
 	public String toString() {
 		return "CommutingLogDTO [commuteNo=" + commuteNo + ", memberNo=" + memberNo + ", yearMonth=" + yearMonth
-				+ ", day=" + day + ", inTime=" + inTime + ", outTime=" + outTime + ", lateYn=" + lateYn
-				+ ", leaveEarlyYn=" + leaveEarlyYn + ", dayOfWeek=" + dayOfWeek + "]";
+				+ ", day=" + day + ", inTime=" + inTime + ", outTime=" + outTime + ", workingLog=" + workingLog
+				+ ", lateYn=" + lateYn + ", leaveEarlyYn=" + leaveEarlyYn + ", dayOfWeek=" + dayOfWeek + "]";
 	}
-
-	
-
-	
 }

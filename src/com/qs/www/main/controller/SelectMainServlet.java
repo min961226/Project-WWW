@@ -59,15 +59,13 @@ public class SelectMainServlet extends HttpServlet {
 		
 		MainService mainService = new MainService();
 		
+		List<WorkingLogDTO> workingLogList = mainService.selectWorkingLogList(workInfo);
 		List<CommutingLogDTO> commutingLogList = mainService.selectCommutingLog(workInfo);
-		List<WorkingLogDTO> workingLogList = mainService.selectWorkingLog(workInfo);
 
-		String path = "";
-
+		String path = "/WEB-INF/views/main/main.jsp";
 		request.setAttribute("workInfo", workInfo);
 		request.setAttribute("commutingLogList", commutingLogList);
 		request.setAttribute("workingLogList", workingLogList);
-		path = "/WEB-INF/views/main/main.jsp";
 			
 		request.getRequestDispatcher(path).forward(request, response);
 	}

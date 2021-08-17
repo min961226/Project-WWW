@@ -133,4 +133,11 @@
            AND A.QUESTION_CODE = #{ question.questionCode }
            AND A.QUESTION_ANSWER = #{ questionAnswer }
 	</select>
+	
+	<update id="updateMemberPwd" parameterType="com.qs.www.member.model.dto.MemberDTO">
+        UPDATE /* com.qs.www.member.model.dao.MemberDAO#updateMemberPwd() */
+               TBL_MEMBER A
+           SET A.PASSWORD = #{ password }
+         WHERE A.MEMBER_ID = #{ memberId }
+	</update>
 </mapper>

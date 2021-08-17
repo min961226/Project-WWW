@@ -37,7 +37,7 @@ public class UpdateCommuteFromServlet extends HttpServlet {
 		commutingLog.setYearMonth(currentYearMonth);
 		commutingLog.setDay(currentDay);
 		commutingLog.setOutTime(currentTime);
-		
+
 		MypageService mypageService = new MypageService();
 		
 		int result = mypageService.updateCommute(commutingLog, currentDateTime);
@@ -52,7 +52,7 @@ public class UpdateCommuteFromServlet extends HttpServlet {
 		response.setContentType("application/json, charset=UTF-8");
 		
 		String jsonString = "";
-		System.out.println("cL : " + commutingLog);
+
 		if(result > 0) {
 			jsonString = gson.toJson(commutingLog);
 		} else {
