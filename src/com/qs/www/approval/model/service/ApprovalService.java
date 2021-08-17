@@ -34,7 +34,7 @@ public class ApprovalService {
 
 		return lineList;
 	}
-	
+
 	public List<ApprovalLineDTO> selectApprovalLineByMap(HashMap<String, Object> selectedInfoMap) {
 		SqlSession session = getSqlSession();
 
@@ -99,6 +99,16 @@ public class ApprovalService {
 		return reportList;
 	}
 
+	public List<ReportDTO> selectReportDetail(HashMap<String, Object> selectedInfoMap) {
+		SqlSession session = getSqlSession();
+
+		List<ReportDTO> reportList = approvalDAO.selectReportDetail(session, selectedInfoMap);
+
+		session.close();
+
+		return reportList;
+	}
+
 	public List<WorkingDocumentItemDTO> selectReportItemList(int no) {
 		SqlSession session = getSqlSession();
 
@@ -108,9 +118,9 @@ public class ApprovalService {
 
 		return itemList;
 	}
-	
+
 	public List<ApproverLogPerReportDTO> selectALPRList(int no) {
-		
+
 		SqlSession session = getSqlSession();
 
 		List<ApproverLogPerReportDTO> ALPRList = approvalDAO.selectALPRList(session, no);
@@ -159,7 +169,7 @@ public class ApprovalService {
 
 		return APRList;
 	}
-	
+
 	public int insertALPR(ApproverLogPerReportDTO aLPR) {
 		SqlSession session = getSqlSession();
 
@@ -174,7 +184,7 @@ public class ApprovalService {
 
 		return result;
 	}
-	
+
 	public ApproverPerReportDTO selectThisTurnAPR(ApproverPerReportDTO thisAPR) {
 
 		SqlSession session = getSqlSession();
@@ -185,7 +195,7 @@ public class ApprovalService {
 
 		return APR;
 	}
-	
+
 	public int updateThisTurnAPR(ApproverPerReportDTO thisAPR) {
 		SqlSession session = getSqlSession();
 
@@ -330,7 +340,7 @@ public class ApprovalService {
 
 	public int deleteApprover(int lineNo) {
 		SqlSession session = getSqlSession();
-		
+
 		int result = approvalDAO.deleteApprover(session,lineNo);
 		if(result > 0) {
 			session.commit();
@@ -340,6 +350,36 @@ public class ApprovalService {
 		session.close();
 
 		return result;
+	}
+
+	public int selectWaitingAPPCount(HashMap<String, Object> countMap) {
+		SqlSession session = getSqlSession();
+
+		int count = approvalDAO.selectWaitingAPPCount(session, countMap);
+
+		session.close();
+
+		return count;
+	}
+
+	public int selectAppliedAPPCount(HashMap<String, Object> countMap) {
+		SqlSession session = getSqlSession();
+
+		int count = approvalDAO.selectAppliedAPPCount(session, countMap);
+
+		session.close();
+
+		return count;
+	}
+
+	public int selectAPPLineCount(HashMap<String, Object> countMap) {
+		SqlSession session = getSqlSession();
+
+		int count = approvalDAO.selectAPPLineCount(session, countMap);
+
+		session.close();
+
+		return count;
 	}
 
 

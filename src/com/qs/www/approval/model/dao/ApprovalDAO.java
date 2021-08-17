@@ -43,10 +43,15 @@ public class ApprovalDAO {
 		
 		return session.selectList("ApprovalDAO.selectMyReport", selectedInfoMap);
 	}
-
+	
 	public ReportDTO selectOneReportDetail(SqlSession session, int reportNo) {
 
 		return session.selectOne("ApprovalDAO.selectOneReportDetail", reportNo);
+	}
+	
+	public List<ReportDTO> selectReportDetail(SqlSession session, HashMap<String, Object> selectedInfoMap) {
+
+		return session.selectList("ApprovalDAO.selectReportDetail", selectedInfoMap);
 	}
 
 	public List<WorkingDocumentItemDTO> selectReportItemList(SqlSession session, int no) {
@@ -137,6 +142,18 @@ public class ApprovalDAO {
 	public int updateLine(SqlSession session, ApprovalLineDTO line) {
 		
 		return session.update("ApprovalDAO.updateLine", line);
+	}
+	public int selectWaitingAPPCount(SqlSession session, HashMap<String, Object> countMap) {
+		
+		return session.selectOne("ApprovalDAO.selectWaitingAPPCount", countMap);
+	}
+	public int selectAppliedAPPCount(SqlSession session, HashMap<String, Object> countMap) {
+		
+		return session.selectOne("ApprovalDAO.selectAppliedAPPCount", countMap);
+	}
+	public int selectAPPLineCount(SqlSession session, HashMap<String, Object> countMap) {
+		
+		return session.selectOne("ApprovalDAO.selectAPPLineCount", countMap);
 	}
 
 
