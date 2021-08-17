@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import com.qs.www.main.model.dto.WorkInfoDTO;
 import com.qs.www.main.model.dto.WorkingLogDTO;
+import com.qs.www.main.model.service.MainService;
 import com.qs.www.member.model.dto.MemberDTO;
 import com.qs.www.member.model.dto.MemberInfoDTO;
 import com.qs.www.member.model.service.MemberService;
@@ -30,6 +31,7 @@ public class LoginServlet extends HttpServlet {
 		requestMember.setPassword(memberPwd);
 		
 		MemberService memberService = new MemberService();
+		MainService mainService = new MainService();
 		
 		// ID, PWD가 일치하는 정보를 DB에서 가져오기
 		MemberInfoDTO loginMember = memberService.checkMember(requestMember);
@@ -45,10 +47,7 @@ public class LoginServlet extends HttpServlet {
 			workInfo.setMemberNo(loginMember.getMemberNo());
 			workInfo.setSelectedDate(todayDate);
 			
-			System.out.println(workInfo);
-			
-			WorkingLogDTO workingLog = memberService.selectWorkingLog(workInfo);
-			System.out.println(workingLog);
+			WorkingLogDTO workingLog = mainService.selectWorkingLog(workInfo);
 			loginMember.setAppWorkType(workingLog.getWorkType());
 			loginMember.setWorkCode(workingLog.getWorkNo());
 			

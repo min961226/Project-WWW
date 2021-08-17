@@ -1,3 +1,4 @@
+
 package com.qs.www.main.model.dto;
 
 import java.io.Serializable;
@@ -14,12 +15,11 @@ public class WorkInfoDTO implements Serializable {
 	private String weekEndDate;
 	private String selectedDate;
 	private LocalDate selectedLocalDate;
-	private Date selectedSqlDate;
 	
 	public WorkInfoDTO() {}
 
 	public WorkInfoDTO(int memberNo, String appWorkType, int workCode, String today, String weekStartDate,
-			String weekEndDate, String selectedDate, LocalDate selectedLocalDate, Date selectedSqlDate) {
+			String weekEndDate, String selectedDate, LocalDate selectedLocalDate) {
 		super();
 		this.memberNo = memberNo;
 		this.appWorkType = appWorkType;
@@ -29,7 +29,6 @@ public class WorkInfoDTO implements Serializable {
 		this.weekEndDate = weekEndDate;
 		this.selectedDate = selectedDate;
 		this.selectedLocalDate = selectedLocalDate;
-		this.selectedSqlDate = selectedSqlDate;
 	}
 
 	public int getMemberNo() {
@@ -96,19 +95,10 @@ public class WorkInfoDTO implements Serializable {
 		this.selectedLocalDate = selectedLocalDate;
 	}
 
-	public Date getSelectedSqlDate() {
-		return selectedSqlDate;
-	}
-
-	public void setSelectedSqlDate(Date selectedSqlDate) {
-		this.selectedSqlDate = selectedSqlDate;
-	}
-
 	@Override
 	public String toString() {
 		return "WorkInfoDTO [memberNo=" + memberNo + ", appWorkType=" + appWorkType + ", workCode=" + workCode
 				+ ", today=" + today + ", weekStartDate=" + weekStartDate + ", weekEndDate=" + weekEndDate
-				+ ", selectedDate=" + selectedDate + ", selectedLocalDate=" + selectedLocalDate + ", selectedSqlDate="
-				+ selectedSqlDate + "]";
+				+ ", selectedDate=" + selectedDate + ", selectedLocalDate=" + selectedLocalDate + "]";
 	}
 }

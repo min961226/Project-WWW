@@ -203,10 +203,6 @@
 	</div>
 	<div class="sidebar-overlay" data-reff=""></div>
 	<script>
-		$(document).ready(function() {
-		});
-		
-		
 		$("#in_time").click(function() {
 			$.ajax({
 				url: "${ pageContext.servletContext.contextPath }/mypage/commute/insert",

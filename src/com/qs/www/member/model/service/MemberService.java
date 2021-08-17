@@ -3,11 +3,11 @@ package com.qs.www.member.model.service;
 import static com.qs.www.common.mybatis.Template.getSqlSession;
 
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.qs.www.main.model.dao.MainDAO;
 import com.qs.www.main.model.dto.WorkInfoDTO;
 import com.qs.www.main.model.dto.WorkingLogDTO;
-import com.qs.www.main.model.dto.WorkingTypeDTO;
 import com.qs.www.member.model.dao.MemberDAO;
 import com.qs.www.member.model.dto.CheckPwdDTO;
 import com.qs.www.member.model.dto.MemberDTO;
@@ -45,6 +45,22 @@ public class MemberService {
 		
 		return loginMember;
 	}
+	
+	public int checkPwd(String changePwd, String changePwd2) {
+		
+		SqlSession sqlSession = getSqlSession();
+		
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		int result = 0;
+		System.out.println(changePwd);
+		System.out.println(changePwd2);
+		if(passwordEncoder.matches(changePwd, changePwd2)) {
+			result = 1;
+		}
+		sqlSession.close();
+		
+		return result;
+	}
 
 	public String checkMemberId(MemberDTO member) {
 		
@@ -81,15 +97,20 @@ public class MemberService {
 		return result;
 	}
 
-	public WorkingLogDTO selectWorkingLog(WorkInfoDTO workInfo) {
+	public int updateMemberPwd(MemberDTO changePwdMember) {
 		
 		SqlSession sqlSession = getSqlSession();
 		
-		WorkingLogDTO workingLog = new WorkingLogDTO();
-		workingLog = mainDAO.selectWorkingLog(sqlSession, workInfo);
+		int result = memberDAO.updateMemberPwd(sqlSession, changePwdMember);
+		
+		if(result > 0) {
+			sqlSession.commit();
+		} else {
+			sqlSession.rollback();
+		}
 		
 		sqlSession.close();
 		
-		return workingLog;
+		return result;
 	}
 }

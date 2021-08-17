@@ -57,12 +57,12 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        	<c:forEach var="commutingLog" items="${ commutingLogList }" varStatus="status">
+                                        	<c:forEach var="workingLog" items="${ workingLogList }" varStatus="status">
                                         		<tr>
-                                        			<td>${ commutingLog.yearMonth }-${ commutingLog.day }</td>
-                                        			<td>${ commutingLog.inTime }</td>
-                                        			<td>${ commutingLog.outTime }</td>
-                                        			<td>${ workingLogList[status.index].workingType.checkInTime }</td>
+                                        			<td>${ selectedDate } (${ selectedDayOfWeek })</td>
+                                        			<td>${ commutingLogList[status.index].inTime }</td>
+                                        			<td>${ commutingLogList[status.index].outTime }</td>
+                                        			<td>${ workingType.checkInTime }</td>
                                         			<td>-</td>
                                         		</tr>
                                         	</c:forEach>

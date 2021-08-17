@@ -37,8 +37,21 @@ public class MainService {
 		return commutingLogList;
 	}
 	
-	// 근무 유형 및 시간 조회
-	public List<WorkingLogDTO> selectWorkingLog(WorkInfoDTO workInfo) {
+	// 근무 유형 조회
+	public WorkingLogDTO selectWorkingLog(WorkInfoDTO workInfo) {
+		
+		SqlSession sqlSession = getSqlSession();
+		
+		WorkingLogDTO workingLog = new WorkingLogDTO();
+		workingLog = mainDAO.selectWorkingLog(sqlSession, workInfo);
+		
+		sqlSession.close();
+		
+		return workingLog;
+	}
+	
+	// 이번 주 근무 유형 및 시간 조회
+	public List<WorkingLogDTO> selectWorkingLogList(WorkInfoDTO workInfo) {
 		
 		SqlSession sqlSession = getSqlSession();
 
@@ -56,14 +69,14 @@ public class MainService {
 			String[] week = {"월", "화", "수", "목", "금", "토", "일"};
 			String selectedDayOfWeek = week[dayOfWeek.getValue() - 1];
 			
-			// 근무 이력 조회
+			// 근무 이력 조회하여 현재 적용 중인 근무 제도 확인
 			WorkingLogDTO workingLog = new WorkingLogDTO();
 			workingLog = mainDAO.selectWorkingLog(sqlSession, workInfo);
 			
 			if(workingLog != null) {
 				workingLog.setSelectedDate(selectedDate);
 				workingLog.setSelectedDayOfWeek(selectedDayOfWeek);
-				// 근무 유형 조회
+				// 현재 적용 중인 근무의 상세 내용을 조회
 				WorkingTypeDTO workingType = new WorkingTypeDTO();
 				workingType = mainDAO.selectWorkingType(sqlSession, workingLog);
 				
