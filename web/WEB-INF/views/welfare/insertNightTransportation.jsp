@@ -69,8 +69,7 @@
 
 							</div>
 							<div class="m-t-20 text-center">
-								<button class="btn btn-primary btn-lg" type="submit">신청
-									완료</button>
+								<button class="btn btn-primary btn-lg" type="submit">신청	완료</button>
 								<button type="reset" class="btn btn-primary btn-lg" id="goBack">돌아가기</button>
 							</div>
 						</form>
@@ -83,7 +82,11 @@
 		const $goBack = document.getElementById("goBack");
 
 		$goBack.onclick = function() {
-			location.href = "${ pageContext.servletContext.contextPath }/welfare/list/select"
+			if (!confirm("돌아가시겠습니까?\n작성중이던 모든 내용이 삭제됩니다.")) {
+	        	
+	        } else {
+				location.href = "${ pageContext.servletContext.contextPath }/welfare/list/select"
+	        }
 		}
 	</script>
 </body>

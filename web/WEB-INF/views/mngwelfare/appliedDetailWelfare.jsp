@@ -28,7 +28,7 @@
 
 
 						<form class="form-horizontal"
-							action="${ pageContext.servletContext.contextPath }/welfare/applied/list/delete?no=${ requestScope.selectedReport.reportNo }"
+							action="${ pageContext.servletContext.contextPath }/mng/welfare/applied/list/delete?no=${ requestScope.selectedReport.reportNo }"
 							method="post">
 
 
@@ -63,10 +63,10 @@
 							<div class="form-group">
 							
 							<div class="col-sm-6">
-									<label>기안자</label>
+									<label>상신자</label>
 									<div class="col-md-12">
 										<input class="form-control"
-											value="${ sessionScope.memberInfo.name }" disabled />
+											value="${ requestScope.selectedReport.memberName }" disabled />
 									</div>
 								</div>
 								
@@ -163,7 +163,7 @@
 									</div>
 
 									<div class="col-sm-6">
-										<label>경조금</label>
+										<label>지급 계획 경조금</label>
 										<div class="col-md-12">
 											<input class="form-control"
 												value="${ requestScope.eventBill }만원" disabled />
@@ -294,7 +294,7 @@
 									<c:set var="reportStatus"
 										value="${ requestScope.selectedReport.reportStatus }" />
 									<c:if test="${  reportStatus eq '대기' }">
-										<button type="submit" class="btn btn-primary btn-lg">회수하기</button>
+										<button type="submit" class="btn btn-primary btn-lg" id="revoke">회수하기</button>
 									</c:if>
 									<button type="reset" class="btn btn-primary btn-lg" id="goBack">돌아가기</button>
 								</div>
@@ -316,7 +316,7 @@
 	<script>
 		const $goBack = document.getElementById("goBack");
 		$goBack.onclick = function() {
-			location.href = "${ pageContext.servletContext.contextPath }/welfare/applied/list/select"
+			location.href = "${ pageContext.servletContext.contextPath }/mng/welfare/applied/select"
 		}
 	</script>
 </body>

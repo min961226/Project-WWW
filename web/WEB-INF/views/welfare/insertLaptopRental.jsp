@@ -89,9 +89,12 @@
 	</div>
 	<script>
 		const $goBack = document.getElementById("goBack");
-
 		$goBack.onclick = function() {
-			location.href = "${ pageContext.servletContext.contextPath }/welfare/list/selected?selectedWelfare=노트북대여신청"
+			if (!confirm("돌아가시겠습니까?\n작성중이던 모든 내용이 삭제됩니다.")) {
+	        	
+	        } else {
+				location.href = "${ pageContext.servletContext.contextPath }/welfare/list/selected?selectedWelfare=노트북대여신청"
+	        }
 		}
 	</script>
 </body>

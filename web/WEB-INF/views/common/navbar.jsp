@@ -50,7 +50,7 @@
 			<ul class="nav navbar-nav navbar-right user-menu pull-right">
 				<li class="dropdown hidden-xs">
 					<a href="" id="in_time">
-						<img src="${ pageContext.servletContext.contextPath }/assets/img/sign_in.png" alt=""></img>
+						<img src="${ pageContext.servletContext.contextPath }/assets/img/sign_in.png" alt="" ></img>
 					</a>
 				</li>
 				<li class="dropdown hidden-xs">
@@ -62,7 +62,7 @@
 					<a href="#" class="dropdown-toggle user-link" data-toggle="dropdown">
 						<span class="status online"></span>
 						<span class="user-img"><img class="img-circle" src="${ pageContext.servletContext.contextPath }/assets/img/user.jpg" width="40" alt="Admin"></span>
-						<span>${ sessionScope.memberInfo.name } 님</span>
+						<span style="font-size: 16px;  font-weight:bold;" >&nbsp;&nbsp;${ sessionScope.memberInfo.name } 님</span>
 						<i class="caret"></i>
 					</a>
 					<ul class="dropdown-menu">

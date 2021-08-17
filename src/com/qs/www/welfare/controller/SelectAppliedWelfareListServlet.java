@@ -24,18 +24,13 @@ public class SelectAppliedWelfareListServlet extends HttpServlet {
 		System.out.println("복지 신청 내역");
 		HttpSession session = request.getSession();
 
-		int no = ((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo();
+		int no = ((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo();									//세션에 저장된 멤버 번호를 가져온다
 
-		List<ReportDTO> appliedWelfareList= new WelfareService().selectAppliedWelfareList(no);
+		List<ReportDTO> appliedWelfareList= new WelfareService().selectAppliedWelfareList(no);							//멤버 번호에 해당하는 신청 복지 목록을 가져온다.
 
-		System.out.println(appliedWelfareList);
+		System.out.println(appliedWelfareList);																			//신청된 복지 목록 확인
 
 		request.setAttribute("appliedWelfareList", appliedWelfareList);
 		request.getRequestDispatcher("/WEB-INF/views/welfare/appliedWelfareList.jsp").forward(request, response);
-	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
 	}
 }
