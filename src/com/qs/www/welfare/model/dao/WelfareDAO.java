@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
+import com.qs.www.mng.welfare.model.dto.WelfareYnDTO;
 import com.qs.www.schedule.model.dto.ApproverPerReportDTO;
 import com.qs.www.schedule.model.dto.ReportDTO;
 import com.qs.www.schedule.model.dto.WorkingDocumentItemDTO;
@@ -111,9 +112,7 @@ public class WelfareDAO {
 		return session.delete("WelfareDAO.deleteAppliedSeminarRoom", seminarRoomReservDTO);
 	}
 
-	public List<String> selectWelfareYn(SqlSession session) {
-		return session.selectList("WelfareDAO.selectWelfareYn");
-	}
+	
 
 
 
