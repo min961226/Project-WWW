@@ -33,14 +33,15 @@
                                 	<label class="col-md-3 control-label">신청근무제도</label>
                                     <div class="col-md-9">
                                     	<!-- 일단은 선택가능한 거에 넣어두기 -->
-                                        <select class="select" name="workNo" required>
-                                            <option>선택</option>
+                                        <select class="select" name="workNo" onchange="testChange(this)" required>
+                                            <option value="0">선택</option>
                                             <option value="1">기본근태</option>
                                             <option value="2">시차출퇴근A</option>
                                             <option value="3">시차출퇴근B</option>
                                             <option value="4">시차출퇴근C</option>
                                             <option value="5">시차출퇴근D</option>
                                             <option value="6">선택근무제</option>
+                                            <option value="7">초과근무</option>
                                         </select>
                                     </div>
                                 </div>
@@ -82,7 +83,7 @@
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">기간</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control">
+                                        <input type="text" class="form-control" disabled>
                                     </div>
                                 </div>
                                 <script>
@@ -113,6 +114,23 @@
     
     <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script>
+    	// onchange에서 호출하는 함수. 
+    	function testChange(obj){
+    		var result = $('#document option:selected').val();
+    		if (result == 6) {
+    			$('#div1').show();
+    		} else {
+    			$('#div1').hide();
+    		}
+    		
+    		if (result == 7) {
+    			$('#div1').show();
+    		} else {
+    			$('#div1').hide();
+    		}
+    	}
+    
+    
     	const $goBack = document.getElementById("goBack");
     	
     	$goBack.onclick = function() {
