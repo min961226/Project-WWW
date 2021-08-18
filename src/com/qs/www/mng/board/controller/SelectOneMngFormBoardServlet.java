@@ -1,6 +1,6 @@
 package com.qs.www.mng.board.controller;
 
-import java.io.IOException; 
+import java.io.IOException;  
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,6 +16,8 @@ import com.qs.www.mng.board.model.service.MngNoticeService;
 
 @WebServlet("/mng/board/form/selectOne")
 public class SelectOneMngFormBoardServlet extends HttpServlet {
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 	//게시판 상세보기
 	System.out.println("확인");
@@ -32,7 +34,7 @@ public class SelectOneMngFormBoardServlet extends HttpServlet {
 		request.setAttribute("mngform", mngformDetail);
 	} else {
 		path = "/WEB-INF/views/common/failed.jsp";
-		request.setAttribute("message", "공지사항 상세보기 실패");
+		request.setAttribute("message", "문서서식 게시판 상세보기 실패");
 	}
 	
 	request.getRequestDispatcher(path).forward(request, response);
@@ -74,5 +76,5 @@ public class SelectOneMngFormBoardServlet extends HttpServlet {
 //	}
 
 //	request.getRequestDispatcher(path).forward(request, response);
-}
+	}
 }

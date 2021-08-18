@@ -140,6 +140,26 @@
 					successMessage = "공지사항 삭제가 완료되었습니다.";
 					movePath = "${ pageContext.servletContext.contextPath }/mng/board/notice/select";
 					break;
+					
+				case "updateMngNotice" :
+					successMessage = "공지사항 수정이 완료되었습니다.";
+					movePath = "${ pageContext.servletContext.contextPath }/mng/board/notice/select";
+					break;
+					
+				case "insertMngForm" :
+					successMessage = "문서서식 게시판 작성이 완료되었습니다.";
+					movePath = "${ pageContext.servletContext.contextPath }/mng/board/form/select";
+					break;
+					
+				case "updateMngForm" :
+					successMessage = "문서서식 게시판 수정이 완료되었습니다.";
+					movePath = "${ pageContext.servletContext.contextPath }/mng/board/form/select";
+					break;
+					
+				case "deleteMngForm" :
+					successMessage = "문서서식 게시판 삭제가 완료되었습니다.";
+					movePath = "${ pageContext.servletContext.contextPath }/mng/board/form/select";
+					break;
 			}
 
 			alert(successMessage);

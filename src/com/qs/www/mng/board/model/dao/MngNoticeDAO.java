@@ -36,4 +36,8 @@ public class MngNoticeDAO {
 		return session.selectOne("MngNoticeDAO.selectMngNoticeDetail", no);
 	}
 
+	public int deleteMngNotice(SqlSession session, int no) {
+		return session.delete("MngNoticeDAO.deleteMngNotice",no);
+	}
+
 }
