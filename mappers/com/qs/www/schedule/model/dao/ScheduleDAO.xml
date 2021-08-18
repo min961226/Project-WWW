@@ -209,7 +209,7 @@
 	 ORDER BY A.REPORT_NO DESC
 	</select>
 	
-	<select id="countLateTimeNum" parameterType="com.qs.www.schedule.model.dto.MonthlyWorkLogDTO" resultType="_int">
+	<!-- <select id="countLateTimeNum" parameterType="com.qs.www.schedule.model.dto.MonthlyWorkLogDTO" resultType="_int">
 	SELECT /* com.qs.www.schedule.model.dao.ScheduleDAO#countLateTimeNum() */
 	       COUNT(*)
 	  FROM TBL_DAILY_WORK_LOG A
@@ -234,7 +234,7 @@
 	 WHERE A.MEMBER_NO = #{ memberNo }
 	   AND A.YEAR_MONTH = #{ monthAndYear }
 	   AND A.OUT_TIME IS NULL	
-	</select>
+	</select> -->
 	
 	<select id="checkedOutToday" parameterType="com.qs.www.schedule.model.dto.MonthlyWorkLogDTO" resultType="_int">
 	SELECT
@@ -313,5 +313,80 @@
       AND B.LOG_TYPE = '사용'
       AND #{ currentDate } between C.HOLIDAY_START_DAY AND C.HOLIDAY_END_DAY
    </select>
+   
+   <select id="selectCustomWorkNum">
+   SELECT /* com.qs.www.schedule.model.dao.ScheduleDAO#selectCustomWorkNum() */
+		   LAST_NUMBER
+      FROM USER_SEQUENCES
+     WHERE SEQUENCE_NAME = 'SEQ_CUSTOM_WORK'
+   </select>
+   
+   <insert id="insertCustomWork" parameterType="com.qs.www.schedule.model.dto.CustomWorkDTO">
+   INSERT /* com.qs.www.schedule.model.dao.ScheduleDAO#insertCustomWork() */
+	  INTO TBL_CUSTOM_WORK A
+	(
+	  A.WORK_NO
+	, A.BREAK_START_TIME
+	, A.BREAK_END_TIME
+	, A.MEMBER_NO
+	, A.ACTIVE_YN
+	)
+	VALUES
+	(
+	  SEQ_CUSTOM_WORK.nextval
+	, NULL
+	, NULL
+	, #{ memberNo }
+	, DEFAULT
+	)
+   </insert>
+   
+   <insert id="insertCustomWorktime" parameterType="com.qs.www.schedule.model.dto.CustomWorkTimeDTO">
+   INSERT /* com.qs.www.schedule.model.dao.ScheduleDAO#insertCustomWorktime() */
+	  INTO TBL_CUSTOM_WORKTIME A
+	(
+	  A.WORK_NO
+	, A.DAY_OF_WEEK
+	, A.CHECK_IN_TIME
+	, A.CHECK_OUT_TIME
+	)
+	VALUES
+	(
+	  #{ workNo }
+	, #{ dayOfWeek }
+	, #{ checkInTime }
+	, #{ checkOutTime }
+	)
+   </insert>
+   
+   <insert id="insertOvertimeLog" parameterType="com.qs.www.schedule.model.dto.OvertimeLogDTO">
+	INSERT /* com.qs.www.schedule.model.dao.ScheduleDAO#overtimeLogDTO() */
+	  INTO TBL_MEMBER_OVERTIME_LOG A
+	(
+	  A.MEMBER_OVERTIME_LOG_NO
+	, A.OVERTIME_REPORT_NO
+	, A.MEMBER_NO
+	, A.OVERTIME_START_DAY
+	, A.OVERTIME_START_TIME
+	, A.OVERTIME_END_DAY
+	, A.OVERTIME_END_TIME
+	, A.OVERTIME_DURING
+	, A.TRANS_BILL
+	)
+	VALUES
+	(
+	  SEQ_MEMBER_OVERTIME_LOG_NO.NEXTVAL
+	, #{ overtimeReportNo }
+	, #{ memberNo }
+	, #{ overtimeStartDay }
+	, #{ overtimeStartTime }
+	, #{ overtimeEndDay }
+	, #{ overtimeEndTime }
+	, #{ overtimeReportNo }
+	, #{ overtimeDuring }
+	, 'N'
+	)
+
+   </insert>
 
 </mapper>

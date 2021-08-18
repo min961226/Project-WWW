@@ -74,14 +74,18 @@
 	(
 	  A.HOLIDAY_LOG_NO
 	, A.HOLIDAY_START_DAY
+	, A.HOLIDAY_START_DAY_ALLDAY
 	, A.HOLIDAY_END_DAY
+	, A.HOLIDAY_END_DAY_ALLDAY
 	, A.HOLIDAY_REPORT_NO
 	)
 	VALUES
 	(
 	  #{ holidayLogNo }
 	, #{ holidayStartDay }
+	, #{ holidayStartDayAllday }
 	, #{ holidayEndDay }
+	, #{ holidayEndDayAllday }
 	, #{ holidayReportNo }
 	)
 	</insert>

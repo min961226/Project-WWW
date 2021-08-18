@@ -142,7 +142,7 @@
                                         				<c:when test="${ isSaterDay || isSundayDay }">
                                         					<td><div style="color : #E94B3B">휴</div></td>
                                         				</c:when>
-                                        				<c:when test="${ empty days.checkInTime && isLate}">
+                                        				<c:when test="${ !empty days.checkInTime && isLate}">
                                         					<th><i class="fa fa-dot-circle-o text-danger"></i><br><c:out value="${ days.checkInTime }"/></th>
                                         				</c:when>
                                         				<c:otherwise>
@@ -161,7 +161,7 @@
                                         				<c:when test="${ isSaterDay || isSundayDay }">
                                         					<td><div style="color : #E94B3B">휴</div></td>
                                         				</c:when>
-                                        				<c:when test="${ empty days.checkOutTime && isLeaveEarly}">
+                                        				<c:when test="${ !empty days.checkOutTime && isLeaveEarly}">
                                         					<th><i class="fa fa-dot-circle-o text-danger"></i><br><c:out value="${ days.checkOutTime }"/></th>
                                         				</c:when>
                                         				<c:otherwise>

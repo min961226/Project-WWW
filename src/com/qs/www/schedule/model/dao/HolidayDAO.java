@@ -21,11 +21,6 @@ public class HolidayDAO {
 		return session.insert("HolidayDAO.insertHolidayLog", holidayLogDTO);
 	}
 	
-	public int selectHolidayLogNum(SqlSession session) {
-		
-		return session.selectOne("HolidayDAO.selectHolidayLogNum");
-	}
-
 	public int insertHolidayUseInfo(SqlSession session, HolidayUseInfoDTO holidayUseInfoDTO) {
 		
 		return session.insert("HolidayDAO.insertHolidayUseInfo", holidayUseInfoDTO);
@@ -34,6 +29,12 @@ public class HolidayDAO {
 	public List<ReportDTO> selectMyholidayReport(SqlSession session, int no) {
 		
 		return session.selectList("HolidayDAO.selectMyholidayReport", no);
+	}
+	
+	/* 휴가결재 승인을 한 뒤, 휴가부여사용내역에 insert 하기 전 미리 lastNumber를 가지고 옴 */
+	public int selectHolidayLogNum(SqlSession session) {
+		
+		return session.selectOne("HolidayDAO.selectHolidayLogNum");
 	}
 
 
