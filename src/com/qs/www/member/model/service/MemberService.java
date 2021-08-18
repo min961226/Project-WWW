@@ -31,15 +31,11 @@ public class MemberService {
 		
 		String encPwd = memberDAO.selectEncryptedPwd(sqlSession, memberId);
 		
-		if(encPwd != null && encPwd.equals(requestMember.getPassword())) {
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		
+		if(passwordEncoder.matches(requestMember.getPassword(), encPwd)) {
 			loginMember = memberDAO.selectLoginMember(sqlSession, memberId);
 		}
-		
-//		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-//		
-//		if(passwordEncoder.matches(requestMember.getPassword(), encPwd)) {
-//			loginMember = memberDAO.selectLoginMember(session, memberId);
-//		}
 		
 		sqlSession.close();
 		
@@ -100,11 +96,9 @@ public class MemberService {
 		
 		SqlSession sqlSession = getSqlSession();
 		
-		String memberId = changePwdMember.getMemberId();
-		String changePwd = changePwdMember.getPassword();
-		String encPwd = memberDAO.selectEncryptedPwd(sqlSession, memberId);
-		System.out.println(changePwd);
-		System.out.println(encPwd);
+//		String memberId = changePwdMember.getMemberId();
+//		String changePwd = changePwdMember.getPassword();
+//		String encPwd = memberDAO.selectEncryptedPwd(sqlSession, memberId);
 		
 		int result = memberDAO.updateMemberPwd(sqlSession, changePwdMember);
 		

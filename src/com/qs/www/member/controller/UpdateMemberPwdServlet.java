@@ -19,34 +19,25 @@ public class UpdateMemberPwdServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String memberId = request.getParameter("memberId");
 		String changePwd = request.getParameter("changePwd");
-		String changePwd2 = request.getParameter("changePwd2");
 		
 		MemberDTO changePwdMember = new MemberDTO();
 		changePwdMember.setMemberId(memberId);
 		changePwdMember.setPassword(changePwd);
-
-//		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		
 		String path = "";
 		
-		if(changePwd.equals(changePwd2)) {
-			MemberService memberService = new MemberService();
+		MemberService memberService = new MemberService();
+		
+		int result = memberService.updateMemberPwd(changePwdMember);
+		
+		if(result > 0) {
+			path = "/WEB-INF/views/common/success.jsp";
+			request.setAttribute("successCode", "updatePwd");
 			
-			int result = memberService.updateMemberPwd(changePwdMember);
-			
-			if(result > 0) {
-				path = "/WEB-INF/views/common/success.jsp";
-				request.setAttribute("successCode", "updatePwd");
-				
-				request.getRequestDispatcher(path).forward(request, response);
-			} else {
-				path = "/WEB-INF/views/common/failed.jsp";
-				request.setAttribute("failedCode", "updatePwd");
-				
-				request.getRequestDispatcher(path).forward(request, response);
-			}
+			request.getRequestDispatcher(path).forward(request, response);
 		} else {
 			path = "/WEB-INF/views/common/failed.jsp";
-			request.setAttribute("failedCode", "matchPwd");
+			request.setAttribute("failedCode", "updatePwd");
 			
 			request.getRequestDispatcher(path).forward(request, response);
 		}

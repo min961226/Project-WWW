@@ -18,8 +18,6 @@
     <link rel="stylesheet" type="text/css" href="${ pageContext.servletContext.contextPath }/assets/css/bootstrap-datetimepicker.min.css">
     <link rel="stylesheet" type="text/css" href="${ pageContext.servletContext.contextPath }/assets/plugins/morris/morris.css">
     <link rel="stylesheet" type="text/css" href="${ pageContext.servletContext.contextPath }/assets/css/style.css">
-    <link rel="stylesheet" type="text/css" href="${ pageContext.servletContext.contextPath }/assets/css/summernote/summernote-lite.css">
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.css"rel="stylesheet">
 	<title>Wonderful Welfare Workspace</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
  	<style>
@@ -61,8 +59,8 @@
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle user-link" data-toggle="dropdown">
 						<span class="status online"></span>
-						<span class="user-img"><img class="img-circle" src="${ pageContext.servletContext.contextPath }/assets/img/user.jpg" width="40" alt="Admin"></span>
-						<span style="font-size: 16px;  font-weight:bold;" >&nbsp;&nbsp;${ sessionScope.memberInfo.name } 님</span>
+						<span class="user-img"><img class="img-circle" src="${ pageContext.servletContext.contextPath }/assets/img/user.jpg" width="40" alt="User"></span>
+						<span style="font-size: 16px; font-weight: bold; padding-left: 3px;">${ sessionScope.memberInfo.name } 님</span>
 						<i class="caret"></i>
 					</a>
 					<ul class="dropdown-menu">
@@ -261,17 +259,5 @@
     <script type="text/javascript" src="${ pageContext.servletContext.contextPath }/assets/plugins/morris/morris.min.js"></script>
     <script type="text/javascript" src="${ pageContext.servletContext.contextPath }/assets/plugins/raphael/raphael-min.js"></script>
     <script type="text/javascript" src="${ pageContext.servletContext.contextPath }/assets/js/app.js"></script>
-    <script	src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.js"></script>
-	<script src="${ pageContext.servletContext.contextPath }/assets/js/summernote/lang/summernote-ko-KR.js"></script>
-	<script>
-		$(document).ready(function() {
-			$('#summernote').summernote({
-				minHeight : 370,
-				maxHeight : null,
-				focus : true,
-				lang : 'ko-KR'
-			});
-		});
-	</script>
 </body>
 </html>
