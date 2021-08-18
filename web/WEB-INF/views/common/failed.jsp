@@ -38,7 +38,7 @@
 					
 				case "updatePwd" :
 					failedMessage = "비밀번호 변경에 실패하였습니다.";
-					movePath = "${ pageContext.servletContext.contextPath }/member/pwd/update";
+					movePath = "${ pageContext.servletContext.contextPath }/member/pwd/check";
 					break;
 					
 				case "insertCommute" :

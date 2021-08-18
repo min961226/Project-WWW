@@ -46,7 +46,7 @@
 	                       	<div class="panel-body">
                                 <div class="table-resposive">
                                 	<h5>근무 제도 : ${ sessionScope.memberInfo.appWorkType }</h5>
-                                    <table class="table table-hover custom-table m-b-0">
+                                    <table class="table table-hover custom-table">
                                         <thead>
                                             <tr>
                                                 <th>날짜</th>
@@ -59,10 +59,10 @@
                                         <tbody>
                                         	<c:forEach var="workingLog" items="${ workingLogList }" varStatus="status">
                                         		<tr>
-                                        			<td>${ selectedDate } (${ selectedDayOfWeek })</td>
+                                        			<td>${ workingLog.selectedDate } (${ workingLog.selectedDayOfWeek })</td>
                                         			<td>${ commutingLogList[status.index].inTime }</td>
                                         			<td>${ commutingLogList[status.index].outTime }</td>
-                                        			<td>${ workingType.checkInTime }</td>
+                                        			<td>${ workingLog.workingType.checkInTime }</td>
                                         			<td>-</td>
                                         		</tr>
                                         	</c:forEach>
