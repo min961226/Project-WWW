@@ -38,16 +38,59 @@ public class MngHolidayService {
 		
 		return reportList;
 	}
+	
+	public int selectHolidayLogNum(int lineNo) {
+		SqlSession session = getSqlSession();
+
+		int logNo = mngHolidayDAO.selectHolidayLogNum(session, lineNo);
+
+		session.close();
+
+		return logNo;
+	}
+	
 
 	public int cancleSelectedReport(int lineNo) {
 		SqlSession session = getSqlSession();
 
 		int result = mngHolidayDAO.cancleSelectedReport(session, lineNo);
-
+		if(result > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
 		session.close();
 
 		return result;
 	}
+
+	public int deleteHolidayUseInfo(int logNo) {
+		SqlSession session = getSqlSession();
+
+		int result = mngHolidayDAO.deleteHolidayUseInfo(session, logNo);
+		if(result > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+		session.close();
+
+		return result;
+	}
+	public int deleteHolidayLog(int logNo) {
+		SqlSession session = getSqlSession();
+		
+		int result = mngHolidayDAO.deleteHolidayLog(session, logNo);
+		if(result > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+		session.close();
+		
+		return result;
+	}
+
 	
 	
 

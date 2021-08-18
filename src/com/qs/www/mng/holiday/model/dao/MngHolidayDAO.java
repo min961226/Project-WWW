@@ -19,9 +19,25 @@ public class MngHolidayDAO {
 		
 		return session.selectList("MngHolidayDAO.selectHolidayAPP", selectCriteria);
 	}
+	
+	public int selectHolidayLogNum(SqlSession session, int lineNo) {
+		
+		return session.selectOne("MngHolidayDAO.selectHolidayLogNum", lineNo);
+	}
 
 	public int cancleSelectedReport(SqlSession session, int lineNo) {
 		
 		return session.update("MngHolidayDAO.cancleSelectedReport", lineNo);
 	}
+
+	public int deleteHolidayUseInfo(SqlSession session, int logNo) {
+		
+		return session.delete("MngHolidayDAO.deleteHolidayUseInfo", logNo);
+	}
+	public int deleteHolidayLog(SqlSession session, int logNo) {
+		
+		return session.delete("MngHolidayDAO.deleteHolidayLog", logNo);
+	}
+
+	
 }

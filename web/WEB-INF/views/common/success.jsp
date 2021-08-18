@@ -61,7 +61,7 @@
 					movePath = "${ pageContext.servletContext.contextPath }/schedule/workingSystem/insert";
 					break;
 					
-				case "inserHoliday" :
+				case "insertHoliday" :
 					successMessage = "휴가신청이 상신되었습니다.";
 					movePath = "${ pageContext.servletContext.contextPath }/schedule/holiday/insert";
 					break;
@@ -139,6 +139,10 @@
 				case "deleteMngNotice" :
 					successMessage = "공지사항 삭제가 완료되었습니다.";
 					movePath = "${ pageContext.servletContext.contextPath }/mng/board/notice/select";
+					break;
+				case "deleteHoliday" :
+					successMessage = "휴가 취소가 완료되었습니다.";
+					movePath = "${ pageContext.servletContext.contextPath }/mng/holiday/applied/select";
 					break;
 			}
 
