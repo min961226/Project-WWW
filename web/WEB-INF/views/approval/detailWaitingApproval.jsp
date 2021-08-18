@@ -29,7 +29,7 @@
 				</div>
 				<div class="row">
 					<div class="col-lg-12">
-					<div class="card-box col-lg-6">
+					<div class="card-box col-xs-6">
 								<div class="form-group">
 								<div class="col-sm-12">
 								   <h1 align="center">WWW <c:if test="${requestScope.selectedReport.documentNo eq 1}"> <c:out  value="일반기안문"/></c:if>
@@ -169,7 +169,7 @@
 								</div>
 								</div>
 								</div>
-								<div class="card-box col-lg-6">
+								<div class="card-box col-xs-6">
 								    <div class="col-xs-12">
                                       <h4 align="center">결재내역 목록</h4>
                                     </div>
@@ -201,7 +201,7 @@
                                 
                                 </c:forEach>
 								<form class="form-horizontal" action="${ pageContext.servletContext.contextPath }/approval/waiting/selectOne?no=${ requestScope.selectedReport.reportNo }" method="post">
-								<div class="card-box col-lg-12">
+								<div class="card-box col-xs-12">
                                     <h4 class="card-title">결재처리함</h4>
                                     <div class="form-group">
                                     
