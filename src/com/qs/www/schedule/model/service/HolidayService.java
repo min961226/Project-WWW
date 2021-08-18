@@ -54,17 +54,6 @@ public class HolidayService {
 		return result;
 		
 	}
-	
-	public int selectHolidayLogNum() {
-		
-		SqlSession session = getSqlSession();
-		
-		int holidayLogNo = holidayDAO.selectHolidayLogNum(session);
-		
-		session.close();
-		
-		return holidayLogNo;
-	}
 
 	public int insertHolidayUseInfo(HolidayUseInfoDTO holidayUseInfoDTO) {
 		
@@ -93,6 +82,19 @@ public class HolidayService {
 		
 		return holidayReportList;
 	}
+	
+	/* 휴가결재 승인을 한 뒤, 휴가부여사용내역에 insert 하기 전 미리 lastNumber를 가지고 옴 */
+	public int selectHolidayLogNum() {
+		
+		SqlSession session = getSqlSession();
+		
+		int holidayLogNo = holidayDAO.selectHolidayLogNum(session);
+		
+		session.close();
+		
+		return holidayLogNo;
+	}
+	
 
 	
 

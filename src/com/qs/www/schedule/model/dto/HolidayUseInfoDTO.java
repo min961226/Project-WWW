@@ -6,16 +6,21 @@ public class HolidayUseInfoDTO {
 	
 	private int holidayLogNo;
 	private java.sql.Date holidayStartDay;
+	private String holidayStartDayAllday;
 	private java.sql.Date holidayEndDay;
+	private String holidayEndDayAllday;
 	private int holidayReportNo;
 	
 	public HolidayUseInfoDTO() {}
 
-	public HolidayUseInfoDTO(int holidayLogNo, Date holidayStartDay, Date holidayEndDay, int holidayReportNo) {
+	public HolidayUseInfoDTO(int holidayLogNo, Date holidayStartDay, String holidayStartDayAllday, Date holidayEndDay,
+			String holidayEndDayAllday, int holidayReportNo) {
 		super();
 		this.holidayLogNo = holidayLogNo;
 		this.holidayStartDay = holidayStartDay;
+		this.holidayStartDayAllday = holidayStartDayAllday;
 		this.holidayEndDay = holidayEndDay;
+		this.holidayEndDayAllday = holidayEndDayAllday;
 		this.holidayReportNo = holidayReportNo;
 	}
 
@@ -35,12 +40,28 @@ public class HolidayUseInfoDTO {
 		this.holidayStartDay = holidayStartDay;
 	}
 
+	public String getHolidayStartDayAllday() {
+		return holidayStartDayAllday;
+	}
+
+	public void setHolidayStartDayAllday(String holidayStartDayAllday) {
+		this.holidayStartDayAllday = holidayStartDayAllday;
+	}
+
 	public java.sql.Date getHolidayEndDay() {
 		return holidayEndDay;
 	}
 
 	public void setHolidayEndDay(java.sql.Date holidayEndDay) {
 		this.holidayEndDay = holidayEndDay;
+	}
+
+	public String getHolidayEndDayAllday() {
+		return holidayEndDayAllday;
+	}
+
+	public void setHolidayEndDayAllday(String holidayEndDayAllday) {
+		this.holidayEndDayAllday = holidayEndDayAllday;
 	}
 
 	public int getHolidayReportNo() {
@@ -54,9 +75,10 @@ public class HolidayUseInfoDTO {
 	@Override
 	public String toString() {
 		return "HolidayUseInfoDTO [holidayLogNo=" + holidayLogNo + ", holidayStartDay=" + holidayStartDay
-				+ ", holidayEndDay=" + holidayEndDay + ", holidayReportNo=" + holidayReportNo + "]";
+				+ ", holidayStartDayAllday=" + holidayStartDayAllday + ", holidayEndDay=" + holidayEndDay
+				+ ", holidayEndDayAllday=" + holidayEndDayAllday + ", holidayReportNo=" + holidayReportNo + "]";
 	}
-	
+
 	
 
 }

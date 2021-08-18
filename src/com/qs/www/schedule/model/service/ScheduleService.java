@@ -4,6 +4,8 @@ import com.qs.www.member.model.dto.DepartmentDTO;
 import com.qs.www.member.model.dto.MemberInfoDTO;
 import com.qs.www.schedule.model.dao.ScheduleDAO;
 import com.qs.www.schedule.model.dto.ApproverPerReportDTO;
+import com.qs.www.schedule.model.dto.CustomWorkDTO;
+import com.qs.www.schedule.model.dto.CustomWorkTimeDTO;
 import com.qs.www.schedule.model.dto.HolidayLogDTO;
 import com.qs.www.schedule.model.dto.MemberWorkLogDTO;
 import com.qs.www.schedule.model.dto.MonthlyWorkLogDTO;
@@ -124,52 +126,52 @@ public class ScheduleService {
 	}
 	
 	/* 해당월의 지각횟수 count */
-	public int countLateTimeNum(MonthlyWorkLogDTO monthlyWorkLogDTO) {
-		
-		SqlSession session = getSqlSession();
-		
-		int lateNum = scheduleDAO.countLateTimeNum(session, monthlyWorkLogDTO);
-		
-		session.close();
-		
-		return lateNum;
-	}
-	
-	/* 해당월 출근 미체크 횟수 COUNT */
-	public int countNoCheckInTimeNum(MonthlyWorkLogDTO monthlyWorkLogDTO) {
-		
-		SqlSession session = getSqlSession();
-		
-		int noCheckInTimeNum = scheduleDAO.countNoCheckInTimeNum(session, monthlyWorkLogDTO);
-		
-		session.close();
-		
-		return noCheckInTimeNum;
-	}
-	
-	/* 해당월 퇴근 미체크 횟수 COUNT */
-	public int countNoCheckOutTimeNum(MonthlyWorkLogDTO monthlyWorkLogDTO) {
-		
-		SqlSession session = getSqlSession();
-		
-		int noCheckOutTimeNum = scheduleDAO.countNoCheckOutTimeNum(session, monthlyWorkLogDTO);
-		
-		session.close();
-		
-		return noCheckOutTimeNum;
-	}
-	
-	/* 오늘 퇴근체크 여부 확인 (count 사용) */
-	public int checkedOutToday(MonthlyWorkLogDTO monthlyWorkLogDTO) {
-		
-		SqlSession session = getSqlSession();
-		
-		int isCheckedOut = scheduleDAO.checkedOutToday(session, monthlyWorkLogDTO);
-		
-		session.close();
-		
-		return isCheckedOut;
-	}
+//	public int countLateTimeNum(MonthlyWorkLogDTO monthlyWorkLogDTO) {
+//		
+//		SqlSession session = getSqlSession();
+//		
+//		int lateNum = scheduleDAO.countLateTimeNum(session, monthlyWorkLogDTO);
+//		
+//		session.close();
+//		
+//		return lateNum;
+//	}
+//	
+//	/* 해당월 출근 미체크 횟수 COUNT */
+//	public int countNoCheckInTimeNum(MonthlyWorkLogDTO monthlyWorkLogDTO) {
+//		
+//		SqlSession session = getSqlSession();
+//		
+//		int noCheckInTimeNum = scheduleDAO.countNoCheckInTimeNum(session, monthlyWorkLogDTO);
+//		
+//		session.close();
+//		
+//		return noCheckInTimeNum;
+//	}
+//	
+//	/* 해당월 퇴근 미체크 횟수 COUNT */
+//	public int countNoCheckOutTimeNum(MonthlyWorkLogDTO monthlyWorkLogDTO) {
+//		
+//		SqlSession session = getSqlSession();
+//		
+//		int noCheckOutTimeNum = scheduleDAO.countNoCheckOutTimeNum(session, monthlyWorkLogDTO);
+//		
+//		session.close();
+//		
+//		return noCheckOutTimeNum;
+//	}
+//	
+//	/* 오늘 퇴근체크 여부 확인 (count 사용) */
+//	public int checkedOutToday(MonthlyWorkLogDTO monthlyWorkLogDTO) {
+//		
+//		SqlSession session = getSqlSession();
+//		
+//		int isCheckedOut = scheduleDAO.checkedOutToday(session, monthlyWorkLogDTO);
+//		
+//		session.close();
+//		
+//		return isCheckedOut;
+//	}
 
 	/* 해당 기간동안 overtime 기록을 가져오기 */
 	public List<OvertimeLogDTO> selectOverTimeLog(OvertimeLogDTO overtimeLogDTO) {
@@ -206,8 +208,67 @@ public class ScheduleService {
 		return teamHolidayLogList;
 	}
 	
-	
+	/* 근무결재 승인을 한 뒤, 휴가부여사용내역에 insert 하기 전 미리 lastNumber를 가지고 옴 */
+	public int selectCustomWorkNum() {
+		
+		SqlSession session = getSqlSession();
+		
+		int customWorkNum = scheduleDAO.selectCustomWorkNum(session);
+		
+		session.close();
+		
+		return customWorkNum;
+	}
 
+	public int insertCustomWork(CustomWorkDTO customWorkDTO) {
+		
+		SqlSession session = getSqlSession();
+		
+		int result = scheduleDAO.insertCustomWork(session, customWorkDTO);
+		
+		if(result > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+		
+		session.close();
+		
+		return result;
+	}
+
+	public int insertCustomWorktime(CustomWorkTimeDTO customWorkTimeDTO) {
+		
+		SqlSession session = getSqlSession();
+		
+		int result = scheduleDAO.insertCustomWorktime(session, customWorkTimeDTO);
+		
+		if(result > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+		
+		session.close();
+		
+		return result;
+	}
+
+	public int insertOvertimeLog(OvertimeLogDTO overtimeLogDTO) {
+		SqlSession session = getSqlSession();
+		
+		int result = scheduleDAO.insertOvertimeLog(session, overtimeLogDTO);
+		
+		if(result > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+		
+		session.close();
+		
+		return result;
+	}
 	
 	
 

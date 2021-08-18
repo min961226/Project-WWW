@@ -203,40 +203,4 @@ public class InsertHolidayScheduleServlet extends HttpServlet {
 
 
 
-	/* 휴가신청이 승인된 후에 사용하면 될듯  */
-	//	/* 4-1. 휴가부여사용내역에서 사용할 lastNum을 가져오기 */
-	//	HolidayService holidayService = new HolidayService();
-	//	int holidayLogNo = holidayService.selectHolidayLogNum();
-	//	
-	//	/* 4-2. 휴가부여사용내역(tbl_member_holiday_log)에 추가 */
-	//	int holidayCodeInt = Integer.parseInt(holidayCode);					
-	//	
-	//	HolidayLogDTO holidayLogDTO = new HolidayLogDTO();
-	//	holidayLogDTO.setMemberNo(memberNo);
-	//	holidayLogDTO.setLogNote(changeReason);
-	//	holidayLogDTO.setLogType("사용");
-	//	holidayLogDTO.setHolidayCode(holidayCodeInt);
-	//	holidayLogDTO.setHolidayDuringDate(duringDateString);
-	//	
-	//	System.out.println("holidayLogDTO : " + holidayLogDTO);
-	//	
-	//	int result4 = holidayService.insertHolidayLog(holidayLogDTO);
-	//	System.out.println(result4);
-	//	
-	//	if(result4 > 0) {						
-	//		
-	//		/* 5. 휴가사용정보(TBL_HOLIDAY_USE_INFO)에 추가 */
-	//		HolidayUseInfoDTO holidayUseInfoDTO = new HolidayUseInfoDTO();
-	//		holidayUseInfoDTO.setHolidayLogNo(holidayLogNo);
-	//		holidayUseInfoDTO.setHolidayStartDay(startDay);
-	//		holidayUseInfoDTO.setHolidayEndDay(endDay);
-	//		holidayUseInfoDTO.setHolidayReportNo(reportNo);
-	//		System.out.println("holidayUseInfoDTO : " + holidayUseInfoDTO);
-	//		
-	//		result5 = holidayService.insertHolidayUseInfo(holidayUseInfoDTO);
-	//		System.out.println(result5);
-	//	}
-
-
-
 }

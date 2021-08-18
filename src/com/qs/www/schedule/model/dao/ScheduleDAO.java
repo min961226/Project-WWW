@@ -8,6 +8,8 @@ import org.apache.ibatis.session.SqlSession;
 import com.qs.www.approval.model.dto.ApproverDTO;
 import com.qs.www.member.model.dto.DepartmentDTO;
 import com.qs.www.schedule.model.dto.ApproverPerReportDTO;
+import com.qs.www.schedule.model.dto.CustomWorkDTO;
+import com.qs.www.schedule.model.dto.CustomWorkTimeDTO;
 import com.qs.www.schedule.model.dto.HolidayLogDTO;
 import com.qs.www.schedule.model.dto.HolidayTypeDTO;
 import com.qs.www.schedule.model.dto.MemberWorkLogDTO;
@@ -95,6 +97,26 @@ public class ScheduleDAO {
 	public List<HolidayLogDTO> selectteamHolidayLogList(SqlSession session, HashMap<String, Object> deptAndDay) {
 		
 		return session.selectList("ScheduleDAO.selectteamHolidayLogList", deptAndDay);
+	}
+
+	public int selectCustomWorkNum(SqlSession session) {
+		
+		return session.selectOne("ScheduleDAO.selectCustomWorkNum");
+	}
+
+	public int insertCustomWork(SqlSession session, CustomWorkDTO customWorkDTO) {
+		
+		return session.insert("ScheduleDAO.insertCustomWork", customWorkDTO);
+	}
+
+	public int insertCustomWorktime(SqlSession session, CustomWorkTimeDTO customWorkTimeDTO) {
+		
+		return session.insert("ScheduleDAO.insertCustomWorktime", customWorkTimeDTO);
+	}
+
+	public int insertOvertimeLog(SqlSession session, OvertimeLogDTO overtimeLogDTO) {
+		
+		return session.insert("ScheduleDAO.insertOvertimeLog", overtimeLogDTO);
 	}
 
 	
