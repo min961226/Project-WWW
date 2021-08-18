@@ -52,8 +52,7 @@ public class MemberService {
 		
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		int result = 0;
-		System.out.println(changePwd);
-		System.out.println(changePwd2);
+		
 		if(passwordEncoder.matches(changePwd, changePwd2)) {
 			result = 1;
 		}
@@ -100,6 +99,12 @@ public class MemberService {
 	public int updateMemberPwd(MemberDTO changePwdMember) {
 		
 		SqlSession sqlSession = getSqlSession();
+		
+		String memberId = changePwdMember.getMemberId();
+		String changePwd = changePwdMember.getPassword();
+		String encPwd = memberDAO.selectEncryptedPwd(sqlSession, memberId);
+		System.out.println(changePwd);
+		System.out.println(encPwd);
 		
 		int result = memberDAO.updateMemberPwd(sqlSession, changePwdMember);
 		

@@ -25,14 +25,11 @@ public class UpdateMemberPwdServlet extends HttpServlet {
 		changePwdMember.setMemberId(memberId);
 		changePwdMember.setPassword(changePwd);
 
-		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+//		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		String path = "";
-		
 		
 		if(changePwd.equals(changePwd2)) {
 			MemberService memberService = new MemberService();
-			System.out.println("changePwd : " + changePwd);
-			System.out.println("changePwd2 : " + changePwd2);
 			
 			int result = memberService.updateMemberPwd(changePwdMember);
 			
