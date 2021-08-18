@@ -20,4 +20,20 @@ public class MngNoticeDAO {
 		return session.selectOne("MngNoticeDAO.selectAllCount", searchMap);
 	}
 
+	public int insertMngNotice(SqlSession session, MngNoticeDTO newMngNotice) {
+		return session.insert("MngNoticeDAO.insertMngNotice", newMngNotice);
+	}
+
+	public int updateMngNotice(SqlSession session, MngNoticeDTO mngnotice) {
+		return session.update("MngNoticeDAO.updateMngNotice", mngnotice);
+	}
+
+	public int incrementMngNoticeCount(SqlSession session, int no) {
+		return session.update("MngNoticeDAO.incrementMngNoticeCount", no);	
+	}
+
+	public MngNoticeDTO selectMngNoticeDetail(SqlSession session, int no) {
+		return session.selectOne("MngNoticeDAO.selectMngNoticeDetail", no);
+	}
+
 }

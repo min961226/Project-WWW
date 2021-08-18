@@ -44,9 +44,6 @@
 	                <div class="col-lg-12">
 	                    <div class="card-box">
 	                    	<div class="card-block">
-
-	                    		</div>
-
 	                            <table class="display datatable table table-stripped">
 	                                <thead>
 	                                    <tr bgcolor = "FFBC35">
@@ -73,7 +70,11 @@
 	                           
 	                          	 <div class="search-area" align="left">
 			             		<form id="loginForm" action="${ pageContext.servletContext.contextPath }/board/free/select" method="get" style="display:inline-block">							
+								
+								<c:if test="${ sessionScope.memberNo eq member }">
+								</c:if>
 								<button type="button" class="btn btn-primary rounded pull-right" id="writeFree"><i class="fa fa-plus"></i> 작성하기</button>
+
 								</form>
 								</div>  		                      
                             </div>
@@ -104,13 +105,16 @@
 					location.href = "${ pageContext.servletContext.contextPath }/board/free/selectOne?no=" + no;
 				}
 				
-				const $goBack = document.getElementById("writeFree");
-		    	$goBack.onclick = function() {
-		    		location.href = "${ pageContext.servletContext.contextPath }/board/free/insert"
-		    	}
 				
 			}
 			
+		}
+		
+		if(document.getElementsByTagName("writeFree")) {
+			const $goBack = document.getElementById("writeFree");
+    		$goBack.onclick = function() {
+    			location.href = "${ pageContext.servletContext.contextPath }/board/free/insert"
+    		}
 		}
 		
 		/* 제이쿼리 이용하는 경우 */

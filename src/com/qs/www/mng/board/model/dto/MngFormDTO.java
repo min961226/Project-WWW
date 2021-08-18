@@ -1,8 +1,6 @@
 package com.qs.www.mng.board.model.dto;
 
-import java.util.Date;
-
-public class MngNoticeDTO {
+public class MngFormDTO {
 	
 	private int no;
 	private String title;
@@ -15,11 +13,11 @@ public class MngNoticeDTO {
 	private String modified;
 	private String name;
 	
-	public MngNoticeDTO() {
+	public MngFormDTO() {
 		
 	}
 
-	public MngNoticeDTO(int no, String title, int member, String type, int count, String body, String delete,
+	public MngFormDTO(int no, String title, int member, String type, int count, String body, String delete,
 			String created, String modified, String name) {
 		super();
 		this.no = no;
@@ -32,9 +30,6 @@ public class MngNoticeDTO {
 		this.created = created;
 		this.modified = modified;
 		this.name = name;
-		
-		
-		
 	}
 
 	public int getNo() {
@@ -115,14 +110,15 @@ public class MngNoticeDTO {
 
 	public void setName(String name) {
 		this.name = name;
-		
-		
 	}
-
+	
 	@Override
 	public String toString() {
-		return "MngNoticeDTO [no=" + no + ", title=" + title + ", member=" + member + ", type=" + type + ", count="
+		return "MngFormDTO [no=" + no + ", title=" + title + ", member=" + member + ", type=" + type + ", count="
 				+ count + ", body=" + body + ", delete=" + delete + ", created=" + created + ", modified=" + modified
 				+ ", name=" + name + "]";
 	}
+	
+	
+
 }

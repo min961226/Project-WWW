@@ -11,16 +11,16 @@ public class FormDTO {
 	private int count;
 	private String body;
 	private String delete;
-	private Date created;
-	private Date modified;
+	private String created;
+	private String modified;
 	private String name;
 	
 
 	public FormDTO() {}
 
 
-	public FormDTO(int no, String title, int member, String type, int count, String body, String delete, Date created,
-			Date modified, String name) {
+	public FormDTO(int no, String title, int member, String type, int count, String body, String delete, String created,
+			String modified, String name) {
 		super();
 		this.no = no;
 		this.title = title;
@@ -105,22 +105,22 @@ public class FormDTO {
 	}
 
 
-	public Date getCreated() {
+	public String getCreated() {
 		return created;
 	}
 
 
-	public void setCreated(Date created) {
+	public void setCreated(String created) {
 		this.created = created;
 	}
 
 
-	public Date getModified() {
+	public String getModified() {
 		return modified;
 	}
 
 
-	public void setModified(Date modified) {
+	public void setModified(String modified) {
 		this.modified = modified;
 	}
 
@@ -141,6 +141,7 @@ public class FormDTO {
 				+ ", body=" + body + ", delete=" + delete + ", created=" + created + ", modified=" + modified
 				+ ", name=" + name + "]";
 	}
-
 	
+	
+
 }

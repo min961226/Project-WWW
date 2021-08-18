@@ -130,6 +130,16 @@
 					successMessage = "시행복지 수정이 완료되었습니다.";
 					movePath = "${ pageContext.servletContext.contextPath }/mng/welfare/list/select";
 					break;
+					
+				case "insertMngNotice" :
+					successMessage = "공지사항 작성이 완료되었습니다.";
+					movePath = "${ pageContext.servletContext.contextPath }/mng/board/notice/select";
+					break;
+										
+				case "deleteMngNotice" :
+					successMessage = "공지사항 삭제가 완료되었습니다.";
+					movePath = "${ pageContext.servletContext.contextPath }/mng/board/notice/select";
+					break;
 			}
 
 			alert(successMessage);
