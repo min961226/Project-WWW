@@ -120,6 +120,16 @@
 					successMessage = "신청 복지 회수가 완료되었습니다.";
 					movePath = "${ pageContext.servletContext.contextPath }/welfare/applied/list/select";
 					break;
+					
+				case "mngCallbackWelfare" :
+					successMessage = "신청 복지 회수가 완료되었습니다.";
+					movePath = "${ pageContext.servletContext.contextPath }/mng/welfare/applied/select";
+					break;
+					
+				case "updateWelfare" :
+					successMessage = "시행복지 수정이 완료되었습니다.";
+					movePath = "${ pageContext.servletContext.contextPath }/mng/welfare/list/select";
+					break;
 			}
 
 			alert(successMessage);

@@ -121,6 +121,11 @@
 					movePath = "${ pageContext.servletContext.contextPath }/welfare/applied/list/select";
 					break;
 					
+				case "mngCallbackWelfare" :
+					failedMessage = "신청 복지 회수에 실패했습니다.";
+					movePath = "${ pageContext.servletContext.contextPath }/mng/welfare/applied/select";
+					break;
+					
 				case "insertAppLine" :
 					failedMessage = "결재라인 생성에 실패했습니다.";
 					movePath = "${ pageContext.servletContext.contextPath }/approval/line/select";
@@ -134,6 +139,11 @@
 				case "deleteSeminarRoom" :
 					failedMessage = "회의실 예약 삭제를 실패하였습니다."
 					movePath = "${ pageContext.servletContext.contextPath }/welfare/applied/list/seminarRoom/select";
+					break;
+					
+				case "updateWelfare" :
+					failedMessage = "시행복지 수정에 실패하였습니다.";
+					movePath = "${ pageContext.servletContext.contextPath }/mng/welfare/list/select";
 					break;
 			}
 

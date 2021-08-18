@@ -28,7 +28,7 @@
 
 
 						<form class="form-horizontal"
-							action="${ pageContext.servletContext.contextPath }/welfare/applied/list/seminarRoom/delete?roomNo=${ requestScope.roomNo }&useDate=${ requestScope.useDate }&reservNo=${requestScope.reservNo}" method="post">
+							action="${ pageContext.servletContext.contextPath }/welfare/applied/list/seminarRoom/delete?roomNo=${ requestScope.roomNo }&useDate=${ requestScope.useDate }&reservNo=${requestScope.reservNo}" method="post" onsubmit="return askAgain();">
 
 
 
@@ -139,6 +139,19 @@
 		$goBack.onclick = function() {
 			location.href = "${ pageContext.servletContext.contextPath }/welfare/applied/list/seminarRoom/select"
 		}
+		
+		function askAgain(){
+
+            var yn;
+            yn = confirm('예약을 취소하시겠습니까?');
+
+            if(yn == true){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
 	</script>
 </body>
 

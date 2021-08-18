@@ -34,7 +34,7 @@
 							<option value="body" ${ requestScope.selectCriteria.searchCondition eq "body"? "selected": "" }>내용</option>
 						</select>
 						<input type="search" id="searchValue" name="searchValue" value="<c:out value="${ requestScope.selectCriteria.searchValue }"/>">
-					<button type="submit" >검색하기</button>
+					<button type="submit" class="btn btn-success btn-sm" >검색하기</button>
 					<!-- <button type="button" id="writeFree">작성하기</button> -->
 					</form>
 				</div>
@@ -70,7 +70,7 @@
 								
 								 <div class="search-area" align="left">
 			             		<form id="loginForm" action="${ pageContext.servletContext.contextPath }/mng/board/notice/select" method="get" style="display:inline-block">							
-								<button type="button" id="writeFree">작성하기</button>
+								<button type="button" class="btn btn-primary rounded pull-right" id="writeFree"><i class="fa fa-plus"></i> 작성하기</button>
 								</form>
 								</div>  
 	                           
@@ -89,7 +89,7 @@
 			for(let i = 0; i < $tds.length; i++) {
 				
 				$tds[i].onmouseenter = function() {
-					this.parentNode.style.backgroundColor = "orangered";
+					this.parentNode.style.backgroundColor = "LightGoldenRodYellow";
 					this.parentNode.style.cursor = "pointer";
 				}
 				

@@ -10,9 +10,7 @@
 	href="${ pageContext.servletContext.contextPath }/assets/img/favicon.png">
 <title>Wonderful Welfare Workspace</title>
 <script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js">
-
-</script>
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 
 <body>
@@ -29,7 +27,8 @@
 					<div class="col-lg-12">
 
 
-						<form class="form-horizontal" action="${ pageContext.servletContext.contextPath }/welfare/applied/list/delete?no=${ requestScope.selectedReport.reportNo }" method="post" onsubmit="return askAgain();">
+						<form class="form-horizontal"
+							action="${ pageContext.servletContext.contextPath }/mng/welfare/applied/list/delete?no=${ requestScope.selectedReport.reportNo }" method="post" onsubmit="return askAgain();">
 
 
 
@@ -63,10 +62,10 @@
 							<div class="form-group">
 							
 							<div class="col-sm-6">
-									<label>기안자</label>
+									<label>상신자</label>
 									<div class="col-md-12">
 										<input class="form-control"
-											value="${ sessionScope.memberInfo.name }" disabled />
+											value="${ requestScope.selectedReport.memberName }" disabled />
 									</div>
 								</div>
 								
@@ -163,7 +162,7 @@
 									</div>
 
 									<div class="col-sm-6">
-										<label>경조금</label>
+										<label>지급 계획 경조금</label>
 										<div class="col-md-12">
 											<input class="form-control"
 												value="${ requestScope.eventBill }만원" disabled />
@@ -294,7 +293,7 @@
 									<c:set var="reportStatus"
 										value="${ requestScope.selectedReport.reportStatus }" />
 									<c:if test="${  reportStatus eq '대기' }">
-										<button type="submit" class="btn btn-primary btn-lg" >회수하기</button>
+										<button type="submit" class="btn btn-primary btn-lg" id="revoke">회수하기</button>
 									</c:if>
 									<button type="reset" class="btn btn-primary btn-lg" id="goBack">돌아가기</button>
 								</div>
@@ -314,24 +313,23 @@
 	<div class="sidebar-overlay" data-reff=""></div>
 
 	<script>
-		function askAgain(){
-			
-			var yn;
-			yn = confirm('신청된 결재를 회수하시겠습니까?\n회수 후에는 재신청 해야합니다.');
-			
-			if(yn == true){
-				return true;
-			}
-			else{
-				return false;
-			}
-		}	
-		
 		const $goBack = document.getElementById("goBack");
 		$goBack.onclick = function() {
-			location.href = "${ pageContext.servletContext.contextPath }/welfare/applied/list/select"
+			location.href = "${ pageContext.servletContext.contextPath }/mng/welfare/applied/select"
 		}
 		
+		function askAgain(){
+
+            var yn;
+            yn = confirm('신청된 결재를 회수하시겠습니까?');
+
+            if(yn == true){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
 	</script>
 </body>
 

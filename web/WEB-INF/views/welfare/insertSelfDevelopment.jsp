@@ -27,8 +27,7 @@
 				<div class="row">
 					<div class="col-md-8 col-md-offset-2">
 						<form name="insertSelfDev"
-							action="${ pageContext.servletContext.contextPath }/welfare/selfDevelopment/insert"
-							method="POST">
+							action="${ pageContext.servletContext.contextPath }/welfare/selfDevelopment/insert"	method="POST" onsubmit="return askAgain();">
 							<div class="form-group">
 								<label>직원 ID</label> <input name="memberNo" class="form-control"
 									type="text" value="${memberNo}" readonly="readonly" />
@@ -103,8 +102,24 @@
 		const $goBack = document.getElementById("goBack");
 
 		$goBack.onclick = function() {
-			location.href = "${ pageContext.servletContext.contextPath }/welfare/list/select"
+			if (!confirm("돌아가시겠습니까?\n작성중이던 모든 내용이 삭제됩니다.")) {
+	        	
+	        } else {
+				location.href = "${ pageContext.servletContext.contextPath }/welfare/list/select"
+	        }
 		}
+		function askAgain(){
+			
+			var yn;
+			yn = confirm('자기개발비 신청을 완료하시겠습니까?\n신청 후에는 수정이 불가합니다');
+			
+			if(yn == true){
+				return true;
+			}
+			else if(yn == false){
+				return false;
+			}
+		}	
 	</script>
 </body>
 

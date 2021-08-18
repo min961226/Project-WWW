@@ -5,13 +5,15 @@ public class WelfareYnDTO {
 	
 	private int documentNo;
 	private String useYn;
+	private char useYnChar;
 	
 	public WelfareYnDTO() {}
 
-	public WelfareYnDTO(int documentNo, String useYn) {
+	public WelfareYnDTO(int documentNo, String useYn, char useYnChar) {
 		super();
 		this.documentNo = documentNo;
 		this.useYn = useYn;
+		this.useYnChar = useYnChar;
 	}
 
 	public int getDocumentNo() {
@@ -30,10 +32,19 @@ public class WelfareYnDTO {
 		this.useYn = useYn;
 	}
 
+	public char getUseYnChar() {
+		return useYnChar;
+	}
+
+	public void setUseYnChar(char useYnChar) {
+		this.useYnChar = useYnChar;
+	}
+
 	@Override
 	public String toString() {
-		return "WelfareYnDTO [documentNo=" + documentNo + ", useYn=" + useYn + "]";
+		return "WelfareYnDTO [documentNo=" + documentNo + ", useYn=" + useYn + ", useYnChar=" + useYnChar + "]";
 	}
 	
 	
+
 }

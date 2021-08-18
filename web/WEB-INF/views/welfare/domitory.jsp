@@ -52,7 +52,7 @@
 											<td><c:out value="${ domitory.roomNo }"/> 호</td>											
 											<td><c:out value="${ domitory.currCapacity }"/> 명</td>
 											<td><c:out value="${ domitory.maxCapacity }"/> 명</td>
-											<td><button type="submit"> 신청하기 </button></td>
+											<td><button class="btn btn-primary btn-xs" type="submit"> 신청하기 </button></td>
 										</tr>
 										</c:forEach>
 										
@@ -106,7 +106,7 @@
 			for(let i = 0; i < $tds.length; i++) {
 				
 				$tds[i].onmouseenter = function() {
-					this.parentNode.style.backgroundColor = "orange";
+					this.parentNode.style.backgroundColor = "LightGoldenRodYellow";
 					this.parentNode.style.cursor = "pointer";
 				}
 				
