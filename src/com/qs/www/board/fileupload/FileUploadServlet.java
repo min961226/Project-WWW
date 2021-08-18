@@ -1,6 +1,13 @@
 package com.qs.www.board.fileupload;
 
+import java.io.File;  
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -8,6 +15,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 
 @WebServlet("/upload/formdata")
@@ -39,14 +50,17 @@ public class FileUploadServlet extends HttpServlet {
 			String fileUploadDirectory = rootLocation + "/commons";
 
 			File directory = new File(fileUploadDirectory);
-
+			
+			//파일 저장경로 존재하지 않는 경우 디렉토리 생성
 			if(!directory.exists()) {
 				System.out.println("폴더 생성 : " + directory.mkdirs());
 			}
-
+			
+			//map에는 사진 외의 다른 파라미터의 정보를 담는다.
 			Map<String, String> parameter = new HashMap<>();
 			List<Map<String, String>> fileList = new ArrayList<>();
-
+			
+			//파일을 업로드할 시 최대 크기나 임시 저장할 폴더 등의 경로 등을 포함하기 위한 인스턴스
 			DiskFileItemFactory fileItemFactory = new DiskFileItemFactory();
 			fileItemFactory.setRepository(new File(fileUploadDirectory));
 			fileItemFactory.setSizeThreshold(maxFileSize);
@@ -72,11 +86,11 @@ public class FileUploadServlet extends HttpServlet {
 
 							int dot = originFileName.lastIndexOf(".");
 							String ext = originFileName.substring(dot);
-
+							//랜덤제목
 							String randomFileName = UUID.randomUUID().toString().replace("-", "") + ext;
 
 							File storeFile = new File(fileUploadDirectory + "/" + randomFileName);
-
+							//저장한다.
 							item.write(storeFile);
 
 							Map<String, String> fileMap = new HashMap<>();

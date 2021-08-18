@@ -46,6 +46,7 @@
 									<label>첨부서류</label>
 									<div class="col-md-12">
 										<input name="file" class="form-control" type="file">
+										<input type="button" value="전송" id="send-file-1">
 									</div>
 								</div>
 								</div>
@@ -83,7 +84,7 @@
 	
 	<script>
 	 // onchange에서 호출하는 함수. 
-    function testChange(obj){
+/*     function testChange(obj){
     	var result = $('#document option:selected').val();
         if (result == 3) {
           $('#div1').show();
@@ -97,8 +98,33 @@
     	const $goBack = document.getElementById("goBack");
     	$goBack.onclick = function() {
     		location.href = "${ pageContext.servletContext.contextPath }/board/free/select"
-    	}
+    	} */
     	
+    	$("#send-file-1").click(function() {
+    		
+    		console.log($("#file")[0].files[0]);
+    		
+    		const formData = new FormData();
+    		
+    		formData.append("file", $("#file")[0].files[0]);
+    		
+    		console.log(formData.get("file"));
+    		
+    		$.ajax({
+    			url: "/WWW/upload/formdata",
+    			type: "post",
+    			data: formData,
+    			contentType: false,
+    			processData: false,
+    			success: function(data, textStatus, xhr) {
+    				alert(data);
+    			},
+    			error: function(xhr, status, error) {
+    				console.log(xhr);
+    			} 
+    		});
+    		
+    	});
     	
     	
     </script>
