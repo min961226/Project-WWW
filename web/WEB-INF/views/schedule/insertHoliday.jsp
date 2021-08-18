@@ -83,7 +83,6 @@
                                             </div>
                                             <div class="col-md-4">
                                 				<select class="select" name="startDayAllday">
-                                                    <option>종일여부</option>
                                                     <option value="종일">종일</option>
                                                     <option value="오전">오전시작</option>
                                                     <option value="오후">오후시작</option>
@@ -98,7 +97,6 @@
                                             </div>
                                             <div class="col-md-4">
                                 				<select class="select" name="endDayAllday">
-                                                    <option>종일여부</option>
                                                     <option value="종일">종일</option>
                                                     <option value="오전">오전까지</option>
                                                     <option value="오후">오후까지</option>
