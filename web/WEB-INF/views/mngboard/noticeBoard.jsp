@@ -107,6 +107,13 @@
 			
 		}
 		
+		if(document.getElementsByTagName("writeFree")) {
+			const $goBack = document.getElementById("writeFree");
+    		$goBack.onclick = function() {
+    			location.href = "${ pageContext.servletContext.contextPath }/mng/board/notice/insert"
+    		}
+		}
+		
 		/* 제이쿼리 이용하는 경우 */
 		/* $(function() {
 			$("#listArea td").hover(function() {
