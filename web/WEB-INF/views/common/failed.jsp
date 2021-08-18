@@ -31,11 +31,6 @@
 					movePath = "${ pageContext.servletContext.contextPath }/member/pwd/check";
 					break;
 					
-				case "matchPwd" :
-					failedMessage = "비밀번호가 일치하지 않습니다.";
-					movePath = "${ pageContext.servletContext.contextPath }/member/pwd/check";
-					break;
-					
 				case "updatePwd" :
 					failedMessage = "비밀번호 변경에 실패하였습니다.";
 					movePath = "${ pageContext.servletContext.contextPath }/member/pwd/check";

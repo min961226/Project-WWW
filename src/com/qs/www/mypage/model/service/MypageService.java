@@ -73,6 +73,7 @@ public class MypageService {
 		
 		SqlSession sqlSession = getSqlSession();
 		// 출퇴근 기록 조회
+		String inTime = mypageDAO.selectCommuteInTime(sqlSession, commutingLog);
 		String outTime = mypageDAO.selectCommuteOutTime(sqlSession, commutingLog);
 		int result = 0;
 		
@@ -82,22 +83,29 @@ public class MypageService {
 			outTime = commutingLog.getOutTime();
 			int outTimeHour = Integer.parseInt(outTime.substring(0, 2));
 			
-			if(outTimeHour < 6) {	// 현재 시간이 오전 6시 이전인 경우
-				// 전날 퇴근 기록을 조회
-				commutingLog.setYearMonth(currentDateTime.minusDays(1)
-						.format(DateTimeFormatter.ofPattern("yyyy-MM")));
-				commutingLog.setDay(currentDateTime.minusDays(1)
-						.format(DateTimeFormatter.ofPattern("dd")));
+			if(inTime != null) {
+				result = mypageDAO.updateCommute(sqlSession, commutingLog);
 				
-				String yesterdayOutTime = mypageDAO.selectCommuteOutTime(sqlSession, commutingLog);
-				if(yesterdayOutTime == null) { // 전날 퇴근 기록이 없는 경우 기록
-					result = mypageDAO.updateCommute(sqlSession, commutingLog);
+			} else {
+
+				if(outTimeHour >= 6) {	// 현재 시간이 오전 6시 이후인 경우, 새로운 출퇴근 기록으로 추가
+					result = mypageDAO.insertCommute(sqlSession, commutingLog);
+					
+				} else {	// 현재 시간이 오전 6시 이전인 경우, 전날 퇴근 기록을 조회
+					commutingLog.setYearMonth(currentDateTime.minusDays(1)
+							.format(DateTimeFormatter.ofPattern("yyyy-MM")));
+					commutingLog.setDay(currentDateTime.minusDays(1)
+							.format(DateTimeFormatter.ofPattern("dd")));
+					System.out.println("getYearMonth : " + commutingLog.getYearMonth());
+					System.out.println(commutingLog.getDay());
+					
+					String yesterdayOutTime = mypageDAO.selectCommuteOutTime(sqlSession, commutingLog);
+					
+					if(yesterdayOutTime == null) { // 전날 퇴근 기록이 없는 경우 기록
+						result = mypageDAO.updateCommute(sqlSession, commutingLog);
+					}
 				}
-			} else {	// 현재 시간이 오전 6시 이후인 경우
-				// 새로운 출퇴근 기록으로 추가
-				result = mypageDAO.insertCommute(sqlSession, commutingLog);
 			}
-			
 			commutingLog.setOutTime(outTime);
 		}
 		

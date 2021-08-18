@@ -32,11 +32,12 @@ public class UpdateCommuteFromServlet extends HttpServlet {
 		String currentYearMonth = currentDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM"));
 		String currentDay = currentDateTime.format(DateTimeFormatter.ofPattern("dd"));
 		String currentTime = currentDateTime.format(DateTimeFormatter.ofPattern("HH:mm"));
-		
+
 		commutingLog.setMemberNo(memberNo);
 		commutingLog.setYearMonth(currentYearMonth);
 		commutingLog.setDay(currentDay);
 		commutingLog.setOutTime(currentTime);
+		System.out.println("commutingLog : " + commutingLog);
 
 		MypageService mypageService = new MypageService();
 		
