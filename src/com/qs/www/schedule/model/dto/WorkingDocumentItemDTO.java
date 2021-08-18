@@ -8,15 +8,17 @@ public class WorkingDocumentItemDTO implements Serializable{
 	private int documentNo;
 	private int priority;
 	private String itemContent;
+	private String itemName;
 	
 	public WorkingDocumentItemDTO() {}
-	
-	public WorkingDocumentItemDTO(int reportNo, int documentNo, int priority, String itemContent) {
+
+	public WorkingDocumentItemDTO(int reportNo, int documentNo, int priority, String itemContent, String itemName) {
 		super();
 		this.reportNo = reportNo;
 		this.documentNo = documentNo;
 		this.priority = priority;
 		this.itemContent = itemContent;
+		this.itemName = itemName;
 	}
 
 	public int getReportNo() {
@@ -51,11 +53,20 @@ public class WorkingDocumentItemDTO implements Serializable{
 		this.itemContent = itemContent;
 	}
 
+	public String getItemName() {
+		return itemName;
+	}
+
+	public void setItemName(String itemName) {
+		this.itemName = itemName;
+	}
+
 	@Override
 	public String toString() {
 		return "WorkingDocumentItemDTO [reportNo=" + reportNo + ", documentNo=" + documentNo + ", priority=" + priority
-				+ ", itemContent=" + itemContent + "]";
+				+ ", itemContent=" + itemContent + ", itemName=" + itemName + "]";
 	}
+	
 	
 	
 }
