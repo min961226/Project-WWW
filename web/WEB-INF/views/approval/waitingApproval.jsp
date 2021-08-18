@@ -54,11 +54,11 @@
                                 <!-- 탭바 -->
                                 <div>
                                 <ul class="nav nav-tabs nav-tabs-top nav-justified">
-                                <li class="active"><a onclick="selectDoCate1()" data-toggle="tab">전체</a></li>
-                                <li><a onclick="selectDoCate2()" data-toggle="tab">업무</a></li>
-                                <li><a onclick="selectDoCate3()" data-toggle="tab">복지</a></li>
-                                <li><a onclick="selectDoCate4()" data-toggle="tab">근태</a></li>
-                                <li><a onclick="selectDoCate5()" data-toggle="tab">휴가</a></li>
+                                <li class="<c:if test="${ requestScope.selectCriteria.searchValue == null}">active</c:if>"><a onclick="selectDoCate1()" data-toggle="tab">전체</a></li>
+                                <li class="<c:if test="${ requestScope.selectCriteria.searchValue == '업무'}">active</c:if>"><a onclick="selectDoCate2()" data-toggle="tab">업무</a></li>
+                                <li class="<c:if test="${ requestScope.selectCriteria.searchValue == '복지'}">active</c:if>"><a onclick="selectDoCate3()" data-toggle="tab">복지</a></li>
+                                <li class="<c:if test="${ requestScope.selectCriteria.searchValue == '근태'}">active</c:if>"><a onclick="selectDoCate4()" data-toggle="tab">근태</a></li>
+                                <li class="<c:if test="${ requestScope.selectCriteria.searchValue == '휴가'}">active</c:if>"><a onclick="selectDoCate5()" data-toggle="tab">휴가</a></li>
                                 </ul>
                                 <br><br>
                                 </div>
@@ -76,7 +76,7 @@
                                             <th>결재제목</th>
                                             <th>기안자</th>
                                             <th>결재라인</th>
-                                            <th>결재 날짜</th>
+                                            <th>기안날짜</th>
                                         </tr>
 
                                     </thead>
@@ -114,11 +114,12 @@
                 </div>
             </div>
         </div>
-    </div>
+    
     
     <script>
     
         if(document.getElementsByTagName("li")) {
+        	
         	function selectDoCate1() {
             	location.href = "${ pageContext.servletContext.contextPath }/approval/waiting/select";
             }
