@@ -29,7 +29,7 @@
 				</div>
 				<div class="row">
 					<div class="col-lg-12">
-					<div class="card-box col-xs-6">
+					<div class="card-box col-xs-6" style="height: 1000px;">
 								<div class="form-group">
 								<div class="col-sm-12">
 								   <h1 align="center">WWW <c:if test="${requestScope.selectedReport.documentNo eq 1}"> <c:out  value="일반기안문"/></c:if>
@@ -108,15 +108,16 @@
 										<label>보존기간 : </label>
 										<div class="col-md-12">
 										<input class="form-control" value="~${ requestScope.endDate }"  disabled/>
+										<br><br><br>
 										</div>
-									</div>
-								
-								
+									</div>	
 								</div>
+								<c:if test="${requestScope.selectedReport.documentNo < 4}">
 								<div class="col-sm-12">
 										<label>결재 제목 : </label>
 										<div class="col-md-12">
 											<input class="form-control" value="${ requestScope.selectedReport.reportTitle }"  disabled/>
+											<br><br>
 										</div>
 									</div>
 								<c:set var = "no" value ="${ requestScope.selectedReport.documentNo }" />
@@ -153,14 +154,29 @@
 								<div class="col-sm-12">
 									<label>내용 : </label>
 									<div class="col-lg-12">
-										<textarea name="body" rows="20" cols="5" class="form-control"
+										<textarea name="body" rows="10" cols="5" class="form-control"
 											disabled>${ requestScope.body }</textarea>
 									</div>
 								</div>
 								</div>
-		
+								</c:if> 
+								 <c:if test="${requestScope.selectedReport.documentNo >= 4}">
+								     <div class="form-group col-xs-12">        
+								        <c:forEach var="item" items="${ requestScope.itemList }">
+								        <div>
+										<div class="col-sm-6">
+										    <label>${ item.itemName } : </label>
+											<input class="form-control" value="${ item.itemContent }"  disabled/>
+										</div>
+										</div>
+										</c:forEach>
+								    </div>
+								</c:if>
 								<div class="form-group">
 								<div class="col-sm-12">
+								<c:if test="${requestScope.selectedReport.documentNo >= 4}">
+								<br><br><br>
+								</c:if>
 									<label>비고 : </label>
 									<div class="col-lg-12">
 										<textarea name="note" rows="5" cols="5" class="form-control"

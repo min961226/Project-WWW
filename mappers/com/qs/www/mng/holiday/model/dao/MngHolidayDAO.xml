@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="MngHolidayDAO">
+    <resultMap type="com.qs.www.schedule.model.dto.ReportDTO"
+		id="reportResultMap">
+		<result property="reportNo" column="REPORT_NO" />
+		<result property="reportDate" column="REPORT_DATE" />
+		<result property="memberNo" column="MEMBER_NO" />
+		<result property="documentNo" column="DOCUMENT_NO" />
+		<result property="reportNote" column="REPORT_NOTE" />
+		<result property="reportStatus" column="REPORT_STATUS" />
+		<result property="lineName" column="LINE_NAME" />
+		<result property="reportTitle" column="REPORT_TITLE" />
+		<result property="memberName" column="NAME" />
+	</resultMap>
+	<select id="selectHolidayAPPCount" resultType="_int" parameterType="hashmap">
+        SELECT /*com.qs.www.mng.holiday.model.dao.MngHolidayDAO#selectHolidayAPPCount"()*/
+               COUNT(*)
+           FROM TBL_REPORT A
+      LEFT JOIN TBL_MEMBER D ON(A.MEMBER_NO = D.MEMBER_NO)
+      LEFT JOIN TBL_DOCUMENT_FORM E ON(A.DOCUMENT_NO = E.DOCUMENT_NO)
+    		    <where>
+    		        <if test="searchCondition == 'name'">
+    		            D.NAME LIKE '%' || #{ searchValue } || '%'
+    		        </if>
+					<if test="searchCondition == 'title'">
+	           			A.REPORT_TITLE LIKE '%' || #{ searchValue } || '%' 	
+					</if>
+					<if test="searchCondition == 'body'">
+	           			A.REPORT_NOTE LIKE '%' || #{ searchValue } || '%' 	
+					</if>
+					<if test="searchCondition == 'docCategory'">
+	           			F.DOCUMENT_NAME LIKE '%' || #{ searchValue } || '%' 	
+					</if>
+	       			AND A.DOCUMENT_NO = 6
+    			</where>
+    			ORDER BY A.REPORT_NO DESC
+	</select>
+	<select id="selectHolidayAPP" resultMap="reportResultMap">
+    SELECT /* com.qs.www.mng.holiday.model.dao.MngHolidayDAO#selectHolidayAPP()*/ 
+           C.*
+      FROM (SELECT ROWNUM RNUM
+          		, B.*
+          	FROM (SELECT
+          	             A.*
+          	           , D.NAME
+          	        FROM TBL_REPORT A
+          	   LEFT JOIN TBL_MEMBER D ON(A.MEMBER_NO = D.MEMBER_NO)
+          	   LEFT JOIN TBL_DOCUMENT_FORM E ON(A.DOCUMENT_NO = E.DOCUMENT_NO)
+    		    <where>
+    		        <if test="searchCondition == 'name'">
+    		            D.NAME LIKE '%' || #{ searchValue } || '%'
+    		        </if>
+					<if test="searchCondition == 'title'">
+	           			A.REPORT_TITLE LIKE '%' || #{ searchValue } || '%' 	
+					</if>
+					<if test="searchCondition == 'body'">
+	           			A.REPORT_NOTE LIKE '%' || #{ searchValue } || '%' 	
+					</if>
+					<if test="searchCondition == 'docCategory'">
+	           			F.DOCUMENT_NAME LIKE '%' || #{ searchValue } || '%' 	
+					</if>
+	       			AND A.DOCUMENT_NO = 6
+    			</where>
+    			ORDER BY A.REPORT_NO DESC
+                ) B
+          <![CDATA[
+          WHERE ROWNUM <= #{ endRow }
+          ]]>
+        ) C
+   WHERE C.RNUM >= #{ startRow } 
+	</select>
+	<update id="cancleSelectedReport">
+		UPDATE /* com.qs.www.mng.holiday.model.dao.MngHolidayDAO#cancleSelectedReport()*/
+		       TBL_REPORT A
+		   SET A.REPORT_STATUS = '취소'
+		 WHERE A.REPORT_NO = #{ no }
+	</update>
+</mapper>

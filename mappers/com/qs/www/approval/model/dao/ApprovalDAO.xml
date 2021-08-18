@@ -40,6 +40,7 @@
 		<result property="documentNo" column="DOCUMENT_NO" />
 		<result property="priority" column="PRIORITY" />
 		<result property="itemContent" column="ITEM_CONTENT" />
+		<result property="itemName" column="ITEM_NAME" />
 	</resultMap>
 	<resultMap type="com.qs.www.schedule.model.dto.ApproverPerReportDTO"
 		id="APRResultMap">
@@ -193,6 +194,7 @@
 					<if test="selectCriteria.searchCondition == 'docCategory'">
 	           			F.CATEGORY_NAME LIKE '%' || #{ selectCriteria.searchValue } || '%' 	
 					</if>
+					AND A.REPORT_STATUS NOT IN ('회수','취소')
 	       			AND A.REPORT_NO IN
 	       			<foreach item="item" index="index" collection="reportNoList" open="(" separator="," close=")">
 	       			#{item}
@@ -211,7 +213,10 @@
 		resultMap="reportItemResultMap">
 		SELECT /* com.qs.www.approval.model.dao.ApprovalDAO#selectReportItemList()*/
 			   A.*
+            , C.ITEM_NAME
 		  FROM TBL_ITEM_CONTENT A
+          JOIN TBL_DOCUMENT_ITEM C ON (A.DOCUMENT_NO = C.DOCUMENT_NO )
+                                  AND (A.PRIORITY = C.PRIORITY)
 		 WHERE A.REPORT_NO = #{ no }
 		 ORDER BY A.PRIORITY
 	</select>
@@ -419,6 +424,7 @@
 					<if test="searchMap.searchCondition == 'docCategory'">
 	           			F.CATEGORY_NAME LIKE '%' || #{ searchMap.searchValue } || '%' 	
 					</if>
+					AND A.REPORT_STATUS NOT IN ('회수','취소')
 	       			AND A.REPORT_NO IN
 	       			<foreach item="item" index="index" collection="reportNoList" open="(" separator="," close=")">
 	       			#{item}

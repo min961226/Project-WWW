@@ -68,44 +68,6 @@ public class SelectOneWaitingApprovalServlet extends HttpServlet {
 			}
 			
 		}
-		
-		if(selectedReport.getDocumentNo() == 4) {
-			request.setAttribute("body", itemList.get(1).getItemContent());
-		}
-		if(selectedReport.getDocumentNo() == 5) {
-			request.setAttribute("body", itemList.get(1).getItemContent());
-		}
-		if(selectedReport.getDocumentNo() == 6) {
-			request.setAttribute("body", itemList.get(1).getItemContent());
-		}
-		if(selectedReport.getDocumentNo() == 7) {
-			request.setAttribute("body", itemList.get(1).getItemContent());
-		}
-		if(selectedReport.getDocumentNo() == 8) {
-			request.setAttribute("body", itemList.get(1).getItemContent());
-		}
-		if(selectedReport.getDocumentNo() == 9) {
-			request.setAttribute("body", itemList.get(1).getItemContent());
-		}
-		if(selectedReport.getDocumentNo() == 10) {
-			request.setAttribute("body", itemList.get(1).getItemContent());
-		}
-		if(selectedReport.getDocumentNo() == 11) {
-			request.setAttribute("body", itemList.get(1).getItemContent());
-		}
-		if(selectedReport.getDocumentNo() == 12) {
-			request.setAttribute("body", itemList.get(1).getItemContent());
-		}
-		if(selectedReport.getDocumentNo() == 13) {
-			request.setAttribute("body", itemList.get(1).getItemContent());
-		}
-		if(selectedReport.getDocumentNo() == 14) {
-			request.setAttribute("body", itemList.get(1).getItemContent());
-		}
-		if(selectedReport.getDocumentNo() == 15) {
-			request.setAttribute("body", itemList.get(1).getItemContent());
-		}
-		
 		request.getRequestDispatcher("/WEB-INF/views/approval/detailWaitingApproval.jsp").forward(request, response);
 		
 	}
