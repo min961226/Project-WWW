@@ -23,7 +23,7 @@
                 </div>
                 <div class="row">
                    <div class="col-md-8 col-md-offset-2">
-						<form name = "insertNightTran" action="${ pageContext.servletContext.contextPath }/welfare/nightTransportation/insert" method="POST" onsubmit="return askAgain();">
+						<form name = "insertNightTran" action="${ pageContext.servletContext.contextPath }/welfare/nightTransportation/insert" method="POST" onsubmit="return askAgain();"  enctype="multipart/form-data">
 						<div class="form-group">
 								<label>직원 ID</label> <input name="memberNo" class="form-control" type="text" value="${memberNo}" readonly="readonly" />
 							</div>
@@ -64,7 +64,8 @@
 							<div class="form-group">
 								<label>영수증 첨부</label>
 								<div>
-									<input class="form-control" type="file"> <small	class="help-block">파일 최대 사이즈: 50 MB. 허용된 확장자: jpg,	gif, png. </small>
+								<input class="form-control" type="text" name="description">
+									<input class="form-control" type="file" name="file1" multiple="multiple"> <small	class="help-block">파일 최대 사이즈: 50 MB. 허용된 확장자: jpg,	gif, png. </small>
 								</div>
 
 							</div>
