@@ -22,6 +22,13 @@
 		<result property="holidayEndDayAllday" column="HOLIDAY_END_DAY_ALLDAY" />
 		<result property="holidayReportNo" column="HOLIDAY_REPORT_NO" />
 	</resultMap>
+    <resultMap type="com.qs.www.mng.holiday.model.dto.HolidayRuleDTO"
+		id="holidayRuleResult">
+		<result property="ruleCode" column="RULE_CODE" />
+		<result property="workPeriod" column="WORK_PERIOD" />
+		<result property="dayNumber" column="DAY_NUMBER" />
+		<result property="FiscalStateDate" column="FISCAL_START_DATE" />
+	</resultMap>	
 	<select id="selectHolidayAPPCount" resultType="_int" parameterType="hashmap">
         SELECT /*com.qs.www.mng.holiday.model.dao.MngHolidayDAO#selectHolidayAPPCount"()*/
                COUNT(*)
@@ -83,13 +90,13 @@
         SELECT /*com.qs.www.mng.holiday.model.dao.MngHolidayDAO#selectHolidayLogNum"()*/
                A.HOLIDAY_LOG_NO
          FROM TBL_HOLIDAY_USE_INFO A
-        WHERE A.HOLIDAY_REPORT_NO = #{ lineNo }
+        WHERE A.HOLIDAY_REPORT_NO = #{ reportNo }
 	</select>
 	<update id="cancleSelectedReport">
 		UPDATE /* com.qs.www.mng.holiday.model.dao.MngHolidayDAO#cancleSelectedReport()*/
 		       TBL_REPORT A
 		   SET A.REPORT_STATUS = '취소'
-		 WHERE A.REPORT_NO = #{ lineNo }
+		 WHERE A.REPORT_NO = #{ reportNo }
 	</update>
 	<delete id="deleteHolidayUseInfo">
 		DELETE /* com.qs.www.mng.holiday.model.dao.MngHolidayDAO#deleteHolidayUseInfo()*/
@@ -101,4 +108,15 @@
 		  FROM TBL_MEMBER_HOLIDAY_LOG A
 		 WHERE A.HOLIDAY_LOG_NO = #{ logNo }
 	</delete>
+	<select id="selectDuringDate" resultType="String">
+        SELECT /*com.qs.www.mng.holiday.model.dao.MngHolidayDAO#selectHolidayLogNum"()*/
+               A.HOLIDAY_DURING_DATE
+         FROM TBL_MEMBER_HOLIDAY_LOG A
+        WHERE A.HOLIDAY_LOG_NO = #{ logNo }
+	</select>
+	<select id="selectHolidayRule" resultMap="holidayRuleResult">
+        SELECT /*com.qs.www.mng.holiday.model.dao.MngHolidayDAO#selectHolidayRule"()*/
+               A.*
+         FROM TBL_HOLIDAY_RULE A
+	</select>
 </mapper>

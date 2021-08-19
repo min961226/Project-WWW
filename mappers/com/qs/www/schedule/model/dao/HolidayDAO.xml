@@ -106,6 +106,18 @@
 	   AND REPORT_STATUS != '회수'
 	 ORDER BY A.REPORT_NO DESC
 	</select>
-
+	
+	<select id="selectHavingHoliday" resultType="_int">
+	SELECT /* com.qs.www.schedule.model.dao.ScheduleDAO#selectHavingHoliday() */
+	       A.REMAINING_HOLIDAY
+	  FROM TBL_MEMBER A
+	 WHERE A.MEMBER_NO = #{ memberNo }
+	</select>
+	<update id="updateHavingHoliday">
+	UPDATE /* com.qs.www.approval.model.dao.ApprovalDAO#finishAppReport()*/
+		   TBL_MEMBER A
+	   SET A.REMAINING_HOLIDAY = #{ remainingHoliday }
+	  WHERE A.MEMBER_NO = #{ memberNo }
+	</update>
 
 </mapper>

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
+import com.qs.www.member.model.dto.MemberInfoDTO;
 import com.qs.www.schedule.model.dto.HolidayLogDTO;
 import com.qs.www.schedule.model.dto.HolidayTypeDTO;
 import com.qs.www.schedule.model.dto.HolidayUseInfoDTO;
@@ -35,6 +36,16 @@ public class HolidayDAO {
 	public int selectHolidayLogNum(SqlSession session) {
 		
 		return session.selectOne("HolidayDAO.selectHolidayLogNum");
+	}
+
+	public int selectHavingHoliday(SqlSession session, int memberNo) {
+		
+		return session.selectOne("HolidayDAO.selectHavingHoliday", memberNo);
+	}
+
+	public int updateHavingHoliday(SqlSession session, MemberInfoDTO memberInfoDTO) {
+		
+		return session.update("HolidayDAO.updateHavingHoliday",  memberInfoDTO);
 	}
 
 
