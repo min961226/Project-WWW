@@ -9,7 +9,7 @@
 		<result property="dayNumber" column="DAY_NUMBER"/>
 		<result property="holidayNote" column="HOLIDAY_NOTE"/>
 		<result property="useYn" column="USE_YN"/>
-	</resultMap>
+	</resultMap> 
 	
 	<resultMap type="com.qs.www.schedule.model.dto.ReportDTO" id="reportResultMap">
 		<result property="reportNo" column="REPORT_NO" />
