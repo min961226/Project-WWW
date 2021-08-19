@@ -15,6 +15,7 @@
 			let movePath = "";
 
 			switch (successCode) {
+
 			
 				case "updateInfo" :
 					successMessage = "프로필이 수정되었습니다.";
@@ -169,7 +170,7 @@
 			}
 
 			alert(successMessage);
-			
+
 			location.replace(movePath);
 		})();
 	</script>

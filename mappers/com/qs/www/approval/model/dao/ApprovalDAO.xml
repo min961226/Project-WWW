@@ -72,6 +72,8 @@
 			<result property="jobName" column="JOB_NAME"/>
 		</association>
 	</resultMap>
+	
+
 
 	<select id="selectApprovalLine" resultMap="approvalLineResultMap">
 		SELECT /* com.qs.www.approval.model.dao.ApprovalDAO#selectApprovalLine()*/
@@ -448,6 +450,7 @@
     	        </where>
     	ORDER BY A.LINE_NO DESC
 	</select>
+	
 </mapper>
 	    
 
