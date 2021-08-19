@@ -141,6 +141,7 @@
 								<div class="row">
 								    <div hidden>
 								    <input name="status" value="${ requestScope.selectedReport.reportStatus }" />
+								    <input name="memberNo" value="${ requestScope.selectedReport.memberNo }" />
 								    </div>
                                     <div class="col-sm-12 text-center m-t-20">
                                     <c:if test="${ requestScope.selectedReport.reportStatus ne '취소'}">

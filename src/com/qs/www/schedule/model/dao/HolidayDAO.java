@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 
 import com.qs.www.common.paging.SelectCriteria;
+import com.qs.www.member.model.dto.MemberInfoDTO;
 import com.qs.www.schedule.model.dto.HolidayLogDTO;
 import com.qs.www.schedule.model.dto.HolidayTypeDTO;
 import com.qs.www.schedule.model.dto.HolidayUseInfoDTO;
@@ -42,6 +43,14 @@ public class HolidayDAO {
 	public int selectAllCount(SqlSession session, Map<String, Object> searchMap) {
 		
 		return session.selectOne("HolidayDAO.selectAllCount", searchMap);
+	public int selectHavingHoliday(SqlSession session, int memberNo) {
+		
+		return session.selectOne("HolidayDAO.selectHavingHoliday", memberNo);
+	}
+
+	public int updateHavingHoliday(SqlSession session, MemberInfoDTO memberInfoDTO) {
+		
+		return session.update("HolidayDAO.updateHavingHoliday",  memberInfoDTO);
 	}
 
 

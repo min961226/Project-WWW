@@ -92,31 +92,32 @@ public class SelectOneWaitingApprovalServlet extends HttpServlet {
 		aLPR.setAppNote(opinion);
 		aLPR.setAppStatus(ApproverStatus);
 		
-		int result1 = new ApprovalService().insertALPR(aLPR);
+		ApprovalService approvalService = new ApprovalService();
+		int result1 = approvalService.insertALPR(aLPR);
 		
 		// 2. 결재한 상신번호에 대한 내 결재자사번의 상신별결재자가져오기
-		ApproverPerReportDTO thisTurnAPR = new ApprovalService().selectThisTurnAPR(thisAPR);
+		ApproverPerReportDTO thisTurnAPR = approvalService.selectThisTurnAPR(thisAPR);
 		System.out.println(thisTurnAPR);
 		
 		int nextPriority = thisTurnAPR.getPriority() + 1; //다음 우선 순위 만들기
 		System.out.println(nextPriority);
 		
 		// 3.  내 결재자사번의 상신별결재자 결재상태 '승인'혹은 '반려'로 바꾸기
-		int result2 =  new ApprovalService().updateThisTurnAPR(thisAPR);
+		int result2 =  approvalService.updateThisTurnAPR(thisAPR);
 		
 		int result3 = 0;
 		if(ApproverStatus.equals("승인")) {
 			// 4.a.1 '승인'했으면  내 결재자사번의 상신별결재에서 결재한 상신번호에 대한 다음 우선순위인 사람의 결재상태를 '대기'로 변경
 			thisAPR.setPriority(nextPriority);
-			result3 =  new ApprovalService().updateNextTurnAPR(thisAPR);
+			result3 =  approvalService.updateNextTurnAPR(thisAPR);
 			// 4.a.2 변경하고 리턴값이 0(다음결재자가 존재하지 않음)일 시 결재한 상신번호에 대한 상신테이블의 상태를 '승인'으로 변경
 			if(result3 == 0) {
-				result3 = new ApprovalService().finishAppReport(thisAPR);
+				result3 = approvalService.finishAppReport(thisAPR);
 				
 				
 				//판단에 필요한 정보 가져오기
-				ReportDTO selectedReport  = new ApprovalService().selectOneReportDetail(reportNo);
-				List<WorkingDocumentItemDTO> itemList = new ApprovalService().selectReportItemList(reportNo);
+				ReportDTO selectedReport  = approvalService.selectOneReportDetail(reportNo);
+				List<WorkingDocumentItemDTO> itemList = approvalService.selectReportItemList(reportNo);
 				
  				/* 5. 근무제쪽 테이블에도 insert 해주기 */
 				if(selectedReport.getDocumentNo() == 4 || selectedReport.getDocumentNo() == 5) {
@@ -250,6 +251,20 @@ public class SelectOneWaitingApprovalServlet extends HttpServlet {
 					System.out.println(result5);
 					
 					
+					/* 6-4. 사용한 휴가일수 보유휴가일수에서 차감 */
+					int useHoliday = Integer.parseInt(holidayLogDTO.getHolidayDuringDate());
+					int havingHoliday = holidayService.selectHavingHoliday(selectedReport.getMemberNo());
+					
+					int modifiedHoliday = havingHoliday - useHoliday;
+					
+					MemberInfoDTO memberInfoDTO = new MemberInfoDTO();
+					memberInfoDTO.setMemberNo(selectedReport.getMemberNo());
+					memberInfoDTO.setRemainingHoliday(modifiedHoliday);
+					int result6 = holidayService.updateHavingHoliday(memberInfoDTO);
+					System.out.println("사용휴가일수 : " + useHoliday);
+					System.out.println("기존보유휴가일수 : " + havingHoliday);
+					System.out.println("새 보유휴가일수 : " + modifiedHoliday);
+					System.out.println("휴가 차감 성공 여부 : "+ result6);
 				}
 				
 				
@@ -268,7 +283,7 @@ public class SelectOneWaitingApprovalServlet extends HttpServlet {
 			
 		}else {
 			// 4.b 반려했으면 상신번호에 대한상신테이블의 상태를 '반려'로 변경
-			result3 = new ApprovalService().finishAppReport(thisAPR);
+			result3 = approvalService.finishAppReport(thisAPR);
 			System.out.println("반려당함 :"+ApproverStatus);
 		}
 		

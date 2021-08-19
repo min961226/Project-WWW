@@ -38,6 +38,7 @@ String path = "/WEB-INF/views/mngboard/insertFormBoard.jsp";
 		newMngForm.setMember(memberNo);
 		newMngForm.setType(type);
 		
+		
 		System.out.println(newMngForm);
 
 		MngFormService mngformService = new MngFormService();

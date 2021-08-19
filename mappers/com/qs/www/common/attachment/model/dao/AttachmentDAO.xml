@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="AttachmentDAO">
+
+	<resultMap type="com.qs.www.common.attachment.model.dto.AttachmentDTO" id="AttachmentResultMap">
+		<result property="reportNo" column="REPORT_NO" />
+		<result property="attachmentNo" column="ATTACHMENT_NO" />
+		<result property="originalName" column="ORIGINAL_NAME" />
+		<result property="savedName" column="SAVED_NAME" />
+		<result property="savePath" column="SAVE_PATH" />
+		<result property="attatchmentStatus" column="ATTACHMENT_STATUS" />
+	</resultMap>
+	
+	<insert id="insertFileUpload" parameterType="map">
+		INSERT
+		  INTO TBL_REPORT_ATTACHMENT
+		  	 (
+		  	   REPORT_NO
+		  	 , ATTACHMENT_NO
+		  	 , ORIGINAL_NAME
+		  	 , SAVED_NAME
+		  	 , SAVE_PATH
+		  	 , ATTACHMENT_STATUS
+		  	 )
+		  	 VALUES
+		  	 (
+		  	   #{ reportNo }
+		  	 , #{ attachmentNo }
+		  	 , #{ originFileName }
+		  	 , #{ savedFileName }
+		  	 , #{ savePath }
+		  	 , DEFAULT
+		  	 )
+	</insert>
+	
+	<select id="selectAttachmentByReportNo" resultMap="AttachmentResultMap">
+		SELECT
+			   A.*
+		  FROM TBL_REPORT_ATTACHMENT A
+		 WHERE REPORT_NO = #{ reportNo }
+	</select>
+	
+</mapper>
