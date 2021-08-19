@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 public class InsertMngEmployeeListServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("계정 생성");
+		request.getRequestDispatcher("/WEB-INF/views/mngemployee/insertEmployee.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
