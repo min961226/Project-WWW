@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.qs.www.board.model.service.FreeService;
+import com.qs.www.mng.board.model.service.MngFormService;
+import com.qs.www.mng.board.model.service.MngNoticeService;
 
 @WebServlet("/mng/board/notice/delete")
 public class DeleteMngNoticeBoardServlet extends HttpServlet {
@@ -18,7 +20,7 @@ public class DeleteMngNoticeBoardServlet extends HttpServlet {
 		
 		int No = Integer.parseInt(request.getParameter("no"));
 
-		int result =  new FreeService().deleteFree(No);
+		int result =  new MngNoticeService().deleteMngNotice(No);
 		
 		String path = "";
 		if(result > 0) {

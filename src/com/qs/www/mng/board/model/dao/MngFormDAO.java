@@ -21,4 +21,16 @@ public class MngFormDAO {
 		return session.selectOne("MngFormDAO.selectMngFormDetail", no);
 	}
 
+	public int insertMngForm(SqlSession session, MngFormDTO newMngForm) {
+		return session.insert("MngFormDAO.insertMngForm", newMngForm);
+	}
+
+	public int updateMngForm(SqlSession session, MngFormDTO mngform) {
+		return session.update("MngFormDAO.updateMngForm", mngform);
+	}
+
+	public int deleteMngForm(SqlSession session, int no) {
+		return session.delete("MngFormDAO.deleteMngForm",no);
+	}
+
 }

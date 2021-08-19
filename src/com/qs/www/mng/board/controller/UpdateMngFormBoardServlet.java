@@ -27,15 +27,15 @@ public class UpdateMngFormBoardServlet extends HttpServlet {
 		
 		String path = "";
 		
-		System.out.println(mngnotice);
+		System.out.println(mngform);
 		System.out.println(path);
 		System.out.println(no);
-		if(mngnotice != null) {
-			path = "/WEB-INF/views/mngboard/updateNoticeBoard.jsp";
-			request.setAttribute("mngnotice", mngnotice);
+		if(mngform != null) {
+			path = "/WEB-INF/views/mngboard/updateFormBoard.jsp";
+			request.setAttribute("mngform", mngform);
 		} else {
 			path = "/WEB-INF/views/common/failed.jsp";
-			request.setAttribute("message", "공지사항 수정 조회하기 실패!");
+			request.setAttribute("message", "문서서식 게시판 수정 조회하기 실패!");
 		}
 		
 		request.getRequestDispatcher(path).forward(request, response);
@@ -54,24 +54,24 @@ public class UpdateMngFormBoardServlet extends HttpServlet {
 		System.out.println(title);
 		System.out.println(body);
 		
-		MngNoticeDTO mngnotice = new MngNoticeDTO();
+		MngFormDTO mngform = new MngFormDTO();
 
-		mngnotice.setNo(no);
-		mngnotice.setTitle(title);
-		mngnotice.setBody(body);
-		mngnotice.setMember(memberNo);
-		System.out.println(mngnotice);
+		mngform.setNo(no);
+		mngform.setTitle(title);
+		mngform.setBody(body);
+		mngform.setMember(memberNo);
+		System.out.println(mngform);
 
-		MngNoticeService mngnoticeService = new MngNoticeService();
-		int result = mngnoticeService.updateMngNotice(mngnotice);
+		MngFormService mngformService = new MngFormService();
+		int result = mngformService.updateMngForm(mngform);
 
 		String path = "";
 		if(result > 0) {
 			path = "/WEB-INF/views/common/success.jsp";
-			request.setAttribute("successCode", "updateMngNotice");
+			request.setAttribute("successCode", "updateMngForm");
 		} else {
 			path = "/WEB-INF/views/common/failed.jsp";
-			request.setAttribute("failedCode", "updateMngNotice");
+			request.setAttribute("failedCode", "updateMngForm");
 		}
 
 		request.getRequestDispatcher(path).forward(request, response);

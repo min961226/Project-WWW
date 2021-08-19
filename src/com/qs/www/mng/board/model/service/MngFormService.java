@@ -55,4 +55,54 @@ public class MngFormService {
 		return mngformDetail;
 	}
 
+	public int insertMngForm(MngFormDTO newMngForm) {
+		SqlSession session = getSqlSession();
+		
+		int result = mngformDAO.insertMngForm(session, newMngForm);
+		
+		if(result > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+		
+		session.close();
+		
+		System.out.println(result);
+		
+		return result;
+	}
+
+	public int updateMngForm(MngFormDTO mngform) {
+		SqlSession session = getSqlSession();
+
+		int result = mngformDAO.updateMngForm(session, mngform);
+
+		if(result > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+
+		session.close();
+
+		return result;
+	}
+
+	public int deleteMngForm(int no) {
+		SqlSession session = getSqlSession();
+
+		int result1 = mngformDAO.deleteMngForm(session,no);
+		int result = 0;
+		if(result1 > 0) {
+			result = 1;
+			session.commit();
+		} else {
+			session.rollback();
+		}
+		session.close();
+
+		return result;
+	}
+
 }
