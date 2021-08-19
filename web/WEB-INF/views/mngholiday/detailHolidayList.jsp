@@ -28,7 +28,7 @@
 								</div>
 				</div>
 				<div class="row">
-					<div class="col-lg-12">
+					<div class="col-xs-12">
 						<div class="card-box col-xs-6"  style=" height: 1000px;">
 								<div class="form-group">
 								<div class="col-sm-12">
@@ -76,9 +76,9 @@
 										<input class="form-control" value="~${ requestScope.selectedReport.reportDate }"  disabled/>
 										</div>
 									</div>
-								    <div class="col-sm-6">
+								    <div class="col-xs-6">
 										<label>보존기간 : </label>
-										<div class="col-md-12">
+										<div class="col-xs-12">
 										<input class="form-control" value="~${ requestScope.endDate }"  disabled/>
 										<br><br><br>
 										</div>
@@ -87,7 +87,7 @@
 								<div class="form-group col-xs-12">        
 								        <c:forEach var="item" items="${ requestScope.itemList }">
 								        <div>
-										<div class="col-sm-6">
+										<div class="col-xs-6">
 										    <label>${ item.itemName } : </label>
 											<input class="form-control" value="${ item.itemContent }"  disabled/>
 										</div>
@@ -112,7 +112,7 @@
                                     </div>
 								</div>
 								<c:forEach var="line" items="${ requestScope.ALPRList }">
-								<div class="card-box col-lg-3">
+								<div class="card-box col-xs-3">
                                     <h4 class="card-title">${ line.memberName }님의 결재내용 조회</h4>
                                     <div class="form-group">
                                     
@@ -139,8 +139,12 @@
                                 </c:forEach>
                                 <form class="form-horizontal" action="${ pageContext.servletContext.contextPath }/mng/holiday/applied/delete?no=${ requestScope.selectedReport.reportNo }" method="post">
 								<div class="row">
+								    <div hidden>
+								    <input name="status" value="${ requestScope.selectedReport.reportStatus }" />
+								    </div>
                                     <div class="col-sm-12 text-center m-t-20">
-                                        <button type="submit" class="btn btn-primary btn-lg" > 취소하기 </button>
+                                    <c:if test="${ requestScope.selectedReport.reportStatus ne '취소'}">
+                                        <button type="submit" class="btn btn-primary btn-lg" > 취소하기 </button></c:if>
                                         <button type="reset" class="btn btn-primary btn-lg" id="goBack">돌아가기</button>
                                     </div>
                                 </div>

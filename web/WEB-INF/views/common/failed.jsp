@@ -140,6 +140,11 @@
 					failedMessage = "시행복지 수정에 실패하였습니다.";
 					movePath = "${ pageContext.servletContext.contextPath }/mng/welfare/list/select";
 					break;
+					
+				case "deleteHoliday" :
+					failedMessage = "휴가취소에 실패하였습니다.";
+					movePath = "${ pageContext.servletContext.contextPath }/mng/holiday/applied/select";
+					break;
 			}
 
 			alert(failedMessage);
