@@ -92,13 +92,20 @@
           $('#div1').hide();
         }
     }
-	
+*/	
 	
 	
     	const $goBack = document.getElementById("goBack");
     	$goBack.onclick = function() {
+			if (!confirm("돌아가시겠습니까?\n작성중이던 모든 내용이 삭제됩니다.")) {
+	        	
+	        } else {
+    		
     		location.href = "${ pageContext.servletContext.contextPath }/board/free/select"
-    	} */
+    	
+	        }
+			
+    	}
     	
     	$("#send-file-1").click(function() {
     		
