@@ -11,7 +11,7 @@
 <title>Wonderful Welfare Workspace</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js">
-
+	
 </script>
 </head>
 
@@ -29,7 +29,9 @@
 					<div class="col-lg-12">
 
 
-						<form class="form-horizontal" action="${ pageContext.servletContext.contextPath }/welfare/applied/list/delete?no=${ requestScope.selectedReport.reportNo }" method="post" onsubmit="return askAgain();">
+						<form class="form-horizontal"
+							action="${ pageContext.servletContext.contextPath }/welfare/applied/list/delete?no=${ requestScope.selectedReport.reportNo }"
+							method="post" onsubmit="return askAgain();">
 
 
 
@@ -51,25 +53,26 @@
 									<label>결재 상태</label>
 									<div class="col-md-12">
 										<input class="form-control"
-											value="${ requestScope.selectedReport.reportStatus }" disabled />
+											value="${ requestScope.selectedReport.reportStatus }"
+											disabled />
 									</div>
 								</div>
 
-								
+
 
 							</div>
 
 
 							<div class="form-group">
-							
-							<div class="col-sm-6">
+
+								<div class="col-sm-6">
 									<label>기안자</label>
 									<div class="col-md-12">
 										<input class="form-control"
 											value="${ sessionScope.memberInfo.name }" disabled />
 									</div>
 								</div>
-								
+
 
 								<div class="col-sm-6">
 									<label>결재라인</label>
@@ -78,7 +81,7 @@
 											value="${ requestScope.selectedReport.lineName }" disabled />
 									</div>
 								</div>
-								
+
 							</div>
 
 							<div class="form-group">
@@ -121,15 +124,7 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-sm-6">
-									<label>첨부서류</label>
-									<div class="col-md-12">
-										<input class="form-control" type="file">
-									</div>
-								</div>
 
-								<!-- 흠 이건 id가 달린 div인데, 뭐가 다른지 궁금하네 -->
-								<div id="area3" class="form-group"></div>
 							</c:if>
 
 							<c:if test="${ no eq 8 }">
@@ -180,11 +175,11 @@
 										</div>
 									</div>
 									<div class="col-sm-6">
-									<label>첨부서류</label>
-									<div class="col-md-12">
-										<input class="form-control" type="file">
+										<label>첨부서류</label>
+										<div class="col-md-12">
+											<input class="form-control" type="file">
+										</div>
 									</div>
-								</div>
 								</div>
 
 								<!-- 흠 이건 id가 달린 div인데, 뭐가 다른지 궁금하네 -->
@@ -274,10 +269,6 @@
 								</div>
 							</c:if>
 
-
-
-
-
 							<div class="form-group">
 								<div class="col-sm-12">
 									<label>신청사유</label>
@@ -287,22 +278,29 @@
 									</div>
 								</div>
 							</div>
-
-
+						<%-- 첨부파일 다운로드 추가 --%>
+							<c:if test="${ !empty requestScope.attachmentDTO.savedName}">
+								<div class="form-group">
+									<div class="col-sm-6">
+										<div class="col-md-12">
+												<label>첨부 파일 :</label>&nbsp;&nbsp;<a	href="${ pageContext.servletContext.contextPath }/FileDown?fileName=${requestScope.attachmentDTO.savedName }"><u>${requestScope.attachmentDTO.originalName}</u></a>
+										</div>
+									</div>
+								</div>
+							</c:if>
+							
 							<div class="row">
 								<div class="col-sm-12 text-center m-t-20">
 									<c:set var="reportStatus"
 										value="${ requestScope.selectedReport.reportStatus }" />
 									<c:if test="${  reportStatus eq '대기' }">
-										<button type="submit" class="btn btn-primary btn-lg" >회수하기</button>
+										<button type="submit" class="btn btn-primary btn-lg">회수하기</button>
 									</c:if>
 									<button type="reset" class="btn btn-primary btn-lg" id="goBack">돌아가기</button>
 								</div>
 							</div>
 
 						</form>
-
-
 
 					</div>
 				</div>
@@ -314,24 +312,22 @@
 	<div class="sidebar-overlay" data-reff=""></div>
 
 	<script>
-		function askAgain(){
-			
+		function askAgain() {
+
 			var yn;
 			yn = confirm('신청된 결재를 회수하시겠습니까?\n회수 후에는 재신청 해야합니다.');
-			
-			if(yn == true){
+
+			if (yn == true) {
 				return true;
-			}
-			else{
+			} else {
 				return false;
 			}
-		}	
-		
+		}
+
 		const $goBack = document.getElementById("goBack");
 		$goBack.onclick = function() {
 			location.href = "${ pageContext.servletContext.contextPath }/welfare/applied/list/select"
 		}
-		
 	</script>
 </body>
 

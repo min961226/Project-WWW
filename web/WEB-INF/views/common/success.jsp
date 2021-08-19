@@ -15,6 +15,7 @@
 			let movePath = "";
 
 			switch (successCode) {
+
 			
 				case "updateInfo" :
 					successMessage = "프로필이 수정되었습니다.";
@@ -145,7 +146,6 @@
 					successMessage = "휴가 취소가 완료되었습니다.";
 					movePath = "${ pageContext.servletContext.contextPath }/mng/holiday/applied/select";
 					break;
-					
 				case "updateMngNotice" :
 					successMessage = "공지사항 수정이 완료되었습니다.";
 					movePath = "${ pageContext.servletContext.contextPath }/mng/board/notice/select";
@@ -169,7 +169,7 @@
 			}
 
 			alert(successMessage);
-			
+
 			location.replace(movePath);
 		})();
 	</script>

@@ -30,6 +30,7 @@
 		<mapper resource="com/qs/www/mng/board/model/dao/MngNoticeDAO.xml"/>
 		<mapper resource="com/qs/www/mng/holiday/model/dao/MngHolidayDAO.xml"/>
 		<mapper resource="com/qs/www/mng/board/model/dao/MngFormDAO.xml"/>
+		<mapper resource="com/qs/www/common/attachment/model/dao/AttachmentDAO.xml"/>
 	</mappers>
 	
 </configuration>

@@ -16,8 +16,6 @@
 
 <body>
 	<div class="main-wrapper">
-		<jsp:include page="../common/navbar.jsp" />
-
 		<div class="page-wrapper">
 			<div class="content container-fluid">
 
@@ -123,7 +121,7 @@
 									<!-- 근무신청내용 end -->
 									<br>
 									<!-- 페이징 부분 -->
-									<jsp:include page="../common/paging.jsp"/>
+									<jsp:include page="../common/navbar.jsp" />
 								</div>
 							</div>
 						</div>

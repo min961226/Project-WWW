@@ -26,7 +26,8 @@
 				<div class="row">
 					<div class="col-md-8 col-md-offset-2">
 						<form name="insertDomitory"
-							action="${ pageContext.servletContext.contextPath }/welfare/domitory/insert" method="POST" onsubmit="return askAgain();">
+							action="${ pageContext.servletContext.contextPath }/welfare/domitory/insert"
+							method="POST" onsubmit="return askAgain();">
 							<div class="form-group">
 								<label>직원 ID</label> <input name="memberNo" class="form-control"
 									type="text" value="${memberNo}" readonly="readonly" />
@@ -42,12 +43,20 @@
 									type="text" value="${ sessionScope.memberInfo.job.jobName }"
 									required="required">
 							</div>
-							<div class="form-group" >
-								<label>신청 기숙사 : </label> 
-								<c:if test="${requestScope.manageNo eq 1}"> <c:out  value="1동 101호"/></c:if>
-								<c:if test="${requestScope.manageNo eq 2}"> <c:out  value="1동 102호"/></c:if>
-								<c:if test="${requestScope.manageNo eq 3}"> <c:out  value="2동 201호"/></c:if>
-								<c:if test="${requestScope.manageNo eq 4}"> <c:out  value="2동 202호"/></c:if>
+							<div class="form-group">
+								<label>신청 기숙사 : </label>
+								<c:if test="${requestScope.manageNo eq 1}">
+									<c:out value="1동 101호" />
+								</c:if>
+								<c:if test="${requestScope.manageNo eq 2}">
+									<c:out value="1동 102호" />
+								</c:if>
+								<c:if test="${requestScope.manageNo eq 3}">
+									<c:out value="2동 201호" />
+								</c:if>
+								<c:if test="${requestScope.manageNo eq 4}">
+									<c:out value="2동 202호" />
+								</c:if>
 							</div>
 							<div class="form-group">
 								<label>신청자</label> <input name="name" class="form-control"
@@ -57,7 +66,8 @@
 							<br>
 							<div class="form-group">
 								<label>현 거주지</label> <input name="address" class="form-control"
-									type="text" value="${ requestScope.address }" required="required">
+									type="text" value="${ requestScope.address }"
+									required="required">
 							</div>
 							<br>
 							<div class="form-group">
@@ -81,10 +91,10 @@
 									class="form-control" required="required"></textarea>
 							</div>
 							<div class="m-t-20 text-center">
-								<button class="btn btn-primary btn-lg" type="submit">신청 	완료</button>
+								<button class="btn btn-primary btn-lg" type="submit">신청
+									완료</button>
 								<button type="reset" class="btn btn-primary btn-lg" id="goBack">돌아가기</button>
 							</div>
-
 						</form>
 					</div>
 				</div>
@@ -96,24 +106,22 @@
 
 		$goBack.onclick = function() {
 			if (!confirm("돌아가시겠습니까?\n작성중이던 모든 내용이 삭제됩니다.")) {
-	        	
-	        } else {
-			location.href = "${ pageContext.servletContext.contextPath }/welfare/list/selected?selectedWelfare=기숙사입주신청"
-	        }
+
+			} else {
+				location.href = "${ pageContext.servletContext.contextPath }/welfare/list/selected?selectedWelfare=기숙사입주신청"
+			}
 		}
-		function askAgain(){
-			
+		function askAgain() {
+
 			var yn;
 			yn = confirm('기숙사 신청을 완료하시겠습니까?\n신청 후에는 수정이 불가합니다');
-			
-			if(yn == true){
+
+			if (yn == true) {
 				return true;
-			}
-			else{
+			} else {
 				return false;
 			}
-		}	
-	        
+		}
 	</script>
 </body>
 
