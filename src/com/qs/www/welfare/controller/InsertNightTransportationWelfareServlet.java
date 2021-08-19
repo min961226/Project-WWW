@@ -27,15 +27,16 @@ import com.qs.www.welfare.model.dto.WelfareListDTO;
 import com.qs.www.welfare.model.service.WelfareService;
 
 @MultipartConfig(
-        location = "C:\\Users\\82102\\git\\Project-WWW\\upload",
+        location = "C:\\WWW\\Project-WWW\\web\\upload",
         maxFileSize = 1024*1024*10,
         maxRequestSize = 1024*1024*10*5,
         fileSizeThreshold = 1024)
 @WebServlet("/welfare/nightTransportation/insert")
 public class InsertNightTransportationWelfareServlet extends HttpServlet {
 
-	
+/*---------------------------------------------------------------------------파일 업로드---------------------------------------------------------------------*/
 	private static final String ATTACHES_WELFARE= "/welfare";
+	private static final String ATTACHES_ORIGINAL= "/original";
 	
 	private String extractFileName(String partHeader) {
         for (String cd : partHeader.split(";")) {
@@ -55,30 +56,36 @@ public class InsertNightTransportationWelfareServlet extends HttpServlet {
         String contentType = request.getContentType();
  
  
-        if (contentType != null &&  contentType.toLowerCase().startsWith("multipart/")) {
+        if (contentType != null &&  contentType.toLowerCase().startsWith("multipart/")) {													//formdata를 받아오고 타입이 콘텐트 ㅇ타입인경우에만 진입
             // getParts()를 통해 Body에 넘어온 데이터들을 각각의  Part로 쪼개어 리턴
             Collection<Part> parts = request.getParts();
  
  
             for (Part part : parts) {
-                System.out.printf("파라미터 명 : %s, contentType :  %s,  size : %d bytes \n", part.getName(),
+                System.out.printf("파라미터 명 : %s, contentType :  %s,  size : %d bytes \n", part.getName(),									//파트로 넘어온 값들 전부 출력
                         part.getContentType(), part.getSize());
  
  
                 if  (part.getHeader("Content-Disposition").contains("filename=")) {
                     String fileName =  extractFileName(part.getHeader("Content-Disposition"));
+                    System.out.println(part.getHeader("Content-Disposition"));
                     
                     int dot = fileName.lastIndexOf(".");
 					String ext = fileName.substring(dot);
-					String randomFileName = UUID.randomUUID().toString().replace("-", "") + ext;
-					System.out.println(randomFileName);
-                    if (part.getSize() > 0) {
-                        System.out.printf("업로드 파일 명 : %s  \n", fileName);
-                        part.write(ATTACHES_WELFARE + File.separator  + fileName);
+					String randomFileName = UUID.randomUUID().toString().replace("-", "") + ext;											//파일 이름 랜덤 부여
+					System.out.println(randomFileName);			
+                    if (part.getSize() > 0) {																								// 업로드 할때 파일 크기가 0 보다 작을 수 없다.
+                       
+                    	System.out.printf("업로드 파일 명 : %s  \n", randomFileName);
+                    	System.out.println(ATTACHES_ORIGINAL + File.separator  + randomFileName);
+                    	System.out.println(ATTACHES_WELFARE + File.separator  + fileName);
+                        
+                        part.write(ATTACHES_ORIGINAL + File.separator  + randomFileName);
+                        part.write(ATTACHES_WELFARE + File.separator  + fileName);															//기존 파일 이름으로 저장
                         part.delete();
                     }
                 } else {
-                    String formValue =  request.getParameter(part.getName());
+                    String formValue =  request.getParameter(part.getName());																//파트로 찢긴값들 파일이 아닐경우 처리하는 파트
                     System.out.printf("name : %s, value : %s  \n", part.getName(), formValue);
                 }
             }
@@ -89,12 +96,11 @@ public class InsertNightTransportationWelfareServlet extends HttpServlet {
         }
 
 
+/*---------------------------------------------------------------------------파일 업로드---------------------------------------------------------------------*/
 		
 		
 		
 		
-		
-////////////////////////////////////////////////////////////////////////////////	
         		
 		
 		
