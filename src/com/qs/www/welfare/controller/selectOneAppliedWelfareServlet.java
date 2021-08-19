@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.qs.www.approval.model.service.ApprovalService;
+import com.qs.www.common.attachment.model.dto.AttachmentDTO;
+import com.qs.www.common.attachment.model.service.AttachmentService;
 import com.qs.www.schedule.model.dto.ReportDTO;
 import com.qs.www.schedule.model.dto.WorkingDocumentItemDTO;
 
@@ -25,11 +27,17 @@ public class selectOneAppliedWelfareServlet extends HttpServlet {
 			throws ServletException, IOException {
 		System.out.println("복지 신청 상세보기");
 		
+		ApprovalService approvalService = new ApprovalService();
+		
 		int no = Integer.parseInt(request.getParameter("no"));
 		// 요청함에서 선택한 게시물의 살세정보 가져오기
 		// 상신번호, 상신일자, 상신자 사번, 문서번호, 비고, 결재상태, 라인명, 상신명
-		ReportDTO selectedReport = new ApprovalService().selectOneReportDetail(no);
-
+		ReportDTO selectedReport = approvalService.selectOneReportDetail(no);
+		
+		/* 파일 첨부 DTO 서비스 실행 reportNo로 갖고옴 */
+		AttachmentDTO attachmentDTO = new AttachmentService().selectAttachmentByReportNo(selectedReport.getReportNo());		//reportNo로 값을 갖고옴
+		System.out.println(attachmentDTO);
+		
 		// 상신번호, 문서번호, 순번, 내용
 		List<WorkingDocumentItemDTO> itemList = new ApprovalService().selectReportItemList(no);
 		System.out.println("itemList : " + itemList);
@@ -107,7 +115,8 @@ public class selectOneAppliedWelfareServlet extends HttpServlet {
 
 		request.setAttribute("selectedReport", selectedReport);
 		request.setAttribute("preservedDate", preservedDate);
-
+		request.setAttribute("attachmentDTO", attachmentDTO);
+		
 		String path = "/WEB-INF/views/welfare/appliedDetailWelfareList.jsp";
 		request.getRequestDispatcher(path).forward(request, response);
 	}

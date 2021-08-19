@@ -5,7 +5,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.ServletException;
@@ -19,24 +21,202 @@ import javax.servlet.http.Part;
 import com.qs.www.approval.model.dto.ApprovalLineDTO;
 import com.qs.www.approval.model.dto.ApproverDTO;
 import com.qs.www.approval.model.service.ApprovalService;
+import com.qs.www.common.attachment.model.service.AttachmentService;
 import com.qs.www.schedule.model.dto.ApproverPerReportDTO;
 import com.qs.www.schedule.model.dto.WorkingDocumentItemDTO;
 import com.qs.www.schedule.model.service.ScheduleService;
 import com.qs.www.welfare.model.dto.FamilyEventDTO;
 import com.qs.www.welfare.model.dto.WelfareListDTO;
 import com.qs.www.welfare.model.service.WelfareService;
-
+/*--------------------서블릿 3.0 파트 api 사용을 위한 multipartconfig 참조 선언 --------------*/
 @MultipartConfig(
-        location = "C:\\WWW\\Project-WWW\\web\\upload",
-        maxFileSize = 1024*1024*10,
-        maxRequestSize = 1024*1024*10*5,
-        fileSizeThreshold = 1024)
+        location = "C:\\WWW\\Project-WWW\\web\\upload",								//임시저장 경로
+        maxFileSize = 1024*1024*10,													//파일 허용 최대 크기
+        maxRequestSize = 1024*1024*10*5,											//파일 허용 최대 갯수
+        fileSizeThreshold = 1024)													//임시저장메모리 할당 크기
 @WebServlet("/welfare/nightTransportation/insert")
 public class InsertNightTransportationWelfareServlet extends HttpServlet {
 
+	/* ---------------------------------파일 업로드 서비스-----------------------------------------*/
+	private static final String ATTACHES_REPORT = "C:\\WWW\\Project-WWW\\web\\upload\\report";							//경로지정				
+	/* ---------------------------------파일 업로드 서비스-----------------------------------------*/
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		
+		WelfareService welfareService = new WelfareService();
+		ApprovalService approvalService = new ApprovalService();
+		/* ---------------------------------파일 업로드 서비스-----------------------------------------*/
+		AttachmentService attachmentService = new AttachmentService();													//서비스 인스턴스 생성
+		/* ---------------------------------파일 업로드 서비스-----------------------------------------*/
+
+		String welfareTitle = "야간 교통비 신청"; // 결재 제목
+		int documentNo = 7; // 야간 교통비 신청 문서 번호
+		
+		
+		String overTime = request.getParameter("overTimeLog");
+		int transBill = Integer.parseInt(request.getParameter("transBill"));
+		System.out.println(overTime);
+		String overTimeLogInfo = request.getParameter("overTimeLogInfo");
+		
+		int lineNo = Integer.parseInt(request.getParameter("lineList"));
+		List<ApprovalLineDTO> lineList = new ApprovalService()
+				.selectApprovalLine(Integer.parseInt(request.getParameter("memberNo")));
+		System.out.println(lineNo);
+		System.out.println(lineList);
+		
+		String lineName = "";
+		
+		for (ApprovalLineDTO line : lineList) {
+			if (line.getLineNo() == lineNo) {
+				lineName = line.getLineName();
+			}
+		}
+		
+		WelfareListDTO welfareListDTO = new WelfareListDTO();
+		
+		welfareListDTO.setMemberNo(request.getParameter("memberNo"));
+		welfareListDTO.setDocumentNo(documentNo);
+		welfareListDTO.setReportNote(overTimeLogInfo);
+		welfareListDTO.setLineName(lineName);
+		welfareListDTO.setWelfareTitle(welfareTitle);
+		System.out.println(welfareListDTO);
+		
+		int reportNo = welfareService.selectReportNum();
+		int result1 = welfareService.insertWelfareReport(welfareListDTO);
+		
+		List<String> documentItem = new ArrayList<>();
+		documentItem.add(welfareTitle);
+		documentItem.add(overTime);
+		documentItem.add(String.valueOf(transBill));
+		documentItem.add(overTimeLogInfo);
+		
+		int priority = 1;
+		int result2 = 0;
+		
+		for (String item : documentItem) {
+			WorkingDocumentItemDTO documentItemDTO = new WorkingDocumentItemDTO();
+			documentItemDTO.setReportNo(reportNo);
+			documentItemDTO.setDocumentNo(documentNo);
+			documentItemDTO.setPriority(priority);
+			documentItemDTO.setItemContent(item);
+			
+			result2 = welfareService.insertWelfareItemContent(documentItemDTO);
+			
+			priority++;
+		}
+		
+		List<ApproverDTO> approverList = approvalService.selectApprover(lineNo);
+		System.out.println(approverList);
+		
+		int result3 = 0;
+		for (ApproverDTO approver : approverList) {
+			ApproverPerReportDTO approverPerReportDTO = new ApproverPerReportDTO();
+			ScheduleService scheduleService = new ScheduleService();
+			if (approver.getApproverType().equals("결재")) {
+				approverPerReportDTO.setReportNo(reportNo);
+				approverPerReportDTO.setMemberNo(approver.getMemberNo());
+				approverPerReportDTO.setPriority(approver.getPriority());
+				
+				result3 = scheduleService.applyWorkingSystemApprover(approverPerReportDTO);
+			} else {
+				approverPerReportDTO.setReportNo(reportNo);
+				approverPerReportDTO.setMemberNo(approver.getMemberNo());
+				approverPerReportDTO.setApproverType(approver.getApproverType());
+				
+				result3 = scheduleService.applyWorkingSystemReferer(approverPerReportDTO);
+			}
+		}
+		
 /*---------------------------------------------------------------------------파일 업로드---------------------------------------------------------------------*/
-	private static final String ATTACHES_WELFARE= "/welfare";
-	private static final String ATTACHES_ORIGINAL= "/original";
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+        String contentType = request.getContentType();
+        Map<String, Object> fileMap = new HashMap<>();
+        int resultFileUpload = 0;
+ 
+ 
+        if (contentType != null &&  contentType.toLowerCase().startsWith("multipart/")) {													//formdata를 받아오고 타입이 콘텐트 ㅇ타입인경우에만 진입
+            // getParts()를 통해 Body에 넘어온 데이터들을 각각의  Part로 쪼개어 리턴
+            Collection<Part> parts = request.getParts();
+ 
+            for (Part part : parts) {
+                System.out.printf("파라미터 명 : %s, contentType :  %s,  size : %d bytes \n", part.getName(),									//파트로 넘어온 값들 전부 출력
+                        part.getContentType(), part.getSize());
+ 
+ 
+                if  (part.getHeader("Content-Disposition").contains("filename=")) {							
+                    String fileName =  extractFileName(part.getHeader("Content-Disposition"));
+                    
+                    if(fileName.length()>0) {																								//첨부한 파일이 존재하지 않을때(파일을 미첨부시, 파일 첨부한 값이 없을때)
+                    System.out.println("fileName : "+fileName);
+                    System.out.println(part.getHeader("Content-Disposition"));
+                    
+                    int dot = fileName.lastIndexOf(".");
+					String ext = fileName.substring(dot);
+					String randomFileName = UUID.randomUUID().toString().replace("-", "") + ext;											//파일 이름 랜덤 부여
+					System.out.println(randomFileName);			
+                    if (part.getSize() > 0) {																								// 업로드 할때 파일 크기가 0 보다 작을 수 없다.
+                    	System.out.println(part.getHeaderNames());
+                    	
+                    	fileMap.put("reportNo", reportNo);
+                    	fileMap.put("attachmentNo", 1);
+                    	fileMap.put("originFileName", fileName);
+                    	fileMap.put("savedFileName", randomFileName);
+                    	fileMap.put("savePath", ATTACHES_REPORT);
+                    	
+                    	System.out.printf("업로드 파일 명 : %s  \n", randomFileName);
+                    	System.out.println(ATTACHES_REPORT + File.separator  + fileName);
+                        
+                        part.write(ATTACHES_REPORT + File.separator  + randomFileName);													//파일 경로에 따른 파일 추가
+                        part.delete();																										//임시 파일 삭제
+                        
+                        
+                        System.out.println("map:" + fileMap);
+                        System.out.println(resultFileUpload);
+                        resultFileUpload = attachmentService.insertFileUpload(fileMap);
+                    }
+                    }else {
+                    	resultFileUpload = -1;
+                    }
+                } else {
+                    String formValue =  request.getParameter(part.getName());																//파트로 찢긴값들 파일이 아닐경우 처리하는 파트
+                    System.out.printf("name : %s, value : %s  \n", part.getName(), formValue);
+                }
+            }
+            System.out.println("<h1>업로드 완료</h1>");
+        } else {
+            System.out.println("<h1>enctype이 multipart/form-data가  아님</h1>");
+        }
+        
+        
+
+        /*---------------------------------------------------------------------------파일 업로드---------------------------------------------------------------------*/
+	
+
+		String path = "";
+		if(resultFileUpload == -1) {																										//파일첨부를 하지 않았을때는 result값을 더해주면안된다.
+			if (result1 > 0 && result2 > 0 && result3 > 0) {
+				path = "/WEB-INF/views/common/success.jsp";
+				request.setAttribute("successCode", "insertNightTrans");
+			} else {
+				path = "/WEB-INF/views/common/failed.jsp";
+				request.setAttribute("failedCode", "insertNightTrans");
+			}			
+		}else {
+			if (result1 > 0 && result2 > 0 && result3 > 0 && resultFileUpload > 0) {														//파일을첨부하였고 그 파일첨부가 성공하였을경우 페이지로 이동한다.
+				path = "/WEB-INF/views/common/success.jsp";
+				request.setAttribute("successCode", "insertNightTrans");
+			} else {
+				path = "/WEB-INF/views/common/failed.jsp";
+				request.setAttribute("failedCode", "insertNightTrans");
+			}			
+		}
+		
+		request.getRequestDispatcher(path).forward(request, response);
+	}
+	
+	/*---------------------------------------------------------------------------파일 업로드---------------------------------------------------------------------*/
 	
 	private String extractFileName(String partHeader) {
         for (String cd : partHeader.split(";")) {
@@ -48,151 +228,6 @@ public class InsertNightTransportationWelfareServlet extends HttpServlet {
         }
         return null;
     }
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		
-        PrintWriter out = response.getWriter();
-        String contentType = request.getContentType();
- 
- 
-        if (contentType != null &&  contentType.toLowerCase().startsWith("multipart/")) {													//formdata를 받아오고 타입이 콘텐트 ㅇ타입인경우에만 진입
-            // getParts()를 통해 Body에 넘어온 데이터들을 각각의  Part로 쪼개어 리턴
-            Collection<Part> parts = request.getParts();
- 
- 
-            for (Part part : parts) {
-                System.out.printf("파라미터 명 : %s, contentType :  %s,  size : %d bytes \n", part.getName(),									//파트로 넘어온 값들 전부 출력
-                        part.getContentType(), part.getSize());
- 
- 
-                if  (part.getHeader("Content-Disposition").contains("filename=")) {
-                    String fileName =  extractFileName(part.getHeader("Content-Disposition"));
-                    System.out.println(part.getHeader("Content-Disposition"));
-                    
-                    int dot = fileName.lastIndexOf(".");
-					String ext = fileName.substring(dot);
-					String randomFileName = UUID.randomUUID().toString().replace("-", "") + ext;											//파일 이름 랜덤 부여
-					System.out.println(randomFileName);			
-                    if (part.getSize() > 0) {																								// 업로드 할때 파일 크기가 0 보다 작을 수 없다.
-                       
-                    	System.out.printf("업로드 파일 명 : %s  \n", randomFileName);
-                    	System.out.println(ATTACHES_ORIGINAL + File.separator  + randomFileName);
-                    	System.out.println(ATTACHES_WELFARE + File.separator  + fileName);
-                        
-                        part.write(ATTACHES_ORIGINAL + File.separator  + randomFileName);
-                        part.write(ATTACHES_WELFARE + File.separator  + fileName);															//기존 파일 이름으로 저장
-                        part.delete();
-                    }
-                } else {
-                    String formValue =  request.getParameter(part.getName());																//파트로 찢긴값들 파일이 아닐경우 처리하는 파트
-                    System.out.printf("name : %s, value : %s  \n", part.getName(), formValue);
-                }
-            }
-            
-            System.out.println("<h1>업로드 완료</h1>");
-        } else {
-            System.out.println("<h1>enctype이 multipart/form-data가  아님</h1>");
-        }
-
 
 /*---------------------------------------------------------------------------파일 업로드---------------------------------------------------------------------*/
-		
-		
-		
-		
-        		
-		
-		
-//		
-//		String welfareTitle = "야간 교통비 신청"; // 결재 제목
-//		int documentNo = 7; // 야간 교통비 신청 문서 번호
-//
-//		WelfareService welfareService = new WelfareService();
-//
-//		String overTime = request.getParameter("overTimeLog");
-//		int transBill = Integer.parseInt(request.getParameter("transBill"));
-//		System.out.println(overTime);
-//		String overTimeLogInfo = request.getParameter("overTimeLogInfo");
-//
-//		int lineNo = Integer.parseInt(request.getParameter("lineList"));
-//		List<ApprovalLineDTO> lineList = new ApprovalService()
-//				.selectApprovalLine(Integer.parseInt(request.getParameter("memberNo")));
-//		System.out.println(lineNo);
-//		System.out.println(lineList);
-//
-//		String lineName = "";
-//
-//		for (ApprovalLineDTO line : lineList) {
-//			if (line.getLineNo() == lineNo) {
-//				lineName = line.getLineName();
-//			}
-//		}
-//
-//		WelfareListDTO welfareListDTO = new WelfareListDTO();
-//
-//		welfareListDTO.setMemberNo(request.getParameter("memberNo"));
-//		welfareListDTO.setDocumentNo(documentNo);
-//		welfareListDTO.setReportNote(overTimeLogInfo);
-//		welfareListDTO.setLineName(lineName);
-//		welfareListDTO.setWelfareTitle(welfareTitle);
-//		System.out.println(welfareListDTO);
-//
-//		int reportNo = welfareService.selectReportNum();
-//		int result1 = welfareService.insertWelfareReport(welfareListDTO);
-//
-//		List<String> documentItem = new ArrayList<>();
-//		documentItem.add(welfareTitle);
-//		documentItem.add(overTime);
-//		documentItem.add(String.valueOf(transBill));
-//		documentItem.add(overTimeLogInfo);
-//
-//		int priority = 1;
-//		int result2 = 0;
-//
-//		for (String item : documentItem) {
-//			WorkingDocumentItemDTO documentItemDTO = new WorkingDocumentItemDTO();
-//			documentItemDTO.setReportNo(reportNo);
-//			documentItemDTO.setDocumentNo(documentNo);
-//			documentItemDTO.setPriority(priority);
-//			documentItemDTO.setItemContent(item);
-//
-//			result2 = welfareService.insertWelfareItemContent(documentItemDTO);
-//
-//			priority++;
-//		}
-//
-//		List<ApproverDTO> approverList = new ApprovalService().selectApprover(lineNo);
-//		System.out.println(approverList);
-//
-//		int result3 = 0;
-//		for (ApproverDTO approver : approverList) {
-//			ApproverPerReportDTO approverPerReportDTO = new ApproverPerReportDTO();
-//			ScheduleService scheduleService = new ScheduleService();
-//			if (approver.getApproverType().equals("결재")) {
-//				approverPerReportDTO.setReportNo(reportNo);
-//				approverPerReportDTO.setMemberNo(approver.getMemberNo());
-//				approverPerReportDTO.setPriority(approver.getPriority());
-//
-//				result3 = scheduleService.applyWorkingSystemApprover(approverPerReportDTO);
-//			} else {
-//                approverPerReportDTO.setReportNo(reportNo);
-//                approverPerReportDTO.setMemberNo(approver.getMemberNo());
-//                approverPerReportDTO.setApproverType(approver.getApproverType());
-//
-//                result3 = scheduleService.applyWorkingSystemReferer(approverPerReportDTO);
-//            }
-//		}
-//
-//		String path = "";
-//
-//		if (result1 > 0 && result2 > 0 && result3 > 0) {
-//			path = "/WEB-INF/views/common/success.jsp";
-//			request.setAttribute("successCode", "insertNightTrans");
-//		} else {
-//			path = "/WEB-INF/views/common/failed.jsp";
-//			request.setAttribute("failed", "insertNightTrans");
-//		}
-//		request.getRequestDispatcher(path).forward(request, response);
-	}
 }

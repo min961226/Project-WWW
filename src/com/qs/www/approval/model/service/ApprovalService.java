@@ -4,6 +4,7 @@ import static com.qs.www.common.mybatis.Template.getSqlSession;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -11,6 +12,7 @@ import com.qs.www.approval.model.dao.ApprovalDAO;
 import com.qs.www.approval.model.dto.ApprovalLineDTO;
 import com.qs.www.approval.model.dto.ApproverDTO;
 import com.qs.www.approval.model.dto.ApproverLogPerReportDTO;
+import com.qs.www.approval.model.dto.AttachmentDTO;
 import com.qs.www.member.model.dto.MemberDTO;
 import com.qs.www.member.model.dto.MemberInfoDTO;
 import com.qs.www.schedule.model.dto.ApproverPerReportDTO;
@@ -381,6 +383,8 @@ public class ApprovalService {
 
 		return count;
 	}
+
+	
 
 
 
