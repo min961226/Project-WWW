@@ -9,7 +9,7 @@
 		<result property="dayNumber" column="DAY_NUMBER"/>
 		<result property="holidayNote" column="HOLIDAY_NOTE"/>
 		<result property="useYn" column="USE_YN"/>
-	</resultMap>
+	</resultMap> 
 	
 	<resultMap type="com.qs.www.schedule.model.dto.ReportDTO" id="reportResultMap">
 		<result property="reportNo" column="REPORT_NO" />
@@ -89,8 +89,27 @@
 	, #{ holidayReportNo }
 	)
 	</insert>
+
 	
-	<select id="selectMyholidayReport" resultMap="reportResultMap">
+	<select id="selectAllCount" resultType="_int" parameterType="hashmap">
+    SELECT /* com.qs.www.schedule.model.dao.HolidayDAO#selectAllCount() */
+           COUNT(*)
+      FROM TBL_REPORT A
+      LEFT JOIN TBL_MEMBER D ON(A.MEMBER_NO = D.MEMBER_NO)
+    <where>
+		<if test="searchCondition == 'title'">
+	       A.REPORT_TITLE LIKE '%' || #{ searchValue } || '%' 	
+		</if>
+		<if test="searchCondition == 'body'">
+	       A.REPORT_NOTE LIKE '%' || #{ searchValue } || '%' 	
+		</if>
+	   AND A.CANCEL_YN = 'N'
+	   AND A.MEMBER_NO = #{ memberNo }
+	   AND A.DOCUMENT_NO = #{ documentNo }
+    </where>
+	</select>
+	
+	<!-- <select id="selectMyholidayReport" resultMap="reportResultMap">
 	SELECT /* com.qs.www.schedule.model.dao.ScheduleDAO#selectMyholidayReport() */
 	       A.REPORT_NO
 	     , A.REPORT_DATE
@@ -105,6 +124,55 @@
 	   AND A.DOCUMENT_NO = 6
 	   AND REPORT_STATUS != '회수'
 	 ORDER BY A.REPORT_NO DESC
+	</select> -->
+	
+	<select id="selectMyholidayReport" parameterType="hashmap" resultMap="reportResultMap">
+	SELECT
+	       C.RNUM
+	     , C.REPORT_NO
+	     , C.REPORT_DATE
+	     , C.MEMBER_NO
+	     , C.DOCUMENT_NO
+	     , C.REPORT_NOTE
+	     , C.REPORT_STATUS
+	     , C.LINE_NAME
+	     , C.REPORT_TITLE
+	  FROM (SELECT ROWNUM RNUM
+	             , B.REPORT_NO
+	             , B.REPORT_DATE
+	             , B.MEMBER_NO
+	             , B.DOCUMENT_NO
+	             , B.REPORT_NOTE
+	             , B.REPORT_STATUS
+	             , B.LINE_NAME
+	             , B.REPORT_TITLE
+	          FROM (SELECT A.REPORT_NO
+	                     , A.REPORT_DATE
+	                     , A.MEMBER_NO
+	                     , A.DOCUMENT_NO
+	                     , A.REPORT_NOTE
+	                     , A.REPORT_STATUS
+	                     , A.LINE_NAME
+	                     , A.REPORT_TITLE
+	                  FROM TBL_REPORT A 
+	               <where>
+	                 <if test="selectCriteria.searchCondition == 'title'">
+	           			   A.REPORT_TITLE LIKE '%' || #{ searchValue } || '%' 	
+					 </if>
+					 <if test="selectCriteria.searchCondition == 'body'">
+	           			   A.REPORT_NOTE LIKE '%' || #{ searchValue } || '%' 	
+					 </if>
+					   AND A.MEMBER_NO = #{ memberNo }
+					   AND A.DOCUMENT_NO = #{ documentNo }
+					   AND NOT A.REPORT_STATUS IN ('취소', '회수')
+	               </where>
+	                 ORDER BY A.REPORT_NO DESC
+	                 ) B
+                  <![CDATA[
+                  WHERE ROWNUM <= #{ endRow }
+                  ]]>
+               ) C
+         WHERE C.RNUM >= #{ startRow }     
 	</select>
 	
 	<select id="selectHavingHoliday" resultType="_int">

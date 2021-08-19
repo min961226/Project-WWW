@@ -97,8 +97,11 @@ public class InsertHolidayScheduleServlet extends HttpServlet {
 				holidayType = type.getHolidayType();
 			}
 		}
+		
+		String startDayString = request.getParameter("startDay");
+		String endDayString = request.getParameter("endDay");
 
-		String title = memberName + holidayType + " 휴가신청서";
+		String title = memberName + " " + startDayString + " ~ " + endDayString + " " + holidayType + " 휴가신청서";
 
 		/* 1-0. 상신올릴 문서가 쓸 ReportNo 가져오기 */
 		ApprovalService approvalService = new ApprovalService();
@@ -122,9 +125,6 @@ public class InsertHolidayScheduleServlet extends HttpServlet {
 
 
 			/* 2. 상신별문서항목작성내용(TBL_ITEM_CONTENT)에 insert */			
-			String startDayString = request.getParameter("startDay");
-			String endDayString = request.getParameter("endDay");	
-
 			List<String> holidayDocumentItem = new ArrayList<>();
 			holidayDocumentItem.add(title);					//제목
 			holidayDocumentItem.add(holidayCode);			//휴가코드

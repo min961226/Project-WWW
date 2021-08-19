@@ -17,6 +17,7 @@
 <body>
 
 	<div class="main-wrapper">
+        
 
 		<div class="page-wrapper">
 			<div class="content container-fluid">
@@ -32,66 +33,32 @@
 							class="fa fa-plus"></i> 휴가신청하기</a>
 					</div>
 				</div>
-
-				<!-- 검색조건 -->
-				<div class="row filter-row">
-					<div class="col-sm-3 col-md-3 col-xs-6">
-						<div class="form-group form-focus select-focus">
-							<label class="control-label">휴가 유형</label> <select
-								class="select floating">
-								<option>-- Select 수정해야됨 --</option>
-								<option>연차</option>
-								<option>반차</option>
-								<option>교육</option>
-							</select>
-						</div>
-					</div>
-					<div class="col-sm-3 col-md-3 col-xs-6">
-						<div class="form-group form-focus select-focus">
-							<label class="control-label">휴가신청 승인상태</label> <select
-								class="select floating">
-								<option>-- Select --</option>
-								<option>승인</option>
-								<option>반려</option>
-								<option>대기</option>
-								<option>미처리</option>
-							</select>
-						</div>
-					</div>
-					<div class="col-sm-3 col-md-2 col-xs-6">
-						<div class="form-group form-focus">
-							<label class="control-label">시작일</label>
-							<div class="cal-icon">
-								<input class="form-control floating datetimepicker" type="text"
-									name="startDate">
-							</div>
-						</div>
-					</div>
-					<div class="col-sm-3 col-md-2 col-xs-6">
-						<div class="form-group form-focus">
-							<label class="control-label">종료일</label>
-							<div class="cal-icon">
-								<input class="form-control floating datetimepicker" type="text"
-									name="endDate">
-							</div>
-						</div>
-					</div>
-					<div class="col-sm-3 col-md-2 col-xs-6">
-						<a href="#" class="btn btn-success btn-block"> Search </a>
-					</div>
-				</div>
-				<!-- 검색조건 end -->
-
-				<!-- 근무신청내용 -->
-				<div class="row">
-					<div class="col-md-12">
-						<div class="table-responsive">
-							<table class="table table-striped custom-table m-b-0 datatable">
-
+				
+                <!-- 검색조건 -->
+                <div class="search-area" align="right">
+             		<form id="loginForm" action="${ pageContext.servletContext.contextPath }/board/free/select" method="get" style="display:inline-block">		
+			    		<input type="hidden" name="currentPage" value="1">
+						<select id="searchCondition" name="searchCondition">
+							
+							<option value="title" ${ requestScope.selectCriteria.searchCondition eq "title"? "selected": "" }>제목</option>
+							<option value="body" ${ requestScope.selectCriteria.searchCondition eq "body"? "selected": "" }>내용</option>
+						</select>
+						<input type="search" id="searchValue" name="searchValue" value="<c:out value="${ requestScope.selectCriteria.searchValue }"/>">
+					<button type="submit" class="btn btn-success btn-sm" >검색하기</button>
+					<!-- <button type="button" id="writeFree">작성하기</button> -->
+					</form>
+				</div><!-- 검색조건 end -->
+                
+                
+                <!-- 근무신청내용 -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table table-striped custom-table m-b-0 datatable">
+                            
 								<tbody>
 								<thead>
 									<tr>
-										<!-- 시작일과 종료일도 뜨게 해주고 싶네 -->
 										<th>결재번호</th>
 										<th>결재분류</th>
 										<th>결재제목</th>

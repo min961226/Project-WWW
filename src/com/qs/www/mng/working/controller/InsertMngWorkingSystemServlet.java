@@ -7,8 +7,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import com.qs.www.member.model.dto.MemberInfoDTO;
 import com.qs.www.mng.working.model.dto.WorkingDTO;
+import com.qs.www.mng.working.model.service.MngWorkingService;
 
 @WebServlet("/mng/workingSystem/insert")
 public class InsertMngWorkingSystemServlet extends HttpServlet {
@@ -19,11 +22,9 @@ public class InsertMngWorkingSystemServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		HttpSession session = request.getSession();		
+		
 		String workName = request.getParameter("workName");
-		
-		int minimal = Integer.parseInt(request.getParameter("minimal"));
-		
-		int monCheckInHour = Integer.parseInt(request.getParameter("monCheckInHour"));
 		
 		/* workOutFreeType이 2면 '출퇴근시간 설정'이므로, 그 때 설정해준다. */
 		String breakStartTime = null;
@@ -36,18 +37,27 @@ public class InsertMngWorkingSystemServlet extends HttpServlet {
 			breakEndTime = request.getParameter("breakEndHour") 
 					+ ":" + request.getParameter("breakEndMin");
 		}
+		int minimal = Integer.parseInt(request.getParameter("minimal"));
 		
 		String checkInTime = request.getParameter("checkInHour") 
 				+ ":" + request.getParameter("checkInMin");
 		String checkOutTime = request.getParameter("checkOutHour") 
 				+ ":" + request.getParameter("checkOutMin");
 		
+		int memberNo = ((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo();
+		
 		WorkingDTO workingDTO = new WorkingDTO();
 		workingDTO.setWorkName(workName);
 		workingDTO.setBreakStartTime(breakStartTime);
 		workingDTO.setBreakEndTime(breakEndTime);
 		workingDTO.setMinimalWorkHour(minimal);
+		workingDTO.setCheckInTime(checkInTime);
+		workingDTO.setCheckOutTime(checkOutTime);
+		workingDTO.setMemberNo(memberNo);
 		
+		/* TBL_STANDARD_WORK에 insert*/
+		MngWorkingService mngWorkingService = new MngWorkingService();
+		int result = mngWorkingService.InsertStandardMngWorkingSystem(workingDTO);
 		
 		
 		

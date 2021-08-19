@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="MngWorkingDAO">
+
+
+	<insert id="InsertStandardMngWorkingSystem" parameterType="com.qs.www.mng.working.model.dto.WorkingDTO">
+	INSERT /**/
+	  INTO TBL_STANDARD_WORK
+	(
+	  A.WORK_CODE
+	, A.WORK_NAME
+	, A.BREAK_START_TIME
+	, A.BREAK_END_TIME
+	, A.MINIMAL_WORK_HOUR
+	, A.CHECK_IN_TIME
+	, A.CHECK_OUT_TIME
+	, A.MEMBER_NO
+	, A.ACTIVE_YN
+	)
+    VALUES
+    (
+      SEQ_WORK_NO.NEXTVAL
+    , #{ workName }
+    , #{ breakStartTime }
+    , #{ breakEndTime }
+    , #{ minimalWorkHour }
+    , #{ checkInTime }
+    , #{ checkOutTime }
+    , #{ memberNo}
+    , 'Y'
+    )
+	</insert>
+
+</mapper>
