@@ -1,4 +1,3 @@
-
 package com.qs.www.main.model.dto;
 
 import java.io.Serializable;

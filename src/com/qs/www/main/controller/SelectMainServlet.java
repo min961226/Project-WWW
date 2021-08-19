@@ -49,21 +49,41 @@ public class SelectMainServlet extends HttpServlet {
 		// 요일별 날짜를 담을 변수(월요일 ~ 일요일)
 		LocalDate selectedLocalDate = currentDate
 								.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
+//		String monthlyStartDate = currentDate
+//				.with(TemporalAdjusters.firstDayOfMonth())
+//				.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+//		String monthlyEndDate = currentDate
+//				.with(TemporalAdjusters.lastDayOfMonth())
+//				.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 		
-		WorkInfoDTO workInfo = new WorkInfoDTO();
-		workInfo.setMemberNo(memberNo);
-		workInfo.setToday(todayDate);
-		workInfo.setWeekStartDate(weekStartDate);
-		workInfo.setWeekEndDate(weekEndDate);
-		workInfo.setSelectedLocalDate(selectedLocalDate);
+		WorkInfoDTO todayWorkInfo = new WorkInfoDTO();
+		todayWorkInfo.setMemberNo(memberNo);
+		todayWorkInfo.setToday(todayDate);
+		todayWorkInfo.setWeekStartDate(weekStartDate);
+		todayWorkInfo.setWeekEndDate(weekEndDate);
+		todayWorkInfo.setSelectedLocalDate(selectedLocalDate);
+		
+//		WorkInfoDTO weeklyWorkInfo = new WorkInfoDTO();
+//		weeklyWorkInfo.setMemberNo(memberNo);
+//		weeklyWorkInfo.setStartDate(weekStartDate);
+//		weeklyWorkInfo.setEndDate(weekEndDate);
+		
+//		WorkInfoDTO monthlyWorkInfo = new WorkInfoDTO();
+//		monthlyWorkInfo.setMemberNo(memberNo);
+//		monthlyWorkInfo.setStartDate(monthlyStartDate);
+//		monthlyWorkInfo.setEndDate(monthlyEndDate);
 		
 		MainService mainService = new MainService();
 		
-		List<WorkingLogDTO> workingLogList = mainService.selectWorkingLogList(workInfo);
-		List<CommutingLogDTO> commutingLogList = mainService.selectCommutingLog(workInfo);
+		List<WorkingLogDTO> workingLogList = mainService.selectWorkingLogList(todayWorkInfo);
+//		List<WorkingLogDTO> weeklyWorkingLogList = mainService.selectWorkingLogList(weeklyWorkInfo);
+//		List<WorkingLogDTO> monthlyWorkingLogList = mainService.selectWorkingLogList(monthlyWorkInfo);
+		List<CommutingLogDTO> commutingLogList = mainService.selectCommutingLog(todayWorkInfo);
+//		List<CommutingLogDTO> weeklyCommutingLogList = mainService.selectCommutingLog(weeklyWorkInfo);
+//		List<CommutingLogDTO> monthlyCommutingLogList = mainService.selectCommutingLog(monthlyWorkInfo);
 
 		String path = "/WEB-INF/views/main/main.jsp";
-		request.setAttribute("workInfo", workInfo);
+		request.setAttribute("workInfo", todayWorkInfo);
 		request.setAttribute("commutingLogList", commutingLogList);
 		request.setAttribute("workingLogList", workingLogList);
 			

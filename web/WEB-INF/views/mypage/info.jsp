@@ -50,7 +50,7 @@
 	                                </div>
 	                                <div class="form-group">
 	                                    <label class="control-label col-lg-4">이름</label>
-	                                    <div class="col-md-3">
+	                                    <div class="col-md-8">
 	                                        <input type="text" class="form-control" value="${ memberInfo.name }" readonly>
 	                                    </div>
 	                                </div>

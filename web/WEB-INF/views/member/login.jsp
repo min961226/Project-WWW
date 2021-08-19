@@ -23,7 +23,7 @@
                 <div class="account-box">
                     <div class="account-wrapper">
                         <div class="account-logo">
-                            <a href="index.jsp"><img src="assets/img/www_icon.png" alt="WWW"></a>
+                            <a href="${ pageContext.servletContext.contextPath }"><img src="assets/img/www_icon.png" alt="WWW"></a>
                         </div>
                         <form id="loginForm" action="${ pageContext.servletContext.contextPath }/member/login" method="post">
                             <div class="form-group form-focus">
