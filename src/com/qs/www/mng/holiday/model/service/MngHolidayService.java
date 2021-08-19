@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.qs.www.common.paging.SelectCriteria;
 import com.qs.www.mng.holiday.model.dao.MngHolidayDAO;
+import com.qs.www.mng.holiday.model.dto.HolidayRuleDTO;
 import com.qs.www.schedule.model.dto.ReportDTO;
 
 public class MngHolidayService {
@@ -39,10 +40,10 @@ public class MngHolidayService {
 		return reportList;
 	}
 	
-	public int selectHolidayLogNum(int lineNo) {
+	public int selectHolidayLogNum(int reportNo) {
 		SqlSession session = getSqlSession();
 
-		int logNo = mngHolidayDAO.selectHolidayLogNum(session, lineNo);
+		int logNo = mngHolidayDAO.selectHolidayLogNum(session, reportNo);
 
 		session.close();
 
@@ -50,10 +51,10 @@ public class MngHolidayService {
 	}
 	
 
-	public int cancleSelectedReport(int lineNo) {
+	public int cancleSelectedReport(int reportNo) {
 		SqlSession session = getSqlSession();
 
-		int result = mngHolidayDAO.cancleSelectedReport(session, lineNo);
+		int result = mngHolidayDAO.cancleSelectedReport(session, reportNo);
 		if(result > 0) {
 			session.commit();
 		} else {
@@ -89,6 +90,26 @@ public class MngHolidayService {
 		session.close();
 		
 		return result;
+	}
+
+	public String selectDuringDate(int logNo) {
+		SqlSession session = getSqlSession();
+
+		String duringDate = mngHolidayDAO.selectDuringDate(session, logNo);
+
+		session.close();
+
+		return duringDate;
+	}
+
+	public List<HolidayRuleDTO> selectHolidayRule() {
+		SqlSession session = getSqlSession();
+
+		List<HolidayRuleDTO> holidayRuleList = mngHolidayDAO.selectHolidayRule(session);
+
+		session.close();
+
+		return holidayRuleList;
 	}
 
 	

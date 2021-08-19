@@ -15,7 +15,7 @@
 
 <body>
 	<div class="main-wrapper">
-		<jsp:include page="../common/navbar.jsp" />
+		
 
 		<div class="page-wrapper">
 			<div class="content container-fluid">
@@ -132,7 +132,7 @@
 
 								</table>
 								<%-- 페이지 처리 --%>
-								<jsp:include page="../common/paging.jsp" />
+								<jsp:include page="../common/navbar.jsp" />
 							</div>
 						</div>
 					</div>

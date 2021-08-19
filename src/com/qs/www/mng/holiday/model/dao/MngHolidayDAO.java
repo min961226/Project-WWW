@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 
 import com.qs.www.common.paging.SelectCriteria;
+import com.qs.www.mng.holiday.model.dto.HolidayRuleDTO;
 import com.qs.www.schedule.model.dto.ReportDTO;
 
 public class MngHolidayDAO {
@@ -20,14 +21,14 @@ public class MngHolidayDAO {
 		return session.selectList("MngHolidayDAO.selectHolidayAPP", selectCriteria);
 	}
 	
-	public int selectHolidayLogNum(SqlSession session, int lineNo) {
+	public int selectHolidayLogNum(SqlSession session, int reportNo) {
 		
-		return session.selectOne("MngHolidayDAO.selectHolidayLogNum", lineNo);
+		return session.selectOne("MngHolidayDAO.selectHolidayLogNum", reportNo);
 	}
 
-	public int cancleSelectedReport(SqlSession session, int lineNo) {
+	public int cancleSelectedReport(SqlSession session, int reportNo) {
 		
-		return session.update("MngHolidayDAO.cancleSelectedReport", lineNo);
+		return session.update("MngHolidayDAO.cancleSelectedReport", reportNo);
 	}
 
 	public int deleteHolidayUseInfo(SqlSession session, int logNo) {
@@ -37,6 +38,16 @@ public class MngHolidayDAO {
 	public int deleteHolidayLog(SqlSession session, int logNo) {
 		
 		return session.delete("MngHolidayDAO.deleteHolidayLog", logNo);
+	}
+
+	public String selectDuringDate(SqlSession session, int logNo) {
+		
+		return session.selectOne("MngHolidayDAO.selectDuringDate", logNo);
+	}
+
+	public List<HolidayRuleDTO> selectHolidayRule(SqlSession session) {
+		
+		return session.selectList("MngHolidayDAO.selectHolidayRule");
 	}
 
 	
