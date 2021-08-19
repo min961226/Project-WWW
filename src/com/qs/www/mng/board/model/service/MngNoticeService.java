@@ -104,4 +104,20 @@ public class MngNoticeService {
 		return result;
 	}
 
+	public int deleteMngNotice(int no) {
+		SqlSession session = getSqlSession();
+
+		int result1 = mngnoticeDAO.deleteMngNotice(session,no);
+		int result = 0;
+		if(result1 > 0) {
+			result = 1;
+			session.commit();
+		} else {
+			session.rollback();
+		}
+		session.close();
+
+		return result;
+	}
+
 }

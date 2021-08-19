@@ -135,7 +135,7 @@ public class SelectWorkingHoursScheduleServlet extends HttpServlet {
 		System.out.println("commutingLogList : " + commutingLogWeeklyList);
 
 		//현재보다 작은 날 중 가장 가까운 변경이력의 근무제변경이력번호(SEQ), 변경후근무제유형, 변경후근무제유형코드, 변경일자
-		List<WorkingLogDTO> workingLogList = mainService.selectWorkingLog(workInfo);
+		List<WorkingLogDTO> workingLogList = mainService.selectWorkingLogList(workInfo);
 		System.out.println("workingLogList : " + workingLogList);
 
 		/* 2-3. 이번주 초과근무 시간과 잔여시간 */
