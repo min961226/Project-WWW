@@ -61,7 +61,7 @@
 					movePath = "${ pageContext.servletContext.contextPath }/schedule/workingSystem/insert";
 					break;
 					
-				case "inserHoliday" :
+				case "insertHoliday" :
 					successMessage = "휴가신청이 상신되었습니다.";
 					movePath = "${ pageContext.servletContext.contextPath }/schedule/holiday/insert";
 					break;
