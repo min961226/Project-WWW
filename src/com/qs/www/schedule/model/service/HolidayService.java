@@ -3,9 +3,11 @@ package com.qs.www.schedule.model.service;
 import static com.qs.www.common.mybatis.Template.getSqlSession;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
+import com.qs.www.common.paging.SelectCriteria;
 import com.qs.www.schedule.model.dao.HolidayDAO;
 import com.qs.www.schedule.model.dto.HolidayLogDTO;
 import com.qs.www.schedule.model.dto.HolidayTypeDTO;
@@ -72,11 +74,11 @@ public class HolidayService {
 		return result;
 	}
 
-	public List<ReportDTO> selectMyholidayReport(int no) {
+	public List<ReportDTO> selectMyholidayReport(Map<String, Object> searchConditionMap) {
 		
 		SqlSession session = getSqlSession();
 		
-		List<ReportDTO> holidayReportList = holidayDAO.selectMyholidayReport(session, no);
+		List<ReportDTO> holidayReportList = holidayDAO.selectMyholidayReport(session, searchConditionMap);
 				
 		session.close();
 		
@@ -93,6 +95,17 @@ public class HolidayService {
 		session.close();
 		
 		return holidayLogNo;
+	}
+
+	/* 페이징에서 사용할 totalCount를 세오는 메소드 */
+	public int selectAllCount(Map<String, Object> searchMap) {
+		SqlSession session = getSqlSession();
+		
+		int totalCount = holidayDAO.selectAllCount(session, searchMap);
+		
+		session.close();
+		
+		return totalCount;
 	}
 	
 
