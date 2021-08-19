@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="MngEmployeeDAO">
+	<resultMap type="com.qs.www.member.model.dto.DepartmentDTO" id="deptListResultMap">
+		<id property="deptCode" column="DEPT_CODE"/>
+		<result property="deptName" column="DEPT_NAME"/>
+		<result property="deptCallNumber" column="DEPT_CALL_NUMBER"/>
+	</resultMap>
+	
+	<resultMap type="com.qs.www.member.model.dto.JobDTO" id="jobListResultMap">
+		<id property="jobCode" column="JOB_CODE"/>
+		<result property="jobName" column="JOB_NAME"/>
+	</resultMap>
+	
+	<resultMap type="com.qs.www.member.model.dto.RoleDTO" id="roleListResultMap">
+		<id property="roleCode" column="ROLE_CODE"/>
+		<result property="roleName" column="ROLE_NAME"/>
+	</resultMap>
+	
+	<select id="selectDeptList" resultMap="deptListResultMap">
+        SELECT /* com.qs.www.mng.empolyee.model.dao.MngEmployeeDAO#selectDeptList() */
+               A.DEPT_CODE
+             , A.DEPT_NAME
+             , A.DEPT_CALL_NUMBER
+          FROM TBL_DEPARTMENT A
+	</select>
+	
+	<select id="selectJobList" resultMap="jobListResultMap">
+        SELECT /* com.qs.www.mng.employee.model.dao.MngEmployeeDAO#selectJobList() */
+               A.JOB_CODE
+             , A.JOB_NAME
+          FROM TBL_JOB A
+	</select>
+	
+	<select id="selectRoleList" resultMap="roleListResultMap">
+        SELECT /* com.qs.www.mng.employee.model.dao.MngEmployeeDAO#selectRoleList() */
+               A.ROLE_CODE
+             , A.ROLE_NAME
+          FROM TBL_ROLE A
+         GROUP BY A.ROLE_CODE, A.ROLE_NAME
+	</select>
+</mapper>
