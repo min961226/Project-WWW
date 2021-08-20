@@ -1,6 +1,8 @@
 package com.qs.www.mng.welfare.model.dto;
 
-public class WelfareYnDTO {
+import java.io.Serializable;
+
+public class WelfareYnDTO implements Serializable{
 
 	
 	private int documentNo;

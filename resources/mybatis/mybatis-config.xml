@@ -28,10 +28,12 @@
 		<mapper resource="com/qs/www/board/model/dao/FreeDAO.xml"/>
 		<mapper resource="com/qs/www/welfare/model/dao/WelfareDAO.xml"/>
 		
+		
 		<mapper resource="com/qs/www/mng/employee/model/dao/MngEmployeeDAO.xml"/>
 		<mapper resource="com/qs/www/mng/board/model/dao/MngNoticeDAO.xml"/>
 		<mapper resource="com/qs/www/mng/holiday/model/dao/MngHolidayDAO.xml"/>
 		<mapper resource="com/qs/www/mng/board/model/dao/MngFormDAO.xml"/>
+		<mapper resource="com/qs/www/mng/welfare/model/dao/MngWelfareDAO.xml"/>
 		<mapper resource="com/qs/www/common/attachment/model/dao/AttachmentDAO.xml"/>
 	</mappers>
 	
