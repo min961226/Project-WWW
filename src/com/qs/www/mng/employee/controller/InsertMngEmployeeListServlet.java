@@ -1,7 +1,6 @@
 package com.qs.www.mng.employee.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Date;
 import java.util.List;
 
@@ -54,6 +53,7 @@ public class InsertMngEmployeeListServlet extends HttpServlet {
 		String memberId = request.getParameter("memberId");
 		String password = request.getParameter("pwd1");
 		String name = request.getParameter("name");
+		String rrn = request.getParameter("firstRrn") + "-" + request.getParameter("lastRrn");
 		String deptCode = request.getParameter("department").split(" ")[0];
 		String jobCode = request.getParameter("job").split(" ")[0];
 		String email = request.getParameter("email");
@@ -65,17 +65,30 @@ public class InsertMngEmployeeListServlet extends HttpServlet {
 		memberInfo.setMemberId(memberId);
 		memberInfo.setPassword(password);
 		memberInfo.setName(name);
+		memberInfo.setRrn(rrn);
 		memberInfo.setDepartment(new DepartmentDTO());
 		memberInfo.getDepartment().setDeptCode(deptCode);
 		memberInfo.setJob(new JobDTO());
 		memberInfo.getJob().setJobCode(jobCode);
 		memberInfo.setEmail(email);
 		memberInfo.setEnrollDate(enrollDate);
-		memberInfo.setEntYn(entYn);
 		memberInfo.setRole(new RoleDTO());
 		memberInfo.getRole().setRoleCode(roleCode);
 		
-		System.out.println(memberInfo);
+		MngEmployeeService mngEmployeeService = new MngEmployeeService();
+		int result = mngEmployeeService.insertMngEmployee(memberInfo);
 		
+		String path = "";
+		if(result > 0) {
+			path = "/WEB-INF/views/common/success.jsp";
+			
+			request.setAttribute("successCode", "insertMngEmployee");
+		} else {
+			path = "/WEB-INF/views/common/failed.jsp";
+			
+			request.setAttribute("failedCode", "insertMngEmployee");
+		}
+		
+		request.getRequestDispatcher(path).forward(request, response);
 	}
 }

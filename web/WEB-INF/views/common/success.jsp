@@ -15,7 +15,6 @@
 			let movePath = "";
 
 			switch (successCode) {
-
 			
 				case "updateInfo" :
 					successMessage = "프로필이 수정되었습니다.";
@@ -122,32 +121,38 @@
 					movePath = "${ pageContext.servletContext.contextPath }/welfare/applied/list/select";
 					break;
 					
-				case "mngCallbackWelfare" :
-					successMessage = "신청 복지 회수가 완료되었습니다.";
-					movePath = "${ pageContext.servletContext.contextPath }/mng/welfare/applied/select";
+				case "insertMngEmployee" :
+					successMessage = "신규 계정이 생성되었습니다.";
+					movePath = "${ pageContext.servletContext.contextPath }/mng/employee/list/insert";
 					break;
 					
-				case "updateWelfare" :
-					successMessage = "시행복지 수정이 완료되었습니다.";
-					movePath = "${ pageContext.servletContext.contextPath }/mng/welfare/list/select";
-					break;
-					
-				case "insertMngNotice" :
-					successMessage = "공지사항 작성이 완료되었습니다.";
-					movePath = "${ pageContext.servletContext.contextPath }/mng/board/notice/select";
-					break;
-										
-				case "deleteMngNotice" :
-					successMessage = "공지사항 삭제가 완료되었습니다.";
-					movePath = "${ pageContext.servletContext.contextPath }/mng/board/notice/select";
+				case "inserWorkType" : 
+					successMessage = "근무제 추가가 완료되었습니다.";
+					movePath = "${ pageContext.servletContext.contextPath }/mng/workingSystem/select";
 					break;
 
 				case "deleteHoliday" :
 					successMessage = "휴가 취소가 완료되었습니다.";
 					movePath = "${ pageContext.servletContext.contextPath }/mng/holiday/applied/select";
 					break;
+					
+				case "updateholidayRule" :
+					successMessage = "휴가일수 발생규칙 수정이 완료되었습니다.";
+					movePath = "${ pageContext.servletContext.contextPath }/mng/holiday/rule/select";
+          			break;
+					
+				case "insertMngNotice" :
+					successMessage = "공지사항 작성이 완료되었습니다.";
+					movePath = "${ pageContext.servletContext.contextPath }/mng/board/notice/select";
+					break;
+					
 				case "updateMngNotice" :
 					successMessage = "공지사항 수정이 완료되었습니다.";
+					movePath = "${ pageContext.servletContext.contextPath }/mng/board/notice/select";
+					break;
+										
+				case "deleteMngNotice" :
+					successMessage = "공지사항 삭제가 완료되었습니다.";
 					movePath = "${ pageContext.servletContext.contextPath }/mng/board/notice/select";
 					break;
 					
@@ -166,23 +171,24 @@
 					movePath = "${ pageContext.servletContext.contextPath }/mng/board/form/select";
 					break;
 
-				case "updateholidayRule" :
-					successMessage = "휴가일수 발생규칙 수정이 완료되었습니다.";
-					movePath = "${ pageContext.servletContext.contextPath }/mng/holiday/rule/select";
-          break;
+				case "updateWelfare" :
+					successMessage = "시행복지 수정이 완료되었습니다.";
+					movePath = "${ pageContext.servletContext.contextPath }/mng/welfare/list/select";
+					break;
+					
+				case "mngCallbackWelfare" :
+					successMessage = "신청 복지 회수가 완료되었습니다.";
+					movePath = "${ pageContext.servletContext.contextPath }/mng/welfare/applied/select";
+					break;
+          			
 				case "insertItem" :
 					successMessage = "복지 품목 추가에 성공하였습니다.";
 					movePath = "${ pageContext.servletContext.contextPath }/mng/welfare/laptopRental/select";
 					break;
+					
 				case "deleteItem" :
 					successMessage = "복지 품목 삭제에 성공하였습니다.";
 					movePath = "${ pageContext.servletContext.contextPath }/mng/welfare/laptopRental/select";
-
-					break;
-					
-				case "inserWorkType" : 
-					successMessage = "근무제추가가 완료되었습니다.";
-					movePath = "${ pageContext.servletContext.contextPath }/mng/workingSystem/select";
 					break;
 			}
 
