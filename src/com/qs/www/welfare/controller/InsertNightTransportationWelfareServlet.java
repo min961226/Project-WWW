@@ -28,6 +28,7 @@ import com.qs.www.schedule.model.service.ScheduleService;
 import com.qs.www.welfare.model.dto.FamilyEventDTO;
 import com.qs.www.welfare.model.dto.WelfareListDTO;
 import com.qs.www.welfare.model.service.WelfareService;
+
 /*--------------------서블릿 3.0 파트 api 사용을 위한 multipartconfig 참조 선언 --------------*/
 @MultipartConfig(
         location = "C:\\WWW\\Project-WWW\\web\\upload",								//임시저장 경로

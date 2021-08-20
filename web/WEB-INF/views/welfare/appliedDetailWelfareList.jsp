@@ -27,14 +27,7 @@
 				</div>
 				<div class="row">
 					<div class="col-lg-12">
-
-
-						<form class="form-horizontal"
-							action="${ pageContext.servletContext.contextPath }/welfare/applied/list/delete?no=${ requestScope.selectedReport.reportNo }"
-							method="post" onsubmit="return askAgain();">
-
-
-
+						<form class="form-horizontal" action="${ pageContext.servletContext.contextPath }/welfare/applied/list/delete?no=${ requestScope.selectedReport.reportNo }" method="post" onsubmit="return askAgain();">
 							<div class="form-group">
 								<div class="col-sm-6">
 									<label>복지 분류</label>
@@ -48,7 +41,6 @@
 											disabled />
 									</div>
 								</div>
-
 								<div class="col-sm-6">
 									<label>결재 상태</label>
 									<div class="col-md-12">
@@ -57,14 +49,8 @@
 											disabled />
 									</div>
 								</div>
-
-
-
 							</div>
-
-
 							<div class="form-group">
-
 								<div class="col-sm-6">
 									<label>기안자</label>
 									<div class="col-md-12">
@@ -72,8 +58,6 @@
 											value="${ sessionScope.memberInfo.name }" disabled />
 									</div>
 								</div>
-
-
 								<div class="col-sm-6">
 									<label>결재라인</label>
 									<div class="col-md-12">
@@ -81,9 +65,7 @@
 											value="${ requestScope.selectedReport.lineName }" disabled />
 									</div>
 								</div>
-
 							</div>
-
 							<div class="form-group">
 								<div class="col-sm-6">
 									<label>결재 신청 제목</label>
@@ -92,7 +74,6 @@
 											value="${ requestScope.selectedReport.reportTitle }" disabled />
 									</div>
 								</div>
-
 								<div class="col-sm-6">
 									<label>보존기간</label>
 									<div class="col-md-12">
@@ -101,12 +82,10 @@
 									</div>
 								</div>
 							</div>
-
 							<c:set var="no"
 								value="${ requestScope.selectedReport.documentNo }" />
 							<c:if test="${ no eq 7 }">
 								<div class="form-group">
-
 									<!-- 유형코드도 c:if로 해서 한글로 표시되도록 하고싶다 -->
 									<div class="col-sm-6">
 										<label>초과 근무 업무 시간</label>
@@ -115,7 +94,6 @@
 												value="${ requestScope.overTimeWorkTime }" disabled />
 										</div>
 									</div>
-
 									<div class="col-sm-6">
 										<label>청구 교통비</label>
 										<div class="col-md-12">
@@ -124,12 +102,9 @@
 										</div>
 									</div>
 								</div>
-
 							</c:if>
-
 							<c:if test="${ no eq 8 }">
 								<div class="form-group">
-
 									<!-- 유형코드도 c:if로 해서 한글로 표시되도록 하고싶다 -->
 									<div class="col-sm-6">
 										<label>경조사 분류</label>
@@ -138,7 +113,6 @@
 												value="${ requestScope.eventCodeName }" disabled />
 										</div>
 									</div>
-
 									<div class="col-sm-6">
 										<label>경조사명</label>
 										<div class="col-md-12">
@@ -147,7 +121,6 @@
 										</div>
 									</div>
 								</div>
-
 								<div class="form-group">
 									<div class="col-sm-6">
 										<label>일자</label>
@@ -156,7 +129,6 @@
 												value="${ requestScope.eventDate }" disabled />
 										</div>
 									</div>
-
 									<div class="col-sm-6">
 										<label>경조금</label>
 										<div class="col-md-12">
@@ -165,7 +137,6 @@
 										</div>
 									</div>
 								</div>
-
 								<div class="form-group">
 									<div class="col-sm-6">
 										<label>장소</label>
@@ -174,18 +145,8 @@
 												value="${ requestScope.eventPlace }" disabled />
 										</div>
 									</div>
-									<div class="col-sm-6">
-										<label>첨부서류</label>
-										<div class="col-md-12">
-											<input class="form-control" type="file">
-										</div>
-									</div>
 								</div>
-
-								<!-- 흠 이건 id가 달린 div인데, 뭐가 다른지 궁금하네 -->
-								<div id="area3" class="form-group"></div>
 							</c:if>
-
 							<c:if test="${ no eq 9 }">
 								<%--자기개발비 신청 내역 --%>
 								<div class="form-group">
@@ -198,7 +159,6 @@
 												value="${ requestScope.selfDevCodeName }" disabled />
 										</div>
 									</div>
-
 									<div class="col-sm-6">
 										<label>자기개발비 사용일자</label>
 										<div class="col-md-12">
@@ -207,7 +167,6 @@
 										</div>
 									</div>
 								</div>
-
 								<div class="form-group">
 									<div class="col-sm-6">
 										<label>청구 금액</label>
@@ -217,18 +176,11 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-sm-6">
-									<label>첨부서류</label>
-									<div class="col-md-12">
-										<input class="form-control" type="file">
-									</div>
-								</div>
 							</c:if>
 
 							<c:if test="${ no eq 10 }">
 								<%--기숙사 신청 내역 --%>
 								<div class="form-group">
-
 									<div class="col-sm-6">
 										<label>현 거주지</label>
 										<div class="col-md-12">
@@ -299,15 +251,11 @@
 									<button type="reset" class="btn btn-primary btn-lg" id="goBack">돌아가기</button>
 								</div>
 							</div>
-
 						</form>
-
 					</div>
 				</div>
 			</div>
-
 		</div>
-
 	</div>
 	<div class="sidebar-overlay" data-reff=""></div>
 

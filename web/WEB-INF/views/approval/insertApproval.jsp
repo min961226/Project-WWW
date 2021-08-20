@@ -29,7 +29,7 @@
 					<div class="col-lg-12">
 						
 
-							<form class="form-horizontal" action="${ pageContext.servletContext.contextPath }/approval/insert" method="post">
+							<form class="form-horizontal" action="${ pageContext.servletContext.contextPath }/approval/insert" method="post" onsubmit="return askAgain();"  enctype="multipart/form-data">
 
 
 								<div class="form-group">
@@ -80,7 +80,7 @@
 								<div class="col-sm-6">
 									<label>첨부서류</label>
 									<div class="col-md-12">
-										<input class="form-control" type="file">
+										<input class="form-control" type="file"  name="file1" multiple="multiple"> <small	class="help-block">파일 최대 사이즈: 10 MB. 허용된 확장자: jpg,	gif, png. </small>
 									</div>
 								</div>
 								
@@ -173,6 +173,27 @@
 	<div class="sidebar-overlay" data-reff=""></div>
 	
 	<script>
+	const $goBack = document.getElementById("goBack");
+	$goBack.onclick = function() {
+		if (!confirm("돌아가시겠습니까?\n작성중이던 모든 내용이 삭제됩니다.")) {
+        	
+        } else {
+			location.href = "${ pageContext.servletContext.contextPath }/approval/applied/select"
+        }
+	}
+	function askAgain(){
+		
+		var yn;
+		yn = confirm('작성하신 내용의 결재를 기안하시겠습니까?');
+		
+		if(yn == true){
+			return true;
+		}
+		else if(yn == false){
+			return false;
+		}
+	}	
+	
 	 // onchange에서 호출하는 함수. 
     function testChange(obj){
     	var result = $('#document option:selected').val();
@@ -182,15 +203,7 @@
           $('#div1').hide();
         }
     }
-	
-	
-	
-    	const $goBack = document.getElementById("goBack");
-    	$goBack.onclick = function() {
-    		location.href = "${ pageContext.servletContext.contextPath }/approval/applied/select"
-    	}
-    	
-    	
+
     	
     </script>
 </body>
