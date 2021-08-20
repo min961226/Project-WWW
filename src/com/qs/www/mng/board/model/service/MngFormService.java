@@ -105,4 +105,14 @@ public class MngFormService {
 		return result;
 	}
 
+	public int selectBoardNum() {
+		SqlSession session = getSqlSession();
+
+		int boardNum = mngformDAO.selectBoardNum(session);
+
+		session.close();
+
+		return boardNum;
+	}
+
 }

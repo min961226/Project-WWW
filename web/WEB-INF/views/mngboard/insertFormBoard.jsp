@@ -29,7 +29,7 @@
 					<div class="col-lg-12">
 						
 
-							<form class="form-horizontal" action="${ pageContext.servletContext.contextPath }/mng/board/form/insert" method="post">
+							<form name="form-horizontal" action="${ pageContext.servletContext.contextPath }/mng/board/form/insert" method="post" onsubmit="return askAgain();"  enctype="multipart/form-data">
 								<div class="form-group">	
 									<div class="col-sm-6">
 										<label>제목</label>
@@ -42,12 +42,11 @@
 								</div>
 								
 								<div class="form-group">
-								<div class="col-sm-6">
-									<label>첨부서류</label>
-									<div class="col-md-12">
-										<input name="file" class="form-control" type="file">
-										<input type="button" value="전송" id="send-file-1">
-									</div>
+								<div class="col-sm-12">
+								<label>첨부</label>
+								<div class="col-lg-12">
+									<input class="form-control" type="file" name="file1" multiple="multiple"> <small	class="help-block">파일 최대 사이즈: 10 MB. 허용된 확장자: jpg,	gif, png. </small>
+								</div>
 								</div>
 								</div>
 					
@@ -108,31 +107,7 @@
 		}
     	
     	
-    	$("#send-file-1").click(function() {
-    		
-    		console.log($("#file")[0].files[0]);
-    		
-    		const formData = new FormData();
-    		
-    		formData.append("file", $("#file")[0].files[0]);
-    		
-    		console.log(formData.get("file"));
-    		
-    		$.ajax({
-    			url: "/WWW/upload/formdata",
-    			type: "post",
-    			data: formData,
-    			contentType: false,
-    			processData: false,
-    			success: function(data, textStatus, xhr) {
-    				alert(data);
-    			},
-    			error: function(xhr, status, error) {
-    				console.log(xhr);
-    			} 
-    		});
-    		
-    	});
+
     	
     	
     </script>
