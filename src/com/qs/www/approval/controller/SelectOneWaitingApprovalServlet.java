@@ -217,6 +217,7 @@ public class SelectOneWaitingApprovalServlet extends HttpServlet {
 						overtimeLogDTO.setOvertimeEndTime(itemList.get(6).getItemContent());
 						int result = scheduleService.insertOvertimeLog(overtimeLogDTO);
 						
+						
 					}
 				
 				}

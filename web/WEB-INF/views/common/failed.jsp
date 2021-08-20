@@ -68,12 +68,12 @@
 					
 				case "insertWork" :
 					failedMessage = "근무 신청이 실패했습니다.";
-					movePath = "${ pageContext.servletContext.contextPath }";
+					movePath = "${ pageContext.servletContext.contextPath }/schedule/workingSystem/insert";
 					break;
 					
 				case "insertHoliday" :
 					failedMessage = "휴가 신청이 실패했습니다.";
-					movePath = "${ pageContext.servletContext.contextPath }";
+					movePath = "${ pageContext.servletContext.contextPath }/schedule/holiday/insert";
 					break;
 					
 				case "insertSelfDev" :
@@ -149,6 +149,11 @@
 					
 				case "inserWorkType" : 
 					successMessage = "근무제추가가 실패하였습니다.";
+					movePath = "${ pageContext.servletContext.contextPath }/mng/workingSystem/select";
+					break;
+					
+				case "deleteWorkType" : 
+					successMessage = "근무제삭제가 실패하였습니다.";
 					movePath = "${ pageContext.servletContext.contextPath }/mng/workingSystem/select";
 					break;
 
