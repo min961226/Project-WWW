@@ -5,10 +5,12 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
+import com.qs.www.mng.welfare.model.dto.ItemDTO;
 import com.qs.www.schedule.model.dto.ApproverPerReportDTO;
 import com.qs.www.schedule.model.dto.ReportDTO;
 import com.qs.www.schedule.model.dto.WorkingDocumentItemDTO;
 import com.qs.www.welfare.model.dto.DomitoryListDTO;
+import com.qs.www.welfare.model.dto.DomitoryWaitListDTO;
 import com.qs.www.welfare.model.dto.FamilyEventDTO;
 import com.qs.www.welfare.model.dto.LaptopDTO;
 import com.qs.www.welfare.model.dto.MemberOverTimeLogDTO;
@@ -118,6 +120,18 @@ public class WelfareDAO {
 
 	public int selectMySeminarRoomListCount(SqlSession session, HashMap<String, Object> countMap) {
 		return session.selectOne("WelfareDAO.selectMySeminarRoomListCount",countMap);
+	}
+
+	public int insertDomitoryWaitList(SqlSession session, DomitoryWaitListDTO domitoryWaitListDTO) {
+		return session.insert("WelfareDAO.insertDomitoryWaitList", domitoryWaitListDTO);
+	}
+
+	public int insertItemLog(SqlSession session, ItemDTO itemDTO) {
+		return session.insert("WelfareDAO.insertItemLog", itemDTO);
+	}
+
+	public int updateItemStatus(SqlSession session, int itemNo) {
+		return session.update("WelfareDAO.updateItemStatus",itemNo);
 	}
 
 	

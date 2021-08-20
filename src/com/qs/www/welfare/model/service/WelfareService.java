@@ -7,12 +7,14 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 
 import com.qs.www.board.model.dto.NoticeDTO;
+import com.qs.www.mng.welfare.model.dto.ItemDTO;
 import com.qs.www.mng.welfare.model.dto.WelfareYnDTO;
 import com.qs.www.schedule.model.dto.ApproverPerReportDTO;
 import com.qs.www.schedule.model.dto.ReportDTO;
 import com.qs.www.schedule.model.dto.WorkingDocumentItemDTO;
 import com.qs.www.welfare.model.dao.WelfareDAO;
 import com.qs.www.welfare.model.dto.DomitoryListDTO;
+import com.qs.www.welfare.model.dto.DomitoryWaitListDTO;
 import com.qs.www.welfare.model.dto.FamilyEventDTO;
 import com.qs.www.welfare.model.dto.LaptopDTO;
 import com.qs.www.welfare.model.dto.MemberOverTimeLogDTO;
@@ -319,5 +321,54 @@ public class WelfareService {
 
 		return seminarRoomCount;
 	}
+
+	public int insertDomitoryWaitList(DomitoryWaitListDTO domitoryWaitListDTO) {
+		SqlSession session = getSqlSession();
+
+		int insertDomitoryWaitListResult = welfareDAO.insertDomitoryWaitList(session, domitoryWaitListDTO);
+
+		if (insertDomitoryWaitListResult > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+
+		session.close();
+
+		return insertDomitoryWaitListResult;
+	}
+
+	public int insertItemLog(ItemDTO itemDTO) {
+		SqlSession session = getSqlSession();
+
+		int insertItemLog = welfareDAO.insertItemLog(session, itemDTO);
+
+		if (insertItemLog > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+
+		session.close();
+
+		return insertItemLog;
+	}
+
+	public int updateItemStatus(int itemNo) {
+		SqlSession session = getSqlSession();
+
+		int updateItemStatus = welfareDAO.updateItemStatus(session, itemNo);
+
+		if (updateItemStatus > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+
+		session.close();
+
+		return updateItemStatus;
+	}
+
 
 }

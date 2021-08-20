@@ -461,5 +461,54 @@
                	</where>
 	</select>
 	
+	<insert id="insertDomitoryWaitList" parameterType="com.qs.www.welfare.model.dto.DomitoryWaitListDTO">
+
+		INSERT /* com.qs.www.welfare.model.dao.WelfareDAO#insertDomitoryWaitList() */
+	  	  INTO TBL_DOMITORY_WAITLIST A
+		 	 (
+	  	   	   A.WAITING_NO
+		 	 , A.MEMBER_NO
+		 	 , A.MEMBER_NAME
+		 	 , A.WAITING_STATUS
+		 	 , A.HOPE_DATE
+		 	 )
+		 	 VALUES
+		 	 (
+	  	   	   SEQ_DOMITORY_WAITING_NO.NEXTVAL
+		 	 , #{ memberNo }
+		 	 , #{ memberName }
+		 	 , DEFAULT
+		 	 , #{ hopeDate }
+		 	 )
+	</insert>
+	
+	<insert id="insertItemLog" parameterType="com.qs.www.mng.welfare.model.dto.ItemDTO">
+
+		INSERT /* com.qs.www.welfare.model.dao.WelfareDAO#insertItemLog() */
+		  INTO TBL_LAPTOP_LOG A
+		 	 (
+	  	   	   A.LOG_NO
+		 	 , A.ITEM_NO
+		 	 , A.MEMBER_NO
+		 	 , A.RESERVATION_DATE
+		 	 , A.RETURN_DATE
+		 	 , A.RETURN_DUE_DATE
+		 	 )
+		 	 VALUES
+		 	 (
+	  	   	   SEQ_LAPTOP_LOG_NO.NEXTVAL
+		 	 , #{ itemNo }
+		 	 , #{ memberNo }
+		 	 , SYSDATE
+		 	 , DEFAULT
+		 	 , #{ returnDueDate }
+		 	 )
+	</insert>
+	
+	<update id="updateItemStatus" >
+		UPDATE TBL_LAPTOP
+		   SET RESERVATION_STATUS = '대여중'
+		 WHERE ITEM_NO = #{ itemNo }
+	</update>
 	
 </mapper>

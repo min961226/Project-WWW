@@ -19,6 +19,7 @@ import com.qs.www.approval.model.service.ApprovalService;
 import com.qs.www.common.attachment.model.dto.AttachmentDTO;
 import com.qs.www.common.attachment.model.service.AttachmentService;
 import com.qs.www.member.model.dto.MemberInfoDTO;
+import com.qs.www.mng.welfare.model.dto.ItemDTO;
 import com.qs.www.schedule.model.dto.ApproverPerReportDTO;
 import com.qs.www.schedule.model.dto.CustomWorkDTO;
 import com.qs.www.schedule.model.dto.CustomWorkTimeDTO;
@@ -30,56 +31,63 @@ import com.qs.www.schedule.model.dto.ReportDTO;
 import com.qs.www.schedule.model.dto.WorkingDocumentItemDTO;
 import com.qs.www.schedule.model.service.HolidayService;
 import com.qs.www.schedule.model.service.ScheduleService;
+import com.qs.www.welfare.model.dto.DomitoryWaitListDTO;
+import com.qs.www.welfare.model.service.WelfareService;
 
 @WebServlet("/approval/waiting/selectOne")
 public class SelectOneWaitingApprovalServlet extends HttpServlet {
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		
-		int memberNo = ((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo();
-		
-		int no = Integer.parseInt(request.getParameter("no"));
-		//대기함에서 선택한 게시물의 살세정보 가져오기
-		ReportDTO selectedReport  = new ApprovalService().selectOneReportDetail(no);
-		
-		/* 파일 첨부 DTO 서비스 실행 reportNo로 갖고옴 */
-		AttachmentDTO attachmentDTO = new AttachmentService().selectAttachmentByReportNo(selectedReport.getReportNo());		//reportNo로 값을 갖고옴
-		System.out.println(attachmentDTO);
-		
-		List<WorkingDocumentItemDTO> itemList = new ApprovalService().selectReportItemList(no);
-		List<ApproverLogPerReportDTO>ALPRList = new ApprovalService().selectALPRList(no);
 
-		//등록날짜를 보존기간으로 바꾸기
+		int memberNo = ((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo();
+
+		int no = Integer.parseInt(request.getParameter("no"));
+		// 대기함에서 선택한 게시물의 살세정보 가져오기
+		ReportDTO selectedReport = new ApprovalService().selectOneReportDetail(no);
+
+		/* 파일 첨부 DTO 서비스 실행 reportNo로 갖고옴 */
+		AttachmentDTO attachmentDTO = new AttachmentService().selectAttachmentByReportNo(selectedReport.getReportNo()); // reportNo로
+																														// 값을
+																														// 갖고옴
+		System.out.println(attachmentDTO);
+
+		List<WorkingDocumentItemDTO> itemList = new ApprovalService().selectReportItemList(no);
+		List<ApproverLogPerReportDTO> ALPRList = new ApprovalService().selectALPRList(no);
+
+		// 등록날짜를 보존기간으로 바꾸기
 		Date reportDate = selectedReport.getReportDate();
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		String str = format.format(reportDate);
 
-		String[] arrayDate = str.split("-");   
+		String[] arrayDate = str.split("-");
 		int yearPlusFive = Integer.parseInt(arrayDate[0]) + 5;
-		String endDate = yearPlusFive + "-" + arrayDate[1]  + "-" + arrayDate[2];
+		String endDate = yearPlusFive + "-" + arrayDate[1] + "-" + arrayDate[2];
 
 		request.setAttribute("endDate", endDate);
 		request.setAttribute("selectedReport", selectedReport);
 		request.setAttribute("itemList", itemList);
 		request.setAttribute("ALPRList", ALPRList);
 		request.setAttribute("attachmentDTO", attachmentDTO);
-		//결재의 문서종류에 따라 항목명들을 키값으로 지정해서 request에 넣기
-		if(selectedReport.getDocumentNo() < 4) {
+		// 결재의 문서종류에 따라 항목명들을 키값으로 지정해서 request에 넣기
+		if (selectedReport.getDocumentNo() < 4) {
 			request.setAttribute("body", itemList.get(1).getItemContent());
-			if(selectedReport.getDocumentNo() == 3) {
+			if (selectedReport.getDocumentNo() == 3) {
 				request.setAttribute("contractDate", itemList.get(2).getItemContent());
 				request.setAttribute("payDate", itemList.get(3).getItemContent());
 				request.setAttribute("productNo", itemList.get(4).getItemContent());
 			}
-			
+
 		}
 		request.getRequestDispatcher("/WEB-INF/views/approval/detailWaitingApproval.jsp").forward(request, response);
-		
+
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		HttpSession session = request.getSession();
+		WelfareService welfareService = new WelfareService();
 		
 		int memberNo = ((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo();
 		int reportNo = Integer.parseInt(request.getParameter("no"));
@@ -273,6 +281,56 @@ public class SelectOneWaitingApprovalServlet extends HttpServlet {
 					System.out.println("휴가 차감 성공 여부 : "+ result6);
 				}
 				
+				if(selectedReport.getDocumentNo() == 7) {																	//야간교통비 신청서
+					
+					
+					
+				}
+				
+				if(selectedReport.getDocumentNo() == 8) {																	//경조사 신청서
+					
+					
+					
+				}
+				
+				if(selectedReport.getDocumentNo() == 9) {																	//자기개발 신청서
+					
+					
+					
+				}
+				if(selectedReport.getDocumentNo() == 10) {																	//DOMITORY_WAITLIST로 간다.
+					
+					DomitoryWaitListDTO domitoryWaitListDTO = new DomitoryWaitListDTO();									//정보값을 담아줄 DTO선언
+					
+					memberNo = selectedReport.getMemberNo();																//입주신청자 번호
+					String memberName = selectedReport.getMemberName();														//입주신청자
+					java.sql.Date hopeDate = java.sql.Date.valueOf(itemList.get(2).getItemContent());						//입주희망일을 받아온다.
+					
+					domitoryWaitListDTO.setMemberNo(memberNo);
+					domitoryWaitListDTO.setMemberName(memberName);
+					domitoryWaitListDTO.setHopeDate(hopeDate);
+				
+					int result = welfareService.insertDomitoryWaitList(domitoryWaitListDTO);
+				}
+				
+				if(selectedReport.getDocumentNo() == 11) {}																	//회의실은 결재가 없다.
+				
+				if(selectedReport.getDocumentNo() == 12) {																	//복지물품 대여신청
+					
+					ItemDTO itemDTO = new ItemDTO();																		//복지물품DTO 선언
+					
+					memberNo = selectedReport.getMemberNo();																//memberNo						신청자번호
+					java.sql.Date returnDueDate = java.sql.Date.valueOf(itemList.get(1).getItemContent());					//returndueDate(returnDueDate)	반납일
+					int itemNo = Integer.parseInt(itemList.get(2).getItemContent());										//itemNO						아이템번호
+					
+					itemDTO.setMemberNo(memberNo);																			//DTO에 신청자 사번 삽입
+					itemDTO.setReturnDueDate(returnDueDate);																//DTO에 반납예정일 삽입
+					itemDTO.setItemNo(itemNo);																				//DTO에 신청 아이템 번호삽입
+					
+					int insertItemLog = welfareService.insertItemLog(itemDTO);												//서비스 실행
+					int updateItemStatus = welfareService.updateItemStatus(itemNo);
+					
+				}
 				
 				
 				

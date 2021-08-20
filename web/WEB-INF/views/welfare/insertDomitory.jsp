@@ -43,21 +43,7 @@
 									type="text" value="${ sessionScope.memberInfo.job.jobName }"
 									required="required">
 							</div>
-							<div class="form-group">
-								<label>신청 기숙사 : </label>
-								<c:if test="${requestScope.manageNo eq 1}">
-									<c:out value="1동 101호" />
-								</c:if>
-								<c:if test="${requestScope.manageNo eq 2}">
-									<c:out value="1동 102호" />
-								</c:if>
-								<c:if test="${requestScope.manageNo eq 3}">
-									<c:out value="2동 201호" />
-								</c:if>
-								<c:if test="${requestScope.manageNo eq 4}">
-									<c:out value="2동 202호" />
-								</c:if>
-							</div>
+							
 							<div class="form-group">
 								<label>신청자</label> <input name="name" class="form-control"
 									type="text" value="${ sessionScope.memberInfo.name }"

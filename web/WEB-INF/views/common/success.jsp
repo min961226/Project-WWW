@@ -177,9 +177,11 @@
 				case "deleteItem" :
 					successMessage = "복지 품목 삭제에 성공하였습니다.";
 					movePath = "${ pageContext.servletContext.contextPath }/mng/welfare/laptopRental/select";
-
 					break;
-					
+				case "returnItem" :
+					successMessage = "품목 반납처리를 성공하였습니다.";
+					movePath = "${ pageContext.servletContext.contextPath }/mng/welfare/laptopRental/select";
+					break;
 				case "inserWorkType" : 
 					successMessage = "근무제추가가 완료되었습니다.";
 					movePath = "${ pageContext.servletContext.contextPath }/mng/workingSystem/select";
