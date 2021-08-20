@@ -141,7 +141,9 @@
 	                                    <label class="control-label col-lg-4">자택주소</label>
 	                                    <div class="col-md-8">
 	                                    	<div class="input-group">
-	                                    		<span><input type="text" class="form-control" name="zipCode" id="zipCode" value="${ zipCode }" readonly></span>
+	                                    		<span>
+	                                    			<input type="text" class="form-control" name="zipCode" id="zipCode" value="${ zipCode }" readonly>
+	                                    		</span>
                                             	<span class="input-group-btn">
 													<button type="button" class="btn btn-primary" id="searchZipCode" disabled>검색</button>
 												</span>
