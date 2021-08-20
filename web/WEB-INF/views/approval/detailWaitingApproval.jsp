@@ -274,8 +274,7 @@
 						</c:forEach>
 						<form class="form-horizontal"
 							action="${ pageContext.servletContext.contextPath }/approval/waiting/selectOne?no=${ requestScope.selectedReport.reportNo }"
-							method="post" onsubmit="return askAgain();"
-							enctype="multipart/form-data">
+							method="post" onsubmit="return askAgain();">
 							<div class="card-box col-xs-12">
 								<h4 class="card-title">결재처리함</h4>
 								<div class="form-group">
