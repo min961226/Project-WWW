@@ -22,231 +22,132 @@
 			<div class="content container-fluid">
 				<div class="row">
 					<div class="col-xs-12">
-						<h4 class="page-title">복지 신청 내역 상세 조회</h4>
+						<h4 class="page-title">복지 물품 상세 조회/반납</h4>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-lg-12">
-						<form class="form-horizontal" action="${ pageContext.servletContext.contextPath }/welfare/applied/list/delete?no=${ requestScope.selectedReport.reportNo }" method="post" onsubmit="return askAgain();">
+						<form class="form-horizontal"
+							action="${ pageContext.servletContext.contextPath }/mng/welfare/laptopRental/update?logNo=${ requestScope.item.logNo}&itemNo=${ requestScope.item.itemNo }"
+							method="post" onsubmit="return askAgain();">
+							<div class="card-box"
+								style="background: lightyellow; border: 1px solid black;">
+								<div class="card-block">
+									<table class="display datatable table table-stripped">
+										<thead>
+											<tr>
+												<td rowspan="1">
+													<h3>
+														<b>물품 대여 기록</b>
+													</h3>
+												</td>
+											</tr>
+											<tr bgcolor="FFBC35">
+
+												<th style="width: 200px">대여 기록 번호</th>
+												<th>대여자 사번</th>
+												<th>복지 물품 번호</th>
+												<th>품목 종류</th>
+												<th>품목명</th>
+												<th>대여상태</th>
+												<th>대여일</th>
+												<th>반납일</th>
+											</tr>
+										</thead>
+										<c:forEach var="itemLog" items="${ requestScope.itemLog }">
+											<tr>
+												<td><c:out value="${ itemLog.logNo }" /></td>
+												<td><c:out value="${ itemLog.memberNo }" /></td>
+												<td><c:out value="${ itemLog.itemNo }" /></td>
+												<td><c:out value="${ itemLog.itemCategory }" /></td>
+												<td><c:out value="${ itemLog.itemName }" /></td>
+												<td><c:out value="반납완료" /></td>
+												<td><c:out value="${ itemLog.reservationDate }" /></td>
+												<td><c:out value="${ itemLog.returnDate }" /></td>
+											</tr>
+										</c:forEach>
+									</table>
+								</div>
+							</div>
 							<div class="form-group">
 								<div class="col-sm-6">
-									<label>복지 분류</label>
+									<label>대여 기록 번호</label>
 									<div class="col-md-12">
 										<input class="form-control"
-											value=<c:if test="${ requestScope.selectedReport.documentNo eq 7 }">"야간교통비 신청"</c:if>
-											<c:if test="${ requestScope.selectedReport.documentNo eq 8 }">"경조사 신청"</c:if>
-											<c:if test="${ requestScope.selectedReport.documentNo eq 9 }">"자기개발비 신청"</c:if>
-											<c:if test="${ requestScope.selectedReport.documentNo eq 10 }">"기숙사 입주 신청"</c:if>
-											<c:if test="${ requestScope.selectedReport.documentNo eq 12 }">"노트북 대여 신청"</c:if>
-											disabled />
+											value="${ requestScope.item.logNo }" disabled />
 									</div>
 								</div>
 								<div class="col-sm-6">
-									<label>결재 상태</label>
+									<label>복지 물품 번호</label>
 									<div class="col-md-12">
-										<input class="form-control"
-											value="${ requestScope.selectedReport.reportStatus }"
-											disabled />
+										<input class="form-control" name="itemNo"
+											value="${ requestScope.item.itemNo }" disabled />
 									</div>
 								</div>
 							</div>
 							<div class="form-group">
 								<div class="col-sm-6">
-									<label>기안자</label>
+									<label>품목 종류</label>
 									<div class="col-md-12">
 										<input class="form-control"
-											value="${ sessionScope.memberInfo.name }" disabled />
+											value="${ requestScope.item.itemCategory }" disabled />
 									</div>
 								</div>
 								<div class="col-sm-6">
-									<label>결재라인</label>
+									<label>품목명</label>
 									<div class="col-md-12">
 										<input class="form-control"
-											value="${ requestScope.selectedReport.lineName }" disabled />
+											value="${ requestScope.item.itemName }" disabled />
 									</div>
 								</div>
 							</div>
 							<div class="form-group">
 								<div class="col-sm-6">
-									<label>결재 신청 제목</label>
+									<label>물품 대여자 사번</label>
 									<div class="col-md-12">
 										<input class="form-control"
-											value="${ requestScope.selectedReport.reportTitle }" disabled />
+											value="${ requestScope.item.memberNo }" disabled />
+									</div>
+								</div>
+								<c:if test="${  empty requestScope.item.reservationStatus  }">
+									<div class="col-sm-6">
+										<label>대여상태</label>
+										<div class="col-md-12">
+											<input class="form-control" value="대여가능" disabled />
+										</div>
+									</div>
+								</c:if>
+								<c:if test="${  !empty requestScope.item.reservationStatus  }">
+									<div class="col-sm-6">
+										<label>대여상태</label>
+										<div class="col-md-12">
+											<input class="form-control"
+												value="${ requestScope.item.reservationStatus }" disabled />
+										</div>
+									</div>
+								</c:if>
+							</div>
+							<div class="form-group">
+								<div class="col-sm-6">
+									<label>물품 대여일</label>
+									<div class="col-md-12">
+										<input class="form-control"
+											value="${ requestScope.item.reservationDate}" disabled />
 									</div>
 								</div>
 								<div class="col-sm-6">
-									<label>보존기간</label>
+									<label>물품 반납 예정일</label>
 									<div class="col-md-12">
 										<input class="form-control"
-											value="~${ requestScope.preservedDate }" disabled />
+											value="${ requestScope.item.returnDueDate }" disabled />
 									</div>
 								</div>
 							</div>
-							<c:set var="no"
-								value="${ requestScope.selectedReport.documentNo }" />
-							<c:if test="${ no eq 7 }">
-								<div class="form-group">
-									<!-- 유형코드도 c:if로 해서 한글로 표시되도록 하고싶다 -->
-									<div class="col-sm-6">
-										<label>초과 근무 업무 시간</label>
-										<div class="col-md-12">
-											<input class="form-control"
-												value="${ requestScope.overTimeWorkTime }" disabled />
-										</div>
-									</div>
-									<div class="col-sm-6">
-										<label>청구 교통비</label>
-										<div class="col-md-12">
-											<input class="form-control"
-												value="${ requestScope.overTimeTransBill }원" disabled />
-										</div>
-									</div>
-								</div>
-							</c:if>
-							<c:if test="${ no eq 8 }">
-								<div class="form-group">
-									<!-- 유형코드도 c:if로 해서 한글로 표시되도록 하고싶다 -->
-									<div class="col-sm-6">
-										<label>경조사 분류</label>
-										<div class="col-md-12">
-											<input class="form-control"
-												value="${ requestScope.eventCodeName }" disabled />
-										</div>
-									</div>
-									<div class="col-sm-6">
-										<label>경조사명</label>
-										<div class="col-md-12">
-											<input class="form-control"
-												value="${ requestScope.eventName }" disabled />
-										</div>
-									</div>
-								</div>
-								<div class="form-group">
-									<div class="col-sm-6">
-										<label>일자</label>
-										<div class="col-md-12">
-											<input class="form-control"
-												value="${ requestScope.eventDate }" disabled />
-										</div>
-									</div>
-									<div class="col-sm-6">
-										<label>경조금</label>
-										<div class="col-md-12">
-											<input class="form-control"
-												value="${ requestScope.eventBill }만원" disabled />
-										</div>
-									</div>
-								</div>
-								<div class="form-group">
-									<div class="col-sm-6">
-										<label>장소</label>
-										<div class="col-lg-12">
-											<input class="form-control"
-												value="${ requestScope.eventPlace }" disabled />
-										</div>
-									</div>
-								</div>
-							</c:if>
-							<c:if test="${ no eq 9 }">
-								<%--자기개발비 신청 내역 --%>
-								<div class="form-group">
-
-									<!-- 유형코드도 c:if로 해서 한글로 표시되도록 하고싶다 -->
-									<div class="col-sm-6">
-										<label>자기개발비 분류</label>
-										<div class="col-md-12">
-											<input class="form-control"
-												value="${ requestScope.selfDevCodeName }" disabled />
-										</div>
-									</div>
-									<div class="col-sm-6">
-										<label>자기개발비 사용일자</label>
-										<div class="col-md-12">
-											<input class="form-control"
-												value="${ requestScope.selfDevUseDate }" disabled />
-										</div>
-									</div>
-								</div>
-								<div class="form-group">
-									<div class="col-sm-6">
-										<label>청구 금액</label>
-										<div class="col-md-12">
-											<input class="form-control"
-												value="${ requestScope.selfDevBill }원" disabled />
-										</div>
-									</div>
-								</div>
-							</c:if>
-
-							<c:if test="${ no eq 10 }">
-								<%--기숙사 신청 내역 --%>
-								<div class="form-group">
-									<div class="col-sm-6">
-										<label>현 거주지</label>
-										<div class="col-md-12">
-											<input class="form-control"
-												value="${ requestScope.domitoryAddress }" disabled />
-										</div>
-									</div>
-
-									<div class="col-sm-6">
-										<label>입주 희망일</label>
-										<div class="col-md-12">
-											<input class="form-control"
-												value="${ requestScope.domitoryDate }" disabled />
-										</div>
-									</div>
-								</div>
-							</c:if>
-
-							<c:if test="${ no eq 12 }">
-								<%--노트북 대여 신청 내역 --%>
-								<div class="form-group">
-
-
-									<div class="col-sm-6">
-										<label>대여 품목 번호</label>
-										<div class="col-md-12">
-											<input class="form-control" value="${ requestScope.itemNo }"
-												disabled />
-										</div>
-									</div>
-									<div class="col-sm-6">
-										<label>반납일</label>
-										<div class="col-md-12">
-											<input class="form-control"
-												value="${ requestScope.returnDate }" disabled />
-										</div>
-									</div>
-								</div>
-							</c:if>
-
-							<div class="form-group">
-								<div class="col-sm-12">
-									<label>신청사유</label>
-									<div class="col-lg-12">
-										<textarea name="note" rows="5" cols="5" class="form-control"
-											disabled>${ requestScope.reason }</textarea>
-									</div>
-								</div>
-							</div>
-						<%-- 첨부파일 다운로드 추가 --%>
-							<c:if test="${ !empty requestScope.attachmentDTO.savedName}">
-								<div class="form-group">
-									<div class="col-sm-6">
-										<div class="col-md-12">
-												<label>첨부 파일 :</label>&nbsp;&nbsp;<a	href="${ pageContext.servletContext.contextPath }/FileDown?fileName=${requestScope.attachmentDTO.savedName }"><u>${requestScope.attachmentDTO.originalName}</u></a>
-										</div>
-									</div>
-								</div>
-							</c:if>
-							
 							<div class="row">
 								<div class="col-sm-12 text-center m-t-20">
-									<c:set var="reportStatus"
-										value="${ requestScope.selectedReport.reportStatus }" />
-									<c:if test="${  reportStatus eq '대기' }">
-										<button type="submit" class="btn btn-primary btn-lg">회수하기</button>
+									<c:if test="${  requestScope.item.reservationStatus eq '대여중' }">
+										<button type="submit" class="btn btn-primary btn-lg">반납
+											완료</button>
 									</c:if>
 									<button type="reset" class="btn btn-primary btn-lg" id="goBack">돌아가기</button>
 								</div>
@@ -263,7 +164,7 @@
 		function askAgain() {
 
 			var yn;
-			yn = confirm('신청된 결재를 회수하시겠습니까?\n회수 후에는 재신청 해야합니다.');
+			yn = confirm('대여중인 물품을 반납처리하시겠습니까?\n반납일은 오늘 날짜로 기록됩니다.');
 
 			if (yn == true) {
 				return true;
@@ -274,7 +175,7 @@
 
 		const $goBack = document.getElementById("goBack");
 		$goBack.onclick = function() {
-			location.href = "${ pageContext.servletContext.contextPath }/welfare/applied/list/select"
+			location.href = "${ pageContext.servletContext.contextPath }/mng/welfare/laptopRental/select"
 		}
 	</script>
 </body>

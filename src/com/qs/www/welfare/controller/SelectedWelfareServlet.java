@@ -89,7 +89,7 @@ public class SelectedWelfareServlet extends HttpServlet {
 			request.setAttribute("seminarRoomList", seminarRoomList);
 			path = "/WEB-INF/views/welfare/seminarRoom.jsp";
 			break;
-		case "노트북대여신청":
+		case "복지물품대여신청":
 			List<LaptopDTO> laptopList = welfareService.selectLaptopList();
 			request.setAttribute("laptopList", laptopList);
 			path = "/WEB-INF/views/welfare/laptopRental.jsp";

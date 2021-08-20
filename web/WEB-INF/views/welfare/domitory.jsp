@@ -28,32 +28,46 @@
 				<div class="col-lg-12">
 					<div class="card-box">
 						<div class="card-block">
-							<p class="content-group"></p>
-							<table class="display datatable table table-stripped">
-								<thead>
-									<tr bgcolor="FFBC35">
-										<th>번호</th>
-										<th>종류</th>
-										<th>동</th>
-										<th>호</th>
-										<th>현재 이용중인 인원</th>
-										<th>최대 인원</th>
-										<th>신청하기</th>
-									</tr>
-								</thead>
-								<c:forEach var="domitory" items="${ requestScope.domitoryList }">
-									<tr>
-										<td><c:out value="${ domitory.domitoryManageNo }" /></td>
-										<td>기숙사</td>
-										<td><c:out value="${ domitory.domitoryBlockNo }" /> 동</td>
-										<td><c:out value="${ domitory.roomNo }" /> 호</td>
-										<td><c:out value="${ domitory.currCapacity }" /> 명</td>
-										<td><c:out value="${ domitory.maxCapacity }" /> 명</td>
-										<td><button class="btn btn-primary btn-xs" type="submit">신청하기</button></td>
-									</tr>
-								</c:forEach>
-							</table>
-							<jsp:include page="../common/navbar.jsp" />
+							<form name="insertDomitory"
+								action="${ pageContext.servletContext.contextPath }/welfare/domitory/select"
+								method="POST">
+								<table class="display datatable table table-stripped">
+									<thead>
+										<tr bgcolor="FFBC35">
+											<th>번호</th>
+											<th>종류</th>
+											<th>동</th>
+											<th>호</th>
+											<th>현재 이용중인 인원</th>
+											<th>최대 인원</th>
+										</tr>
+									</thead>
+									<c:forEach var="domitory"
+										items="${ requestScope.domitoryList }">
+										<tr>
+											<td><c:out value="${ domitory.domitoryManageNo }" /></td>
+											<td>기숙사</td>
+											<td><c:out value="${ domitory.domitoryBlockNo }" /> 동</td>
+											<td><c:out value="${ domitory.roomNo }" /> 호</td>
+											<td><c:out value="${ domitory.currCapacity }" /> 명</td>
+											<td><c:out value="${ domitory.maxCapacity }" /> 명</td>
+										</tr>
+									</c:forEach>
+								</table>
+								<div align="right" style="margin-right: 20px; padding: 5px">
+									<button class="btn btn-primary pull-right">
+										<i class="fa fa-plus"></i> 기숙사 신청
+									</button>
+								</div>
+								<jsp:include page="../common/navbar.jsp" />
+								<h5>
+									***기숙사 신청 시 참고 사항 : <br>
+									1. 대기 순번에 따라서 신청이 반려되거나 미뤄질 수 있습니다.<br>
+									2. 입주자의 성별, 현황에 따라서 배정받는 기숙사의 동이나 호수가 다를 수 있습니다.<br>
+									3. 기숙사 입주 선정의 우선순위는 본인 현주소로 부터 거리 순이며 개인 사정에 따라 변동될 수 있습니다.<br>
+									4. 지금 주소를 조작하거나 확인 후 기존의 주소와 다를경우 기숙사 신청 명단에서 제외될 수 있습니다.
+								</h5>
+							</form>
 						</div>
 					</div>
 				</div>
@@ -77,14 +91,6 @@
 				$tds[i].onmouseout = function() {
 					this.parentNode.style.backgroundColor = "white";
 				}
-
-				$tds[i].onclick = function() {
-					/* 게시물 번호까지 알아왔으니 이제 상세보기는 할 수 있겠지? */
-					const no = this.parentNode.children[0].innerText;
-					location.href = "${ pageContext.servletContext.contextPath }/welfare/domitory/select?no="
-							+ no;
-				}
-
 			}
 
 		}

@@ -17,28 +17,36 @@ import com.qs.www.mng.welfare.model.service.MngWelfareService;
 
 @WebServlet("/mng/welfare/laptopRental/deleteComplete")
 public class DeleteCompleteMngLaptopRentalWelfareServlet extends HttpServlet {
-		ItemDTO itemDTO;
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String[] checkList=  request.getParameterValues("deleteItemCheck");													//check 된 박스 값들을 받아온다 
-		List<ItemDTO> itemList = new ArrayList<>();
-		
-		for (int i = 0; i < checkList.length; i++) {																		//check 박스로 받아오게 될시 String[]로 받아와야함으로 변환이 필요하다.			
-			itemDTO = new ItemDTO();
-			itemDTO.setItemNo(Integer.parseInt(checkList[i]));																	//list에 값을 한개씩 담아준다
-			
-			itemList.add(itemDTO);
-		}
-		System.out.println(itemList);
-		
-		int deleteResult = new MngWelfareService().deleteItem(itemList);
-		
+	ItemDTO itemDTO;
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String[] checkList = request.getParameterValues("deleteItemCheck"); // check 된 박스 값들을 받아온다
+
 		String path = "";
-		if(deleteResult > 0 ) {																				
+		if (checkList!=null) {												//갖고온 체크박스가 없을경우 예외처리
+
+			List<ItemDTO> itemList = new ArrayList<>();
+
+			for (int i = 0; i < checkList.length; i++) { // check 박스로 받아오게 될시 String[]로 받아와야함으로 변환이 필요하다.
+				itemDTO = new ItemDTO();
+				itemDTO.setItemNo(Integer.parseInt(checkList[i])); // list에 값을 한개씩 담아준다
+
+				itemList.add(itemDTO);
+			}
+			System.out.println(itemList);
+
+			int deleteResult = new MngWelfareService().deleteItem(itemList);
+			if (deleteResult > 0) {
+				path = "/WEB-INF/views/common/success.jsp";
+				request.setAttribute("successCode", "deleteItem");
+			} else {
+				path = "/WEB-INF/views/common/failed.jsp";
+				request.setAttribute("failedCode", "deleteItem");
+			}
+		} else {
 			path = "/WEB-INF/views/common/success.jsp";
 			request.setAttribute("successCode", "deleteItem");
-		} else {
-			path = "/WEB-INF/views/common/failed.jsp";
-			request.setAttribute("failedCode", "deleteItem");
 		}
 		request.getRequestDispatcher(path).forward(request, response);
 	}

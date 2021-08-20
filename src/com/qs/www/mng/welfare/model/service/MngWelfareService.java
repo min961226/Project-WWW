@@ -115,14 +115,59 @@ public class MngWelfareService {
 		return deleteItem;
 	}
 
-	public LaptopDTO selectOneItem(int itemNo) {
+	public ItemDTO selectOneItemLog(int itemNo) {
 		SqlSession session = getSqlSession();
 
-		LaptopDTO selectOneItem = mngWelfareDAO.selectOneItem(session, itemNo);
+		ItemDTO selectOneItem = mngWelfareDAO.selectOneItemLog(session, itemNo);
 
 		session.close();
 
 		return selectOneItem;
+	}
+
+	public List<ItemDTO> selectAllItemLog(int itemNo) {
+		SqlSession session = getSqlSession();
+
+		List<ItemDTO> selectAllItem = mngWelfareDAO.selectAllItemLog(session, itemNo);
+
+		session.close();
+
+		return selectAllItem;
+	}
+
+
+	public int updateReturnItem(ItemDTO itemDTO) {
+
+		SqlSession session = getSqlSession();
+
+		int returnItem = mngWelfareDAO.updateReturnItem(session, itemDTO);
+
+		if (returnItem > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+
+		session.close();
+
+		return returnItem;
+	}
+
+	public int updateChangeStatus(int itemNo) {
+
+		SqlSession session = getSqlSession();
+
+		int updateChangeStatus = mngWelfareDAO.updateChangeStatus(session, itemNo);
+
+		if (updateChangeStatus > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+
+		session.close();
+
+		return updateChangeStatus;
 	}
 
 }

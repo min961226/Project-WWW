@@ -39,10 +39,22 @@ public class MngWelfareDAO {
 	}
 
 	public int deleteItem(SqlSession session, List<ItemDTO> itemList) {
-		return session.delete("MngWelfareDAO.deleteItem",itemList);
+		return session.update("MngWelfareDAO.deleteItem",itemList);
 	}
 
-	public LaptopDTO selectOneItem(SqlSession session, int itemNo) {
-		return session.selectOne("MngWelfareDAO.selectOneItem",itemNo);
+	public ItemDTO selectOneItemLog(SqlSession session, int itemNo) {
+		return session.selectOne("MngWelfareDAO.selectOneItemLog",itemNo);
+	}
+
+	public List<ItemDTO> selectAllItemLog(SqlSession session, int itemNo) {
+		return session.selectList("MngWelfareDAO.selectAllItemLog",itemNo);
+	}
+
+	public int updateReturnItem(SqlSession session, ItemDTO itemDTO) {
+		return session.update("MngWelfareDAO.updateReturnItem",itemDTO);
+	}
+
+	public int updateChangeStatus(SqlSession session, int itemNo) {
+		return session.update("MngWelfareDAO.updateChangeStatus",itemNo);
 	}
 }

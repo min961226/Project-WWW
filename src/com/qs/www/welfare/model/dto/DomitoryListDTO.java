@@ -1,6 +1,8 @@
 package com.qs.www.welfare.model.dto;
 
-public class DomitoryListDTO {
+import java.io.Serializable;
+
+public class DomitoryListDTO implements Serializable{
 	
 	private int domitoryManageNo;
 	private int domitoryBlockNo;

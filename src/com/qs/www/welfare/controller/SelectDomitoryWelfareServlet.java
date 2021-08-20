@@ -18,11 +18,11 @@ import com.qs.www.welfare.model.service.WelfareService;
 @WebServlet("/welfare/domitory/select")
 public class SelectDomitoryWelfareServlet extends HttpServlet {
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		WelfareService welfareService = new WelfareService();
 		HttpSession session = request.getSession();
-
+		
 		int memberNo = ((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo();
 		String name = ((MemberInfoDTO) session.getAttribute("memberInfo")).getName();
 		String deptName = ((MemberInfoDTO) session.getAttribute("memberInfo")).getDepartment().getDeptName();
@@ -41,14 +41,11 @@ public class SelectDomitoryWelfareServlet extends HttpServlet {
 		request.setAttribute("lineList", lineList);
 		request.setAttribute("address", address);
 		request.setAttribute("manageNo", manageNo);
-
+		
 		String path="";
 		path = "/WEB-INF/views/welfare/insertDomitory.jsp";
 		
 		request.getRequestDispatcher(path).forward(request, response);
-	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 	}
 }

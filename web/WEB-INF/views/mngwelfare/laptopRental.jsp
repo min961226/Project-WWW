@@ -53,8 +53,8 @@
 										<td><c:out value="${ laptopList.itemCateGory }" /></td>
 										<td><c:out value="${ laptopList.itemName }" /></td>
 										<td><c:out value="${ laptopList.reservationStatus }" /></td>
-										<td><button id="delete" class="btn btn-primary btn-xs"
-												type="submit">상세보기</button></td>
+										<td><button id="delete" class="btn btn-success btn-xs"
+												type="submit">상세보기/회수하기</button></td>
 									</tr>
 								</c:forEach>
 							</table>
