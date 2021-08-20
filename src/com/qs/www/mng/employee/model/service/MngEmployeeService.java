@@ -18,6 +18,17 @@ public class MngEmployeeService {
 	public MngEmployeeService() {
 		mngEmployeeDAO = new MngEmployeeDAO();
 	}
+	
+	public int selectMemberNo() {
+		
+		SqlSession sqlSession = getSqlSession();
+		
+		int memberNo = mngEmployeeDAO.selectMemberNo(sqlSession);
+		
+		sqlSession.close();
+		
+		return memberNo;
+	}
 
 	public List<DepartmentDTO> selectDeptList() {
 		
@@ -51,5 +62,15 @@ public class MngEmployeeService {
 		
 		return roleList;
 	}
-	
+
+	public int checkMemberId(String memberId) {
+		
+		SqlSession sqlSession = getSqlSession();
+		
+		int result = mngEmployeeDAO.selectMemberId(sqlSession, memberId);
+		
+		sqlSession.close();
+		
+		return result;
+	}
 }

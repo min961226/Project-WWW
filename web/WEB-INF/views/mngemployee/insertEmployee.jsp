@@ -39,28 +39,30 @@
 	                        <div class="card-box">
 	                    		<div class="profile-view">
 	                    			<div class="form-horizontal">
-		                    			<div class="form-group">
-		                                    <label class="control-label col-lg-4">ID</label>
-		                                    <div class="col-md-5">
-		                                        <input type="text" class="form-control" name="memberId" value="" required>
-		                                    </div>
-		                                    <div class="input-group">
-		                                    		<span><input type="text" class="form-control" name="zipCode" id="zipCode" value=""></span>
+		                                <div class="form-group">
+	                                    	<label class="control-label col-lg-4">ID</label>
+	                                    	<div class="col-md-8">
+		                                    	<div class="input-group has-feedback" id="inputId">
+		                                    		<span>
+		                                    			<input type="text" class="form-control" name="memberId" id="memberId" value="" required>
+		                                    		</span>
 	                                            	<span class="input-group-btn">
-														<button type="button" class="btn btn-primary" id="searcHZipCode" disabled>검색</button>
+														<button type="button" class="btn btn-primary" id="checkId">중복확인</button>
 													</span>
 												</div>
+											</div>												
 		                                </div>
-		                    			<div class="form-group">
+		                    			<div class="form-group has-feedback" id="checkPwd1">
 		                                    <label class="control-label col-lg-4">비밀번호</label>
 		                                    <div class="col-md-8">
-		                                        <input type="password" class="form-control" name="memberId" value="" required>
+		                                        <input type="password" class="form-control" name="pwd1" id="pwd1" value="" required>
 		                                    </div>
 		                                </div>
-		                    			<div class="form-group">
+		                    			<div class="form-group has-feedback" id="checkPwd2">
 		                                    <label class="control-label col-lg-4">비밀번호 확인</label>
 		                                    <div class="col-md-8">
-		                                        <input type="password" class="form-control" name="memberId" value="" required>
+		                                        <input type="password" class="form-control" name="pwd2" id="pwd2" value="" required>
+		                                        <span class="help-block" id="message"></span>
 		                                    </div>
 		                                </div>
 	                                </div>
@@ -73,7 +75,7 @@
 		                                <div class="form-group">
 		                                    <label class="control-label col-lg-4">사번</label>
 		                                    <div class="col-md-8">
-		                                        <input type="text" class="form-control" name="memberNo" value="" readonly>
+		                                        <input type="text" class="form-control" name="memberNo" value="${ requestScope.memberNo }" readonly>
 		                                    </div>
 		                                </div>
 		                                <div class="form-group">
@@ -83,11 +85,11 @@
 		                                    </div>
 		                                </div>
 		                                <div class="form-group">
-		                                    <label class="control-label col-lg-4">부서</label>
+		                                    <label class="control-label col-lg-4" >부서</label>
 		                                    <div class="col-md-8">
-		                                        <select class="form-control" name="department" required>
+		                                        <select class="form-control" name="department" onchange="changeSelection(this.value)" required>
 													<c:forEach var="deptList" items="${ requestScope.deptList }">
-														<option><c:out value="${ deptList.deptName }" /></option>
+														<option><c:out value="${ deptList.deptCode } ${ deptList.deptName }" /></option>
 													</c:forEach>
 												</select>
 		                                    </div>
@@ -97,7 +99,7 @@
 		                                    <div class="col-md-8">
 		                                        <select class="form-control" name="job" required>
 													<c:forEach var="jobList" items="${ requestScope.jobList }">
-														<option><c:out value="${ jobList.jobName }" /></option>
+														<option><c:out value="${ jobList.jobCode } ${ jobList.jobName }" /></option>
 													</c:forEach>
 												</select>
 		                                    </div>
@@ -111,7 +113,8 @@
 		                                <div class="form-group">
 		                                    <label class="control-label col-lg-4">사내전화</label>
 		                                    <div class="col-md-8">
-		                                        <input type="text" class="form-control" name="deptCallNumber" value="" readonly>
+		                                    	
+		                                        <input type="text" class="form-control" name="deptCallNumber" id="deptCallNumber" value="" readonly>
 		                                    </div>
 		                                </div>
 		                                <div class="form-group">
@@ -134,10 +137,10 @@
 		                                <div class="form-group">
 		                                    <label class="control-label col-lg-4">권한</label>
 		                                    <div class="col-md-8">
-		                                        <select class="form-control" name="role" required>
+		                                        <select class="form-control" name="role">
 													<option><c:out value="" /></option>
 													<c:forEach var="roleList" items="${ requestScope.roleList }">
-														<option><c:out value="${ roleList.roleName }" /></option>
+														<option><c:out value="${ roleList.roleCode } ${ roleList.roleName }" /></option>
 													</c:forEach>
 												</select>
 		                                    </div>
@@ -230,6 +233,69 @@
             </div>
         </div>
     </div>
+    
+    <script type="text/javascript" src="${ pageContext.servletContext.contextPath }/assets/js/jquery-3.2.1.min.js"></script>
+    <script>
+    	$(function() {
+    		$("#checkId").click(function() {
+    			const memberId = $("#memberId").val();
+    			
+    			$.ajax({
+    				url: "${ pageContext.servletContext.contextPath }/mng/employee/checkId/select",
+    				type: "get",
+    				data: { memberId : memberId },
+    				success: function(data, textStatus, xhr) {
+    					console.log(data);
+    					if(data > 0) {
+    						alert("이미 사용 중인 ID입니다.");
+    						$("#inputId").removeClass("has-success");
+    						$("#inputId").addClass("has-error");
+    					} else if(data < 0) {
+    						alert("ID를 입력해주세요.");
+    						$("#inputId").removeClass("has-success");
+    						$("#inputId").removeClass("has-error");
+    					} else {
+    						alert("사용 가능한 ID입니다.");
+    						$("#inputId").removeClass("has-error");
+    						$("#inputId").addClass("has-success");
+    					}
+    				},
+    				error: function(xhr, status, error) {
+    					alert("Error : " + error);
+    				}
+    			});
+    		});
+    	});
+    
+    	$(function() {
+    		$("#pwd1, #pwd2").keyup(function() {
+	    		const pwd1 = $("#pwd1").val();
+	    		const pwd2 = $("#pwd2").val();
+    			
+	    		if(pwd1 == pwd2 && pwd2 != null) {
+	    			$("#checkPwd1, #checkPwd2, #checkResult").removeClass("has-error");
+	    			$("#checkPwd1, #checkPwd2, #checkResult").addClass("has-success");
+	    			$("#message").html("<b>비밀번호가 일치합니다.</b>");
+	    		} else if(pwd1 != pwd2) {
+	    			$("#checkPwd1, #checkPwd2, #checkResult").removeClass("has-success");
+	    			$("#checkPwd1, #checkPwd2, #checkResult").addClass("has-error");
+	    			$("#message").html("<b>비밀번호가 일치하지 않습니다.</b>");
+    			}
+    		});
+    	});
+    	
+    	function changeSelection(selectedDept) {
+    		
+    		const deptList = ${ requestScope.deptListJson };
+    		const selectedDeptCode = selectedDept.split(" ")[0];
+    		
+    		for(let i = 0; i < deptList.length; i++) {
+    			if(selectedDeptCode == deptList[i].deptCode) {
+    				$("#deptCallNumber").val(deptList[i].deptCallNumber);
+    			}
+    		}
+    	}
+    </script>
 </body>
 
 </html>
