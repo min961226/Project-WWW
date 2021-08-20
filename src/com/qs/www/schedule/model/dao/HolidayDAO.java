@@ -43,6 +43,7 @@ public class HolidayDAO {
 	public int selectAllCount(SqlSession session, Map<String, Object> searchMap) {
 		
 		return session.selectOne("HolidayDAO.selectAllCount", searchMap);
+	}
 	public int selectHavingHoliday(SqlSession session, int memberNo) {
 		
 		return session.selectOne("HolidayDAO.selectHavingHoliday", memberNo);

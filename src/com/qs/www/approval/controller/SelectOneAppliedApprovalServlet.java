@@ -14,6 +14,8 @@ import javax.servlet.http.HttpSession;
 
 import com.qs.www.approval.model.dto.ApproverLogPerReportDTO;
 import com.qs.www.approval.model.service.ApprovalService;
+import com.qs.www.common.attachment.model.dto.AttachmentDTO;
+import com.qs.www.common.attachment.model.service.AttachmentService;
 import com.qs.www.member.model.dto.MemberInfoDTO;
 import com.qs.www.schedule.model.dto.ReportDTO;
 import com.qs.www.schedule.model.dto.WorkingDocumentItemDTO;
@@ -30,7 +32,12 @@ public class SelectOneAppliedApprovalServlet extends HttpServlet {
 		int no = Integer.parseInt(request.getParameter("no"));
 		//요청함에서 선택한 게시물의 살세정보 가져오기
 		ReportDTO selectedReport  = new ApprovalService().selectOneReportDetail(no);
-
+		
+		
+		/* 파일 첨부 DTO 서비스 실행 reportNo로 갖고옴 */
+		AttachmentDTO attachmentDTO = new AttachmentService().selectAttachmentByReportNo(selectedReport.getReportNo());		//reportNo로 값을 갖고옴
+		System.out.println(attachmentDTO);
+		
 		List<WorkingDocumentItemDTO> itemList = new ApprovalService().selectReportItemList(no);
 		List<ApproverLogPerReportDTO>ALPRList = new ApprovalService().selectALPRList(no);
 
@@ -47,6 +54,7 @@ public class SelectOneAppliedApprovalServlet extends HttpServlet {
 		request.setAttribute("selectedReport", selectedReport);
 //		request.setAttribute("itemList", itemList);
 		request.setAttribute("ALPRList", ALPRList);
+		request.setAttribute("attachmentDTO", attachmentDTO);
 		
 		request.setAttribute("body", itemList.get(1).getItemContent());
 		if(selectedReport.getDocumentNo() == 3) {
