@@ -52,14 +52,17 @@
 													<option value="7">초과근무</option>
 													<option value="8">새벽출퇴근</option>
 												</select> -->
-												 
-												<select id="work" class="select" name="workNo" onchange="testChange(this)" required>
+
+												<select id="work" class="select" name="workNo"
+													onchange="testChange(this)" required>
 													<option value="">--근무제목록-</option>
-													<c:forEach items="${ requestScope.workTypeList }" var="workTypeList">
-														<option value ="${ workTypeList.workCode }"><c:out value="${ workTypeList.workName }"/></option>
+													<c:forEach items="${ requestScope.workTypeList }"
+														var="workTypeList">
+														<option value="${ workTypeList.workCode }"><c:out
+																value="${ workTypeList.workName }" /></option>
 													</c:forEach>
 												</select>
-												 
+
 											</div>
 										</div>
 
@@ -82,7 +85,7 @@
 												</select>
 											</div>
 										</div>
-				<!-- 시작일보다 종료일이 빠를경우, 예외처리 필요 -->
+										<!-- 시작일보다 종료일이 빠를경우, 예외처리 필요 -->
 										<div class="form-group">
 											<label class="col-md-3 control-label">시작일</label>
 											<div class="col-md-9">
@@ -117,8 +120,9 @@
 										<div class="form-group">
 											<label class="col-md-3 control-label">증빙자료첨부</label>
 											<div class="col-md-9">
-												<input class="form-control" type="file" name="file1" multiple="multiple"> 
-												<small class="help-block">파일 최대 사이즈: 10 MB. 허용된 확장자: jpg, gif, png. </small>
+												<input class="form-control" type="file" name="file1"
+													multiple="multiple"> <small class="help-block">파일
+													최대 사이즈: 10 MB. 허용된 확장자: jpg, gif, png. </small>
 											</div>
 
 										</div>
@@ -126,11 +130,43 @@
 
 
 									<!-- 첫번째 컬럼 끝 -->
-
-
 									<div class="row" id="div1" hidden>
 										<h4>선택근무 추가작성내용</h4>
-										<div class="col-md-6">
+										<div>
+											<div class="form-group col-sm-6">
+												<label class="col-md-3 control-label">월 출근 시간</label> <select
+													class="select" name="monStartTimeHour" required>
+													<option value="07">07</option>
+													<option value="08">08</option>
+													<option value="09">09</option>
+													<option value="10">10</option>
+													<option value="11">11</option>
+													<option value="12">12</option>
+												</select> <select class="select" name="monStartTimeMin" required>
+													<option value="00">00</option>
+													<option value="30">30</option>
+												</select>
+											</div>
+
+											<div class="form-group col-sm-6">
+												<label class="col-md-3 control-label">월 퇴근 시간</label> <select
+													class="select" name="monEndTimeHour" required>
+													<option value="13">13</option>
+													<option value="14">14</option>
+													<option value="15">15</option>
+													<option value="16">16</option>
+													<option value="17">17</option>
+													<option value="18">18</option>
+													<option value="19">19</option>
+													<option value="20">20</option>
+												</select> <select class="select" name="monEndTimeMin" required>
+													<option value="00">00</option>
+													<option value="30">30</option>
+												</select>
+											</div>
+										</div>
+
+										<!-- <div class="col-md-6">
 											<div class="form-group">
 												<label class="col-md-3 control-label">Address Line 1</label>
 												<div class="col-md-9">
@@ -149,7 +185,7 @@
 													<input type="text" class="form-control">
 												</div>
 											</div>
-										</div>
+										</div> -->
 
 									</div>
 
@@ -158,25 +194,40 @@
 										<h4>초과근무 추가작성내용</h4>
 										<div class="col-md-6">
 											<div class="form-group">
-												<label class="col-md-3 control-label">Address Line 1</label>
-												<div class="col-md-9">
-													<input type="text" class="form-control">
+												<label class="col-md-3 control-label">시작시간</label>
+												<div class="form-group col-sm-6">
+													<select class="select" name="overtimeStartHour" id="overtimeStartHour" required>
+														<option value="18">18</option>
+														<option value="19">19</option>
+														<option value="20">20</option>
+														<option value="21">21</option>
+														<option value="22">22</option>
+														<option value="23">23</option>
+													</select>
 												</div>
 											</div>
 											<div class="form-group">
-												<label class="col-md-3 control-label">Address Line 2</label>
-												<div class="col-md-9">
-													<input type="text" class="form-control">
+												<label class="col-md-3 control-label">종료시간</label>
+												<div class="form-group col-sm-6">
+													<select class="select" name="overtimeEndHour" id="overtimeEndHour"
+														onchange="calOvertimeDuring(this)" required>
+														<option value="19">19</option>
+														<option value="20">20</option>
+														<option value="21">21</option>
+														<option value="22">22</option>
+														<option value="23">23</option>
+														<option value="24">24</option>
+													</select>
 												</div>
 											</div>
 											<div class="form-group">
-												<label class="col-md-3 control-label">State</label>
+												<label class="col-md-3 control-label">초과근무시간</label>
 												<div class="col-md-9">
-													<input type="text" class="form-control">
+													<input type="text" class="form-control"
+														id="overtimeDuring" name="overtimeDuring" required disabled>
 												</div>
 											</div>
 										</div>
-
 									</div>
 
 
@@ -196,7 +247,7 @@
 		</div>
 	</div>
 
-	
+
 	<script>
 			// onchange에서 호출하는 함수. 
 			function testChange(obj) {
@@ -236,9 +287,41 @@
 				    document.getElementById('during').value = parseInt(dif/cDay) + 1;
 				 }
 			}
+			
+			//초과근무시간계산
+			function calOvertimeDuring(obj) {
+				var sdd = document.getElementById('startDay').value;
+				var edd = document.getElementById('endDay').value;
+				console.log(sdd);
+				console.log(edd);
+				
+				var osh = document.getElementById('overtimeStartHour').value;
+				var oeh = document.getElementById('overtimeEndHour').value;
+				console.log(osh);
+				console.log(oeh);
+				
+				var dif = oeh - osh;
+				console.log(dif);
+			    
+				//시작일, 종료일, 시작시간, 종료시간이 모두 있을 때
+			    if(sdd && edd && osh && oeh){
+			    	
+			    	//시작일 != 종료일
+			    	if(sdd != edd) {
+			    		oeh += 24;
+			    		console.log(oeh);
+			    		
+			    		document.getElementById('overtimeDuring').value = dif;
+			    	
+			    	//시작일 == 종료일
+			    	} else {
+				    	document.getElementById('overtimeDuring').value = dif;
+			    	}
+			    	
+				 }
+			}
 
 			const $goBack = document.getElementById("goBack");
-
 			$goBack.onclick = function() {
 				if (!confirm("돌아가시겠습니까?\n작성중이던 모든 내용이 삭제됩니다.")) {
 

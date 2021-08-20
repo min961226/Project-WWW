@@ -95,12 +95,12 @@ public class InsertWorkingSystemScheduleServlet extends HttpServlet {
 		String memberName = ((MemberInfoDTO) session.getAttribute("memberInfo")).getName();
 
 		String workType = ""; 			//workNo로 workType을 정한다.
-		if(workNo == 6) {
+		if(workNo == 6) {				//workNo가 6이면 커스텀이다
 			workType = "커스텀";
-		} else if(workNo == 7){
-			workType = "표준";
-		} else {
+		} else if(workNo == 7){			//workNo가 7이면 초과근무이다
 			workType = "초과";
+		} else {						//그 이외는 표준근무제이다
+			workType = "표준";
 		}
 		String title = memberName + " " + workType + "근무 신청서";		//title 미리 만들어둔다.
 		
@@ -108,7 +108,7 @@ public class InsertWorkingSystemScheduleServlet extends HttpServlet {
 		if(workNo == 7) {
 			documentNo = 5;				//초과근무신청서의 문서번호는 5번이다.
 		} else {
-			documentNo = 4;				//근무신청서의 문서번호는 4번이다.
+			documentNo = 4;				//통상근무신청서(커스텀,표준)의 문서번호는 4번이다.
 		}				
 		
 		
@@ -132,63 +132,132 @@ public class InsertWorkingSystemScheduleServlet extends HttpServlet {
 		ScheduleService scheduleService = new ScheduleService();		
 		int result1 = scheduleService.applyWorkingSystem(reportDTO);
 		
-		int result3 = 0; 		//if문 밖인 제일 마지막에서도 판단할 수 있도록 바깥에 빼서 선언해준다		
-		if(result1 > 0 ) { 
+		
+		/* 2. 상신별문서항목작성내용(TBL_ITEM_CONTENT)에 insert */
+		String getworkNo = request.getParameter("workNo"); //위에도 workNo가 있긴한데 String이 필요해서 다시 받아줬다.
 
+		//초과근무신청과 통상근무신청(표준, 커스텀) 넣는 내용이 다르다
+		int result2 = 0;
+		int priority = 1;
+		if(workType == "초과") {
+			int overtimeStartHour = Integer.parseInt(request.getParameter("overtimeStartHour"));
+			int overtimeEndHour = Integer.parseInt(request.getParameter("overtimeEndHour"));
 			
-			/* 2. 상신별문서항목작성내용(TBL_ITEM_CONTENT)에 insert */
-			String getworkNo = request.getParameter("workNo");
-
+			//날짜가 다르면... overtimeEndHour에 24를 더해줘서 계산...
+			int overtimeduring = overtimeEndHour - overtimeStartHour;
+			String overtimeduringStr = overtimeduring + "";
+			
 			List<String> workingDocumentItem = new ArrayList<>();
-			workingDocumentItem.add(title);
-			workingDocumentItem.add(getworkNo);
-			workingDocumentItem.add(request.getParameter("startDay"));
-			workingDocumentItem.add(request.getParameter("endDay"));
-			workingDocumentItem.add(changeReason);
-			workingDocumentItem.add(workType);
-			System.out.println("InsertWorkingSystemScheduleServlet의 List : " + workingDocumentItem);
-
-			int priority = 1;
-			int result2 = 0;
+			workingDocumentItem.add(title);								//제목
+			workingDocumentItem.add(request.getParameter("startDay"));	//시작일시
+			workingDocumentItem.add(request.getParameter("endDay"));	//종료일시
+			workingDocumentItem.add(overtimeduringStr);					//초과근무 기간시수
+			workingDocumentItem.add(changeReason);						//사유
+			workingDocumentItem.add(overtimeStartHour + "");			//시작시간
+			workingDocumentItem.add(overtimeEndHour + "");				//종료시간
+			System.out.println("초과 content : " + workingDocumentItem);
+			
 			for(String item : workingDocumentItem) {
 				WorkingDocumentItemDTO workingDocumentItemDTO = new WorkingDocumentItemDTO();
 				workingDocumentItemDTO.setReportNo(reportNo);
 				workingDocumentItemDTO.setDocumentNo(documentNo);
 				workingDocumentItemDTO.setPriority(priority);
 				workingDocumentItemDTO.setItemContent(item);			
+				result2 = scheduleService.applyWorkingSystemItemContent(workingDocumentItemDTO);
 
+				priority++;
+			}
+		
+		} else if (workType == "커스텀") {
+			List<String> workingDocumentItem = new ArrayList<>();
+			workingDocumentItem.add(title);								//제목
+			workingDocumentItem.add(getworkNo);							//근무제유형코드
+			workingDocumentItem.add(request.getParameter("startDay"));	//시작일
+			workingDocumentItem.add(request.getParameter("endDay"));	//종료일
+			workingDocumentItem.add(changeReason);						//사유
+			workingDocumentItem.add(workType);							//근무제유형
+			
+			String monStartTime = request.getParameter("monStartTimeHour") + ":" + request.getParameter("monStartTimeMin");
+			String monEndTime = request.getParameter("monEndTimeHour") + ":" + request.getParameter("monEndTimeMin");
+			String tueStartTime = request.getParameter("tueStartTimeHour") + ":" + request.getParameter("tueStartTimeMin");
+			String tueEndTime = request.getParameter("tueEndTimeHour") + ":" + request.getParameter("tueEndTimeMin");
+			String wedStartTime = request.getParameter("wedStartTimeHour") + ":" + request.getParameter("wedStartTimeMin");
+			String wedEndTime = request.getParameter("wedEndTimeHour") + ":" + request.getParameter("wedEndTimeMin");
+			String thuStartTime = request.getParameter("thuStartTimeHour") + ":" + request.getParameter("thuStartTimeMin");
+			String thuEndTime = request.getParameter("monEndTimeHour") + ":" + request.getParameter("thuEndTimeMin");
+			String friStartTime = request.getParameter("friStartTimeHour") + ":" + request.getParameter("friStartTimeMin");
+			String friEndTime = request.getParameter("friEndTimeHour") + ":" + request.getParameter("friEndTimeMin");
+			workingDocumentItem.add(monStartTime);
+			workingDocumentItem.add(monEndTime);
+			workingDocumentItem.add(tueStartTime);
+			workingDocumentItem.add(tueEndTime);
+			workingDocumentItem.add(wedStartTime);
+			workingDocumentItem.add(wedEndTime);
+			workingDocumentItem.add(thuStartTime);
+			workingDocumentItem.add(thuEndTime);
+			workingDocumentItem.add(friStartTime);
+			workingDocumentItem.add(friEndTime);
+			System.out.println("커스텀 content : " + workingDocumentItem);
+			
+			for(String item : workingDocumentItem) {
+				WorkingDocumentItemDTO workingDocumentItemDTO = new WorkingDocumentItemDTO();
+				workingDocumentItemDTO.setReportNo(reportNo);
+				workingDocumentItemDTO.setDocumentNo(documentNo);
+				workingDocumentItemDTO.setPriority(priority);
+				workingDocumentItemDTO.setItemContent(item);			
+				result2 = scheduleService.applyWorkingSystemItemContent(workingDocumentItemDTO);
+
+				priority++;
+			}
+			
+		} else {
+			List<String> workingDocumentItem = new ArrayList<>();
+			workingDocumentItem.add(title);								//제목
+			workingDocumentItem.add(getworkNo);							//근무제유형코드
+			workingDocumentItem.add(request.getParameter("startDay"));	//시작일
+			workingDocumentItem.add(request.getParameter("endDay"));	//종료일
+			workingDocumentItem.add(changeReason);						//사유
+			workingDocumentItem.add(workType);							//근무제유형
+			System.out.println("표준 content : " + workingDocumentItem);
+
+			for(String item : workingDocumentItem) {
+				WorkingDocumentItemDTO workingDocumentItemDTO = new WorkingDocumentItemDTO();
+				workingDocumentItemDTO.setReportNo(reportNo);
+				workingDocumentItemDTO.setDocumentNo(documentNo);
+				workingDocumentItemDTO.setPriority(priority);
+				workingDocumentItemDTO.setItemContent(item);			
 				result2 = scheduleService.applyWorkingSystemItemContent(workingDocumentItemDTO);
 
 				priority++;
 			}		
-			System.out.println(result2);		
-			if(result2 > 0) {
+		}
+		System.out.println(result2);		
+		
 
+		/* 3-1. 결재라인 선택한 번호로, 결재자들의 결재자사번과 우선순위를 DTO로 받아오기 */
+		//선택한 결재 라인에 등록되있는 결재자들 가져오기				
+		List<ApproverDTO> approverList = new ApprovalService().selectApprover(lineNo);
+		System.out.println(approverList);
+		
+		/* 3-2. 상신별결재자(TBL_APPROVER_PER_REPORT)에 insert */
+		int result3 = 0;
+		for(ApproverDTO approver : approverList) {
+            ApproverPerReportDTO approverPerReportDTO = new ApproverPerReportDTO();
 
-				/* 3-1. 결재라인 선택한 번호로, 결재자들의 결재자사번과 우선순위를 DTO로 받아오기 */
-				//선택한 결재 라인에 등록되있는 결재자들 가져오기				
-				List<ApproverDTO> approverList = new ApprovalService().selectApprover(lineNo);
-				System.out.println(approverList);
+            if(approver.getApproverType().equals("결재")) {
+               approverPerReportDTO.setReportNo(reportNo);
+               approverPerReportDTO.setMemberNo(approver.getMemberNo());
+               approverPerReportDTO.setPriority(approver.getPriority());
 
-				/* 3-2. 상신별결재자(TBL_APPROVER_PER_REPORT)에 insert */
-				for(ApproverDTO approver : approverList) {
-		            ApproverPerReportDTO approverPerReportDTO = new ApproverPerReportDTO();
+		       result3 = scheduleService.applyWorkingSystemApprover(approverPerReportDTO);
+		    } else {
+		    	approverPerReportDTO.setReportNo(reportNo);
+		        approverPerReportDTO.setMemberNo(approver.getMemberNo());
+		        approverPerReportDTO.setApproverType(approver.getApproverType());
 
-		            if(approver.getApproverType().equals("결재")) {
-		                approverPerReportDTO.setReportNo(reportNo);
-		                approverPerReportDTO.setMemberNo(approver.getMemberNo());
-		                approverPerReportDTO.setPriority(approver.getPriority());
-
-		                result3 = scheduleService.applyWorkingSystemApprover(approverPerReportDTO);
-		            } else {
-		                approverPerReportDTO.setReportNo(reportNo);
-		                approverPerReportDTO.setMemberNo(approver.getMemberNo());
-		                approverPerReportDTO.setApproverType(approver.getApproverType());
-
-		                result3 = scheduleService.applyWorkingSystemReferer(approverPerReportDTO);
-		            }
-		        }
-			}
+		        result3 = scheduleService.applyWorkingSystemReferer(approverPerReportDTO);
+		    }
+			
 		}
 		
 		/*---------------------------------------------------------------------------파일 업로드---------------------------------------------------------------------*/
@@ -259,7 +328,7 @@ public class InsertWorkingSystemScheduleServlet extends HttpServlet {
 		/* 성공여부에 따라 success 혹은 fail로 넘겨줌 (+파일업로드도 포함) */
 		String path = "";
 		if(resultFileUpload == -1) {
-			if(result1 > 0 && result3 > 0) {
+			if(result1 > 0 && result2 > 0 && result3 > 0) {
 				path = "/WEB-INF/views/common/success.jsp";
 				request.setAttribute("successCode", "insertWork");
 			} else {
@@ -268,7 +337,7 @@ public class InsertWorkingSystemScheduleServlet extends HttpServlet {
 			}
 			
 		} else {
-			if(result1 > 0 && result3 > 0 && resultFileUpload > 0) {
+			if(result1 > 0 && result2 > 0 && result3 > 0 && resultFileUpload > 0) {
 				path = "/WEB-INF/views/common/success.jsp";
 				request.setAttribute("successCode", "insertWork");
 			} else {
@@ -278,6 +347,8 @@ public class InsertWorkingSystemScheduleServlet extends HttpServlet {
 		}
 
 		request.getRequestDispatcher(path).forward(request, response);
+
+		
 
 	}
 	
@@ -299,10 +370,8 @@ public class InsertWorkingSystemScheduleServlet extends HttpServlet {
 	
 	
 	//나중에 근무신청이 결재승인 된 이후에 해야 함
-	
 	/* 4. 커스텀근무제라면 커스텀근무제에도 추가 */
 //	if(true) {
-
 		
 //		/* 5. 사원별근무제변경이력(TBL_MEMBER_WORK_LOG)에 insert */
 //		java.sql.Date startDay = java.sql.Date.valueOf(request.getParameter("startDay"));
@@ -344,6 +413,6 @@ public class InsertWorkingSystemScheduleServlet extends HttpServlet {
 //		System.out.println(result5);
 //		System.out.println(result6);
 
-	
-	
 }
+	
+

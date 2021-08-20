@@ -11,5 +11,11 @@ public class MngWorkingDAO {
 		
 		return session.insert("MngWorkingDAO.InsertStandardMngWorkingSystem", workingDTO);
 	}
+	
+	/* 근무제 삭제하기 */
+	public int updateStandardMngWorkingSystem(SqlSession session, int deleteWorkCode) {
+		
+		return session.update("MngWorkingDAO.updateStandardMngWorkingSystem", deleteWorkCode);
+	}
 
 }
