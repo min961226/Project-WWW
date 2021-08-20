@@ -36,6 +36,7 @@
 		<mapper resource="com/qs/www/mng/board/model/dao/MngFormDAO.xml"/>
 		<mapper resource="com/qs/www/mng/welfare/model/dao/MngWelfareDAO.xml"/>
 		<mapper resource="com/qs/www/common/attachment/model/dao/AttachmentDAO.xml"/>
+		<mapper resource="com/qs/www/common/attachment/model/dao/BoardAttachmentDAO.xml"/>
 	</mappers>
 	
 </configuration>

@@ -33,4 +33,8 @@ public class MngFormDAO {
 		return session.delete("MngFormDAO.deleteMngForm",no);
 	}
 
+	public int selectBoardNum(SqlSession session) {
+		return session.selectOne("MngFormDAO.selectBoardNum");
+	}
+
 }

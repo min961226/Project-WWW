@@ -169,7 +169,7 @@
 				case "updateholidayRule" :
 					successMessage = "휴가일수 발생규칙 수정이 완료되었습니다.";
 					movePath = "${ pageContext.servletContext.contextPath }/mng/holiday/rule/select";
-
+          break;
 				case "insertItem" :
 					successMessage = "복지 품목 추가에 성공하였습니다.";
 					movePath = "${ pageContext.servletContext.contextPath }/mng/welfare/laptopRental/select";
