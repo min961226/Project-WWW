@@ -29,7 +29,7 @@ public class SelectMngAppliedWelfareServlet extends HttpServlet {
 
 		MngWelfareService mngWelfareService = new MngWelfareService();
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/*-----------------------------------------------------------------------------------------------------------------------*/
 		/*
 		 * 목록보기를 눌렀을 시 가장 처음에 보여지는 페이지는 1페이지이다. 파라미터로 전달되는 페이지가 있는 경우 currentPage는 파라미터로
 		 * 전달받은 페이지 수 이다.
@@ -75,7 +75,7 @@ public class SelectMngAppliedWelfareServlet extends HttpServlet {
 		}
 		System.out.println(selectCriteria);
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/*-----------------------------------------------------------------------------------------------------------------------*/
 
 		List<ReportDTO> allAppliedWelfareList = mngWelfareService.selectAllAppliedWelfareList(selectCriteria);
 

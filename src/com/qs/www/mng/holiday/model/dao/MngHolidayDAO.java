@@ -50,5 +50,10 @@ public class MngHolidayDAO {
 		return session.selectList("MngHolidayDAO.selectHolidayRule");
 	}
 
+	public int updateholidayRuleNumber(SqlSession session, Map<String, Object> ruleMap) {
+		
+		return session.update("MngHolidayDAO.updateholidayRuleNumber", ruleMap);
+	}
+
 	
 }

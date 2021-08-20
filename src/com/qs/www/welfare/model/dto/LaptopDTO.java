@@ -6,15 +6,17 @@ public class LaptopDTO {
 	private String itemCateGory;
 	private String itemName;
 	private String reservationStatus;
+	private String deleteYn;
 	
 	public LaptopDTO() {}
-	
-	public LaptopDTO(int itemNo, String itemCateGory, String itemName, String reservationStatus) {
+
+	public LaptopDTO(int itemNo, String itemCateGory, String itemName, String reservationStatus, String deleteYn) {
 		super();
 		this.itemNo = itemNo;
 		this.itemCateGory = itemCateGory;
 		this.itemName = itemName;
 		this.reservationStatus = reservationStatus;
+		this.deleteYn = deleteYn;
 	}
 
 	public int getItemNo() {
@@ -49,10 +51,18 @@ public class LaptopDTO {
 		this.reservationStatus = reservationStatus;
 	}
 
+	public String getDeleteYn() {
+		return deleteYn;
+	}
+
+	public void setDeleteYn(String deleteYn) {
+		this.deleteYn = deleteYn;
+	}
+
 	@Override
 	public String toString() {
 		return "LaptopDTO [itemNo=" + itemNo + ", itemCateGory=" + itemCateGory + ", itemName=" + itemName
-				+ ", reservationStatus=" + reservationStatus + "]";
+				+ ", reservationStatus=" + reservationStatus + ", deleteYn=" + deleteYn + "]";
 	}
 	
 	

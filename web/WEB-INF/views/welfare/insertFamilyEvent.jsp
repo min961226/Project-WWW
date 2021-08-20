@@ -30,7 +30,7 @@
 				</div>
 				<div class="row">
 					<div class="col-md-8 col-md-offset-2">
-						<form name="insertSelfDev"	action="${ pageContext.servletContext.contextPath }/welfare/familyEvent/insert"	method="POST" onsubmit="return askAgain();">
+						<form name="insertSelfDev"	action="${ pageContext.servletContext.contextPath }/welfare/familyEvent/insert"	method="POST" onsubmit="return askAgain();" enctype="multipart/form-data">
 							<div class="form-group">
 								<label>직원 ID</label> <input name="memberNo" class="form-control" type="text" value="${memberNo}" readonly="readonly" />
 							</div>
@@ -112,11 +112,10 @@
 							</div>
 
 							<div class="form-group">
-								<label>증빙 자료 첨부</label>
+								<label>영수증 첨부</label>
 								<div>
-									<input class="form-control" type="file"> <small	class="help-block">파일 최대 사이즈: 50 MB. 허용된 확장자: jpg, gif, png. </small>
+									<input class="form-control" type="file" name="file1" multiple="multiple"> <small	class="help-block">파일 최대 사이즈: 10 MB. 허용된 확장자: jpg,	gif, png. </small>
 								</div>
-
 							</div>
 							<div class="m-t-20 text-center">
 								<button class="btn btn-primary btn-lg" type="submit">신청	완료</button>

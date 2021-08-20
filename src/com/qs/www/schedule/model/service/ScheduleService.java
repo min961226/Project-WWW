@@ -11,6 +11,7 @@ import com.qs.www.schedule.model.dto.MemberWorkLogDTO;
 import com.qs.www.schedule.model.dto.MonthlyWorkLogDTO;
 import com.qs.www.schedule.model.dto.OvertimeLogDTO;
 import com.qs.www.schedule.model.dto.ReportDTO;
+import com.qs.www.schedule.model.dto.StandardWorkDTO;
 import com.qs.www.schedule.model.dto.TeamWorkingHourDTO;
 import com.qs.www.schedule.model.dto.WorkingDocumentItemDTO;
 
@@ -268,6 +269,17 @@ public class ScheduleService {
 		session.close();
 		
 		return result;
+	}
+
+	public List<StandardWorkDTO> selectAllWorkType() {
+		
+		SqlSession session = getSqlSession();
+		
+		List<StandardWorkDTO> workTypeList = scheduleDAO.selectAllWorkType(session);
+		
+		session.close();
+		
+		return workTypeList;
 	}
 	
 	

@@ -112,6 +112,20 @@ public class MngHolidayService {
 		return holidayRuleList;
 	}
 
+	public int updateholidayRuleNumber(Map<String, Object> ruleMap) {
+SqlSession session = getSqlSession();
+		
+		int result = mngHolidayDAO.updateholidayRuleNumber(session, ruleMap);
+		if(result > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+		session.close();
+		
+		return result;
+	}
+
 	
 	
 

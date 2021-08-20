@@ -21,7 +21,6 @@ public class MemberInfoDTO implements Serializable {
 	private CheckQuestionDTO checkQuestion;
 	private String questionAnswer;
 	private String domitoryYn;
-	private String roleCode;
 	private RoleDTO role;
 	private DepartmentDTO department;
 	private JobDTO job;
@@ -33,7 +32,7 @@ public class MemberInfoDTO implements Serializable {
 
 	public MemberInfoDTO(int memberNo, String memberId, String password, String name, String rrn, Date enrollDate,
 			Date entDate, String entYn, String email, Date birthday, String address, String gender, String phone,
-			CheckQuestionDTO checkQuestion, String questionAnswer, String domitoryYn, String roleCode, RoleDTO role,
+			CheckQuestionDTO checkQuestion, String questionAnswer, String domitoryYn, RoleDTO role,
 			DepartmentDTO department, JobDTO job, String appWorkType, int workCode, int remainingHoliday) {
 		super();
 		this.memberNo = memberNo;
@@ -52,7 +51,6 @@ public class MemberInfoDTO implements Serializable {
 		this.checkQuestion = checkQuestion;
 		this.questionAnswer = questionAnswer;
 		this.domitoryYn = domitoryYn;
-		this.roleCode = roleCode;
 		this.role = role;
 		this.department = department;
 		this.job = job;
@@ -189,14 +187,6 @@ public class MemberInfoDTO implements Serializable {
 		this.domitoryYn = domitoryYn;
 	}
 
-	public String getRoleCode() {
-		return roleCode;
-	}
-
-	public void setRoleCode(String roleCode) {
-		this.roleCode = roleCode;
-	}
-
 	public RoleDTO getRole() {
 		return role;
 	}
@@ -251,8 +241,8 @@ public class MemberInfoDTO implements Serializable {
 				+ name + ", rrn=" + rrn + ", enrollDate=" + enrollDate + ", entDate=" + entDate + ", entYn=" + entYn
 				+ ", email=" + email + ", birthday=" + birthday + ", address=" + address + ", gender=" + gender
 				+ ", phone=" + phone + ", checkQuestion=" + checkQuestion + ", questionAnswer=" + questionAnswer
-				+ ", domitoryYn=" + domitoryYn + ", roleCode=" + roleCode + ", role=" + role + ", department="
-				+ department + ", job=" + job + ", appWorkType=" + appWorkType + ", workCode=" + workCode
-				+ ", remainingHoliday=" + remainingHoliday + "]";
+				+ ", domitoryYn=" + domitoryYn + ", role=" + role + ", department=" + department + ", job=" + job
+				+ ", appWorkType=" + appWorkType + ", workCode=" + workCode + ", remainingHoliday=" + remainingHoliday
+				+ "]";
 	}
 }

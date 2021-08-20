@@ -29,12 +29,6 @@ public class HolidayService {
 
 		List<HolidayTypeDTO> holidayList = holidayDAO.selectAllHolidayType(session);
 
-		if(holidayList != null) {
-			session.commit();
-		} else {
-			session.rollback();
-		}
-
 		session.close();
 
 		return holidayList;
@@ -75,11 +69,11 @@ public class HolidayService {
 		return result;
 	}
 
-	public List<ReportDTO> selectMyholidayReport(Map<String, Object> searchConditionMap) {
+	public List<ReportDTO> selectMyholidayReport(Map<String, Object> selectedInfoMap) {
 		
 		SqlSession session = getSqlSession();
 		
-		List<ReportDTO> holidayReportList = holidayDAO.selectMyholidayReport(session, searchConditionMap);
+		List<ReportDTO> holidayReportList = holidayDAO.selectMyholidayReport(session, selectedInfoMap);
 
 		session.close();
 
@@ -99,10 +93,10 @@ public class HolidayService {
 	}
 
 	/* 페이징에서 사용할 totalCount를 세오는 메소드 */
-	public int selectAllCount(Map<String, Object> searchMap) {
+	public int selectAllCount(Map<String, Object> countMap) {
 		SqlSession session = getSqlSession();
 		
-		int totalCount = holidayDAO.selectAllCount(session, searchMap);
+		int totalCount = holidayDAO.selectAllCount(session, countMap);
 		
 		session.close();
 		

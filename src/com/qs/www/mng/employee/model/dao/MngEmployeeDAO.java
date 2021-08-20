@@ -9,6 +9,10 @@ import com.qs.www.member.model.dto.JobDTO;
 import com.qs.www.member.model.dto.RoleDTO;
 
 public class MngEmployeeDAO {
+	
+	public int selectMemberNo(SqlSession sqlSession) {
+		return sqlSession.selectOne("MngEmployeeDAO.selectMemberNo");
+	}
 
 	public List<DepartmentDTO> selectDeptList(SqlSession sqlSession) {
 		return sqlSession.selectList("MngEmployeeDAO.selectDeptList");
@@ -20,5 +24,9 @@ public class MngEmployeeDAO {
 
 	public List<RoleDTO> selectRoleList(SqlSession sqlSession) {
 		return sqlSession.selectList("MngEmployeeDAO.selectRoleList");
+	}
+
+	public int selectMemberId(SqlSession sqlSession, String memberId) {
+		return sqlSession.selectOne("MngEmployeeDAO.selectMemberId", memberId);
 	}
 }

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="MngWelfareDAO">
+
+<resultMap type="com.qs.www.welfare.model.dto.LaptopDTO" id="laptopListResultMap">
+		<result property="itemNo" column="ITEM_NO" />
+		<result property="itemCateGory" column="ITEM_CATEGORY" />
+		<result property="itemName" column="ITEM_NAME" />
+		<result property="reservationStatus" column="RESERVATION_STATUS" />
+		<result property="deleteYn" column="DELETE_YN" />
+	</resultMap>
+
+<select id="selectNextItemNo" resultType="_int">
+		SELECT /* com.qs.www.mngwelfare.model.dao.WelfareDAO#selectNextItemNo() */
+		       LAST_NUMBER
+		  FROM USER_SEQUENCES
+		 WHERE SEQUENCE_NAME = 'SEQ_LAPTOP_ITEM_NO'
+	</select>
+	
+	<insert id="insertItem" parameterType="com.qs.www.mng.welfare.model.dto.ItemDTO">
+
+		INSERT /* com.qs.www.mngwelfare.model.dao.MngWelfareDAO#insertItem() */
+	  	  INTO TBL_LAPTOP A
+			  (
+	  		    A.ITEM_NO
+			  , A.ITEM_CATEGORY
+			  , A.ITEM_NAME
+			  , A.RESERVATION_STATUS
+			  , A.DELETE_YN
+			  )
+			  VALUES
+			  (
+	  		    SEQ_LAPTOP_ITEM_NO.NEXTVAL
+			  , #{ itemCategory }
+			  , #{ itemName }
+			  , DEFAULT
+			  , DEFAULT
+			  )
+	</insert>
+	
+	<delete id="deleteItem" parameterType="java.util.List">
+		UPDATE TBL_LAPTOP
+		   SET DELETE_YN = 'Y'
+			<where>
+				<foreach collection="list" item="item" open="" close="" separator="OR">
+		 			(ITEM_NO = #{item.itemNo})
+				</foreach>
+			</where>
+	</delete>
+	
+	<select id="selectOneItem" resultMap="laptopListResultMap">
+		SELECT
+			   A.*
+		  FROM TBL_LAPTOP A
+		 WHERE ITEM_NO = #{ itemNo }
+		   AND DELETE_YN = 'N'
+	</select>
+</mapper>

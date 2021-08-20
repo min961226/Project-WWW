@@ -17,6 +17,13 @@
 		<result property="roleName" column="ROLE_NAME"/>
 	</resultMap>
 	
+	<select id="selectMemberNo" resultType="_int">
+        SELECT /* com.qs.www.mng.empolyee.model.dao.MngEmployeeDAO#selectMemberNo() */
+               LAST_NUMBER
+          FROM USER_SEQUENCES
+         WHERE SEQUENCE_NAME = 'SEQ_MEMBER_NO'
+	</select>
+	
 	<select id="selectDeptList" resultMap="deptListResultMap">
         SELECT /* com.qs.www.mng.empolyee.model.dao.MngEmployeeDAO#selectDeptList() */
                A.DEPT_CODE
@@ -38,5 +45,12 @@
              , A.ROLE_NAME
           FROM TBL_ROLE A
          GROUP BY A.ROLE_CODE, A.ROLE_NAME
+	</select>
+	
+	<select id="selectMemberId" resultType="_int">
+        SELECT /* com.qs.www.mng.employee.model.dao.MngEmployeeDAO#selectMemberId() */
+               COUNT(*)
+          FROM TBL_MEMBER A
+         WHERE A.MEMBER_ID = #{ memberId }
 	</select>
 </mapper>

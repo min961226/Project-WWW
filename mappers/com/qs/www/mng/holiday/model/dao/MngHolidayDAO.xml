@@ -119,4 +119,11 @@
                A.*
          FROM TBL_HOLIDAY_RULE A
 	</select>
+	<update id="updateholidayRuleNumber">
+		UPDATE /* com.qs.www.mng.holiday.model.dao.MngHolidayDAO#updateholidayRuleNumber()*/
+		       TBL_HOLIDAY_RULE A
+		   SET A.DAY_NUMBER = #{ dayNumber }
+		     , A.FISCAL_START_DATE = #{ giveDate }
+		 WHERE A.RULE_CODE = #{ codeName }
+	</update>
 </mapper>
