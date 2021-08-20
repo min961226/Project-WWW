@@ -188,23 +188,43 @@
 	</select>
 	
 	<select id="selectAppliedWelfareList" resultMap="appliedWelfareResultMap">
-		SELECT /* com.qs.www.welfare.model.dao.welfareDAO#selectAppliedWelfare() */
-	    	   A.REPORT_NO
-	     	 , A.REPORT_DATE
-	     	 , A.MEMBER_NO
-	     	 , A.DOCUMENT_NO
-	     	 , A.REPORT_NOTE
-	     	 , A.REPORT_STATUS
-	     	 , A.LINE_NAME
-	     	 , A.REPORT_TITLE
-	  	  FROM TBL_REPORT A
-	 	 WHERE A.MEMBER_NO = #{ no }
-	       AND A.DOCUMENT_NO IN (7,8,9,10,12)
-	       AND REPORT_STATUS != '회수'
-	     ORDER BY A.REPORT_NO DESC
+		SELECT /* com.qs.www.approval.model.dao.ApprovalDAO#selectReportDetail()*/
+			   C.*
+		  FROM (SELECT ROWNUM RNUM
+		  			 , B.*
+            FROM (SELECT 
+						 A.REPORT_NO
+	     	 		   , A.REPORT_DATE
+	     	 		   , A.MEMBER_NO
+	     	 		   , A.DOCUMENT_NO
+	     	 		   , A.REPORT_NOTE
+	     	 		   , A.REPORT_STATUS
+	     	 		   , A.LINE_NAME
+	     	 		   , A.REPORT_TITLE
+                    FROM TBL_REPORT A
+                    LEFT JOIN TBL_MEMBER D ON(A.MEMBER_NO = D.MEMBER_NO)
+                    LEFT JOIN TBL_DOCUMENT_FORM E ON(A.DOCUMENT_NO = E.DOCUMENT_NO)
+              <where>
+				<if test="selectCriteria.searchCondition == 'title'">
+                       E.DOCUMENT_NAME LIKE '%' || #{ selectCriteria.searchValue } || '%'    
+               		</if>
+               		<if test="selectCriteria.searchCondition == 'status'">
+                       A.REPORT_STATUS LIKE '%' || #{ selectCriteria.searchValue } || '%'    
+               		</if>
+				   AND A.MEMBER_NO = #{ memberNo }
+                   AND A.DOCUMENT_NO IN(7,8,9,10,11,12)
+                   AND REPORT_STATUS != '회수'
+               </where>
+       			 ORDER BY A.REPORT_NO DESC
+                ) B
+          <![CDATA[
+          WHERE ROWNUM <= #{ selectCriteria.endRow }
+          ]]>
+        ) C
+   WHERE C.RNUM >= #{ selectCriteria.startRow } 
 	</select>
 	
-	<select id="selectAllAppliedWelfareList" resultMap="appliedWelfareResultMap">
+	<select id="selectAllAppliedWelfareList" resultMap="appliedWelfareResultMap" parameterType="hashmap">
 		SELECT /* com.qs.www.approval.model.dao.ApprovalDAO#selectReportDetail()*/
 			   C.*
 		  FROM (SELECT ROWNUM RNUM
@@ -249,17 +269,38 @@
 		  FROM TBL_MEETING_ROOM A
 	</select>
 	
-	<select id="selectSeminarRoomByMemberNo" resultMap="seminarRoomReservResultMap">
+	<select id="selectSeminarRoomByMemberNo" resultMap="seminarRoomReservResultMap" parameterType="hashmap">
 		SELECT /* com.qs.www.welfare.model.dao.WelfareDAO#selectSeminarRoomByMemberNo() */
-			   LOG.MEETING_ROOM_NO
-			 , LOG.USE_DATE
-			 , LOG.RESERV_TIME_NO
-			 , TIME.RESERV_TIME
-			 , LOG.SEMINAR_INFO
-		  FROM TBL_MEETING_ROOM_LOG LOG, TBL_MEETING_ROOM_TIME TIME
-		 WHERE LOG.RESERV_TIME_NO = TIME.RESERV_NO
-		   AND LOG.MEMBER_NO = #{ no }
-	     ORDER BY LOG.USE_DATE DESC
+			   C.*
+		  FROM (SELECT ROWNUM RNUM
+		  			 , B.*
+            FROM (SELECT 
+						 LOG.MEETING_ROOM_NO
+			 		   , LOG.USE_DATE
+			 		   , LOG.RESERV_TIME_NO
+			 		   , TIME.RESERV_TIME
+			 		   , LOG.SEMINAR_INFO
+		 		    FROM TBL_MEETING_ROOM_LOG LOG 
+                    LEFT JOIN TBL_MEETING_ROOM_TIME TIME ON(LOG.RESERV_TIME_NO = TIME.RESERV_NO)
+              <where>
+               		<if test="selectCriteria.searchCondition == 'title'">
+                       LOG.MEETING_ROOM_NO LIKE '%' || #{ selectCriteria.searchValue } || '%'    
+               		</if>
+               		<if test="selectCriteria.searchCondition == 'useDate'">
+                       LOG.USE_DATE LIKE '%' || #{ selectCriteria.searchValue } || '%'    
+               		</if>
+               		<if test="selectCriteria.searchCondition == 'reservTime'">
+                       LOG.RESERV_TIME_NO LIKE '%' || #{ selectCriteria.searchValue } || '%'    
+               		</if>
+            AND LOG.MEMBER_NO = #{ memberNo }
+               	</where>
+       	  ORDER BY LOG.MEETING_ROOM_NO DESC
+                ) B
+          <![CDATA[
+          WHERE ROWNUM <= #{ selectCriteria.endRow }
+          ]]>
+        ) C
+   WHERE C.RNUM >= #{ selectCriteria.startRow } 
 	</select>
 	
 	<select id= "selectSeminarRoomReserv" resultMap="seminarRoomReservResultMap">
@@ -381,8 +422,44 @@
        	  ORDER BY A.REPORT_NO DESC
 	</select>
 	
+	<select id="selectMyWelfareListCount" resultType="_int" parameterType="hashmap">
+		 SELECT /* com.qs.www.welfare.model.dao.welfareDAO#selectMyWelfareListCount"()*/
+                COUNT(*)
+           FROM TBL_REPORT A
+           LEFT JOIN TBL_MEMBER D ON(A.MEMBER_NO = D.MEMBER_NO)
+           LEFT JOIN TBL_DOCUMENT_FORM E ON(A.DOCUMENT_NO = E.DOCUMENT_NO)
+               	<where>
+               		<if test="searchMap.searchCondition == 'title'">
+                       E.DOCUMENT_NAME LIKE '%' || #{ searchMap.searchValue } || '%'    
+               		</if>
+               		<if test="searchMap.searchCondition == 'status'">
+                       A.REPORT_STATUS LIKE '%' || #{ searchMap.searchValue } || '%'    
+               		</if>
+            AND A.DOCUMENT_NO IN(7,8,9,10,11,12)
+            AND A.MEMBER_NO = #{ memberNo }
+            AND REPORT_STATUS != '회수'
+               	</where>
+       	  ORDER BY A.REPORT_NO DESC
+	</select>
 	
-	
+	<select id="selectMySeminarRoomListCount" resultType="_int" parameterType="hashmap">
+		 SELECT /* com.qs.www.welfare.model.dao.welfareDAO#selectMySeminarRoomListCount"()*/
+                COUNT(*)
+           FROM TBL_MEETING_ROOM_LOG LOG
+           LEFT JOIN TBL_MEETING_ROOM_TIME TIME ON(LOG.RESERV_TIME_NO = TIME.RESERV_NO)
+               	<where>
+               		<if test="searchMap.searchCondition == 'title'">
+                       LOG.MEETING_ROOM_NO LIKE '%' || #{ searchMap.searchValue } || '%'    
+               		</if>
+               		<if test="searchMap.searchCondition == 'useDate'">
+                       LOG.USE_DATE LIKE '%' || #{ searchMap.searchValue } || '%'    
+               		</if>
+               		<if test="searchMap.searchCondition == 'reservTime'">
+                       LOG.RESERV_TIME_NO LIKE '%' || #{ searchMap.searchValue } || '%'    
+               		</if>
+            AND LOG.MEMBER_NO = #{ memberNo }
+               	</where>
+	</select>
 	
 	
 </mapper>

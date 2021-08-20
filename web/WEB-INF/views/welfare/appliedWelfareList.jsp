@@ -16,7 +16,6 @@
 
 <body>
 	<div class="main-wrapper">
-		<jsp:include page="../common/navbar.jsp" />
 
 		<div class="page-wrapper">
 			<div class="content container-fluid">
@@ -36,54 +35,19 @@
 				</div>
 
 				<!-- 검색조건 -->
-				<div class="row filter-row">
-					<div class="col-sm-3 col-md-3 col-xs-6">
-						<div class="form-group form-focus select-focus">
-							<label class="control-label">복지 유형</label> <select
-								class="select floating">
-								<option>-- Select --</option>
-								<option>야간교통비 신청</option>
-								<option>경조사 신청</option>
-								<option>자기개발비 신청</option>
-								<option>기숙사 입주 신청</option>
-								<option>노트북 대여 신청</option>
-							</select>
-						</div>
-					</div>
-					<div class="col-sm-3 col-md-3 col-xs-6">
-						<div class="form-group form-focus select-focus">
-							<label class="control-label">복지 신청 승인상태</label> <select
-								class="select floating">
-								<option>-- Select --</option>
-								<option>승인</option>
-								<option>반려</option>
-								<option>대기</option>
-								<option>미처리</option>
-							</select>
-						</div>
-					</div>
-					<div class="col-sm-3 col-md-2 col-xs-6">
-						<div class="form-group form-focus">
-							<label class="control-label">시작일</label>
-							<div class="cal-icon">
-								<input class="form-control floating datetimepicker" type="text"
-									name="startDate">
-							</div>
-						</div>
-					</div>
-					<div class="col-sm-3 col-md-2 col-xs-6">
-						<div class="form-group form-focus">
-							<label class="control-label">종료일</label>
-							<div class="cal-icon">
-								<input class="form-control floating datetimepicker" type="text"
-									name="endDate">
-							</div>
-						</div>
-					</div>
-					<div class="col-sm-3 col-md-2 col-xs-6">
-						<a href="#" class="btn btn-success btn-block"> Search </a>
-					</div>
-				</div>
+				<!-- 검색 시작 -->
+                <div class="search-area" align="right">
+                   <form id="loginForm" action="${ pageContext.servletContext.contextPath }/welfare/applied/list/select" method="get" style="display:inline-block">      
+                   <input type="hidden" name="currentPage" value="1">
+                  <select id="searchCondition" name="searchCondition">
+                      <option value="title" ${ requestScope.selectCriteria.searchCondition eq "title"? "selected": "" }>제목</option>
+                     <option value="status" ${ requestScope.selectCriteria.searchCondition eq "status"? "selected": "" }>결재 상태</option>
+                  </select>
+                  <input type="search" id="searchValue" name="searchValue" value="<c:out value="${ requestScope.selectCriteria.searchValue }"/>">
+               <button type="submit" class="btn-primary btn-sm" >검색하기</button>
+               <!-- <button type="button" id="writeFree">작성하기</button> -->
+               </form>
+            </div>
 				<!-- 검색조건 end -->
 
 				<!-- 근무신청내용 -->
@@ -166,47 +130,7 @@
 									<!-- 근무신청내용 end -->
 									<br>
 									<!-- 페이징 부분 -->
-									<div class="pagingArea" align="center">
-										<!-- 맨 앞으로 이동 버튼 -->
-										<button id="startPage"><<</button>
-
-										<!-- 이전 페이지 버튼 -->
-										<c:if test="${ requestScope.selectCriteria.pageNo <= 1 }">
-											<button disabled><</button>
-										</c:if>
-										<c:if test="${ requestScope.selectCriteria.pageNo > 1 }">
-											<button id="prevPage"><</button>
-										</c:if>
-
-										<!-- 숫자 버튼 -->
-										<c:forEach var="p"
-											begin="${ requestScope.selectCriteria.startPage }"
-											end="${ requestScope.selectCriteria.endPage }" step="1">
-											<c:if test="${ requestScope.selectCriteria.pageNo eq p }">
-												<button disabled>
-													<c:out value="${ p }" />
-												</button>
-											</c:if>
-											<c:if test="${ requestScope.selectCriteria.pageNo ne p }">
-												<button onclick="pageButtonAction(this.innerText);">
-													<c:out value="${ p }" />
-												</button>
-											</c:if>
-										</c:forEach>
-
-										<!-- 다음 페이지 버튼 -->
-										<c:if
-											test="${ requestScope.selectCriteria.pageNo >= requestScope.selectCriteria.maxPage }">
-											<button disabled>></button>
-										</c:if>
-										<c:if
-											test="${ requestScope.selectCriteria.pageNo < requestScope.selectCriteria.maxPage }">
-											<button id="nextPage">></button>
-										</c:if>
-
-										<!-- 마지막 페이지로 이동 버튼 -->
-										<button id="maxPage">>></button>
-									</div>
+											<jsp:include page="../common/navbar.jsp" />
 								</div>
 							</div>
 						</div>

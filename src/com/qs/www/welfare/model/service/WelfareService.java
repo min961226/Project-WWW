@@ -1,6 +1,8 @@
 package com.qs.www.welfare.model.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -171,11 +173,11 @@ public class WelfareService {
 		return domitoryList;
 	}
 
-	public List<ReportDTO> selectAppliedWelfareList(int no) {
+	public List<ReportDTO> selectAppliedWelfareList(HashMap<String, Object> selectedInfoMap) {
 
 		SqlSession session = getSqlSession();
 
-		List<ReportDTO> workReportList = welfareDAO.selectAppliedWelfareList(session, no);
+		List<ReportDTO> workReportList = welfareDAO.selectAppliedWelfareList(session, selectedInfoMap);
 
 		session.close();
 
@@ -259,10 +261,10 @@ public class WelfareService {
 		return itemName;
 	}
 
-	public List<SeminarRoomReservDTO> selectSeminarRoomByMemberNo(int no) {
+	public List<SeminarRoomReservDTO> selectSeminarRoomByMemberNo(HashMap<String, Object> selectedInfoMap) {
 		SqlSession session = getSqlSession();
 
-		List<SeminarRoomReservDTO> seminarRoomList = welfareDAO.selectSeminarRoomByMemberNo(session, no);
+		List<SeminarRoomReservDTO> seminarRoomList = welfareDAO.selectSeminarRoomByMemberNo(session, selectedInfoMap);
 
 		session.close();
 
@@ -294,6 +296,28 @@ public class WelfareService {
 		session.close();
 
 		return deleteAppliedSeminarRoomResult;
+	}
+
+	public int selectMyWelfareListCount(HashMap<String, Object> countMap) {
+
+		SqlSession session = getSqlSession();
+
+		int welfareCount = welfareDAO.selectMyWelfareListCount(session, countMap);
+
+		session.close();
+
+		return welfareCount;
+	}
+
+	public int selectMySeminarRoomListCount(HashMap<String, Object> countMap) {
+
+		SqlSession session = getSqlSession();
+
+		int seminarRoomCount = welfareDAO.selectMySeminarRoomListCount(session, countMap);
+
+		session.close();
+
+		return seminarRoomCount;
 	}
 
 }

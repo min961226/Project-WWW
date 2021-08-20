@@ -145,6 +145,14 @@
 					failedMessage = "휴가취소에 실패하였습니다.";
 					movePath = "${ pageContext.servletContext.contextPath }/mng/holiday/applied/select";
 					break;
+				case "insertItem" :
+					failedMessage = "복지 품목 추가에 실패하였습니다.";
+					movePath = "${ pageContext.servletContext.contextPath }/mng/welfare/laptopRental/select";
+					break;
+				case "deleteItem" :
+					failedMessage = "복지 품목 삭제에 실패하였습니다.";
+					movePath = "${ pageContext.servletContext.contextPath }/mng/welfare/laptopRental/select";
+					break;
 			}
 
 			alert(failedMessage);
