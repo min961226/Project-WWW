@@ -145,6 +145,10 @@
 					failedMessage = "휴가취소에 실패하였습니다.";
 					movePath = "${ pageContext.servletContext.contextPath }/mng/holiday/applied/select";
 					break;
+				case "updateholidayRule" :
+					failedMessage = "휴가일수 발생규칙 수정에 실패하였습니다.";
+					movePath = "${ pageContext.servletContext.contextPath }/mng/holiday/rule/select";
+					break;
 			}
 
 			alert(failedMessage);

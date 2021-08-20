@@ -25,7 +25,7 @@
 					<div class="col-lg-12">
 						
 
-							<form class="form-horizontal" action="${ pageContext.servletContext.contextPath }/approval/line/insert" method="post">
+							<form class="form-horizontal" action="${ pageContext.servletContext.contextPath }/approval/line/insert" method="post"  onsubmit="return askAgain();">
 
 
 								<div class="form-group">
@@ -209,12 +209,29 @@
 	     		$('#priority3').hide();
 	    	}
 	    }
-	
-    	const $goBack = document.getElementById("goBack");
-    	$goBack.onclick = function() {
-    		location.href = "${ pageContext.servletContext.contextPath }/approval/line/select"
-    	}
-    	
+	    
+	    
+	    const $goBack = document.getElementById("goBack");
+		$goBack.onclick = function() {
+			if (!confirm("돌아가시겠습니까?\n작성중이던 모든 내용이 삭제됩니다.")) {
+	        	
+	        } else {
+				location.href = "${ pageContext.servletContext.contextPath }/approval/line/select"
+	        }
+		}
+		function askAgain(){
+			
+			var yn;
+			yn = confirm('라인을 생성하시겠습니까?');
+			
+			if(yn == true){
+				return true;
+			}
+			else if(yn == false){
+				return false;
+			}
+		}
+	   
     	
     	
     </script>
