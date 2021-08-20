@@ -26,7 +26,4 @@ public class SelectMngWelfareListServlet extends HttpServlet {
 		String path = "/WEB-INF/views/mngwelfare/welfare.jsp"; 
 		request.getRequestDispatcher(path).forward(request, response);
 	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	}
 }

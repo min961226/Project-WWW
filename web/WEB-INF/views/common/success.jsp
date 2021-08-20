@@ -164,7 +164,14 @@
 				case "deleteMngForm" :
 					successMessage = "문서서식 게시판 삭제가 완료되었습니다.";
 					movePath = "${ pageContext.servletContext.contextPath }/mng/board/form/select";
-
+					break;
+				case "insertItem" :
+					successMessage = "복지 품목 추가에 성공하였습니다.";
+					movePath = "${ pageContext.servletContext.contextPath }/mng/welfare/laptopRental/select";
+					break;
+				case "deleteItem" :
+					successMessage = "복지 품목 삭제에 성공하였습니다.";
+					movePath = "${ pageContext.servletContext.contextPath }/mng/welfare/laptopRental/select";
 					break;
 			}
 

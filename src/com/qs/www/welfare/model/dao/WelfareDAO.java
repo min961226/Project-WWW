@@ -1,10 +1,10 @@
 package com.qs.www.welfare.model.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
-import com.qs.www.mng.welfare.model.dto.WelfareYnDTO;
 import com.qs.www.schedule.model.dto.ApproverPerReportDTO;
 import com.qs.www.schedule.model.dto.ReportDTO;
 import com.qs.www.schedule.model.dto.WorkingDocumentItemDTO;
@@ -68,8 +68,8 @@ public class WelfareDAO {
 		return session.selectList("WelfareDAO.selectDomitory");
 	}
 
-	public List<ReportDTO> selectAppliedWelfareList(SqlSession session, int no) {
-		return session.selectList("WelfareDAO.selectAppliedWelfareList", no);
+	public List<ReportDTO> selectAppliedWelfareList(SqlSession session, HashMap<String, Object> selectedInfoMap) {
+		return session.selectList("WelfareDAO.selectAppliedWelfareList", selectedInfoMap);
 	}
 
 	public List<SeminarRoomDTO> selectSeminarRoom(SqlSession session) {
@@ -100,8 +100,8 @@ public class WelfareDAO {
 		return session.selectOne("WelfareDAO.selectItemNameByItemNo",itemNo);
 	}
 
-	public List<SeminarRoomReservDTO> selectSeminarRoomByMemberNo(SqlSession session, int no) {
-		return session.selectList("WelfareDAO.selectSeminarRoomByMemberNo",no);
+	public List<SeminarRoomReservDTO> selectSeminarRoomByMemberNo(SqlSession session, HashMap<String, Object> selectedInfoMap) {
+		return session.selectList("WelfareDAO.selectSeminarRoomByMemberNo",selectedInfoMap);
 	}
 
 	public SeminarRoomReservDTO selectAppliedSeminarRoom(SqlSession session,SeminarRoomReservDTO seminarRoomReservDTO) {
@@ -110,6 +110,14 @@ public class WelfareDAO {
 
 	public int deleteAppliedSeminarRoom(SqlSession session, SeminarRoomReservDTO seminarRoomReservDTO) {
 		return session.delete("WelfareDAO.deleteAppliedSeminarRoom", seminarRoomReservDTO);
+	}
+
+	public int selectMyWelfareListCount(SqlSession session, HashMap<String, Object> countMap) {
+		return session.selectOne("WelfareDAO.selectMyWelfareListCount",countMap);
+	}
+
+	public int selectMySeminarRoomListCount(SqlSession session, HashMap<String, Object> countMap) {
+		return session.selectOne("WelfareDAO.selectMySeminarRoomListCount",countMap);
 	}
 
 	
