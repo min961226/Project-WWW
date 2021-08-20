@@ -120,4 +120,14 @@ public class MngNoticeService {
 		return result;
 	}
 
+	public int selectBoardNum() {
+		SqlSession session = getSqlSession();
+
+		int boardNum = mngnoticeDAO.selectBoardNum(session);
+
+		session.close();
+
+		return boardNum;
+	}
+
 }
