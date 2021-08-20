@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ScheduleDAO">
-
+	
+	<resultMap type="com.qs.www.schedule.model.dto.StandardWorkDTO" id="workListResultMap">
+		<id property="workCode" column="WORK_CODE"/>
+		<result property="workName" column="WORK_NAME"/>
+		<result property="breakStartTime" column="BREAK_START_TIME"/>
+		<result property="breakEndTime" column="BREAK_END_TIME"/>
+		<result property="minimalWorkHour" column="MINIMAL_WORK_HOUR"/>
+		<result property="checkInTime" column="CHECK_IN_TIME"/>
+		<result property="checkOutTime" column="CHECK_OUT_TIME"/>			
+		<result property="activeYn" column="ACTIVE_YN"/>			
+	</resultMap>
+	
 	<resultMap type="com.qs.www.schedule.model.dto.ReportDTO" id="reportResultMap">
 		<result property="reportNo" column="REPORT_NO" />
 		<result property="reportDate" column="REPORT_DATE" />
@@ -81,6 +92,19 @@
 			<result property="holidayReportNo" column="HOLIDAY_REPORT_NO"/>
 		</association>
 	</resultMap>
+	
+	<select id="selectAllWorkType" resultMap="workListResultMap">
+	SELECT /* com.qs.www.schedule.model.dao.ScheduleDAO#selectAllWorkType() */
+	       A.WORK_CODE
+	     , A.WORK_NAME
+	     , A.BREAK_START_TIME
+	     , A.BREAK_END_TIME
+	     , A.MINIMAL_WORK_HOUR
+	     , A.CHECK_IN_TIME
+	     , A.CHECK_OUT_TIME
+	  FROM TBL_STANDARD_WORK A
+	 WHERE A.ACTIVE_YN = 'Y'
+	</select>
 	
 	<insert id="applyWorkingSystem" parameterType="com.qs.www.schedule.model.dto.ReportDTO">
 	INSERT /* com.qs.www.schedule.model.dao.ScheduleDAO#applyWorkingSystem() */

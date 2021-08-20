@@ -59,6 +59,21 @@ public class InsertMngWorkingSystemServlet extends HttpServlet {
 		MngWorkingService mngWorkingService = new MngWorkingService();
 		int result = mngWorkingService.InsertStandardMngWorkingSystem(workingDTO);
 		
+		/* 성공여부에 따라 success 혹은 fail로 넘겨줌 */
+		String path = "";
+		if(result > 0 ) {
+			System.out.println("근무제추가 성공");			
+			path = "/WEB-INF/views/common/success.jsp";
+			request.setAttribute("successCode", "inserWorkType");
+
+		} else {
+			System.out.println("근무제추가 실패");			
+			path = "/WEB-INF/views/common/failed.jsp";
+			request.setAttribute("failedCode", "insertWorkType");
+		}
+
+		request.getRequestDispatcher(path).forward(request, response);
+		
 		
 		
 	}

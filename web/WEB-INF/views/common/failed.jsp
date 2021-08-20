@@ -146,10 +146,16 @@
 					movePath = "${ pageContext.servletContext.contextPath }/mng/holiday/applied/select";
 					break;
 
+					
+				case "inserWorkType" : 
+					successMessage = "근무제추가가 실패하였습니다.";
+					movePath = "${ pageContext.servletContext.contextPath }/mng/workingSystem/select";
+					break;
+
 				case "updateholidayRule" :
 					failedMessage = "휴가일수 발생규칙 수정에 실패하였습니다.";
 					movePath = "${ pageContext.servletContext.contextPath }/mng/holiday/rule/select";
-
+          break;
 				case "insertItem" :
 					failedMessage = "복지 품목 추가에 실패하였습니다.";
 					movePath = "${ pageContext.servletContext.contextPath }/mng/welfare/laptopRental/select";
@@ -157,7 +163,6 @@
 				case "deleteItem" :
 					failedMessage = "복지 품목 삭제에 실패하였습니다.";
 					movePath = "${ pageContext.servletContext.contextPath }/mng/welfare/laptopRental/select";
-
 					break;
 			}
 

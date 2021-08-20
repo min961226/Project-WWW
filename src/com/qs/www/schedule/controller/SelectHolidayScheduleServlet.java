@@ -1,6 +1,7 @@
 package com.qs.www.schedule.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.qs.www.board.model.service.FreeService;
 import com.qs.www.common.paging.Pagenation;
 import com.qs.www.common.paging.SelectCriteria;
 import com.qs.www.member.model.dto.MemberInfoDTO;
@@ -25,7 +25,12 @@ public class SelectHolidayScheduleServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("휴가 신청 현황");
 		
+		//로그인 중인 사용자가 올린 결재(상신, 상신 별 항목> 가져오기
 		HttpSession session = request.getSession();
+		int memberNo = ((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo();
+				
+		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		
 		/* 목록보기를 눌렀을 시 가장 처음에 보여지는 페이지는 1페이지이다.
 		 * 파라미터로 전달되는 페이지가 있는 경우 currentPage는 파라미터로 전달받은 페이지 수 이다.
 		 * */
@@ -46,19 +51,20 @@ public class SelectHolidayScheduleServlet extends HttpServlet {
 		String searchValue = request.getParameter("searchValue");
 		
 		//로그인 중인 사용자가 올린 결재중, documentNo가  6인 문서(휴가신청서)
-		int memberNo = ((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo();
-		int documentNo = 6;
-		
-		Map<String, Object> searchMap = new HashMap<>();
+		Map<String, String> searchMap = new HashMap<>();
 		searchMap.put("searchCondition", searchCondition);
 		searchMap.put("searchValue", searchValue);
-		searchMap.put("memberNo", memberNo);
-		searchMap.put("documentNo", documentNo);
+		
+		int documentNo = 6;
+		HashMap<String, Object> countMap = new HashMap<>();
+		countMap.put("memberNo", memberNo);
+		countMap.put("documentNo", documentNo);
+		countMap.put("searchMap", searchMap);
 		
 		Pagenation pagenation = new Pagenation();
 		
 		//totalCount 는 DB에 가서 조건에 해당하는 총 게시물 수를 세어와야 함. count(*) 중, where 삭제안된거.
-		int totalCount = new HolidayService().selectAllCount(searchMap);
+		int totalCount = new HolidayService().selectAllCount(countMap);
 
 		//limit는 한 페이지에서 보여지는 게시물 수
 		int limit = 10;
@@ -68,24 +74,29 @@ public class SelectHolidayScheduleServlet extends HttpServlet {
 		
 		//검색하고싶으면 매개변수로 selectCriteria 써줄것
 		SelectCriteria selectCriteria = null;
+		
 		if(searchCondition != null && !"".equals(searchCondition)) {
 			selectCriteria = Pagenation.getSelectCriteria(pageNo, totalCount, limit, buttonAmount, searchCondition, searchValue);
 		} else {
 			selectCriteria = Pagenation.getSelectCriteria(pageNo, totalCount, limit, buttonAmount);
 		}
-		
-		//휴가신청현황은 게시판과는 다르므로, 로그인한 사람의 사번과 문서번호를 넘겨준다.
-		Map<String, Object> searchConditionMap = new HashMap<>();
-		searchConditionMap.put("memberNo", memberNo);
-		searchConditionMap.put("documentNo", documentNo);
-		searchConditionMap.put("selectCriteria", selectCriteria);
-		
-		//자유게시판 목록
-		List<ReportDTO> holidayReportList = new HolidayService().selectMyholidayReport(searchConditionMap);
+		System.out.println(selectCriteria);
 
-		System.out.println(holidayReportList);
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		
+		
+		//로그인한 사람의 사번과 문서번호를 넘겨준다.
+		HashMap<String, Object> selectedInfoMap = new HashMap<>();
+		selectedInfoMap.put("memberNo", memberNo);
+		selectedInfoMap.put("documentNo", documentNo);
+		selectedInfoMap.put("selectCriteria", selectCriteria);
+		
+		//조건 selectedInfoMap을 통해 검색한 reportList
+		List<ReportDTO> holidayReportList = new HolidayService().selectMyholidayReport(selectedInfoMap);
+
 
 		request.setAttribute("holidayReportList", holidayReportList);
+		request.setAttribute("selectCriteria", selectCriteria);
 		request.getRequestDispatcher("/WEB-INF/views/schedule/holiday.jsp").forward(request, response);
 		
 	}

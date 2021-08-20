@@ -108,7 +108,9 @@
             }
 
         }
-        </script>
+
+    </script>
+
 </body>
 
 </html>
