@@ -180,4 +180,10 @@
 	
 	</delete>
 	
+		<select id="selectBoardNum" resultType="_int">
+		SELECT /* com.qs.www.mng.board.model.dao.MngBoardDAO#selectBoardNum() */
+		       LAST_NUMBER
+		  FROM USER_SEQUENCES
+		 WHERE SEQUENCE_NAME = 'SEQ_BOARD_NO'
+		</select>
 </mapper>
