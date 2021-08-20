@@ -5,9 +5,6 @@ import static com.qs.www.common.mybatis.Template.getSqlSession;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import com.qs.www.main.model.dao.MainDAO;
-import com.qs.www.main.model.dto.WorkInfoDTO;
-import com.qs.www.main.model.dto.WorkingLogDTO;
 import com.qs.www.member.model.dao.MemberDAO;
 import com.qs.www.member.model.dto.CheckPwdDTO;
 import com.qs.www.member.model.dto.MemberDTO;
@@ -16,11 +13,9 @@ import com.qs.www.member.model.dto.MemberInfoDTO;
 public class MemberService {
 	
 	private final MemberDAO memberDAO;
-	private final MainDAO mainDAO;
 	
 	public MemberService() {
 		memberDAO = new MemberDAO();
-		mainDAO = new MainDAO();
 	}
 
 	public MemberInfoDTO checkMember(MemberDTO requestMember) {

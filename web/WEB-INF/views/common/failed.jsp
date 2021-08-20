@@ -43,7 +43,7 @@
 					
 				case "updateInfo" :
 					failedMessage = "프로필 수정에 실패했습니다.";
-					movePath = "${ pageContext.servletContext.contextPath }";
+					movePath = "${ pageContext.servletContext.contextPath }/mypage/info/select";
 					break;
 					
 				case "insertApproval" :
@@ -61,9 +61,19 @@
 					movePath = "${ pageContext.servletContext.contextPath }/approval/applied/select";
 					break;
 
+				case "insertAppLine" :
+					failedMessage = "결재라인 생성에 실패했습니다.";
+					movePath = "${ pageContext.servletContext.contextPath }/approval/line/select";
+					break;
+					
 				case "updateAppLine" :
 					failedMessage = "결재라인수정에 실패했습니다."
 					movePath = "${ pageContext.servletContext.contextPath }/approval/line/selectOne?no=${ requestScope.lineNo  }";
+					break;
+					
+				case "deleteLine" :
+					failedMessage = "결재라인 삭제에 실패헀습니다.";
+					movePath = "${ pageContext.servletContext.contextPath }/approval/line/select";
 					break;
 					
 				case "insertWork" :
@@ -116,35 +126,26 @@
 					movePath = "${ pageContext.servletContext.contextPath }/welfare/applied/list/select";
 					break;
 					
-				case "mngCallbackWelfare" :
-					failedMessage = "신청 복지 회수에 실패했습니다.";
-					movePath = "${ pageContext.servletContext.contextPath }/mng/welfare/applied/select";
-					break;
-					
-				case "insertAppLine" :
-					failedMessage = "결재라인 생성에 실패했습니다.";
-					movePath = "${ pageContext.servletContext.contextPath }/approval/line/select";
-					break;
-					
-				case "deleteLine" :
-					failedMessage = "결재라인 삭제에 실패헀습니다.";
-					movePath = "${ pageContext.servletContext.contextPath }/approval/line/select";
-					break;
-					
 				case "deleteSeminarRoom" :
 					failedMessage = "회의실 예약 삭제를 실패하였습니다."
 					movePath = "${ pageContext.servletContext.contextPath }/welfare/applied/list/seminarRoom/select";
 					break;
 					
-				case "updateWelfare" :
-					failedMessage = "시행복지 수정에 실패하였습니다.";
-					movePath = "${ pageContext.servletContext.contextPath }/mng/welfare/list/select";
+				case "insertMngEmployee" :
+					successMessage = "계정 생성에 실패하였습니다.";
+					movePath = "${ pageContext.servletContext.contextPath }/mng/employee/list/insert";
+					break;
+					
+				case "inserWorkType" : 
+					successMessage = "근무제 추가가 실패하였습니다.";
+					movePath = "${ pageContext.servletContext.contextPath }/mng/workingSystem/select";
 					break;
 					
 				case "deleteHoliday" :
 					failedMessage = "휴가취소에 실패하였습니다.";
 					movePath = "${ pageContext.servletContext.contextPath }/mng/holiday/applied/select";
 					break;
+
 
 					
 				case "inserWorkType" : 
@@ -157,14 +158,27 @@
 					movePath = "${ pageContext.servletContext.contextPath }/mng/workingSystem/select";
 					break;
 
+
 				case "updateholidayRule" :
 					failedMessage = "휴가일수 발생규칙 수정에 실패하였습니다.";
 					movePath = "${ pageContext.servletContext.contextPath }/mng/holiday/rule/select";
-          break;
+          			break;
+					
+				case "updateWelfare" :
+					failedMessage = "시행복지 수정에 실패하였습니다.";
+					movePath = "${ pageContext.servletContext.contextPath }/mng/welfare/list/select";
+					break;
+					
+				case "mngCallbackWelfare" :
+					failedMessage = "신청 복지 회수에 실패했습니다.";
+					movePath = "${ pageContext.servletContext.contextPath }/mng/welfare/applied/select";
+					break;
+          			
 				case "insertItem" :
 					failedMessage = "복지 품목 추가에 실패하였습니다.";
 					movePath = "${ pageContext.servletContext.contextPath }/mng/welfare/laptopRental/select";
 					break;
+					
 				case "deleteItem" :
 					failedMessage = "복지 품목 삭제에 실패하였습니다.";
 					movePath = "${ pageContext.servletContext.contextPath }/mng/welfare/laptopRental/select";
