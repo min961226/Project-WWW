@@ -32,5 +32,23 @@ public class MngWorkingService {
 		
 		return result;
 	}
+	
+	/* 근무제 삭제하기 */
+	public int updateStandardMngWorkingSystem(int deleteWorkCode) {
+		
+		SqlSession session = getSqlSession();
+		
+		int result = mngWorkingDAO.updateStandardMngWorkingSystem(session, deleteWorkCode);
+		
+		if(result > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+		
+		session.close();
+		
+		return result;
+	}
 
 }

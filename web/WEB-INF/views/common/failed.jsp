@@ -78,12 +78,12 @@
 					
 				case "insertWork" :
 					failedMessage = "근무 신청이 실패했습니다.";
-					movePath = "${ pageContext.servletContext.contextPath }";
+					movePath = "${ pageContext.servletContext.contextPath }/schedule/workingSystem/insert";
 					break;
 					
 				case "insertHoliday" :
 					failedMessage = "휴가 신청이 실패했습니다.";
-					movePath = "${ pageContext.servletContext.contextPath }";
+					movePath = "${ pageContext.servletContext.contextPath }/schedule/holiday/insert";
 					break;
 					
 				case "insertSelfDev" :
@@ -145,6 +145,19 @@
 					failedMessage = "휴가취소에 실패하였습니다.";
 					movePath = "${ pageContext.servletContext.contextPath }/mng/holiday/applied/select";
 					break;
+
+
+					
+				case "inserWorkType" : 
+					successMessage = "근무제추가가 실패하였습니다.";
+					movePath = "${ pageContext.servletContext.contextPath }/mng/workingSystem/select";
+					break;
+					
+				case "deleteWorkType" : 
+					successMessage = "근무제삭제가 실패하였습니다.";
+					movePath = "${ pageContext.servletContext.contextPath }/mng/workingSystem/select";
+					break;
+
 
 				case "updateholidayRule" :
 					failedMessage = "휴가일수 발생규칙 수정에 실패하였습니다.";
