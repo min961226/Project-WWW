@@ -40,4 +40,8 @@ public class MngNoticeDAO {
 		return session.delete("MngNoticeDAO.deleteMngNotice",no);
 	}
 
+	public int selectBoardNum(SqlSession session) {
+		return session.selectOne("MngNoticeDAO.selectBoardNum");
+	}
+
 }

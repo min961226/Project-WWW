@@ -75,7 +75,7 @@
 		                                <div class="form-group">
 		                                    <label class="control-label col-lg-4">사번</label>
 		                                    <div class="col-md-8">
-		                                        <input type="text" class="form-control" name="memberNo" value="${ requestScope.memberNo }" readonly>
+		                                        <input type="text" class="form-control" name="memberNo" value="${ memberNo }" readonly>
 		                                    </div>
 		                                </div>
 		                                <div class="form-group">
@@ -88,7 +88,7 @@
 		                                    <label class="control-label col-lg-4" >부서</label>
 		                                    <div class="col-md-8">
 		                                        <select class="form-control" name="department" onchange="changeSelection(this.value)" required>
-													<c:forEach var="deptList" items="${ requestScope.deptList }">
+													<c:forEach var="deptList" items="${ deptList }">
 														<option><c:out value="${ deptList.deptCode } ${ deptList.deptName }" /></option>
 													</c:forEach>
 												</select>
@@ -98,7 +98,7 @@
 		                                    <label class="control-label col-lg-4">직급</label>
 		                                    <div class="col-md-8">
 		                                        <select class="form-control" name="job" required>
-													<c:forEach var="jobList" items="${ requestScope.jobList }">
+													<c:forEach var="jobList" items="${ jobList }">
 														<option><c:out value="${ jobList.jobCode } ${ jobList.jobName }" /></option>
 													</c:forEach>
 												</select>
@@ -128,9 +128,9 @@
 		                                <div class="form-group">
 		                                    <label class="control-label col-lg-4">재직 상태</label>
 		                                    <div class="col-md-8">
-		                                        <select class="form-control" name="entYn" required>
-													<option value="Y">재직</option>
-													<option value="N">퇴직</option>
+		                                        <select class="form-control" name="entYn" disabled>
+													<option value="N">재직</option>
+													<option value="Y">퇴직</option>
 												</select>
 		                                    </div>
 		                                </div>
@@ -139,7 +139,7 @@
 		                                    <div class="col-md-8">
 		                                        <select class="form-control" name="role">
 													<option><c:out value="" /></option>
-													<c:forEach var="roleList" items="${ requestScope.roleList }">
+													<c:forEach var="roleList" items="${ roleList }">
 														<option><c:out value="${ roleList.roleCode } ${ roleList.roleName }" /></option>
 													</c:forEach>
 												</select>
@@ -171,11 +171,11 @@
 		                                <div class="form-group">
 		                                    <label class="control-label col-lg-4">주민등록번호</label>
 		                                    <div class="col-md-3">
-		                                        <input type="text" class="form-control" name="firstRrn" value="" readonly>
+		                                        <input type="text" class="form-control" name="firstRrn" value="">
 		                                    </div>
 		                                    <label class="control-label col-lg-1"> - </label>
 		                                    <div class="col-md-4">
-		                                        <input type="password" class="form-control" name="lastRrn" value="" readonly>
+		                                        <input type="password" class="form-control" name="lastRrn" value="">
 		                                    </div>
 		                                </div>
 		                                <div class="form-group">
@@ -210,7 +210,9 @@
 		                                <div class="form-group">
 		                                    <label class="control-label col-lg-4">본인 확인 질문</label>
 		                                    <div class="col-md-8">
-		                                        <input type="text" class="form-control" name="question" value="" readonly>
+		                                        <select name="question" class="form-control" required disabled>
+													<option><c:out value="" /></option>
+											</select>
 		                                    </div>
 			                            </div>
 			                            <div class="form-group">
@@ -286,7 +288,7 @@
     	
     	function changeSelection(selectedDept) {
     		
-    		const deptList = ${ requestScope.deptListJson };
+    		const deptList = ${ deptListJson };
     		const selectedDeptCode = selectedDept.split(" ")[0];
     		
     		for(let i = 0; i < deptList.length; i++) {

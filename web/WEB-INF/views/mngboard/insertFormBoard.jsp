@@ -30,6 +30,8 @@
 						
 
 							<form name="form-horizontal" action="${ pageContext.servletContext.contextPath }/mng/board/form/insert" method="post" onsubmit="return askAgain();"  enctype="multipart/form-data">
+								<input type="text" name="no" value="${ requestScope.mngform.no }"
+								hidden="hidden" />
 								<div class="form-group">	
 									<div class="col-sm-6">
 										<label>제목</label>

@@ -9,54 +9,54 @@ public class MemberInfoDTO implements Serializable {
 	private String memberId;
 	private String password;
 	private String name;
-	private String rrn;
-	private Date enrollDate;
-	private Date entDate;
-	private String entYn;
-	private String email;
-	private Date birthday;
-	private String address;
-	private String gender;
-	private String phone;
-	private CheckQuestionDTO checkQuestion;
-	private String questionAnswer;
-	private String domitoryYn;
-	private RoleDTO role;
 	private DepartmentDTO department;
 	private JobDTO job;
+	private String email;
+	private Date enrollDate;
+	private String entYn;
+	private Date entDate;
+	private RoleDTO role;
 	private String appWorkType;
 	private int workCode;
 	private int remainingHoliday;
+	private String domitoryYn;
+	private String gender;
+	private Date birthday;
+	private String rrn;
+	private String phone;
+	private String address;
+	private CheckQuestionDTO checkQuestion;
+	private String questionAnswer;
 	
 	public MemberInfoDTO() {}
 
-	public MemberInfoDTO(int memberNo, String memberId, String password, String name, String rrn, Date enrollDate,
-			Date entDate, String entYn, String email, Date birthday, String address, String gender, String phone,
-			CheckQuestionDTO checkQuestion, String questionAnswer, String domitoryYn, RoleDTO role,
-			DepartmentDTO department, JobDTO job, String appWorkType, int workCode, int remainingHoliday) {
+	public MemberInfoDTO(int memberNo, String memberId, String password, String name, DepartmentDTO department,
+			JobDTO job, String email, Date enrollDate, String entYn, Date entDate, RoleDTO role, String appWorkType,
+			int workCode, int remainingHoliday, String domitoryYn, String gender, Date birthday, String rrn,
+			String phone, String address, CheckQuestionDTO checkQuestion, String questionAnswer) {
 		super();
 		this.memberNo = memberNo;
 		this.memberId = memberId;
 		this.password = password;
 		this.name = name;
-		this.rrn = rrn;
-		this.enrollDate = enrollDate;
-		this.entDate = entDate;
-		this.entYn = entYn;
-		this.email = email;
-		this.birthday = birthday;
-		this.address = address;
-		this.gender = gender;
-		this.phone = phone;
-		this.checkQuestion = checkQuestion;
-		this.questionAnswer = questionAnswer;
-		this.domitoryYn = domitoryYn;
-		this.role = role;
 		this.department = department;
 		this.job = job;
+		this.email = email;
+		this.enrollDate = enrollDate;
+		this.entYn = entYn;
+		this.entDate = entDate;
+		this.role = role;
 		this.appWorkType = appWorkType;
 		this.workCode = workCode;
 		this.remainingHoliday = remainingHoliday;
+		this.domitoryYn = domitoryYn;
+		this.gender = gender;
+		this.birthday = birthday;
+		this.rrn = rrn;
+		this.phone = phone;
+		this.address = address;
+		this.checkQuestion = checkQuestion;
+		this.questionAnswer = questionAnswer;
 	}
 
 	public int getMemberNo() {
@@ -91,110 +91,6 @@ public class MemberInfoDTO implements Serializable {
 		this.name = name;
 	}
 
-	public String getRrn() {
-		return rrn;
-	}
-
-	public void setRrn(String rrn) {
-		this.rrn = rrn;
-	}
-
-	public Date getEnrollDate() {
-		return enrollDate;
-	}
-
-	public void setEnrollDate(Date enrollDate) {
-		this.enrollDate = enrollDate;
-	}
-
-	public Date getEntDate() {
-		return entDate;
-	}
-
-	public void setEntDate(Date entDate) {
-		this.entDate = entDate;
-	}
-
-	public String getEntYn() {
-		return entYn;
-	}
-
-	public void setEntYn(String entYn) {
-		this.entYn = entYn;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public Date getBirthday() {
-		return birthday;
-	}
-
-	public void setBirthday(Date birthday) {
-		this.birthday = birthday;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public String getGender() {
-		return gender;
-	}
-
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
-
-	public String getPhone() {
-		return phone;
-	}
-
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-
-	public CheckQuestionDTO getCheckQuestion() {
-		return checkQuestion;
-	}
-
-	public void setCheckQuestion(CheckQuestionDTO checkQuestion) {
-		this.checkQuestion = checkQuestion;
-	}
-
-	public String getQuestionAnswer() {
-		return questionAnswer;
-	}
-
-	public void setQuestionAnswer(String questionAnswer) {
-		this.questionAnswer = questionAnswer;
-	}
-
-	public String getDomitoryYn() {
-		return domitoryYn;
-	}
-
-	public void setDomitoryYn(String domitoryYn) {
-		this.domitoryYn = domitoryYn;
-	}
-
-	public RoleDTO getRole() {
-		return role;
-	}
-
-	public void setRole(RoleDTO role) {
-		this.role = role;
-	}
-
 	public DepartmentDTO getDepartment() {
 		return department;
 	}
@@ -209,6 +105,46 @@ public class MemberInfoDTO implements Serializable {
 
 	public void setJob(JobDTO job) {
 		this.job = job;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public Date getEnrollDate() {
+		return enrollDate;
+	}
+
+	public void setEnrollDate(Date enrollDate) {
+		this.enrollDate = enrollDate;
+	}
+
+	public String getEntYn() {
+		return entYn;
+	}
+
+	public void setEntYn(String entYn) {
+		this.entYn = entYn;
+	}
+
+	public Date getEntDate() {
+		return entDate;
+	}
+
+	public void setEntDate(Date entDate) {
+		this.entDate = entDate;
+	}
+
+	public RoleDTO getRole() {
+		return role;
+	}
+
+	public void setRole(RoleDTO role) {
+		this.role = role;
 	}
 
 	public String getAppWorkType() {
@@ -235,14 +171,78 @@ public class MemberInfoDTO implements Serializable {
 		this.remainingHoliday = remainingHoliday;
 	}
 
+	public String getDomitoryYn() {
+		return domitoryYn;
+	}
+
+	public void setDomitoryYn(String domitoryYn) {
+		this.domitoryYn = domitoryYn;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public Date getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(Date birthday) {
+		this.birthday = birthday;
+	}
+
+	public String getRrn() {
+		return rrn;
+	}
+
+	public void setRrn(String rrn) {
+		this.rrn = rrn;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public CheckQuestionDTO getCheckQuestion() {
+		return checkQuestion;
+	}
+
+	public void setCheckQuestion(CheckQuestionDTO checkQuestion) {
+		this.checkQuestion = checkQuestion;
+	}
+
+	public String getQuestionAnswer() {
+		return questionAnswer;
+	}
+
+	public void setQuestionAnswer(String questionAnswer) {
+		this.questionAnswer = questionAnswer;
+	}
+
 	@Override
 	public String toString() {
 		return "MemberInfoDTO [memberNo=" + memberNo + ", memberId=" + memberId + ", password=" + password + ", name="
-				+ name + ", rrn=" + rrn + ", enrollDate=" + enrollDate + ", entDate=" + entDate + ", entYn=" + entYn
-				+ ", email=" + email + ", birthday=" + birthday + ", address=" + address + ", gender=" + gender
-				+ ", phone=" + phone + ", checkQuestion=" + checkQuestion + ", questionAnswer=" + questionAnswer
-				+ ", domitoryYn=" + domitoryYn + ", role=" + role + ", department=" + department + ", job=" + job
-				+ ", appWorkType=" + appWorkType + ", workCode=" + workCode + ", remainingHoliday=" + remainingHoliday
+				+ name + ", department=" + department + ", job=" + job + ", email=" + email + ", enrollDate="
+				+ enrollDate + ", entYn=" + entYn + ", entDate=" + entDate + ", role=" + role + ", appWorkType="
+				+ appWorkType + ", workCode=" + workCode + ", remainingHoliday=" + remainingHoliday + ", domitoryYn="
+				+ domitoryYn + ", gender=" + gender + ", birthday=" + birthday + ", rrn=" + rrn + ", phone=" + phone
+				+ ", address=" + address + ", checkQuestion=" + checkQuestion + ", questionAnswer=" + questionAnswer
 				+ "]";
 	}
 }

@@ -29,6 +29,25 @@
 		<result property="dayNumber" column="DAY_NUMBER" />
 		<result property="FiscalStateDate" column="FISCAL_START_DATE" />
 	</resultMap>	
+    <resultMap type="com.qs.www.mng.holiday.model.dto.MemberHolidayInfoDTO"
+		id="MemberholidayInfoResult">
+		<result property="memberNo" column="MEMBER_NO" />
+		<result property="name" column="NAME" />
+		<result property="enrollDate" column="ENROLL_DATE" />
+		<result property="remainingHoliday" column="REMAINING_HOLIDAY" />
+	</resultMap>	
+    <resultMap type="com.qs.www.schedule.model.dto.HolidayLogDTO"
+		id="holidayLogoResult">
+		<result property="holidayLogNo" column="HOLIDAY_LOG_NO" />
+		<result property="memberNo" column="MEMBER_NO" />
+		<result property="logOccurDate" column="LOG_OCCUR_DATE" />
+		<result property="logNote" column="LOG_NOTE" />
+		<result property="logType" column="LOG_TYPE" />
+		<result property="holidayCode" column="HOLIDAY_CODE" />
+		<result property="holidayDuringDate" column="HOLIDAY_DURING_DATE" />
+		<result property="ruleCode" column="RULE_CODE" />
+		<result property="isProducedByRule" column="IS_PRODUCED_BY_RULE" />
+	</resultMap>	
 	<select id="selectHolidayAPPCount" resultType="_int" parameterType="hashmap">
         SELECT /*com.qs.www.mng.holiday.model.dao.MngHolidayDAO#selectHolidayAPPCount"()*/
                COUNT(*)
@@ -126,4 +145,78 @@
 		     , A.FISCAL_START_DATE = #{ giveDate }
 		 WHERE A.RULE_CODE = #{ codeName }
 	</update>
+	<select id="selectMemberHolidayInfoCount" resultType="_int" parameterType="hashmap">
+        SELECT /*com.qs.www.mng.holiday.model.dao.MngHolidayDAO#selectMemberHolidayInfoCount"()*/
+               COUNT(*)
+           FROM TBL_MEMBER A
+    		        <if test="searchCondition == 'name'">
+    		          WHERE A.NAME LIKE '%' || #{ searchValue } || '%'
+    		        </if>
+    			ORDER BY A.MEMBER_NO
+	</select>
+	<select id="selectMemberHolidayInfoList" resultMap="MemberholidayInfoResult">
+    SELECT /* com.qs.www.mng.holiday.model.dao.MngHolidayDAO#selectMemberHolidayInfoList()*/ 
+           C.*
+      FROM (SELECT ROWNUM RNUM
+          		, B.*
+          	FROM (SELECT
+          	             A.MEMBER_NO
+          	           , A.NAME
+          	           , A.ENROLL_DATE
+          	           , A.REMAINING_HOLIDAY
+          	       FROM TBL_MEMBER A
+    		        <if test="searchCondition == 'name'">
+    		          WHERE A.NAME LIKE '%' || #{ searchValue } || '%'
+    		        </if>
+    			ORDER BY A.MEMBER_NO
+                ) B
+          <![CDATA[
+          WHERE ROWNUM <= #{ endRow }
+          ]]>
+        ) C
+   WHERE C.RNUM >= #{ startRow } 
+	</select>
+	<select id="selectHolidayLogList" resultMap="holidayLogoResult">
+        SELECT /*com.qs.www.mng.holiday.model.dao.MngHolidayDAO#selectHolidayLogList"()*/
+               A.*
+         FROM TBL_MEMBER_HOLIDAY_LOG A
+        WHERE A.MEMBER_NO = #{ memberNo }
+          AND A.LOG_TYPE = '지급'
+          AND A.IS_PRODUCED_BY_RULE = 'N'
+	</select>
+	<select id="selectMemberHolidayInfo" resultMap="MemberholidayInfoResult">
+    SELECT /* com.qs.www.mng.holiday.model.dao.MngHolidayDAO#selectMemberHolidayInfo()*/ 
+           A.MEMBER_NO
+         , A.NAME
+         , A.ENROLL_DATE
+         , A.REMAINING_HOLIDAY
+      FROM TBL_MEMBER A
+     WHERE 	A.MEMBER_NO = #{ memberNo }
+	</select>
+	<select id="selectHolidayLogCount" resultType="_int" parameterType="hashmap">
+        SELECT /* com.qs.www.mng.holiday.model.dao.MngHolidayDAO#selectHolidayLogCount()*/ 
+               COUNT(*)
+          FROM TBL_MEMBER_HOLIDAY_LOG A
+         WHERE A.MEMBER_NO = #{ memberNo }
+          AND A.LOG_TYPE = '지급'
+          AND A.IS_PRODUCED_BY_RULE = 'N'
+	</select>
+	<select id="selectPagingHolidayLogList" resultMap="holidayLogoResult" parameterType="hashmap">
+    SELECT /* com.qs.www.mng.holiday.model.dao.MngHolidayDAO#selectPagingHolidayLogList()*/ 
+           C.*
+      FROM (SELECT ROWNUM RNUM
+          		, B.*
+          	FROM (SELECT
+          	             A.*
+          	       FROM TBL_MEMBER_HOLIDAY_LOG A
+    		      WHERE A.MEMBER_NO = #{ memberNo }
+    		        AND A.LOG_TYPE = '지급'
+    		   ORDER BY A.HOLIDAY_LOG_NO DESC
+                ) B
+          <![CDATA[
+          WHERE ROWNUM <= #{ selectCriteria.endRow }
+          ]]>
+        ) C
+   WHERE C.RNUM >= #{ selectCriteria.startRow } 
+	</select>
 </mapper>

@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="MypageDAO">
+	<resultMap type="com.qs.www.member.model.dto.CheckQuestionDTO" id="questionListResultMap">
+		<id property="questionCode" column="QUESTION_CODE"/>
+		<result property="questionBody" column="QUESTION_BODY"/>
+	</resultMap>
 
-	<select id="selectQuestionList" resultType="java.lang.String">
+	<select id="selectQuestionList" resultMap="questionListResultMap">
         SELECT /* com.qs.www.mypage.model.dao.MypageDAO#selectQuestionList() */
-               A.QUESTION_BODY
+               A.QUESTION_CODE
+             , A.QUESTION_BODY
           FROM TBL_CHECK_QUESTION A
 	</select>
 

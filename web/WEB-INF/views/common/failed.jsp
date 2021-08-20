@@ -16,6 +16,7 @@
 
 			switch (failedCode) {
 
+
 			case "login":
 				failedMessage = "등록되지 않은 아이디이거나, 잘못된 비밀번호 입니다.";
 				movePath = "${ pageContext.servletContext.contextPath }";

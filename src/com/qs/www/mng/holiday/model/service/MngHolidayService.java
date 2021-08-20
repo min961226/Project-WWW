@@ -2,6 +2,7 @@ package com.qs.www.mng.holiday.model.service;
 
 import static com.qs.www.common.mybatis.Template.getSqlSession;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,10 +11,12 @@ import org.apache.ibatis.session.SqlSession;
 import com.qs.www.common.paging.SelectCriteria;
 import com.qs.www.mng.holiday.model.dao.MngHolidayDAO;
 import com.qs.www.mng.holiday.model.dto.HolidayRuleDTO;
+import com.qs.www.mng.holiday.model.dto.MemberHolidayInfoDTO;
+import com.qs.www.schedule.model.dto.HolidayLogDTO;
 import com.qs.www.schedule.model.dto.ReportDTO;
 
 public class MngHolidayService {
-	
+
 	private final MngHolidayDAO mngHolidayDAO;
 
 	public MngHolidayService() {
@@ -36,10 +39,10 @@ public class MngHolidayService {
 		List<ReportDTO> reportList = mngHolidayDAO.selectHolidayAPP(session, selectCriteria);
 
 		session.close();
-		
+
 		return reportList;
 	}
-	
+
 	public int selectHolidayLogNum(int reportNo) {
 		SqlSession session = getSqlSession();
 
@@ -49,7 +52,7 @@ public class MngHolidayService {
 
 		return logNo;
 	}
-	
+
 
 	public int cancleSelectedReport(int reportNo) {
 		SqlSession session = getSqlSession();
@@ -80,7 +83,7 @@ public class MngHolidayService {
 	}
 	public int deleteHolidayLog(int logNo) {
 		SqlSession session = getSqlSession();
-		
+
 		int result = mngHolidayDAO.deleteHolidayLog(session, logNo);
 		if(result > 0) {
 			session.commit();
@@ -88,7 +91,7 @@ public class MngHolidayService {
 			session.rollback();
 		}
 		session.close();
-		
+
 		return result;
 	}
 
@@ -113,8 +116,8 @@ public class MngHolidayService {
 	}
 
 	public int updateholidayRuleNumber(Map<String, Object> ruleMap) {
-SqlSession session = getSqlSession();
-		
+		SqlSession session = getSqlSession();
+
 		int result = mngHolidayDAO.updateholidayRuleNumber(session, ruleMap);
 		if(result > 0) {
 			session.commit();
@@ -122,11 +125,71 @@ SqlSession session = getSqlSession();
 			session.rollback();
 		}
 		session.close();
-		
+
 		return result;
 	}
 
-	
-	
+	public int selectMemberHolidayInfoCount(Map<String, String> searchMap) {
+		SqlSession session = getSqlSession();
+
+		int count = mngHolidayDAO.selectMemberHolidayInfoCount(session, searchMap);
+
+		session.close();
+
+		return count;
+	}
+
+	public List<MemberHolidayInfoDTO> selectMemberHolidayInfoList(SelectCriteria selectCriteria) {
+		SqlSession session = getSqlSession();
+
+		List<MemberHolidayInfoDTO> infoList = mngHolidayDAO.selectMemberHolidayInfoList(session, selectCriteria);
+
+		session.close();
+
+		return infoList;
+	}
+
+	public List<HolidayLogDTO> selectHolidayLogList(int memberNo) {
+		SqlSession session = getSqlSession();
+
+		List<HolidayLogDTO> logList = mngHolidayDAO.selectHolidayLogList(session, memberNo);
+
+		session.close();
+
+		return logList;
+	}
+
+	public MemberHolidayInfoDTO selectMemberHolidayInfo(int memberNo) {
+		SqlSession session = getSqlSession();
+
+		MemberHolidayInfoDTO info = mngHolidayDAO.selectMemberHolidayInfo(session, memberNo);
+
+		session.close();
+
+		return info;
+	}
+
+	public int selectHolidayLogCount(HashMap<String, Object> countMap) {
+		SqlSession session = getSqlSession();
+
+		int conunt = mngHolidayDAO.selectHolidayLogCount(session, countMap);
+
+		session.close();
+
+		return conunt;
+	}
+
+	public List<HolidayLogDTO> selectPagingHolidayLogList(HashMap<String, Object> selectedInfoMap) {
+		SqlSession session = getSqlSession();
+
+		List<HolidayLogDTO> logList = mngHolidayDAO.selectPagingHolidayLogList(session, selectedInfoMap);
+
+		session.close();
+
+		return logList;
+	}
+
+
+
 
 }

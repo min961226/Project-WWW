@@ -57,13 +57,17 @@
 	                                <div class="form-group">
 	                                    <label class="control-label col-lg-4">부서</label>
 	                                    <div class="col-md-8">
-	                                        <input type="text" class="form-control" name="department" value="${ memberInfo.department.deptName }" readonly>
+	                                    	<select class="form-control" name="department" required disabled>
+												<option><c:out value="${ memberInfo.department.deptCode } ${ memberInfo.department.deptName }"/></option>
+											</select>
 	                                    </div>
 	                                </div>
 	                                <div class="form-group">
 	                                    <label class="control-label col-lg-4">직급</label>
 	                                    <div class="col-md-8">
-	                                        <input type="text" class="form-control" name="job" value="${ memberInfo.job.jobName }" readonly>
+	                                    	<select class="form-control" name="job" required disabled>
+												<option><c:out value="${ memberInfo.job.jobCode } ${ memberInfo.job.jobName }"/></option>
+											</select>
 	                                    </div>
 	                                </div>
 	                                <div class="form-group">
@@ -89,13 +93,22 @@
 	                                <div class="form-group">
 	                                    <label class="control-label col-lg-4">재직 상태</label>
 	                                    <div class="col-md-8">
-	                                        <input type="text" class="form-control" name="entYn" value="재직" readonly>
+	                                    	<select class="form-control" name="entYn" disabled>
+			                                    	<c:if test="${ memberInfo.entYn eq 'N' }">
+														<option>재직</option>
+			                                    	</c:if>
+													<c:if test="${ memberInfo.entYn eq 'Y' }">
+														<option>퇴직</option>
+													</c:if>
+												</select>
 	                                    </div>
 	                                </div>
 	                                <div class="form-group">
 	                                    <label class="control-label col-lg-4">권한</label>
 	                                    <div class="col-md-8">
-	                                        <input type="text" class="form-control" name="role" value="${ memberInfo.role.roleName }" readonly>
+	                                        <select class="form-control" name="role" disabled>
+	                                        	<option><c:out value="${ memberInfo.role.roleCode } ${ memberInfo.role.roleName }" /></option>
+	                                        </select>
 	                                    </div>
 	                                </div>
 		                        </div>
@@ -165,7 +178,9 @@
 	                                <div class="form-group">
 	                                    <label class="control-label col-lg-4">본인 확인 질문</label>
 	                                    <div class="col-md-8">
-	                                        <input type="text" class="form-control" name="question" value="${ memberInfo.checkQuestion.questionBody }" readonly>
+	                                        <select name="question" class="form-control" required disabled>
+													<option><c:out value="${ memberInfo.checkQuestion.questionCode } ${ memberInfo.checkQuestion.questionBody }" /></option>
+											</select>
 	                                    </div>
 		                            </div>
 		                            <div class="form-group">

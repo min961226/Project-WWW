@@ -17,8 +17,16 @@ public class SelectMypageServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		HttpSession session = request.getSession();
-		String address = ((MemberInfoDTO) session.getAttribute("memberInfo")).getAddress();
 		String rrn = ((MemberInfoDTO) session.getAttribute("memberInfo")).getRrn();
+		String address = ((MemberInfoDTO) session.getAttribute("memberInfo")).getAddress();
+		
+		String firstRrn = "";
+		String lastRrn = "";
+		
+		if(rrn != null) {
+			lastRrn = rrn.split("-")[1];
+			firstRrn= rrn.split("-")[0];
+		}
 		
 		String zipCode = "";
 		String address1 = "";
@@ -30,15 +38,11 @@ public class SelectMypageServlet extends HttpServlet {
 			address2 = address.split("\\$")[2];
 		}
 		
-		String firstRrn = rrn.split("-")[0];
-		String lastRrn = rrn.split("-")[1];
-		
+		session.setAttribute("firstRrn", firstRrn);
+		session.setAttribute("lastRrn", lastRrn);
 		session.setAttribute("zipCode", zipCode);
 		session.setAttribute("address1", address1);
 		session.setAttribute("address2", address2);
-		
-		session.setAttribute("firstRrn", firstRrn);
-		session.setAttribute("lastRrn", lastRrn);
 		
 		request.getRequestDispatcher("/WEB-INF/views/mypage/info.jsp").forward(request, response);
 	}

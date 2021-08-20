@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
+import com.qs.www.board.model.service.FreeService;
 import com.qs.www.common.attachment.model.service.AttachmentService;
 import com.qs.www.common.attachment.model.service.BoardAttachmentService;
 import com.qs.www.member.model.dto.MemberInfoDTO;
@@ -46,18 +47,24 @@ public class InsertMngFormBoardServlet extends HttpServlet {
 		
 		BoardAttachmentService boardattachmentService = new BoardAttachmentService();
 		HttpSession session = request.getSession();
+		
+		int testNo = new MngFormService().selectBoardNum();
 		int memberNo = ((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo();
 		String type = "문서서식";
 		String title = (String)request.getParameter("title");
 		String body = (String)request.getParameter("body");
-//		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
+		int boardNo = testNo;
+//		int boardNo = Integer.parseInt(request.getParameter("no"));
+		
+		System.out.println(boardNo);
+		
 		
 		MngFormDTO newMngForm = new MngFormDTO();
 		newMngForm.setTitle(title);
 		newMngForm.setBody(body);
 		newMngForm.setMember(memberNo);
 		newMngForm.setType(type);
-//		newMngForm.setNo(boardNo);
+		newMngForm.setNo(boardNo);
 		
 		
 		System.out.println(newMngForm);
@@ -66,7 +73,7 @@ public class InsertMngFormBoardServlet extends HttpServlet {
 		int result = mngformService.insertMngForm(newMngForm);
 		
 		System.out.println(result);
-		int boardNo = mngformService.selectBoardNum();
+//		int boardNo = mngformService.selectBoardNum();
 		
 		/*---------------------------------------------------------------------------파일 업로드---------------------------------------------------------------------*/
 		response.setContentType("text/html; charset=UTF-8");
@@ -137,18 +144,18 @@ public class InsertMngFormBoardServlet extends HttpServlet {
 		if(resultFileUpload == -1) {																										//파일첨부를 하지 않았을때는 result값을 더해주면안된다.
 			if (result > 0) {
 				path = "/WEB-INF/views/common/success.jsp";
-				request.setAttribute("successCode", "insertMngForm");
+				request.setAttribute("successCode", "insertMngNotice");
 			} else {
 				path = "/WEB-INF/views/common/failed.jsp";
-				request.setAttribute("message", "문서서식 게시글 등록에 실패하셨습니다.");
+				request.setAttribute("message", "공지사항 게시글 등록에 실패하셨습니다.");
 			}			
 		}else {
 			if (result > 0 && resultFileUpload > 0) {														//파일을첨부하였고 그 파일첨부가 성공하였을경우 페이지로 이동한다.
 				path = "/WEB-INF/views/common/success.jsp";
-				request.setAttribute("successCode", "insertMngForm");
+				request.setAttribute("successCode", "insertMngNotice");
 			} else {
 				path = "/WEB-INF/views/common/failed.jsp";
-				request.setAttribute("message", "문서서식 게시글 등록에 실패하셨습니다.");
+				request.setAttribute("message", "공지사항 게시글 등록에 실패하셨습니다.");
 			}			
 		}
 		
@@ -183,5 +190,7 @@ public class InsertMngFormBoardServlet extends HttpServlet {
     }
 
 /*---------------------------------------------------------------------------파일 업로드---------------------------------------------------------------------*/
+	
+	
 }
 		
