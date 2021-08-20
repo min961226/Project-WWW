@@ -159,7 +159,7 @@ public class SelectOneWaitingApprovalServlet extends HttpServlet {
 		 				MemberWorkLogDTO memberWorkLogDTO = new MemberWorkLogDTO();
 		 				memberWorkLogDTO.setMemberNo(selectedReport.getMemberNo());								//상신자사번
 		 				memberWorkLogDTO.setWorkType(itemList.get(5).getItemContent()); 						//변경후 근무제유형
-		 				memberWorkLogDTO.setWorkNo(Integer.parseInt(itemList.get(0).getItemContent()));			//변경후 근무제번호
+		 				memberWorkLogDTO.setWorkNo(Integer.parseInt(itemList.get(1).getItemContent()));			//변경후 근무제번호
 		 				memberWorkLogDTO.setStartDay(startDaySql);												//변경일자
 		 				memberWorkLogDTO.setChangeReason(itemList.get(4).getItemContent());						//변경사유
 		 				

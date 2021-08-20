@@ -406,7 +406,6 @@
 	, #{ overtimeStartTime }
 	, #{ overtimeEndDay }
 	, #{ overtimeEndTime }
-	, #{ overtimeReportNo }
 	, #{ overtimeDuring }
 	, 'N'
 	)
