@@ -14,7 +14,8 @@ public class MngWorkingService {
 	public MngWorkingService() {
 		mngWorkingDAO = new MngWorkingDAO();
 	}
-
+	
+	/* 근무제 추가하기 */
 	public int InsertStandardMngWorkingSystem(WorkingDTO workingDTO) {
 		
 		SqlSession session = getSqlSession();

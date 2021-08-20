@@ -15,11 +15,17 @@ import com.qs.www.schedule.model.dto.HolidayTypeDTO;
 import com.qs.www.schedule.model.dto.MemberWorkLogDTO;
 import com.qs.www.schedule.model.dto.OvertimeLogDTO;
 import com.qs.www.schedule.model.dto.ReportDTO;
+import com.qs.www.schedule.model.dto.StandardWorkDTO;
 import com.qs.www.schedule.model.dto.TeamWorkingHourDTO;
 import com.qs.www.schedule.model.dto.WorkingDocumentItemDTO;
 
 public class ScheduleDAO {
-
+	
+	public List<StandardWorkDTO> selectAllWorkType(SqlSession session) {
+		
+		return session.selectList("ScheduleDAO.selectAllWorkType");
+	}
+	
 	public int applyWorkingSystem(SqlSession session, ReportDTO reportDTO) {
 		
 		return session.insert("ScheduleDAO.applyWorkingSystem", reportDTO);
@@ -118,6 +124,8 @@ public class ScheduleDAO {
 		
 		return session.insert("ScheduleDAO.insertOvertimeLog", overtimeLogDTO);
 	}
+
+	
 
 	
 

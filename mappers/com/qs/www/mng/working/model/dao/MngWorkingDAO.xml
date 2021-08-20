@@ -4,8 +4,8 @@
 
 
 	<insert id="InsertStandardMngWorkingSystem" parameterType="com.qs.www.mng.working.model.dto.WorkingDTO">
-	INSERT /**/
-	  INTO TBL_STANDARD_WORK
+	INSERT /* com.qs.www.mng.working.model.dao.MngWorkingDAO#InsertStandardMngWorkingSystem() */
+	  INTO TBL_STANDARD_WORK A
 	(
 	  A.WORK_CODE
 	, A.WORK_NAME
@@ -26,7 +26,7 @@
     , #{ minimalWorkHour }
     , #{ checkInTime }
     , #{ checkOutTime }
-    , #{ memberNo}
+    , #{ memberNo }
     , 'Y'
     )
 	</insert>

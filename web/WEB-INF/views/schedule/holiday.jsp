@@ -26,6 +26,8 @@
 					<div class="col-xs-8">
 						<h4 class="page-title">휴가 신청 현황</h4>
 					</div>
+					
+					<!-- 휴가신청으로 이동하는 버튼 -->
 					<div class="col-xs-4 text-right m-b-30">
 						<a
 							href="${ pageContext.servletContext.contextPath }/schedule/holiday/insert"
@@ -36,15 +38,16 @@
 				
                 <!-- 검색조건 -->
                 <div class="search-area" align="right">
-             		<form id="loginForm" action="${ pageContext.servletContext.contextPath }/board/free/select" method="get" style="display:inline-block">		
-			    		<input type="hidden" name="currentPage" value="1">
-						<select id="searchCondition" name="searchCondition">
-							
-							<option value="title" ${ requestScope.selectCriteria.searchCondition eq "title"? "selected": "" }>제목</option>
-							<option value="body" ${ requestScope.selectCriteria.searchCondition eq "body"? "selected": "" }>내용</option>
-						</select>
-						<input type="search" id="searchValue" name="searchValue" value="<c:out value="${ requestScope.selectCriteria.searchValue }"/>">
-					<button type="submit" class="btn btn-success btn-sm" >검색하기</button>
+             		<form id="loginForm" action="${ pageContext.servletContext.contextPath }/schedule/holiday/select" method="get" style="display:inline-block">		
+			    		<input type="hidden" name="currentPage" value="1"> <select
+                            id="searchCondition" name="searchCondition">
+                            <option value="title"
+                                ${ requestScope.selectCriteria.searchCondition eq "title"? "selected": "" }>제목</option>
+                            <option value="status"
+                                ${ requestScope.selectCriteria.searchCondition eq "status"? "selected": "" }>비고</option>
+                        </select> <input type="search" id="searchValue" name="searchValue"
+                            value="<c:out value="${ requestScope.selectCriteria.searchValue }"/>">
+                        <button type="submit" class="btn btn-success btn-sm" >검색하기</button>
 					<!-- <button type="button" id="writeFree">작성하기</button> -->
 					</form>
 				</div><!-- 검색조건 end -->
@@ -79,8 +82,7 @@
 
 									<tr>
 										<td><c:out value="${ holiday.reportNo }" /></td>
-										<td><c:if test="${ holiday.documentNo eq 6 }">
-												<c:out value="휴가신청서" />
+										<td><c:if test="${ holiday.documentNo eq 6 }"><c:out value="휴가신청서" />
 											</c:if></td>
 										<td><c:out value="${ holiday.reportTitle}" /></td>
 										<td><c:out value="${ holiday.lineName }" /></td>

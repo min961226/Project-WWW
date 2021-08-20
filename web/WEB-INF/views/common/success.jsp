@@ -166,6 +166,11 @@
 					movePath = "${ pageContext.servletContext.contextPath }/mng/board/form/select";
 
 					break;
+					
+				case "inserWorkType" : 
+					successMessage = "근무제추가가 완료되었습니다.";
+					movePath = "${ pageContext.servletContext.contextPath }/mng/workingSystem/select";
+					break;
 			}
 
 			alert(successMessage);

@@ -9,19 +9,21 @@ public class StandardWorkDTO implements Serializable {
 	private String breakStartTime;
 	private String breakEndTime;
 	private String checkInTime;
+	private int minimalWorkHour;
 	private String checkOutTime;
 	private String activeYn;
 	
 	public StandardWorkDTO() {}
 
 	public StandardWorkDTO(int workCode, String workName, String breakStartTime, String breakEndTime,
-			String checkInTime, String checkOutTime, String activeYn) {
+			String checkInTime, int minimalWorkHour, String checkOutTime, String activeYn) {
 		super();
 		this.workCode = workCode;
 		this.workName = workName;
 		this.breakStartTime = breakStartTime;
 		this.breakEndTime = breakEndTime;
 		this.checkInTime = checkInTime;
+		this.minimalWorkHour = minimalWorkHour;
 		this.checkOutTime = checkOutTime;
 		this.activeYn = activeYn;
 	}
@@ -66,6 +68,14 @@ public class StandardWorkDTO implements Serializable {
 		this.checkInTime = checkInTime;
 	}
 
+	public int getMinimalWorkHour() {
+		return minimalWorkHour;
+	}
+
+	public void setMinimalWorkHour(int minimalWorkHour) {
+		this.minimalWorkHour = minimalWorkHour;
+	}
+
 	public String getCheckOutTime() {
 		return checkOutTime;
 	}
@@ -85,9 +95,11 @@ public class StandardWorkDTO implements Serializable {
 	@Override
 	public String toString() {
 		return "StandardWorkDTO [workCode=" + workCode + ", workName=" + workName + ", breakStartTime=" + breakStartTime
-				+ ", breakEndTime=" + breakEndTime + ", checkInTime=" + checkInTime + ", checkOutTime=" + checkOutTime
-				+ ", activeYn=" + activeYn + "]";
+				+ ", breakEndTime=" + breakEndTime + ", checkInTime=" + checkInTime + ", minimalWorkHour="
+				+ minimalWorkHour + ", checkOutTime=" + checkOutTime + ", activeYn=" + activeYn + "]";
 	}
+
+	
 	
 	
 	

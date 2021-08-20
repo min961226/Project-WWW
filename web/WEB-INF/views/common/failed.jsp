@@ -145,6 +145,11 @@
 					failedMessage = "휴가취소에 실패하였습니다.";
 					movePath = "${ pageContext.servletContext.contextPath }/mng/holiday/applied/select";
 					break;
+					
+				case "inserWorkType" : 
+					successMessage = "근무제추가가 실패하였습니다.";
+					movePath = "${ pageContext.servletContext.contextPath }/mng/workingSystem/select";
+					break;
 			}
 
 			alert(failedMessage);

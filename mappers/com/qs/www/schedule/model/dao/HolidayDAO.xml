@@ -29,8 +29,8 @@
 	     , A.HOLIDAY_TYPE
 	     , A.DAY_NUMBER
 	     , A.HOLIDAY_NOTE
-	     , A.USE_YN
 	  FROM TBL_HOLIDAY_TYPE A
+	 WHERE A.USE_YN = 'Y'
 	</select>
 	
 	<insert id="insertHolidayLog" parameterType="com.qs.www.schedule.model.dto.HolidayLogDTO">
@@ -95,18 +95,23 @@
     SELECT /* com.qs.www.schedule.model.dao.HolidayDAO#selectAllCount() */
            COUNT(*)
       FROM TBL_REPORT A
-      LEFT JOIN TBL_MEMBER D ON(A.MEMBER_NO = D.MEMBER_NO)
     <where>
-		<if test="searchCondition == 'title'">
-	       A.REPORT_TITLE LIKE '%' || #{ searchValue } || '%' 	
+		<if test="searchMap.searchCondition == 'title'">
+	       A.REPORT_TITLE LIKE '%' || #{ searchMap.searchValue } || '%' 	
 		</if>
-		<if test="searchCondition == 'body'">
-	       A.REPORT_NOTE LIKE '%' || #{ searchValue } || '%' 	
+		<if test="searchMap.searchCondition == 'status'">
+	       A.REPORT_STATUS LIKE '%' || #{ searchMap.searchValue } || '%' 	
 		</if>
-	   AND A.CANCEL_YN = 'N'
+		<if test="documentNo == 6">
+	       A.DOCUMENT_NO = #{ documentNo }
+		</if>
+		<if test="documentNo != 6">
+	       A.DOCUMENT_NO IN (#{ documentNo1 }, #{ documentNo2 })
+		</if>
 	   AND A.MEMBER_NO = #{ memberNo }
-	   AND A.DOCUMENT_NO = #{ documentNo }
+	   AND A.REPORT_STATUS != '회수'
     </where>
+     ORDER BY A.REPORT_NO DESC
 	</select>
 	
 	<!-- <select id="selectMyholidayReport" resultMap="reportResultMap">
@@ -157,22 +162,27 @@
 	                  FROM TBL_REPORT A 
 	               <where>
 	                 <if test="selectCriteria.searchCondition == 'title'">
-	           			   A.REPORT_TITLE LIKE '%' || #{ searchValue } || '%' 	
+	           			 A.REPORT_TITLE LIKE '%' || #{ selectCriteria.searchValue } || '%' 	
 					 </if>
 					 <if test="selectCriteria.searchCondition == 'body'">
-	           			   A.REPORT_NOTE LIKE '%' || #{ searchValue } || '%' 	
+	           			 A.REPORT_NOTE LIKE '%' || #{ selectCriteria.searchValue } || '%' 	
 					 </if>
+					 <if test="documentNo == 6">
+	                     A.DOCUMENT_NO = #{ documentNo }
+		             </if>
+		             <if test="documentNo != 6">
+	                     A.DOCUMENT_NO IN (#{ documentNo1 }, #{ documentNo2 })
+		             </if>
 					   AND A.MEMBER_NO = #{ memberNo }
-					   AND A.DOCUMENT_NO = #{ documentNo }
-					   AND NOT A.REPORT_STATUS IN ('취소', '회수')
+					   AND A.REPORT_STATUS != '회수'
 	               </where>
 	                 ORDER BY A.REPORT_NO DESC
 	                 ) B
                   <![CDATA[
-                  WHERE ROWNUM <= #{ endRow }
+                  WHERE ROWNUM <= #{ selectCriteria.endRow }
                   ]]>
                ) C
-         WHERE C.RNUM >= #{ startRow }     
+         WHERE C.RNUM >= #{ selectCriteria.startRow }     
 	</select>
 	
 	<select id="selectHavingHoliday" resultType="_int">
