@@ -89,9 +89,7 @@
 									</h1>
 								</div>
 
-								<br>
-								<br>
-								<br>
+								<br> <br> <br>
 
 							</div>
 							<div class="form-group">
@@ -155,9 +153,7 @@
 									<label>보존기간 : </label>
 									<div class="col-md-12">
 										<input class="form-control" value="~${ requestScope.endDate }"
-											disabled /> <br>
-										<br>
-										<br>
+											disabled /> <br> <br> <br>
 									</div>
 								</div>
 							</div>
@@ -167,8 +163,7 @@
 									<div class="col-md-12">
 										<input class="form-control"
 											value="${ requestScope.selectedReport.reportTitle }" disabled />
-										<br>
-										<br>
+										<br> <br>
 									</div>
 								</div>
 								<c:set var="no"
@@ -216,21 +211,100 @@
 								</div>
 							</c:if>
 							<c:if test="${requestScope.selectedReport.documentNo >= 4}">
+								<c:if test="${requestScope.selectedReport.documentNo == 4 and requestScope.itemList.get(5).itemContent eq '커스텀'}">
 								<div class="form-group col-xs-12">
-									<c:forEach var="item" items="${ requestScope.itemList }">
-										<div>
-											<div class="col-sm-6">
-												<label>${ item.itemName } : </label> <input
-													class="form-control" value="${ item.itemContent }" disabled />
+										
+											<div>
+												<div class="col-sm-6">
+													<label>${ requestScope.itemList.get(0).itemName } : </label> <input
+														class="form-control" value="${ requestScope.itemList.get(0).itemContent }"
+														disabled />
+												</div>
+												<div class="col-sm-6">
+													<label>${ requestScope.itemList.get(1).itemName } : </label> <input
+														class="form-control" value="${ requestScope.itemList.get(1).itemContent }"
+														disabled />
+												</div>
 											</div>
-										</div>
-									</c:forEach>
-								</div>
+											<div>
+												<div class="col-sm-6">
+													<label>${ requestScope.itemList.get(2).itemName } : </label> <input
+														class="form-control" value="${ requestScope.itemList.get(2).itemContent }"
+														disabled />
+												</div>
+												<div class="col-sm-6">
+													<label>${ requestScope.itemList.get(3).itemName } : </label> <input
+														class="form-control" value="${ requestScope.itemList.get(3).itemContent }"
+														disabled />
+												</div>
+											</div>
+											<div>
+												<div class="col-sm-6">
+													<label>${ requestScope.itemList.get(4).itemName } : </label> <input
+														class="form-control" value="${ requestScope.itemList.get(4).itemContent }"
+														disabled />
+												</div>
+												<div class="col-sm-6">
+													<label>${ requestScope.itemList.get(5).itemName } : </label> <input
+														class="form-control" value="${ requestScope.itemList.get(5).itemContent }"
+														disabled />
+														<br>
+												</div>
+											</div>
+											<div>
+												<div class="col-sm-6">
+													<label>${ requestScope.itemList.get(6).itemName } : </label> <input
+														class="form-control" value="${ requestScope.itemList.get(6).itemContent } ~ ${ requestScope.itemList.get(7).itemContent }"
+														disabled />
+												</div>
+												
+												<div class="col-sm-6">
+													<label>${ requestScope.itemList.get(8).itemName } : </label> <input
+														class="form-control" value="${ requestScope.itemList.get(8).itemContent } ~ ${ requestScope.itemList.get(9).itemContent }"
+														disabled />
+												</div>
+											</div>
+											<div>
+												<div class="col-sm-6">
+													<label>${ requestScope.itemList.get(10).itemName } : </label> <input
+														class="form-control" value="${ requestScope.itemList.get(10).itemContent } ~ ${ requestScope.itemList.get(11).itemContent }"
+														disabled />
+												</div>
+												<div class="col-sm-6">
+													<label>${ requestScope.itemList.get(12).itemName } : </label> <input
+														class="form-control" value="${ requestScope.itemList.get(12).itemContent } ~ ${ requestScope.itemList.get(13).itemContent }"
+														disabled />
+												</div>
+											</div>
+											<div>
+												<div class="col-sm-6">
+													<label>${ requestScope.itemList.get(14).itemName } : </label> <input
+														class="form-control" value="${ requestScope.itemList.get(14).itemContent } ~ ${ requestScope.itemList.get(14).itemContent }"
+														disabled />
+												</div>
+												
+											</div>
+										
+									</div>
+								</c:if>
+								<c:if test="${requestScope.selectedReport.documentNo >= 4  and requestScope.itemList.get(5).itemContent ne '커스텀'}">
+									<div class="form-group col-xs-12">
+										<c:forEach var="item" items="${ requestScope.itemList }">
+											<div>
+												<div class="col-sm-6">
+													<label>${ item.itemName } : </label> <input
+														class="form-control" value="${ item.itemContent }"
+														disabled />
+												</div>
+											</div>
+										</c:forEach>
+									</div>
+								</c:if>	
 							</c:if>
 							<div class="form-group">
 								<div class="col-xs-12">
-									<c:if test="${requestScope.selectedReport.documentNo >= 4}">
-										<br>
+								<br>
+									<c:if test="${requestScope.selectedReport.documentNo >= 5}">
 										<br>
 										<br>
 									</c:if>
@@ -249,7 +323,7 @@
 						</div>
 						<c:forEach var="line" items="${ requestScope.ALPRList }">
 							<div class="card-box col-lg-3">
-								<h4 class="card-title">${ line.memberName }님의결재내용 조회</h4>
+								<h4 class="card-title">${ line.memberName }님의결재내용조회</h4>
 								<div class="form-group">
 
 									<div class="col-xs-6">

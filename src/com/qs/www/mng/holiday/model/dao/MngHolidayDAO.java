@@ -7,6 +7,7 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 
 import com.qs.www.common.paging.SelectCriteria;
+import com.qs.www.member.model.dto.MemberInfoDTO;
 import com.qs.www.mng.holiday.model.dto.HolidayRuleDTO;
 import com.qs.www.mng.holiday.model.dto.MemberHolidayInfoDTO;
 import com.qs.www.schedule.model.dto.HolidayLogDTO;
@@ -86,6 +87,16 @@ public class MngHolidayDAO {
 	public List<HolidayLogDTO> selectPagingHolidayLogList(SqlSession session, HashMap<String, Object> selectedInfoMap) {
 		
 		return session.selectList("MngHolidayDAO.selectPagingHolidayLogList", selectedInfoMap);
+	}
+
+	public MemberInfoDTO selectMemberInfo(SqlSession session, int memberNo) {
+		
+		return session.selectOne("MngHolidayDAO.selectMemberInfo", memberNo);
+	}
+
+	public int insertManualHolidayLog(SqlSession session, HolidayLogDTO holidayLogDTO) {
+		
+		return session.insert("MngHolidayDAO.insertManualHolidayLog", holidayLogDTO);
 	}
 
 	
