@@ -197,12 +197,15 @@
 					break;
 				case "inserWorkType" : 
 					successMessage = "근무제추가가 완료되었습니다.";
-
-					
+					movePath = "${ pageContext.servletContext.contextPath }/mng/workingSystem/select";
+					break;
 				case "deleteWorkType" : 
 					successMessage = "근무제삭제가 완료되었습니다.";
-
 					movePath = "${ pageContext.servletContext.contextPath }/mng/workingSystem/select";
+					break;
+				case "insertManualHolidayLog" : 
+					successMessage = "휴가수동지급이 완료되었습니다.";
+					movePath = "${ pageContext.servletContext.contextPath }/mng/holiday/manual/select";
 					break;
 				
 			}

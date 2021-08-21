@@ -9,6 +9,7 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 
 import com.qs.www.common.paging.SelectCriteria;
+import com.qs.www.member.model.dto.MemberInfoDTO;
 import com.qs.www.mng.holiday.model.dao.MngHolidayDAO;
 import com.qs.www.mng.holiday.model.dto.HolidayRuleDTO;
 import com.qs.www.mng.holiday.model.dto.MemberHolidayInfoDTO;
@@ -187,6 +188,30 @@ public class MngHolidayService {
 		session.close();
 
 		return logList;
+	}
+
+	public MemberInfoDTO selectMemberInfo(int memberNo) {
+		SqlSession session = getSqlSession();
+
+		MemberInfoDTO memberInfo = mngHolidayDAO.selectMemberInfo(session, memberNo);
+
+		session.close();
+
+		return memberInfo;
+	}
+
+	public int insertManualHolidayLog(HolidayLogDTO holidayLogDTO) {
+		SqlSession session = getSqlSession();
+
+		int result = mngHolidayDAO.insertManualHolidayLog(session, holidayLogDTO);
+		if(result > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+		session.close();
+
+		return result;
 	}
 
 
