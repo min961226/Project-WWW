@@ -29,10 +29,8 @@
 					<div class="col-md-12">
 						<div class="card-box">
 							<h4 class="card-title">내용 작성</h4>
-							<form class="form-horizontal"
-								action="${ pageContext.servletContext.contextPath }/schedule/workingSystem/insert"
-								method="post" onsubmit="return askAgain();"
-								enctype="multipart/form-data">
+							<form class="form-horizontal" action="${ pageContext.servletContext.contextPath }/schedule/workingSystem/insert"
+								method="post" onsubmit="return askAgain();" enctype="multipart/form-data">
 								<div class="row">
 									<div class="col-md-6">
 										<div class="form-group">
@@ -130,40 +128,216 @@
 
 
 									<!-- 첫번째 컬럼 끝 -->
-									<div class="row" id="div1" hidden>
+									<div class="col-md-6" id="div1" hidden>
 										<h4>선택근무 추가작성내용</h4>
+										<div><small>* 선택근무 시, 일일 최소근무시간은 4시간 입니다.</small></div>
+										<div><small>** 일일 휴게시간은 1시간이며, 시간 설정시 1시간을 빼고 주간근무시간이 계산됩니다. (주간 : 40시간 이내)</small></div>
 										<div>
-											<div class="form-group col-sm-6">
-												<label class="col-md-3 control-label">월 출근 시간</label> <select
-													class="select" name="monStartTimeHour" required>
-													<option value="07">07</option>
-													<option value="08">08</option>
-													<option value="09">09</option>
-													<option value="10">10</option>
-													<option value="11">11</option>
-													<option value="12">12</option>
-												</select> <select class="select" name="monStartTimeMin" required>
-													<option value="00">00</option>
-													<option value="30">30</option>
-												</select>
+											<div class="form-group col-md-6">
+												<label class="col-md-12 control-label">월 출근</label>
+												<div class="col-md-6">
+													<select class="select" name="monStartTimeHour" required>
+														<option value="07">07</option>
+														<option value="08">08</option>
+														<option value="09" selected>09</option>
+														<option value="10">10</option>
+														<option value="11">11</option>
+														<option value="12">12</option>
+													</select>
+												</div>
+												<div class="col-md-6">
+													<select class="select" name="monStartTimeMin" required>
+														<option value="00">00</option>
+														<option value="30">30</option>
+													</select>
+												</div>
 											</div>
-
-											<div class="form-group col-sm-6">
-												<label class="col-md-3 control-label">월 퇴근 시간</label> <select
-													class="select" name="monEndTimeHour" required>
-													<option value="13">13</option>
-													<option value="14">14</option>
-													<option value="15">15</option>
-													<option value="16">16</option>
-													<option value="17">17</option>
-													<option value="18">18</option>
-													<option value="19">19</option>
-													<option value="20">20</option>
-												</select> <select class="select" name="monEndTimeMin" required>
-													<option value="00">00</option>
-													<option value="30">30</option>
-												</select>
+											<div class="form-group col-md-6">
+												<label class="col-md-12 control-label">월 퇴근</label> 
+												<div class="col-md-6">
+													<select class="select" name="monEndTimeHour" required>
+														<option value="13">13</option>
+														<option value="14">14</option>
+														<option value="15">15</option>
+														<option value="16">16</option>
+														<option value="17">17</option>
+														<option value="18" selected>18</option>
+														<option value="19">19</option>
+														<option value="20">20</option>
+													</select>
+												</div>
+												<div class="col-md-6">
+													<select class="select" name="monEndTimeMin" required>
+														<option value="00">00</option>
+														<option value="30">30</option>
+													</select>
+												</div>
 											</div>
+											
+											<div class="form-group col-md-6">
+												<label class="col-md-12 control-label">화 출근</label>
+												<div class="col-md-6">
+													<select class="select" name="tueStartTimeHour" required>
+														<option value="07">07</option>
+														<option value="08">08</option>
+														<option value="09" selected>09</option>
+														<option value="10">10</option>
+														<option value="11">11</option>
+														<option value="12">12</option>
+													</select>
+												</div>
+												<div class="col-md-6">
+													<select class="select" name="tueStartTimeMin" required>
+														<option value="00">00</option>
+														<option value="30">30</option>
+													</select>
+												</div>
+											</div>
+											<div class="form-group col-md-6">
+												<label class="col-md-12 control-label">화 퇴근</label> 
+												<div class="col-md-6">
+													<select class="select" name="tueEndTimeHour" required>
+														<option value="13">13</option>
+														<option value="14">14</option>
+														<option value="15">15</option>
+														<option value="16">16</option>
+														<option value="17">17</option>
+														<option value="18" selected>18</option>
+														<option value="19">19</option>
+														<option value="20">20</option>
+													</select>
+												</div>
+												<div class="col-md-6">
+													<select class="select" name="tueEndTimeMin" required>
+														<option value="00">00</option>
+														<option value="30">30</option>
+													</select>
+												</div>
+											</div>
+											<div class="form-group col-md-6">
+												<label class="col-md-12 control-label">수 출근</label>
+												<div class="col-md-6">
+													<select class="select" name="wedStartTimeHour" required>
+														<option value="07">07</option>
+														<option value="08">08</option>
+														<option value="09" selected>09</option>
+														<option value="10">10</option>
+														<option value="11">11</option>
+														<option value="12">12</option>
+													</select>
+												</div>
+												<div class="col-md-6">
+													<select class="select" name="wedStartTimeMin" required>
+														<option value="00">00</option>
+														<option value="30">30</option>
+													</select>
+												</div>
+											</div>
+											<div class="form-group col-md-6">
+												<label class="col-md-12 control-label">수 퇴근</label> 
+												<div class="col-md-6">
+													<select class="select" name="wedEndTimeHour" required>
+														<option value="13">13</option>
+														<option value="14">14</option>
+														<option value="15">15</option>
+														<option value="16">16</option>
+														<option value="17">17</option>
+														<option value="18" selected>18</option>
+														<option value="19">19</option>
+														<option value="20">20</option>
+													</select>
+												</div>
+												<div class="col-md-6">
+													<select class="select" name="wedEndTimeMin" required>
+														<option value="00">00</option>
+														<option value="30">30</option>
+													</select>
+												</div>
+											</div>
+											
+											<div class="form-group col-md-6">
+												<label class="col-md-12 control-label">목 출근</label>
+												<div class="col-md-6">
+													<select class="select" name="thuStartTimeHour" required>
+														<option value="07">07</option>
+														<option value="08">08</option>
+														<option value="09" selected>09</option>
+														<option value="10">10</option>
+														<option value="11">11</option>
+														<option value="12">12</option>
+													</select>
+												</div>
+												<div class="col-md-6">
+													<select class="select" name="thuStartTimeMin" required>
+														<option value="00">00</option>
+														<option value="30">30</option>
+													</select>
+												</div>
+											</div>
+											<div class="form-group col-md-6">
+												<label class="col-md-12 control-label">목 퇴근</label> 
+												<div class="col-md-6">
+													<select class="select" name="thuEndTimeHour" required>
+														<option value="13">13</option>
+														<option value="14">14</option>
+														<option value="15">15</option>
+														<option value="16">16</option>
+														<option value="17">17</option>
+														<option value="18" selected>18</option>
+														<option value="19">19</option>
+														<option value="20">20</option>
+													</select>
+												</div>
+												<div class="col-md-6">
+													<select class="select" name="thuEndTimeMin" required>
+														<option value="00">00</option>
+														<option value="30">30</option>
+													</select>
+												</div>
+											</div>
+											
+											<div class="form-group col-md-6">
+												<label class="col-md-12 control-label">금 출근</label>
+												<div class="col-md-6">
+													<select class="select" name="friStartTimeHour" required>
+														<option value="07">07</option>
+														<option value="08">08</option>
+														<option value="09" selected>09</option>
+														<option value="10">10</option>
+														<option value="11">11</option>
+														<option value="12">12</option>
+													</select>
+												</div>
+												<div class="col-md-6">
+													<select class="select" name="friStartTimeMin" required>
+														<option value="00">00</option>
+														<option value="30">30</option>
+													</select>
+												</div>
+											</div>
+											<div class="form-group col-md-6">
+												<label class="col-md-12 control-label">금 퇴근</label> 
+												<div class="col-md-6">
+													<select class="select" name="friEndTimeHour" required>
+														<option value="13">13</option>
+														<option value="14">14</option>
+														<option value="15">15</option>
+														<option value="16">16</option>
+														<option value="17">17</option>
+														<option value="18" selected>18</option>
+														<option value="19">19</option>
+														<option value="20">20</option>
+													</select>
+												</div>
+												<div class="col-md-6">
+													<select class="select" name="friEndTimeMin" required>
+														<option value="00">00</option>
+														<option value="30">30</option>
+													</select>
+												</div>
+											</div>
+											
+											
 										</div>
 
 										<!-- <div class="col-md-6">
@@ -192,6 +366,11 @@
 
 									<div class="row" id="div2" hidden>
 										<h4>초과근무 추가작성내용</h4>
+										<div><small>* 초과근무는 주 12시간을 넘을 수 없습니다. 신청 전 결재내역 확인부탁드립니다. </small></div>
+										<div><small>** 여러일에 걸치지 않는경우, 시작일과 종료일을 같은날로 설정해주시기 바랍니다. </small></div>
+										<br>
+										<hr>
+										<br>
 										<div class="col-md-6">
 											<div class="form-group">
 												<label class="col-md-3 control-label">시작시간</label>
@@ -222,7 +401,7 @@
 											</div>
 											<div class="form-group">
 												<label class="col-md-3 control-label">초과근무시간</label>
-												<div class="col-md-9">
+												<div class="col-md-6">
 													<input type="text" class="form-control"
 														id="overtimeDuring" name="overtimeDuring" required disabled>
 												</div>

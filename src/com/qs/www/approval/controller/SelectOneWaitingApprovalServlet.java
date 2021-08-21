@@ -132,6 +132,10 @@ public class SelectOneWaitingApprovalServlet extends HttpServlet {
 				//판단에 필요한 정보 가져오기
 				ReportDTO selectedReport  = approvalService.selectOneReportDetail(reportNo);
 				List<WorkingDocumentItemDTO> itemList = approvalService.selectReportItemList(reportNo);
+				for(WorkingDocumentItemDTO dto : itemList) {
+					System.out.println("순서대로 나오나...?");
+					System.out.println("문서의 item 리스트 : " + dto);
+				}
 				
  				/* 5. 근무제쪽 테이블에도 insert 해주기 */
 				if(selectedReport.getDocumentNo() == 4 || selectedReport.getDocumentNo() == 5) {
@@ -139,16 +143,15 @@ public class SelectOneWaitingApprovalServlet extends HttpServlet {
 				
 					/* 5-1. 정규근무신청이라면 */
 					if(selectedReport.getDocumentNo() == 4) {
+						System.out.println("------(정규)근무신청서");
 						
-						/* 5-1-a. 사용할 값을 가져온다 */
+						/* 5-1-a. TBL_MEMBER_WORK_LOG에 사용할 값을 가져온다 */
 						String startDay = itemList.get(2).getItemContent();
 						String endDay = itemList.get(3).getItemContent();
 		 				
 						String[] arrayEndDate = startDay.split("-");   
 						int dayPlusOne = Integer.parseInt(arrayEndDate[2]) + 1;
 						String endDate = arrayEndDate[0]  + "-" + arrayEndDate[1] + "-" + dayPlusOne;
-						
-		 				System.out.println(startDay + " 와" + endDate + "를 쓸 것이다.");
 						
 		 				/* 5-1-b. 첫번째 변경이력. startDay 사용 */
 		 					//memberWorkLogDTO.setStartDay에 맞춰 sql.Date형식으로 바꿔준다
@@ -185,7 +188,8 @@ public class SelectOneWaitingApprovalServlet extends HttpServlet {
 		 				
 						/* 5-1-d. 커스텀근무제라면 커스텀근무제에도 추가 */
 		 				String workType = itemList.get(5).getItemContent(); //근무제가 뭔지 알아온다
-		 				if(!workType.equals("표준")) {
+		 				if(workType.equals("커스텀")) {
+		 					System.out.println("------커스텀근무신청서");
 		 					
 		 					//생성할 workNo의 LastNum 가져오기
 		 					int customWorkNum = scheduleService.selectCustomWorkNum();
@@ -201,8 +205,8 @@ public class SelectOneWaitingApprovalServlet extends HttpServlet {
 		 					String[] dayOfWeekArr = new String[]{"월", "화", "수", "목", "금"};
 		 					for(int i = 0; i < dayOfWeekArr.length; i++ ) {
 		 						customWorkTimeDTO.setDayOfWeek(dayOfWeekArr[i]);
-		 						customWorkTimeDTO.setCheckInTime(itemList.get(i + 5).getItemContent());
-		 						customWorkTimeDTO.setCheckOutTime(itemList.get(i + 6).getItemContent());
+		 						customWorkTimeDTO.setCheckInTime(itemList.get(i * 2 + 6).getItemContent());
+		 						customWorkTimeDTO.setCheckOutTime(itemList.get(i * 2 + 7).getItemContent());
 		 						int result8 = scheduleService.insertCustomWorktime(customWorkTimeDTO);
 		 						System.out.println(result8);
 		 					}
@@ -213,6 +217,7 @@ public class SelectOneWaitingApprovalServlet extends HttpServlet {
 	 				
 	 				/* 5-2. 초과근무신청이라면 */
 					if(selectedReport.getDocumentNo() == 5) {
+						System.out.println("------초과근무신청서");
 						
 						//초과근무제내역 (TBL_MEMBER_OVERTIME_LOG)에  insert 
 						OvertimeLogDTO overtimeLogDTO = new OvertimeLogDTO();
@@ -225,7 +230,6 @@ public class SelectOneWaitingApprovalServlet extends HttpServlet {
 						overtimeLogDTO.setOvertimeEndTime(itemList.get(6).getItemContent());
 						int result = scheduleService.insertOvertimeLog(overtimeLogDTO);
 						
-						
 					}
 				
 				}
@@ -233,6 +237,7 @@ public class SelectOneWaitingApprovalServlet extends HttpServlet {
 				
 				/* 6. 휴가신청이라면 */
 				if(selectedReport.getDocumentNo() == 6) {
+					System.out.println("------휴가신청서");
 					
 					HolidayService holidayService = new HolidayService();
 					

@@ -102,7 +102,7 @@ public class InsertWorkingSystemScheduleServlet extends HttpServlet {
 		} else {						//그 이외는 표준근무제이다
 			workType = "표준";
 		}
-		String title = memberName + " " + workType + "근무 신청서";		//title 미리 만들어둔다.
+		String title = memberName + " " + workType + " 근무 신청서";		//title 미리 만들어둔다.
 		
 		int documentNo = 0;
 		if(workNo == 7) {
@@ -184,7 +184,7 @@ public class InsertWorkingSystemScheduleServlet extends HttpServlet {
 			String wedStartTime = request.getParameter("wedStartTimeHour") + ":" + request.getParameter("wedStartTimeMin");
 			String wedEndTime = request.getParameter("wedEndTimeHour") + ":" + request.getParameter("wedEndTimeMin");
 			String thuStartTime = request.getParameter("thuStartTimeHour") + ":" + request.getParameter("thuStartTimeMin");
-			String thuEndTime = request.getParameter("monEndTimeHour") + ":" + request.getParameter("thuEndTimeMin");
+			String thuEndTime = request.getParameter("thuEndTimeHour") + ":" + request.getParameter("thuEndTimeMin");
 			String friStartTime = request.getParameter("friStartTimeHour") + ":" + request.getParameter("friStartTimeMin");
 			String friEndTime = request.getParameter("friEndTimeHour") + ":" + request.getParameter("friEndTimeMin");
 			workingDocumentItem.add(monStartTime);

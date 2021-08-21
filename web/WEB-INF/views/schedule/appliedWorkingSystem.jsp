@@ -59,25 +59,24 @@
 						<div class="table-responsive">
 							<table class="table table-striped custom-table m-b-0 datatable">
 
-								<thead>
-									<tr>
-										<!-- 시작일과 종료일도 뜨게 해주고 싶네 -->
-										<th>결재번호</th>
-										<th>결재분류</th>
-										<th>결재제목</th>
-										<th>결재라인</th>
-										<th>상신일</th>
-										<th>진행상태</th>
-										<th>신청사유</th>
-									</tr>
-								</thead>
+								<tbody>
+									<thead>
+										<tr>
+											<th>결재번호</th>
+											<th>결재분류</th>
+											<th>결재제목</th>
+											<th>결재라인</th>
+											<th>상신일</th>
+											<th>진행상태</th>
+											<th>신청사유</th>
+										</tr>
+									</thead>
 
 
 								<c:forEach var="report" items="${ requestScope.workReportList }">
 
 									<!-- 승인인지 여부만 확인. 승인 이외에는 빨간색으로 -->
-									<c:set var="isApproved"
-										value="${ fn:contains(report.reportStatus, \"승인\") }" />
+									<c:set var="isApproved"	value="${ fn:contains(report.reportStatus, \"승인\") }" />
 
 									<tr>
 										<td><c:out value="${ report.reportNo }" /></td>
@@ -98,15 +97,16 @@
 													<i class="fa fa-dot-circle-o text-danger"></i>
 													<c:out value=" ${ report.reportStatus }" />
 												</c:otherwise>
-											</c:choose>
-										</td>
+											</c:choose></td>
 										<td><c:out value="${ report.reportNote }" /></td>
 									</tr>
 								</c:forEach>
 
+								</tbody>
 							</table>
 							<!-- 근무신청내용 end -->
 
+							<!-- 페이징 부분 -->
 							<jsp:include page="../common/navbar.jsp" />
 
 						</div>
@@ -114,30 +114,29 @@
 				</div>
 			</div>
 		</div>
-	</div>
-	<!-- main-wrapper end -->
+	</div> <!-- main-wrapper end -->
 
 	<script>
-		if(document.getElementsByTagName("td")) {
-			const $td = document.getElementsByTagName("td");
-			for(let i = 0; i < $tds.length; i++) {
-				
+		if (document.getElementsByTagName("td")) {
+			const $tds = document.getElementsByTagName("td");
+			for (let i = 0; i < $tds.length; i++) {
+	
 				$tds[i].onmouseenter = function() {
 					this.parentNode.style.backgroundColor = "LightGoldenRodYellow";
 					this.parentNode.style.cursor = "pointer";
 				}
-				
+	
 				$tds[i].onmouseout = function() {
 					this.parentNode.style.backgroundColor = "white";
 				}
-				
+	
 				$tds[i].onclick = function() {
-					const no = this.parentNode.children[0].innerText;
+					const no = this.parentNode.children[0].innerText; //결재번호가 0번째 td이므로, [0]의 innerText를 가져오기
 					location.href = "${ pageContext.servletContext.contextPath }/schedule/workingSystem/selectOne?no=" + no;
 				}
-				
+					
 			}
-			
+				
 		}
 		
 	</script>
