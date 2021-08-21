@@ -11,6 +11,7 @@ import com.qs.www.member.model.dto.MemberInfoDTO;
 import com.qs.www.mng.holiday.model.dto.HolidayRuleDTO;
 import com.qs.www.mng.holiday.model.dto.MemberHolidayInfoDTO;
 import com.qs.www.schedule.model.dto.HolidayLogDTO;
+import com.qs.www.schedule.model.dto.HolidayTypeDTO;
 import com.qs.www.schedule.model.dto.ReportDTO;
 
 public class MngHolidayDAO {
@@ -97,6 +98,26 @@ public class MngHolidayDAO {
 	public int insertManualHolidayLog(SqlSession session, HolidayLogDTO holidayLogDTO) {
 		
 		return session.insert("MngHolidayDAO.insertManualHolidayLog", holidayLogDTO);
+	}
+
+	public List<HolidayTypeDTO> selectHolidayType(SqlSession session) {
+		
+		return session.selectList("MngHolidayDAO.selectHolidayType");
+	}
+
+	public HolidayTypeDTO selectOneHolidayType(SqlSession session, int no) {
+		
+		return session.selectOne("MngHolidayDAO.selectOneHolidayType", no);
+	}
+
+	public int updateHolidayType(SqlSession session, HolidayTypeDTO holidayCategory) {
+		
+		return session.update("MngHolidayDAO.updateHolidayType", holidayCategory);
+	}
+
+	public int insertHolidayType(SqlSession session, HolidayTypeDTO holidayCategory) {
+		
+		return session.insert("MngHolidayDAO.insertHolidayType", holidayCategory);
 	}
 
 	

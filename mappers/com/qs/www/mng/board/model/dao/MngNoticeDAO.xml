@@ -174,13 +174,13 @@
 	</update>
 	
 	<update id="deleteMngNotice" parameterType="com.qs.www.mng.board.model.dto.MngNoticeDTO">
-		UPDATE /* com.qs.www.mng.board.model.dao.MngNoticeDAO#updateMngNotice()
+		UPDATE /* com.qs.www.mng.board.model.dao.MngNoticeDAO#deleteMngNotice()
 		*/
 		
 		TBL_BOARD A
 		SET A.DELETE_YN = 'Y'
 		WHERE A.BOARD_NO = #{ no }
-		AND A.MEMBER_NO = #{ member }
+		
 	
 	</update>
 	

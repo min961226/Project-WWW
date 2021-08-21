@@ -287,7 +287,20 @@
 										
 									</div>
 								</c:if>
-								<c:if test="${requestScope.selectedReport.documentNo >= 4  and requestScope.itemList.get(5).itemContent ne '커스텀'}">
+								<c:if test="${requestScope.selectedReport.documentNo == 4 and requestScope.itemList.get(5).itemContent ne '커스텀'}">
+								    <div class="form-group col-xs-12">
+										<c:forEach var="item" items="${ requestScope.itemList }">
+											<div>
+												<div class="col-sm-6">
+													<label>${ item.itemName } : </label> <input
+														class="form-control" value="${ item.itemContent }"
+														disabled />
+												</div>
+											</div>
+										</c:forEach>
+									</div>
+								</c:if>
+								<c:if test="${requestScope.selectedReport.documentNo >= 5}">
 									<div class="form-group col-xs-12">
 										<c:forEach var="item" items="${ requestScope.itemList }">
 											<div>

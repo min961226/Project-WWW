@@ -3,6 +3,7 @@ package com.qs.www.member.controller;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.qs.www.main.model.dto.AuthorityDTO;
 import com.qs.www.main.model.dto.WorkInfoDTO;
 import com.qs.www.main.model.dto.WorkingLogDTO;
 import com.qs.www.main.model.service.MainService;
@@ -39,6 +41,11 @@ public class LoginServlet extends HttpServlet {
 		// 일치하는 로그인 정보를 session에 저장
 		String path = "";
 		if(loginMember != null) {
+			// 로그인 계정의 권한을 확인하여 DB에 저장
+			String roleCode = loginMember.getRole().getRoleCode();
+			
+			List<AuthorityDTO> roleAuthorityList = mainService.selectAccessAuthorityList(roleCode);
+			
 			// 로그인 한 날짜의 근무제도 확인하여 DB에 저장
 			LocalDate today = LocalDate.now();
 			String todayDate = today.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
@@ -53,6 +60,7 @@ public class LoginServlet extends HttpServlet {
 			
 			HttpSession session = request.getSession();
 			session.setAttribute("memberInfo", loginMember);
+			session.setAttribute("memberAuthority", roleAuthorityList);
 			
 			response.sendRedirect(request.getContextPath());
 		} else {

@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="MngWorkingDAO">
-
-
+	
 	<insert id="InsertStandardMngWorkingSystem" parameterType="com.qs.www.mng.working.model.dto.WorkingDTO">
 	INSERT /* com.qs.www.mng.working.model.dao.MngWorkingDAO#InsertStandardMngWorkingSystem() */
 	  INTO TBL_STANDARD_WORK A
@@ -37,5 +36,7 @@
 	   SET A.ACTIVE_YN = 'N'
      WHERE A.WORK_CODE = #{ deleteWorkCode }
 	</update>
+	
+	
 
 </mapper>

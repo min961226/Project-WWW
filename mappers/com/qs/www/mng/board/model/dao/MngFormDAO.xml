@@ -173,12 +173,16 @@
 		AND A.MEMBER_NO = #{ member }
 	</update>
 	
-	<delete id="deleteMngForm">
-		DELETE
-		FROM TBL_BOARD A
+	<update id="deleteMngForm" parameterType="com.qs.www.mng.board.model.dto.MngFormDTO">
+		UPDATE /* com.qs.www.mng.board.model.dao.MngFormDAO#deleteMngForm()
+		*/
+		
+		TBL_BOARD A
+		SET A.DELETE_YN = 'Y'
 		WHERE A.BOARD_NO = #{ no }
+		
 	
-	</delete>
+	</update>
 	
 		<select id="selectBoardNum" resultType="_int">
 		SELECT /* com.qs.www.mng.board.model.dao.MngBoardDAO#selectBoardNum() */

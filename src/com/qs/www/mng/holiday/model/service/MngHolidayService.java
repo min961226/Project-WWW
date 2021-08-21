@@ -14,6 +14,7 @@ import com.qs.www.mng.holiday.model.dao.MngHolidayDAO;
 import com.qs.www.mng.holiday.model.dto.HolidayRuleDTO;
 import com.qs.www.mng.holiday.model.dto.MemberHolidayInfoDTO;
 import com.qs.www.schedule.model.dto.HolidayLogDTO;
+import com.qs.www.schedule.model.dto.HolidayTypeDTO;
 import com.qs.www.schedule.model.dto.ReportDTO;
 
 public class MngHolidayService {
@@ -204,6 +205,54 @@ public class MngHolidayService {
 		SqlSession session = getSqlSession();
 
 		int result = mngHolidayDAO.insertManualHolidayLog(session, holidayLogDTO);
+		if(result > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+		session.close();
+
+		return result;
+	}
+
+	public List<HolidayTypeDTO> selectHolidayType() {
+		SqlSession session = getSqlSession();
+
+		List<HolidayTypeDTO> categoryList = mngHolidayDAO.selectHolidayType(session);
+
+		session.close();
+
+		return categoryList;
+	}
+
+	public HolidayTypeDTO selectOneHolidayType(int no) {
+		SqlSession session = getSqlSession();
+
+		HolidayTypeDTO category= mngHolidayDAO.selectOneHolidayType(session, no);
+
+		session.close();
+
+		return category;
+	}
+
+	public int updateHolidayType(HolidayTypeDTO holidayCategory) {
+		SqlSession session = getSqlSession();
+
+		int result = mngHolidayDAO.updateHolidayType(session, holidayCategory);
+		if(result > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+		session.close();
+
+		return result;
+	}
+
+	public int insertHolidayType(HolidayTypeDTO holidayCategory) {
+		SqlSession session = getSqlSession();
+
+		int result = mngHolidayDAO.insertHolidayType(session, holidayCategory);
 		if(result > 0) {
 			session.commit();
 		} else {

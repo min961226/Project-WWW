@@ -60,7 +60,15 @@
 			<id property="jobCode" column="JOB_CODE"/>
 			<result property="jobName" column="JOB_NAME"/>
 		</association>
-	</resultMap>	
+	</resultMap>
+	<resultMap type="com.qs.www.schedule.model.dto.HolidayTypeDTO" id="holidayListResultMap">
+		<id property="holidayCode" column="HOLIDAY_CODE"/>
+		<result property="holidayName" column="HOLIDAY_NAME"/>
+		<result property="holidayType" column="HOLIDAY_TYPE"/>
+		<result property="dayNumber" column="DAY_NUMBER"/>
+		<result property="holidayNote" column="HOLIDAY_NOTE"/>
+		<result property="useYn" column="USE_YN"/>
+	</resultMap> 	
 	<select id="selectHolidayAPPCount" resultType="_int" parameterType="hashmap">
         SELECT /*com.qs.www.mng.holiday.model.dao.MngHolidayDAO#selectHolidayAPPCount"()*/
                COUNT(*)
@@ -271,6 +279,49 @@
 	, #{ holidayDuringDate }
 	, NULL
 	, 'N'
+	)
+	</insert>
+	<select id="selectHolidayType" resultMap="holidayListResultMap">
+	SELECT /* com.qs.www.mng.holiday.model.dao.MngHolidayDAO#selectHolidayType()*/ 
+	       A.*
+	  FROM TBL_HOLIDAY_TYPE A
+	 WHERE A.HOLIDAY_CODE > 0
+	 ORDER BY A.HOLIDAY_CODE
+	</select>
+	<select id="selectOneHolidayType" resultMap="holidayListResultMap">
+	SELECT /* com.qs.www.mng.holiday.model.dao.MngHolidayDAO#selectHolidayType()*/ 
+	       A.*
+	  FROM TBL_HOLIDAY_TYPE A
+	 WHERE A.HOLIDAY_CODE = #{ no }
+	</select>
+	<update id="updateHolidayType">
+		UPDATE /* com.qs.www.mng.holiday.model.dao.MngHolidayDAO#updateHolidayType()*/
+		       TBL_HOLIDAY_TYPE A
+		   SET A.HOLIDAY_NAME = #{ holidayName }
+		     , A.HOLIDAY_TYPE = #{ holidayType }
+		     , A.HOLIDAY_NOTE = #{ holidayNote}
+		     , A.USE_YN = #{ useYn }
+		 WHERE A.HOLIDAY_CODE = #{ holidayCode }
+	</update>
+	<insert id="insertHolidayType" parameterType="com.qs.www.schedule.model.dto.HolidayTypeDTO">
+	INSERT /* com.qs.www.mng.holiday.model.dao.MngHolidayDAO#insertHolidayType()*/ 
+	  INTO  TBL_HOLIDAY_TYPE A
+	(
+	  A.HOLIDAY_CODE
+	, A.HOLIDAY_NAME
+	, A.HOLIDAY_TYPE
+	, A.HOLIDAY_NOTE
+	, A.USE_YN
+	, A.DAY_NUMBER
+	)
+	VALUES
+	(
+	  SEQ_HOLIDAY_TYPE_NO.NEXTVAL
+	, #{ holidayName }
+	, #{ holidayType }
+	, #{ holidayNote}
+	, #{ useYn }
+	, 0
 	)
 	</insert>
 </mapper>

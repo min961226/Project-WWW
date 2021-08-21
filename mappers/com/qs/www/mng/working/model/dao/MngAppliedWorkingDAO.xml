@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper	namespace="MngAppliedWorkingDAO">
+	
+	<resultMap type="com.qs.www.schedule.model.dto.ReportDTO" id="reportResultMap">
+		<result property="reportNo" column="REPORT_NO" />
+		<result property="reportDate" column="REPORT_DATE" />
+		<result property="memberNo" column="MEMBER_NO" />
+		<result property="documentNo" column="DOCUMENT_NO" />
+		<result property="reportNote" column="REPORT_NOTE" />
+		<result property="reportStatus" column="REPORT_STATUS" />
+		<result property="lineName" column="LINE_NAME" />
+		<result property="reportTitle" column="REPORT_TITLE" />
+	</resultMap>
+	
+	<select id="selectAllMemberScheduleReportCount" parameterType="hashmap" resultType="_int">
+	SELECT /* com.qs.www.schedule.mng.working.dao.MngAppliedWorkingDAO#selectAllMemberScheduleReportCount() */
+           COUNT(*)
+      FROM TBL_REPORT A
+    <where>
+		<if test="searchMap.searchCondition == 'title'">
+	       A.REPORT_TITLE LIKE '%' || #{ searchMap.searchValue } || '%' 	
+		</if>
+		<if test="searchMap.searchCondition == 'status'">
+	       A.REPORT_STATUS LIKE '%' || #{ searchMap.searchValue } || '%' 	
+		</if>
+	   AND A.DOCUMENT_NO IN (#{ documentNo1 }, #{ documentNo2 })
+    </where>
+	</select>
+	
+	<select id="selectAllMemberWorkReport" parameterType="hashmap" resultMap="reportResultMap">
+	SELECT
+	       C.RNUM
+	     , C.REPORT_NO
+	     , C.REPORT_DATE
+	     , C.MEMBER_NO
+	     , C.DOCUMENT_NO
+	     , C.REPORT_NOTE
+	     , C.REPORT_STATUS
+	     , C.LINE_NAME
+	     , C.REPORT_TITLE
+	  FROM (SELECT ROWNUM RNUM
+	             , B.REPORT_NO
+	             , B.REPORT_DATE
+	             , B.MEMBER_NO
+	             , B.DOCUMENT_NO
+	             , B.REPORT_NOTE
+	             , B.REPORT_STATUS
+	             , B.LINE_NAME
+	             , B.REPORT_TITLE
+	          FROM (SELECT A.REPORT_NO
+	                     , A.REPORT_DATE
+	                     , A.MEMBER_NO
+	                     , A.DOCUMENT_NO
+	                     , A.REPORT_NOTE
+	                     , A.REPORT_STATUS
+	                     , A.LINE_NAME
+	                     , A.REPORT_TITLE
+	                  FROM TBL_REPORT A 
+	               <where>
+	                 <if test="selectCriteria.searchCondition == 'title'">
+	           			 A.REPORT_TITLE LIKE '%' || #{ selectCriteria.searchValue } || '%' 	
+					 </if>
+					 <if test="selectCriteria.searchCondition == 'status'">
+	       				 A.REPORT_STATUS LIKE '%' || #{ selectCriteria.searchValue } || '%'
+	       			 </if>
+	                   AND A.DOCUMENT_NO IN (#{ documentNo1 }, #{ documentNo2 })
+	               </where>
+	                 ORDER BY A.REPORT_NO DESC
+	                 ) B
+                  <![CDATA[
+                  WHERE ROWNUM <= #{ selectCriteria.endRow }
+                  ]]>
+               ) C
+         WHERE C.RNUM >= #{ selectCriteria.startRow }
+	</select>
+	
+</mapper>
