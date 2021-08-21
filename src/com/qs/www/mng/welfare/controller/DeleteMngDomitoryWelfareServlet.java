@@ -11,7 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 public class DeleteMngDomitoryWelfareServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		System.out.println("기숙사 퇴거 처리");
+		System.out.println(request.getParameter("no"));
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
