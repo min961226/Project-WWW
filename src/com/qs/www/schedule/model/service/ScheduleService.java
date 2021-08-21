@@ -1,14 +1,11 @@
 package com.qs.www.schedule.model.service;
 
-import com.qs.www.member.model.dto.DepartmentDTO;
-import com.qs.www.member.model.dto.MemberInfoDTO;
 import com.qs.www.schedule.model.dao.ScheduleDAO;
 import com.qs.www.schedule.model.dto.ApproverPerReportDTO;
 import com.qs.www.schedule.model.dto.CustomWorkDTO;
 import com.qs.www.schedule.model.dto.CustomWorkTimeDTO;
 import com.qs.www.schedule.model.dto.HolidayLogDTO;
 import com.qs.www.schedule.model.dto.MemberWorkLogDTO;
-import com.qs.www.schedule.model.dto.MonthlyWorkLogDTO;
 import com.qs.www.schedule.model.dto.OvertimeLogDTO;
 import com.qs.www.schedule.model.dto.ReportDTO;
 import com.qs.www.schedule.model.dto.StandardWorkDTO;

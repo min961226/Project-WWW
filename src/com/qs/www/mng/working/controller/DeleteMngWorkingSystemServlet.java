@@ -1,13 +1,14 @@
 package com.qs.www.mng.working.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.qs.www.mng.working.model.service.MngWorkingService;
+import com.qs.www.mng.working.model.service.MngWorkingSystemService;
 
 @WebServlet("/mng/workingSystem/delete")
 public class DeleteMngWorkingSystemServlet extends HttpServlet {
@@ -19,8 +20,8 @@ public class DeleteMngWorkingSystemServlet extends HttpServlet {
 		System.out.println(deleteWorkCode);
 		
 		/* TBL_STANDARD_WORK에 update*/
-		MngWorkingService mngWorkingService = new MngWorkingService();
-		int result = mngWorkingService.updateStandardMngWorkingSystem(deleteWorkCode);
+		MngWorkingSystemService mngWorkingSystemService = new MngWorkingSystemService();
+		int result = mngWorkingSystemService.updateStandardMngWorkingSystem(deleteWorkCode);
 		
 		/* 성공여부에 따라 success 혹은 fail로 넘겨줌 */
 		String path = "";
