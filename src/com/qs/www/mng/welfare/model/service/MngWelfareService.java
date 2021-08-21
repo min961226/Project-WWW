@@ -10,9 +10,12 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.qs.www.common.paging.SelectCriteria;
 import com.qs.www.mng.welfare.model.dao.MngWelfareDAO;
+import com.qs.www.mng.welfare.model.dto.DomitoryLogDTO;
 import com.qs.www.mng.welfare.model.dto.ItemDTO;
 import com.qs.www.mng.welfare.model.dto.WelfareYnDTO;
 import com.qs.www.schedule.model.dto.ReportDTO;
+import com.qs.www.welfare.model.dto.DomitoryListDTO;
+import com.qs.www.welfare.model.dto.DomitoryWaitListDTO;
 import com.qs.www.welfare.model.dto.LaptopDTO;
 
 public class MngWelfareService {
@@ -169,5 +172,76 @@ public class MngWelfareService {
 
 		return updateChangeStatus;
 	}
+
+	public int selectMemberNoByWaitingNo(int waitingNo) {
+		SqlSession session = getSqlSession();
+
+		int memberNo = mngWelfareDAO.selectMemberNoByWaitingNo(session, waitingNo);
+
+		session.close();
+
+		return memberNo;
+	}
+
+	public int insertDomitoryLog(DomitoryLogDTO domitoryLogDTO) {
+
+		SqlSession session = getSqlSession();
+
+		int insertDomitoryLog = mngWelfareDAO.insertDomitoryLog(session, domitoryLogDTO);
+
+		if (insertDomitoryLog > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+
+		session.close();
+
+		return insertDomitoryLog;
+	}
+	
+	public int deleteDomitoryWaitList(int waitingNo) {
+		SqlSession session = getSqlSession();
+
+		int deleteDomitoryWaitList = mngWelfareDAO.deleteDomitoryWaitList(session,waitingNo);
+
+		if (deleteDomitoryWaitList > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+
+		session.close();
+
+		return deleteDomitoryWaitList;
+	}
+
+	public int updateDomitoryCapacity(int domitoryNo) {
+		SqlSession session = getSqlSession();
+
+		int updateDomitory = mngWelfareDAO.updateDomitoryCapacity(session,domitoryNo);
+
+		if (updateDomitory > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+
+		session.close();
+
+		return updateDomitory;
+	}
+
+	public DomitoryListDTO selectDomitory(int domitoryNo) {
+		SqlSession session = getSqlSession();
+
+		DomitoryListDTO domitoryDTO = mngWelfareDAO.selectDomitory(session, domitoryNo);
+
+		session.close();
+
+		return domitoryDTO;
+	}
+
+
 
 }

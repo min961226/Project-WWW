@@ -197,12 +197,16 @@
 					break;
 				case "inserWorkType" : 
 					successMessage = "근무제추가가 완료되었습니다.";
-
+					break;
 					
 				case "deleteWorkType" : 
 					successMessage = "근무제삭제가 완료되었습니다.";
 
 					movePath = "${ pageContext.servletContext.contextPath }/mng/workingSystem/select";
+					break;
+				case "insertDomitoryLog" :
+					successMessage = "대기자 입주 처리를 완료하였습니다.";
+					movePath = "${ pageContext.servletContext.contextPath }/mng/welfare/domitory/select";
 					break;
 				
 			}

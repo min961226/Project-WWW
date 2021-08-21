@@ -14,6 +14,7 @@ import com.qs.www.welfare.model.dto.DomitoryWaitListDTO;
 import com.qs.www.welfare.model.dto.FamilyEventDTO;
 import com.qs.www.welfare.model.dto.LaptopDTO;
 import com.qs.www.welfare.model.dto.MemberOverTimeLogDTO;
+import com.qs.www.welfare.model.dto.SelfDevelopmetLogDTO;
 import com.qs.www.welfare.model.dto.SeminarReservTimeDTO;
 import com.qs.www.welfare.model.dto.SeminarRoomDTO;
 import com.qs.www.welfare.model.dto.SeminarRoomReservDTO;
@@ -132,6 +133,18 @@ public class WelfareDAO {
 
 	public int updateItemStatus(SqlSession session, int itemNo) {
 		return session.update("WelfareDAO.updateItemStatus",itemNo);
+	}
+
+	public int insertSelfDevLog(SqlSession session, SelfDevelopmetLogDTO selfDevelopmetLogDTO) {
+		return session.insert("WelfareDAO.insertSelfDevLog", selfDevelopmetLogDTO);
+	}
+
+	public int insertFamilyEventLog(SqlSession session, SelfDevelopmetLogDTO selfDevelopmetLogDTO) {
+		return session.insert("WelfareDAO.insertFamilyEventLog", selfDevelopmetLogDTO);
+	}
+
+	public List<DomitoryWaitListDTO> selectDomitoryWaitList(SqlSession session) {
+		return session.selectList("WelfareDAO.selectDomitoryWaitList");
 	}
 
 	
