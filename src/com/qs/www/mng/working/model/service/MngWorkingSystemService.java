@@ -4,15 +4,15 @@ import static com.qs.www.common.mybatis.Template.getSqlSession;
 
 import org.apache.ibatis.session.SqlSession;
 
-import com.qs.www.mng.working.model.dao.MngWorkingDAO;
+import com.qs.www.mng.working.model.dao.MngWorkingSystemDAO;
 import com.qs.www.mng.working.model.dto.WorkingDTO;
 
-public class MngWorkingService {
+public class MngWorkingSystemService {
 	
-	private final MngWorkingDAO mngWorkingDAO;
+	private final MngWorkingSystemDAO mngWorkingSystemDAO;
 	
-	public MngWorkingService() {
-		mngWorkingDAO = new MngWorkingDAO();
+	public MngWorkingSystemService() {
+		mngWorkingSystemDAO = new MngWorkingSystemDAO();
 	}
 	
 	/* 근무제 추가하기 */
@@ -20,7 +20,7 @@ public class MngWorkingService {
 		
 		SqlSession session = getSqlSession();
 		
-		int result = mngWorkingDAO.InsertStandardMngWorkingSystem(session, workingDTO);
+		int result = mngWorkingSystemDAO.InsertStandardMngWorkingSystem(session, workingDTO);
 		
 		if(result > 0) {
 			session.commit();
@@ -38,7 +38,7 @@ public class MngWorkingService {
 		
 		SqlSession session = getSqlSession();
 		
-		int result = mngWorkingDAO.updateStandardMngWorkingSystem(session, deleteWorkCode);
+		int result = mngWorkingSystemDAO.updateStandardMngWorkingSystem(session, deleteWorkCode);
 		
 		if(result > 0) {
 			session.commit();
@@ -50,5 +50,6 @@ public class MngWorkingService {
 		
 		return result;
 	}
+
 
 }

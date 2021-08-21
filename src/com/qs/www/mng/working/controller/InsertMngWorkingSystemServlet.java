@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import com.qs.www.member.model.dto.MemberInfoDTO;
 import com.qs.www.mng.working.model.dto.WorkingDTO;
-import com.qs.www.mng.working.model.service.MngWorkingService;
+import com.qs.www.mng.working.model.service.MngWorkingSystemService;
 
 @WebServlet("/mng/workingSystem/insert")
 public class InsertMngWorkingSystemServlet extends HttpServlet {
@@ -21,6 +21,7 @@ public class InsertMngWorkingSystemServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("근무제도 추가");
 		
 		HttpSession session = request.getSession();		
 		
@@ -56,8 +57,8 @@ public class InsertMngWorkingSystemServlet extends HttpServlet {
 		workingDTO.setMemberNo(memberNo);
 		
 		/* TBL_STANDARD_WORK에 insert*/
-		MngWorkingService mngWorkingService = new MngWorkingService();
-		int result = mngWorkingService.InsertStandardMngWorkingSystem(workingDTO);
+		MngWorkingSystemService mngWorkingSystemService = new MngWorkingSystemService();
+		int result = mngWorkingSystemService.InsertStandardMngWorkingSystem(workingDTO);
 		
 		/* 성공여부에 따라 success 혹은 fail로 넘겨줌 */
 		String path = "";
