@@ -16,10 +16,9 @@ import com.qs.www.welfare.model.service.WelfareService;
 public class SelectOneMngDomitoryWelfareServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("입주처리 ");
 		
-		int domitoryNo = Integer.parseInt(request.getParameter("domitoryNo"));
-		int waitingNo = Integer.parseInt(request.getParameter("waitingNo"));
+		int domitoryNo = Integer.parseInt(request.getParameter("domitoryNo"));													//선택된 기숙사 번호
+		int waitingNo = Integer.parseInt(request.getParameter("waitingNo"));													//대기자 명단 번호
 		
 		MngWelfareService mngWelfareService = new MngWelfareService();
 
@@ -29,13 +28,12 @@ public class SelectOneMngDomitoryWelfareServlet extends HttpServlet {
 		domitoryLogDTO.setDomitoryManageNo(domitoryNo);
 		domitoryLogDTO.setMemberNo(memberNo);
 		
-		System.out.println(domitoryLogDTO);
 		int insertDomitoryLog = mngWelfareService.insertDomitoryLog(domitoryLogDTO);											//LOG 값에 입주처리를 한다.
 		int deleteWaitList = mngWelfareService.deleteDomitoryWaitList(waitingNo);												//대기인원에서 해당인원을 삭제한다.
 		int updateDomitory = mngWelfareService.updateDomitoryCapacity(domitoryNo);												//입주현황에 입주자를 한명추가한다.
 		
 		String path = "";
-		if(insertDomitoryLog > 0 && deleteWaitList > 0 && updateDomitory>0) {																			//모든 서비스 성공시										
+		if(insertDomitoryLog > 0 && deleteWaitList > 0 && updateDomitory>0) {													//모든 서비스 성공시										
 			path = "/WEB-INF/views/common/success.jsp";
 			request.setAttribute("successCode", "insertDomitoryLog");
 		} else {																												//한개의서비스라도 실패시

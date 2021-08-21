@@ -10,10 +10,14 @@ public class DomitoryLogDTO {
 	private String outReason;
 	private int domitoryManageNo;
 	private int memberNo;
+	private String memberName;
+	private int blockNo;
+	private int roomNo;
 	
 	public DomitoryLogDTO() {}
 
-	public DomitoryLogDTO(int logNo, Date inDate, Date outDate, String outReason, int domitoryManageNo, int memberNo) {
+	public DomitoryLogDTO(int logNo, Date inDate, Date outDate, String outReason, int domitoryManageNo, int memberNo,
+			String memberName, int blockNo, int roomNo) {
 		super();
 		this.logNo = logNo;
 		this.inDate = inDate;
@@ -21,6 +25,9 @@ public class DomitoryLogDTO {
 		this.outReason = outReason;
 		this.domitoryManageNo = domitoryManageNo;
 		this.memberNo = memberNo;
+		this.memberName = memberName;
+		this.blockNo = blockNo;
+		this.roomNo = roomNo;
 	}
 
 	public int getLogNo() {
@@ -71,12 +78,35 @@ public class DomitoryLogDTO {
 		this.memberNo = memberNo;
 	}
 
+	public String getMemberName() {
+		return memberName;
+	}
+
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
+	}
+
+	public int getBlockNo() {
+		return blockNo;
+	}
+
+	public void setBlockNo(int blockNo) {
+		this.blockNo = blockNo;
+	}
+
+	public int getRoomNo() {
+		return roomNo;
+	}
+
+	public void setRoomNo(int roomNo) {
+		this.roomNo = roomNo;
+	}
+
 	@Override
 	public String toString() {
 		return "DomitoryLogDTO [logNo=" + logNo + ", inDate=" + inDate + ", outDate=" + outDate + ", outReason="
-				+ outReason + ", domitoryManageNo=" + domitoryManageNo + ", memberNo=" + memberNo + "]";
+				+ outReason + ", domitoryManageNo=" + domitoryManageNo + ", memberNo=" + memberNo + ", memberName="
+				+ memberName + ", blockNo=" + blockNo + ", roomNo=" + roomNo + "]";
 	}
-	
-	
 	
 }

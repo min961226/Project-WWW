@@ -190,6 +190,10 @@
 				failedMessage = "해당 기숙사 객실은 현재 만원입니다.";
 				movePath = "${ pageContext.servletContext.contextPath }/mng/welfare/domitory/select";
 				break;
+			case "leaveDomitory":
+				failedMessage = "입주자 퇴거 처리에 실패하였습니다.";
+				movePath = "${ pageContext.servletContext.contextPath }/mng/welfare/domitory/select";
+				break;
 				
 
 			}

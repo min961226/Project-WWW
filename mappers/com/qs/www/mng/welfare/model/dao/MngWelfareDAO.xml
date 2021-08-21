@@ -30,6 +30,18 @@
 		<result property="hopeDate" column="HOPE_DATE" />
 	</resultMap>
 
+	<resultMap type="com.qs.www.mng.welfare.model.dto.DomitoryLogDTO" id="domitoryLogListResultMap">
+		<result property="logNo" column="LOG_NO" />
+		<result property="inDate" column="IN_DATE" />
+		<result property="outDate" column="OUT_DATE" />
+		<result property="outReason" column="OUT_REASON" />
+		<result property="domitoryManageNo" column="DOMITORY_MANAGE_NO" />
+		<result property="memberNo" column="MEMBER_NO" />
+		<result property="memberName" column="NAME" />
+		<result property="blockNo" column="BLOCK_NO" />
+		<result property="roomNo" column="ROOM_NO" />
+	</resultMap>
+
 
 	<select id="selectNextItemNo" resultType="_int">
 		SELECT /* com.qs.www.mngwelfare.model.dao.WelfareDAO#selectNextItemNo() */
@@ -167,4 +179,36 @@
 		  FROM TBL_DOMITORY A
 		 WHERE DOMITORY_MANAGE_NO = #{ domitoryNo }
 	</select>
+	
+	<select id="selectDomitoryLogResult" resultMap="domitoryLogListResultMap">
+		SELECT
+       		   A.LOG_NO
+     		 , A.IN_DATE
+    		 , A.OUT_DATE
+    		 , A.OUT_REASON
+    		 , A.DOMITORY_MANAGE_NO
+    		 , B.MEMBER_NO
+    		 , B.NAME
+    		 , C.BLOCK_NO
+    		 , C.ROOM_NO
+  		 FROM TBL_DOMITORY_LOG A
+  		 LEFT JOIN TBL_MEMBER B ON (A.MEMBER_NO = B.MEMBER_NO)
+  		 LEFT JOIN TBL_DOMITORY C ON (A.DOMITORY_MANAGE_NO = C.DOMITORY_MANAGE_NO)
+ 		WHERE A.DOMITORY_MANAGE_NO = #{ domitoryManageNo }
+   		  AND OUT_DATE IS NULL
+	</select>
+	
+	<update id="updateOutReason" parameterType="com.qs.www.mng.welfare.model.dto.DomitoryLogDTO">
+		UPDATE TBL_DOMITORY_LOG
+		   SET OUT_DATE = SYSDATE
+		     , OUT_REASON = #{ outReason }
+		 WHERE LOG_NO = #{ logNo }
+	</update>
+	
+	<update id="minusDomitoryCapacity" >
+		UPDATE TBL_DOMITORY
+		   SET CURR_CAPACITY = CURR_CAPACITY - 1
+		 WHERE DOMITORY_MANAGE_NO = #{ domitoryManageNo }
+	</update>
+	
 </mapper>
