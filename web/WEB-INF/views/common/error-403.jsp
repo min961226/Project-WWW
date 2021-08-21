@@ -18,9 +18,9 @@
 <body>
     <div class="main-wrapper error-wrapper">
         <div class="error-box">
-            <h1>404</h1>
-            <h3><i class="fa fa-warning"></i> 페이지를 찾을 수 없습니다!</h3>
-            <p>요청하신 페이지를 찾을 수 없습니다.</p>
+            <h1>403</h1>
+            <h3><i class="fa fa-warning"></i> 접근 권한이 없습니다!</h3>
+            <p>서버에서 이 리소스에 대한 액세스가 거부되었습니다.</p>
             <a href="${ pageContext.servletContext.contextPath }" class="btn btn-primary go-home">홈으로 돌아가기</a>
         </div>
     </div>

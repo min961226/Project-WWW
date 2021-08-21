@@ -1,6 +1,8 @@
 package com.qs.www.main.model.dto;
 
-public class AuthorityDTO {
+import java.io.Serializable;
+
+public class AuthorityDTO implements Serializable {
 	
 	private String menuAuthorityCode;
 	private String menuUri;

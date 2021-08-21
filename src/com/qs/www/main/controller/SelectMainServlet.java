@@ -5,7 +5,6 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -15,10 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.google.gson.FieldNamingPolicy;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.qs.www.main.model.dto.AuthorityDTO;
 import com.qs.www.main.model.dto.WorkInfoDTO;
 import com.qs.www.main.model.dto.WorkingLogDTO;
 import com.qs.www.main.model.service.MainService;
@@ -34,28 +29,6 @@ public class SelectMainServlet extends HttpServlet {
 		MemberInfoDTO memberInfo = (MemberInfoDTO) session.getAttribute("memberInfo");
 		
 		MainService mainService = new MainService();
-		
-		/* 역할에 따른 권한 조회 */
-//		String roleCode = memberInfo.getRole().getRoleCode();
-//		List<AuthorityDTO> roleAuthorityList = mainService.selectAccessAuthorityList(roleCode);
-//		List<String> accessMenu = new ArrayList<>();
-//		
-//		for(AuthorityDTO roleAuthority : roleAuthorityList) {
-//			String menu = roleAuthority.getMenuUri().split("/")[2];
-//			
-//			if(!accessMenu.contains(menu)) {
-//				accessMenu.add(menu);
-//			}
-//		}
-//		
-//		Gson gson = new GsonBuilder()
-//				.setPrettyPrinting()
-//				.setFieldNamingPolicy(FieldNamingPolicy.IDENTITY)
-//				.serializeNulls()
-//				.disableHtmlEscaping()
-//				.create();
-//		String accessMenuJsonString = gson.toJson(accessMenu);
-		
 		
 		/* 근무제도 및 출퇴근 기록 조회 */
 		int memberNo = memberInfo.getMemberNo();

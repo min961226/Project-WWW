@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
+import com.qs.www.main.model.dto.AuthorityDTO;
 import com.qs.www.member.model.dto.DepartmentDTO;
 import com.qs.www.member.model.dto.JobDTO;
 import com.qs.www.member.model.dto.MemberDTO;
@@ -130,5 +131,16 @@ public class MngEmployeeService {
 		sqlSession.close();
 		
 		return result;
+	}
+
+	public List<AuthorityDTO> selectAuthorityList() {
+		
+		SqlSession sqlSession = getSqlSession();
+		
+		List<AuthorityDTO> authorityList = mngEmployeeDAO.selectAuthorityList(sqlSession);
+		
+		sqlSession.close();
+		
+		return authorityList;
 	}
 }

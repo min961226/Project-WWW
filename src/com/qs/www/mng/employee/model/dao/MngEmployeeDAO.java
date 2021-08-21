@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
+import com.qs.www.main.model.dto.AuthorityDTO;
 import com.qs.www.member.model.dto.DepartmentDTO;
 import com.qs.www.member.model.dto.JobDTO;
 import com.qs.www.member.model.dto.MemberDTO;
@@ -46,5 +47,9 @@ public class MngEmployeeDAO {
 
 	public int updateMngEmployee(SqlSession sqlSession, MemberDTO member) {
 		return sqlSession.update("MngEmployeeDAO.updateMngEmployee", member);
+	}
+
+	public List<AuthorityDTO> selectAuthorityList(SqlSession sqlSession) {
+		return sqlSession.selectList("MngEmployeeDAO.selectAuthorityList");
 	}
 }
