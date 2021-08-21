@@ -67,16 +67,15 @@
 							</div>
 						</div>
 					</div>
-					<div class="row">
-						<div class="form-group">
-							<div class="col-sm-6">
-								<label>첨부서류</label>
-								<div class="col-md-12">
-									<input class="form-control" type="file" disabled>
+					<c:if test="${ !empty requestScope.boardattachmentDTO.savedName}">
+								<div class="form-group">
+									<div class="col-sm-6">
+										<div class="col-md-12">
+												<label>첨부 파일 :</label>&nbsp;&nbsp;<a	href="${ pageContext.servletContext.contextPath }/boardFileDown?fileName=${requestScope.boardattachmentDTO.savedName }"><u>${requestScope.boardattachmentDTO.originalName}</u></a>
+										</div>
+									</div>
 								</div>
-							</div>
-						</div>
-					</div>
+							</c:if>
 				</div>
 				<div class="row">
                 	<div class="col-sm-12 text-center m-t-20">

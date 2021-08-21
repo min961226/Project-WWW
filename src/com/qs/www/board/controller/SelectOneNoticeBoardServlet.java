@@ -12,6 +12,8 @@ import javax.servlet.http.HttpSession;
 import com.qs.www.board.model.dto.NoticeDTO;
 
 import com.qs.www.board.model.service.NoticeService;
+import com.qs.www.common.attachment.model.dto.BoardAttachmentDTO;
+import com.qs.www.common.attachment.model.service.BoardAttachmentService;
 import com.qs.www.member.model.dto.MemberInfoDTO;
 
 @WebServlet("/board/notice/selectOne")
@@ -24,8 +26,12 @@ public class SelectOneNoticeBoardServlet extends HttpServlet {
 		NoticeService noticeService = new NoticeService();
 		NoticeDTO noticeDetail = noticeService.selectNoticeDetail(no);
 		
-		System.out.println("noticeDetail : " + noticeDetail);
+		/* 파일 첨부 DTO 서비스 실행 reportNo로 갖고옴 */
+		BoardAttachmentDTO boardattachmentDTO = new BoardAttachmentService().selectBoardAttachmentByBoardNo(noticeDetail.getNo());		//boardNo로 값을 갖고옴
+		System.out.println(boardattachmentDTO);
 		
+		System.out.println("noticeDetail : " + noticeDetail);
+		request.setAttribute("boardattachmentDTO", boardattachmentDTO);
 		String path = "";
 		if(noticeDetail != null) {
 			path = "/WEB-INF/views/board/detailNoticeBoard.jsp";

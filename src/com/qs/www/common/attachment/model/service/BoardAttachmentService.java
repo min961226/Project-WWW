@@ -42,5 +42,8 @@ public class BoardAttachmentService {
 		session.close();
 
 		return boardattachmentDTO;
+	
+
+
 	}
 }

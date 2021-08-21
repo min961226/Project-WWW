@@ -144,18 +144,18 @@ public class InsertMngFormBoardServlet extends HttpServlet {
 		if(resultFileUpload == -1) {																										//파일첨부를 하지 않았을때는 result값을 더해주면안된다.
 			if (result > 0) {
 				path = "/WEB-INF/views/common/success.jsp";
-				request.setAttribute("successCode", "insertMngNotice");
+				request.setAttribute("successCode", "insertMngForm");
 			} else {
 				path = "/WEB-INF/views/common/failed.jsp";
-				request.setAttribute("message", "공지사항 게시글 등록에 실패하셨습니다.");
+				request.setAttribute("message", "문서서식  게시글 등록에 실패하셨습니다.");
 			}			
 		}else {
 			if (result > 0 && resultFileUpload > 0) {														//파일을첨부하였고 그 파일첨부가 성공하였을경우 페이지로 이동한다.
 				path = "/WEB-INF/views/common/success.jsp";
-				request.setAttribute("successCode", "insertMngNotice");
+				request.setAttribute("successCode", "insertMngForm");
 			} else {
 				path = "/WEB-INF/views/common/failed.jsp";
-				request.setAttribute("message", "공지사항 게시글 등록에 실패하셨습니다.");
+				request.setAttribute("message", "문서서식 게시글 등록에 실패하셨습니다.");
 			}			
 		}
 		

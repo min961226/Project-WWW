@@ -18,9 +18,11 @@ public class DeleteMngNoticeBoardServlet extends HttpServlet {
 		
 		System.out.println("삭제");
 		
-		int No = Integer.parseInt(request.getParameter("no"));
-
-		int result =  new MngNoticeService().deleteMngNotice(No);
+		int no = Integer.parseInt(request.getParameter("no"));
+		
+		
+		
+		int result =  new MngNoticeService().deleteMngNotice(no);
 		
 		String path = "";
 		if(result > 0) {
