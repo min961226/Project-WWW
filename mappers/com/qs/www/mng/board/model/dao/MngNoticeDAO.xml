@@ -173,11 +173,22 @@
 		AND A.MEMBER_NO = #{ member }
 	</update>
 	
-	<delete id="deleteMngNotice">
-		DELETE
-		FROM TBL_BOARD A
+	<update id="deleteMngNotice" parameterType="com.qs.www.mng.board.model.dto.MngNoticeDTO">
+		UPDATE /* com.qs.www.mng.board.model.dao.MngNoticeDAO#updateMngNotice()
+		*/
+		
+		TBL_BOARD A
+		SET A.DELETE_YN = 'Y'
 		WHERE A.BOARD_NO = #{ no }
+		AND A.MEMBER_NO = #{ member }
 	
-	</delete>
+	</update>
+	
+		<select id="selectBoardNum" resultType="_int">
+		SELECT /* com.qs.www.mng.board.model.dao.MngBoardDAO#selectBoardNum() */
+		       LAST_NUMBER
+		  FROM USER_SEQUENCES
+		 WHERE SEQUENCE_NAME = 'SEQ_BOARD_NO'
+		</select>
 	
 </mapper>

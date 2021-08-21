@@ -10,6 +10,8 @@ import javax.servlet.http.HttpSession;
 
 import com.qs.www.board.model.dto.FreeDTO;
 import com.qs.www.board.model.service.FreeService;
+import com.qs.www.common.attachment.model.dto.BoardAttachmentDTO;
+import com.qs.www.common.attachment.model.service.BoardAttachmentService;
 import com.qs.www.member.model.dto.MemberInfoDTO;
 
 @WebServlet("/board/free/selectOne")
@@ -23,8 +25,12 @@ public class SelectOneFreeBoardServlet extends HttpServlet {
 		FreeService freeService = new FreeService();
 		FreeDTO freeDetail = freeService.selectFreeDetail(no);
 		
-		System.out.println("freeDetail : " + freeDetail);
+		/* 파일 첨부 DTO 서비스 실행 reportNo로 갖고옴 */
+		BoardAttachmentDTO boardattachmentDTO = new BoardAttachmentService().selectBoardAttachmentByBoardNo(freeDetail.getNo());		//boardNo로 값을 갖고옴
+		System.out.println(boardattachmentDTO);
 		
+		System.out.println("freeDetail : " + freeDetail);
+		request.setAttribute("boardattachmentDTO", boardattachmentDTO);
 		String path = "";
 		if(freeDetail != null) {
 			path = "/WEB-INF/views/board/detailFreeBoard.jsp";

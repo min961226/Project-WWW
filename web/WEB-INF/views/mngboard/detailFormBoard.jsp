@@ -72,7 +72,7 @@
 								<div class="form-group">
 									<div class="col-sm-6">
 										<div class="col-md-12">
-												<label>첨부 파일 :</label>&nbsp;&nbsp;<a	href="${ pageContext.servletContext.contextPath }/FileDown?fileName=${requestScope.boardattachmentDTO.savedName }"><u>${requestScope.boardattachmentDTO.originalName}</u></a>
+												<label>첨부 파일 :</label>&nbsp;&nbsp;<a	href="${ pageContext.servletContext.contextPath }/boardFileDown?fileName=${requestScope.boardattachmentDTO.savedName }"><u>${requestScope.boardattachmentDTO.originalName}</u></a>
 										</div>
 									</div>
 								</div>

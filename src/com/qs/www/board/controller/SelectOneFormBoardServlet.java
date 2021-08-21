@@ -11,6 +11,8 @@ import com.qs.www.board.model.dto.FormDTO;
 import com.qs.www.board.model.dto.FreeDTO;
 import com.qs.www.board.model.service.FormService;
 import com.qs.www.board.model.service.FreeService;
+import com.qs.www.common.attachment.model.dto.BoardAttachmentDTO;
+import com.qs.www.common.attachment.model.service.BoardAttachmentService;
 
 @WebServlet("/board/form/selectOne")
 public class SelectOneFormBoardServlet extends HttpServlet {
@@ -22,8 +24,12 @@ public class SelectOneFormBoardServlet extends HttpServlet {
 		FormService formService = new FormService();
 		FormDTO formDetail = formService.selectFormDetail(no);
 		
-		System.out.println("formDetail : " + formDetail);
+		/* 파일 첨부 DTO 서비스 실행 reportNo로 갖고옴 */
+		BoardAttachmentDTO boardattachmentDTO = new BoardAttachmentService().selectBoardAttachmentByBoardNo(formDetail.getNo());		//boardNo로 값을 갖고옴
+		System.out.println(boardattachmentDTO);
 		
+		System.out.println("formDetail : " + formDetail);
+		request.setAttribute("boardattachmentDTO", boardattachmentDTO);
 		String path = "";
 		if(formDetail != null) {
 			path = "/WEB-INF/views/board/detailFormBoard.jsp";
