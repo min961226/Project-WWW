@@ -223,6 +223,14 @@
 					successMessage = "대기자 입주 처리를 완료하였습니다.";
 					movePath = "${ pageContext.servletContext.contextPath }/mng/welfare/domitory/select";
 					break;
+				case "updateHolidayType" :
+					successMessage = "휴가유형 수정을 완료하였습니다.";
+					movePath = "${ pageContext.servletContext.contextPath }/mng/holiday/category/select";
+					break;
+				case "insertHolidayType" :
+					successMessage = "휴가유형 생성을 완료하였습니다.";
+					movePath = "${ pageContext.servletContext.contextPath }/mng/holiday/category/select";
+					break;
 				
 
 			}
