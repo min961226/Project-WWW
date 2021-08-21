@@ -91,6 +91,14 @@
 		<result property="useYn" column="USE_YN" />
 	</resultMap>
 	
+	<resultMap type="com.qs.www.welfare.model.dto.DomitoryWaitListDTO" id="domitoryWaitListResultMap">
+		<result property="waitingNo" column="WAITING_NO" />
+		<result property="memberNo" column="MEMBER_NO" />
+		<result property="memberName" column="MEMBER_NAME" />
+		<result property="waitingStatus" column="WAITING_STATUS" />
+		<result property="hopeDate" column="HOPE_DATE" />
+	</resultMap>
+	
 	
 
 <select id="selectWelfareList" resultType="java.lang.String">
@@ -510,5 +518,54 @@
 		   SET RESERVATION_STATUS = '대여중'
 		 WHERE ITEM_NO = #{ itemNo }
 	</update>
+	
+	
+	<insert id="insertSelfDevLog" parameterType="com.qs.www.welfare.model.dto.SelfDevelopmetLogDTO">
+
+		INSERT /* com.qs.www.welfare.model.dao.WelfareDAO#insertSelfDevLog() */
+		  INTO TBL_SELF_DEVELOPMENT_LOG A
+		 	 (
+	  	   	   A.LOG_NO
+		 	 , A.DEVELOPMENT_NO
+		 	 , A.MEMBER_NO
+		 	 , A.DEPOSIT_DATE
+		 	 , A.REF_REPORT_NO
+		 	 )
+		 	 VALUES
+		 	 (
+	  	   	   SEQ_SELFDEV_LOG_NO.NEXTVAL
+		 	 , #{ developmentNo }
+		 	 , #{ memberNo }
+		 	 , #{ depositDate }
+		 	 , #{ reportNo }
+		 	 )
+	</insert>
+	
+	<insert id="insertFamilyEventLog" parameterType="com.qs.www.welfare.model.dto.SelfDevelopmetLogDTO">
+
+		INSERT /* com.qs.www.welfare.model.dao.WelfareDAO#insertFamilyEventLog() */
+		  INTO TBL_FAMILY_EVENT_LOG A
+		 	 (
+	  	   	   A.LOG_NO
+		 	 , A.EVENT_NO
+		 	 , A.MEMBER_NO
+		 	 , A.DEPOSIT_DATE
+		 	 , A.REF_REPORT_NO
+		 	 )
+		 	 VALUES
+		 	 (
+	  	   	   SEQ_FAMILY_EVENT_LOG_NO.NEXTVAL
+		 	 , #{ developmentNo }
+		 	 , #{ memberNo }
+		 	 , #{ depositDate }
+		 	 , #{ reportNo }
+		 	 )
+	</insert>
+	
+	<select id="selectDomitoryWaitList" resultMap="domitoryWaitListResultMap">
+		SELECT
+			   A.*
+		  FROM TBL_DOMITORY_WAITLIST A
+	</select>
 	
 </mapper>

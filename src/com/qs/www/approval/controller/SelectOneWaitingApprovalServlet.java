@@ -32,6 +32,7 @@ import com.qs.www.schedule.model.dto.WorkingDocumentItemDTO;
 import com.qs.www.schedule.model.service.HolidayService;
 import com.qs.www.schedule.model.service.ScheduleService;
 import com.qs.www.welfare.model.dto.DomitoryWaitListDTO;
+import com.qs.www.welfare.model.dto.SelfDevelopmetLogDTO;
 import com.qs.www.welfare.model.service.WelfareService;
 
 @WebServlet("/approval/waiting/selectOne")
@@ -290,14 +291,37 @@ public class SelectOneWaitingApprovalServlet extends HttpServlet {
 				
 				if(selectedReport.getDocumentNo() == 8) {																	//경조사 신청서
 					
+					SelfDevelopmetLogDTO selfDevelopmetLogDTO = new SelfDevelopmetLogDTO();
 					
+					int eventNo = Integer.parseInt(itemList.get(1).getItemContent());										//경조사 번호
+					memberNo = selectedReport.getMemberNo();																//신청자 사번
+					java.sql.Date depositDate = java.sql.Date.valueOf(itemList.get(4).getItemContent());					//지급일자
+					reportNo = selectedReport.getReportNo();																//근거결재 문서번호
+						
+					selfDevelopmetLogDTO.setDevelopmentNo(eventNo);														//경조사 번호
+					selfDevelopmetLogDTO.setMemberNo(memberNo);																//사번
+					selfDevelopmetLogDTO.setDepositDate(depositDate);														//청구일
+					selfDevelopmetLogDTO.setReportNo(reportNo);																//결재 문서 번호
+					
+					int familyEventLog = welfareService.insertFamilyEventLog(selfDevelopmetLogDTO);	
 					
 				}
 				
 				if(selectedReport.getDocumentNo() == 9) {																	//자기개발 신청서
 					
+					SelfDevelopmetLogDTO selfDevelopmetLogDTO = new SelfDevelopmetLogDTO();
 					
+					int selfDevNo = Integer.parseInt(itemList.get(1).getItemContent());										//자기개발비 번호
+					memberNo = selectedReport.getMemberNo();																//신청자 사번
+					java.sql.Date depositDate = java.sql.Date.valueOf(itemList.get(2).getItemContent());					//지급일자
+					reportNo = selectedReport.getReportNo();																//근거결재 문서번호
 					
+					selfDevelopmetLogDTO.setDevelopmentNo(selfDevNo);														//자기개발비 번호
+					selfDevelopmetLogDTO.setMemberNo(memberNo);																//사번
+					selfDevelopmetLogDTO.setDepositDate(depositDate);														//청구일
+					selfDevelopmetLogDTO.setReportNo(reportNo);																//결재 문서 번호
+					
+					int selfDevLog = welfareService.insertSelfDevLog(selfDevelopmetLogDTO);					
 				}
 				if(selectedReport.getDocumentNo() == 10) {																	//DOMITORY_WAITLIST로 간다.
 					

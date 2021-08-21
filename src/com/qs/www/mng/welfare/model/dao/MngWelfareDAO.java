@@ -6,9 +6,12 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 
 import com.qs.www.common.paging.SelectCriteria;
+import com.qs.www.mng.welfare.model.dto.DomitoryLogDTO;
 import com.qs.www.mng.welfare.model.dto.ItemDTO;
 import com.qs.www.mng.welfare.model.dto.WelfareYnDTO;
 import com.qs.www.schedule.model.dto.ReportDTO;
+import com.qs.www.welfare.model.dto.DomitoryListDTO;
+import com.qs.www.welfare.model.dto.DomitoryWaitListDTO;
 import com.qs.www.welfare.model.dto.LaptopDTO;
 
 public class MngWelfareDAO {
@@ -57,4 +60,26 @@ public class MngWelfareDAO {
 	public int updateChangeStatus(SqlSession session, int itemNo) {
 		return session.update("MngWelfareDAO.updateChangeStatus",itemNo);
 	}
+
+	public int selectMemberNoByWaitingNo(SqlSession session, int waitingNo) {
+		return session.selectOne("MngWelfareDAO.selectMemberNoByWaitingNo",waitingNo);
+	}
+
+	public int insertDomitoryLog(SqlSession session, DomitoryLogDTO domitoryLogDTO) {
+		return session.insert("MngWelfareDAO.insertDomitoryLog",domitoryLogDTO);
+	}
+
+	public int deleteDomitoryWaitList(SqlSession session, int waitingNo) {
+		return session.delete("MngWelfareDAO.deleteDomitoryWaitList",waitingNo);
+	}
+	
+	public int updateDomitoryCapacity(SqlSession session, int domitoryNo) {
+		return session.update("MngWelfareDAO.updateDomitoryCapacity",domitoryNo);
+	}
+
+	public DomitoryListDTO selectDomitory(SqlSession session, int domitoryNo) {
+		return session.selectOne("MngWelfareDAO.selectDomitory",domitoryNo);
+	}
+
+
 }
