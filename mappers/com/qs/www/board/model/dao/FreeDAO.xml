@@ -153,11 +153,15 @@
 		, A.BOARD_BODY = #{ body }
 		WHERE A.BOARD_NO = #{ no }
 		AND A.MEMBER_NO = #{ member }
+	
 	</update>
 	
-		<delete id="deleteFree">
-		DELETE
-		FROM TBL_BOARD A
+		<delete id="deleteFree" parameterType="com.qs.www.board.model.dto.FreeDTO">
+		UPDATE /* com.qs.www..board.model.dao.FreeDAO#deleteFree()
+		*/
+		
+		TBL_BOARD A
+		SET A.DELETE_YN = 'Y'
 		WHERE A.BOARD_NO = #{ no }
 	
 	</delete>
