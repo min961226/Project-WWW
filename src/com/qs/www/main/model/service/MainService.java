@@ -11,6 +11,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
 import com.qs.www.main.model.dao.MainDAO;
+import com.qs.www.main.model.dto.AuthorityDTO;
 import com.qs.www.main.model.dto.WorkInfoDTO;
 import com.qs.www.main.model.dto.WorkingLogDTO;
 import com.qs.www.main.model.dto.WorkingTypeDTO;
@@ -87,5 +88,16 @@ public class MainService {
 		sqlSession.close();
 		
 		return workingLogList;
+	}
+
+	public List<AuthorityDTO> selectAccessAuthorityList(String roleCode) {
+		
+		SqlSession sqlSession = getSqlSession();
+		
+		List<AuthorityDTO> roleAuthorityList = mainDAO.selectAccessAuthorityList(sqlSession, roleCode);
+		
+		sqlSession.close();
+		
+		return roleAuthorityList;
 	}
 }

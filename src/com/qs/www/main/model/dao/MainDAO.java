@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
+import com.qs.www.main.model.dto.AuthorityDTO;
 import com.qs.www.main.model.dto.WorkInfoDTO;
 import com.qs.www.main.model.dto.WorkingLogDTO;
 import com.qs.www.main.model.dto.WorkingTypeDTO;
@@ -21,5 +22,9 @@ public class MainDAO {
 
 	public WorkingTypeDTO selectWorkingType(SqlSession sqlSession, WorkingLogDTO workingLog) {
 		return sqlSession.selectOne("MainDAO.selectWorkingType", workingLog);
+	}
+
+	public List<AuthorityDTO> selectAccessAuthorityList(SqlSession sqlSession, String roleCode) {
+		return sqlSession.selectList("MainDAO.selectAccessAuthorityList", roleCode);
 	}
 }

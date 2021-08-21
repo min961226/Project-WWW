@@ -30,5 +30,4 @@ public class Template {
 		
 		return sqlSession;
 	}
-
 }

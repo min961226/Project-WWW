@@ -126,8 +126,18 @@
 					movePath = "${ pageContext.servletContext.contextPath }/mng/employee/list/insert";
 					break;
 					
+				case "updateMngEmployee" :
+					successMessage = "직원 정보가 수정되었습니다.";
+					movePath = "${ pageContext.servletContext.contextPath }/mng/employee/list/update?no=${ requestScope.memberNo }";
+					break;
+					
 				case "inserWorkType" : 
 					successMessage = "근무제 추가가 완료되었습니다.";
+					movePath = "${ pageContext.servletContext.contextPath }/mng/workingSystem/select";
+					break;
+					
+				case "deleteWorkType" : 
+					successMessage = "근무제 삭제가 완료되었습니다.";
 					movePath = "${ pageContext.servletContext.contextPath }/mng/workingSystem/select";
 					break;
 
@@ -195,16 +205,6 @@
 					successMessage = "품목 반납처리를 성공하였습니다.";
 					movePath = "${ pageContext.servletContext.contextPath }/mng/welfare/laptopRental/select";
 					break;
-				case "inserWorkType" : 
-					successMessage = "근무제추가가 완료되었습니다.";
-
-					
-				case "deleteWorkType" : 
-					successMessage = "근무제삭제가 완료되었습니다.";
-
-					movePath = "${ pageContext.servletContext.contextPath }/mng/workingSystem/select";
-					break;
-				
 			}
 
 			alert(successMessage);

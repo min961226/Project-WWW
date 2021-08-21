@@ -177,4 +177,17 @@
           LEFT JOIN TBL_CHECK_QUESTION E ON (A.QUESTION_CODE = E.QUESTION_CODE)
          WHERE A.MEMBER_NO = #{ memberNo }
 	</select>
+	
+	<update id="updateMngEmployee" parameterType="com.qs.www.member.model.dto.MemberDTO">
+        UPDATE /* com.qs.www.mng.employee.model.dao.MngEmployeeDAO#updateMngEmployee() */
+               TBL_MEMBER A
+           SET A.NAME = #{ name }
+             , A.DEPT_CODE = #{ deptCode }
+             , A.JOB_CODE = #{ jobCode }
+             , A.EMAIL = #{ email }
+             , A.ENT_YN = #{ entYn }
+             , A.ROLE_CODE = #{ roleCode }
+             , A.RRN = #{ rrn }
+         WHERE A.MEMBER_NO = #{ memberNo }
+	</update>
 </mapper>

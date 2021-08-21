@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.qs.www.member.model.dto.DepartmentDTO;
 import com.qs.www.member.model.dto.JobDTO;
+import com.qs.www.member.model.dto.MemberDTO;
 import com.qs.www.member.model.dto.MemberInfoDTO;
 import com.qs.www.member.model.dto.RoleDTO;
 import com.qs.www.mng.employee.model.dao.MngEmployeeDAO;
@@ -112,5 +113,22 @@ public class MngEmployeeService {
 		sqlSession.close();
 		
 		return memberInfo;
+	}
+
+	public int updateMngEmployee(MemberDTO member) {
+		
+		SqlSession sqlSession = getSqlSession();
+		
+		int result = mngEmployeeDAO.updateMngEmployee(sqlSession, member);
+		
+		if(result > 0) {
+			sqlSession.commit();
+		} else {
+			sqlSession.rollback();
+		}
+		
+		sqlSession.close();
+		
+		return result;
 	}
 }

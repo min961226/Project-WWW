@@ -132,7 +132,7 @@
 	                        </ul>
 	                    </li>
 	                    
-	                    <li class="menu-title">ADMIN</li>
+	                    <li class="menu-title" id="submenu_admin">ADMIN</li>
 	                    <li class="submenu" id="submenu_mng_employee">
 	                        <a href="#">
 	                            <span class="icon"><i class="fa fa-address-card" aria-hidden="true"></i></span>
@@ -201,6 +201,40 @@
 	</div>
 	<div class="sidebar-overlay" data-reff=""></div>
 	<script>
+		/* (function() {
+			const accessMenu = ${ accessMenu };
+			
+			if(accessMenu != null) {
+				$("#submenu_admin").show();
+			}
+			
+			$.each(accessMenu, function(index, item) {
+				switch(item) {
+					case "employee" :
+						$("#submenu_mng_employee").show();
+						break;
+						
+					case "workingSystem" :
+						$("#submenu_mng_working_system").show();
+						break;
+						
+					case "holiday" :
+						$("#submenu_mng_holiday").show();
+						break;
+						
+					case "board" :
+						$("#submenu_mng_board").show();
+						break;
+						
+					case "welfare" :
+						$("#submenu_mng_welfare").show();
+						break;
+				}
+			});
+		}) (); */
+		
+		
+		
 		$("#in_time").click(function() {
 			$.ajax({
 				url: "${ pageContext.servletContext.contextPath }/mypage/commute/insert",
