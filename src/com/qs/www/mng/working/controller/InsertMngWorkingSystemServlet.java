@@ -17,7 +17,7 @@ import com.qs.www.mng.working.model.service.MngWorkingSystemService;
 public class InsertMngWorkingSystemServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		 
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

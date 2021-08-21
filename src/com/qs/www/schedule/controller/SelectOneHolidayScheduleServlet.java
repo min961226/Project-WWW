@@ -22,7 +22,7 @@ public class SelectOneHolidayScheduleServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		System.out.println("휴가신청 상세보기");
+		System.out.println("휴가신청 상세보기"); 
 		
 		int no = Integer.parseInt(request.getParameter("no"));
 		//요청함에서 선택한 게시물의 살세정보 가져오기

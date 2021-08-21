@@ -14,7 +14,7 @@ import com.qs.www.mng.working.model.service.MngWorkingSystemService;
 public class DeleteMngWorkingSystemServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("근무제도 삭제");
+		System.out.println("근무제도 삭제"); 
 		
 		int deleteWorkCode = Integer.parseInt(request.getParameter("workCode"));
 		System.out.println(deleteWorkCode);

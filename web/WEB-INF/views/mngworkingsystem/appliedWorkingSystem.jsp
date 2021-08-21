@@ -20,7 +20,7 @@
 
 				<div class="row">
 					<div class="col-xs-8">
-						<h4 class="page-title">근무 신청 목록 조회</h4>
+						<h4 class="page-title">근무 신청 목록 조회</h4> 
 					</div>
 
 				</div>

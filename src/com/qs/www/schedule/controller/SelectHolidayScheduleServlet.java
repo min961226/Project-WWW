@@ -23,7 +23,7 @@ import com.qs.www.schedule.model.service.HolidayService;
 public class SelectHolidayScheduleServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("휴가 신청 현황");
+		System.out.println("휴가 신청 현황"); 
 		
 		HolidayService holidayService = new HolidayService();
 		

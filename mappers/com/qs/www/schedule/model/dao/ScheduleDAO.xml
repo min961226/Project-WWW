@@ -22,7 +22,7 @@
 		<result property="reportStatus" column="REPORT_STATUS" />
 		<result property="lineName" column="LINE_NAME" />
 		<result property="reportTitle" column="REPORT_TITLE" />
-	</resultMap>
+	</resultMap> 
 	
 	<resultMap type="com.qs.www.schedule.model.dto.OvertimeLogDTO" id="overtimeResultMap">
 		<id property="memberOvertimeLogNo" column="MEMBER_OVERTIME_LOG_NO"/>

@@ -22,7 +22,7 @@ import com.qs.www.schedule.model.dto.WorkingDocumentItemDTO;
 public class SelectOneMngAppliedWorkingSystemServlet extends HttpServlet {
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("근무 신청 목록 상세");
+		System.out.println("근무 신청 목록 상세"); 
 		
 		//윤서님 SelectOneMngAppliedHolidayServlet 참조함
 		//선택한 근무신청결재의 결재번호를 넘겨받음

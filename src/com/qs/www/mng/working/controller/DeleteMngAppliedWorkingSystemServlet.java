@@ -24,7 +24,7 @@ public class DeleteMngAppliedWorkingSystemServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		System.out.println("근태 취소할거임");
+		System.out.println("근태 취소할거임"); 
 		int reportNo = Integer.parseInt(request.getParameter("no"));
 		int memberNo = Integer.parseInt(request.getParameter("memberNo"));  //기안자의 회원번호
 		int documentNo = Integer.parseInt(request.getParameter("documentNo"));
@@ -71,7 +71,7 @@ public class DeleteMngAppliedWorkingSystemServlet extends HttpServlet {
 				
 				
 				
-			}
+			} 
 			
 		}
 		

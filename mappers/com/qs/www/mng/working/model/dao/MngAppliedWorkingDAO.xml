@@ -79,7 +79,7 @@
 	DELETE /* com.qs.www.schedule.mng.working.dao.MngAppliedWorkingDAO#deleteWorkLog() */
 	  FROM TBL_MEMBER_WORK_LOG A
 	 WHERE A.WORK_REPORT_NO = #{ reportNo }
-	</delete>
+	</delete> 
 	
 	<select id="selectCustomWorkNo">
 	SELECT /* com.qs.www.schedule.mng.working.dao.MngAppliedWorkingDAO#selectCustomWorkNo() */

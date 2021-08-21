@@ -240,14 +240,14 @@
 									</div>
 								</div>
 							</div>
-
+ 
 						</c:forEach>
 						<form class="form-horizontal"
 							action="${ pageContext.servletContext.contextPath }/mng/workingSystem/applied/delete?no=${ requestScope.selectedReport.reportNo }"
 							method="post" onsubmit="return askAgain();">
 							<div class="row">
 								<!-- DeleteMngAppliedWorkingSystemServlet 서블릿에서 표준/커스텀/초과근무 등을 판단하기 위해 넘겨줄 값 -->
-								<div hidden=hidden>
+								<div hidden=hidden> 
 									<input name="status" value="${ requestScope.selectedReport.reportStatus }" /> 
 									<input name="memberNo" value="${ requestScope.selectedReport.memberNo }" />
 									<input name="workType" value="${ requestScope.itemList.get(5).itemContent }">

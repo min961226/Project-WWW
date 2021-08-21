@@ -33,7 +33,7 @@ public class SelectWorkingHoursScheduleServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		System.out.println("근무시간 조회");
+		System.out.println("근무시간 조회"); 
 
 		ScheduleService scheduleService = new ScheduleService();
 

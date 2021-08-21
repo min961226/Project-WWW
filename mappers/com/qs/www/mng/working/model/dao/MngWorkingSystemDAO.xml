@@ -35,7 +35,7 @@
 		   TBL_STANDARD_WORK A
 	   SET A.ACTIVE_YN = 'N'
      WHERE A.WORK_CODE = #{ deleteWorkCode }
-	</update>
+	</update> 
 	
 	
 

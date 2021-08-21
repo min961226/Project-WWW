@@ -23,7 +23,7 @@ import com.qs.www.schedule.model.service.ScheduleService;
 public class SelectWorkingSystemScheduleServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("근무 신청 현황");
+		System.out.println("근무 신청 현황"); 
 		
 		ScheduleService scheduleService = new ScheduleService();
 

@@ -67,7 +67,7 @@ public class MngAppliedWorkingService {
 		session.close();
 		
 		return customWorkNo;
-	}
+	} 
 	
 	public int deleteCustomWorktime(int customWorkNo) {
 		

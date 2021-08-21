@@ -78,7 +78,7 @@ public class SelectMngAppliedWorkingSystemServlet extends HttpServlet {
 			selectCriteria = Pagenation.getSelectCriteria(pageNo, totalCount, limit, buttonAmount, searchCondition, searchValue);
 		} else {
 			selectCriteria = Pagenation.getSelectCriteria(pageNo, totalCount, limit, buttonAmount);
-		}
+		} 
 		System.out.println(selectCriteria);
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				

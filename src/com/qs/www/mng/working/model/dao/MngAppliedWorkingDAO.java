@@ -24,7 +24,7 @@ public class MngAppliedWorkingDAO {
 	public int deleteWorkLog(SqlSession session, int reportNo) {
 		
 		return session.delete("MngAppliedWorkingDAO.deleteWorkLog", reportNo);
-	}
+	} 
 
 	public int selectCustomWorkNo(SqlSession session, int reportNo) {
 		
