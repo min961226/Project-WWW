@@ -216,21 +216,53 @@
 		   AND A.PRIORITY = 1
 	</update>
 	
-	<select id="selectMyWorkReport" resultMap="reportResultMap">
-	SELECT /* com.qs.www.schedule.model.dao.ScheduleDAO#selectMyWorkReport() */
-	       A.REPORT_NO
-	     , A.REPORT_DATE
-	     , A.MEMBER_NO
-	     , A.DOCUMENT_NO
-	     , A.REPORT_NOTE
-	     , A.REPORT_STATUS
-	     , A.LINE_NAME
-	     , A.REPORT_TITLE
-	  FROM TBL_REPORT A
-	 WHERE A.MEMBER_NO = #{ no }
-	   AND A.DOCUMENT_NO IN (4, 5)
-	   AND REPORT_STATUS != '회수'
-	 ORDER BY A.REPORT_NO DESC
+	<select id="selectMyWorkReport" parameterType="hashmap" resultMap="reportResultMap">
+	SELECT
+	       C.RNUM
+	     , C.REPORT_NO
+	     , C.REPORT_DATE
+	     , C.MEMBER_NO
+	     , C.DOCUMENT_NO
+	     , C.REPORT_NOTE
+	     , C.REPORT_STATUS
+	     , C.LINE_NAME
+	     , C.REPORT_TITLE
+	  FROM (SELECT ROWNUM RNUM
+	             , B.REPORT_NO
+	             , B.REPORT_DATE
+	             , B.MEMBER_NO
+	             , B.DOCUMENT_NO
+	             , B.REPORT_NOTE
+	             , B.REPORT_STATUS
+	             , B.LINE_NAME
+	             , B.REPORT_TITLE
+	          FROM (SELECT A.REPORT_NO
+	                     , A.REPORT_DATE
+	                     , A.MEMBER_NO
+	                     , A.DOCUMENT_NO
+	                     , A.REPORT_NOTE
+	                     , A.REPORT_STATUS
+	                     , A.LINE_NAME
+	                     , A.REPORT_TITLE
+	                  FROM TBL_REPORT A 
+	               <where>
+	                 <if test="selectCriteria.searchCondition == 'title'">
+	           			 A.REPORT_TITLE LIKE '%' || #{ selectCriteria.searchValue } || '%' 	
+					 </if>
+					 <if test="selectCriteria.searchCondition == 'status'">
+	       				 A.REPORT_STATUS LIKE '%' || #{ selectCriteria.searchValue } || '%'
+	       			 </if>
+	                   AND A.DOCUMENT_NO IN (#{ documentNo1 }, #{ documentNo2 })
+					   AND A.MEMBER_NO = #{ memberNo }
+					   AND A.REPORT_STATUS != '회수'
+	               </where>
+	                 ORDER BY A.REPORT_NO DESC
+	                 ) B
+                  <![CDATA[
+                  WHERE ROWNUM <= #{ selectCriteria.endRow }
+                  ]]>
+               ) C
+         WHERE C.RNUM >= #{ selectCriteria.startRow }     
 	</select>
 	
 	<!-- <select id="countLateTimeNum" parameterType="com.qs.www.schedule.model.dto.MonthlyWorkLogDTO" resultType="_int">
@@ -338,7 +370,7 @@
       AND #{ currentDate } between C.HOLIDAY_START_DAY AND C.HOLIDAY_END_DAY
    </select>
    
-   <select id="selectCustomWorkNum">
+   <select id="selectCustomWorkNum" resultType="_int">
    SELECT /* com.qs.www.schedule.model.dao.ScheduleDAO#selectCustomWorkNum() */
 		   LAST_NUMBER
       FROM USER_SEQUENCES
@@ -409,7 +441,23 @@
 	, #{ overtimeDuring }
 	, 'N'
 	)
-
    </insert>
-
+   
+   <select id="selectAllScheduleReportCount" parameterType="hashMap" resultType="_int">
+   SELECT /* com.qs.www.schedule.model.dao.ScheduleDAO#selectAllScheduleReportCount() */
+           COUNT(*)
+      FROM TBL_REPORT A
+    <where>
+		<if test="searchMap.searchCondition == 'title'">
+	       A.REPORT_TITLE LIKE '%' || #{ searchMap.searchValue } || '%' 	
+		</if>
+		<if test="searchMap.searchCondition == 'status'">
+	       A.REPORT_STATUS LIKE '%' || #{ searchMap.searchValue } || '%' 	
+		</if>
+	   AND A.DOCUMENT_NO IN (#{ documentNo1 }, #{ documentNo2 })
+	   AND A.MEMBER_NO = #{ memberNo }
+	   AND A.REPORT_STATUS != '회수'
+    </where>
+     ORDER BY A.REPORT_NO DESC
+   </select>
 </mapper>

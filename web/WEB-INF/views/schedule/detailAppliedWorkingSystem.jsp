@@ -70,13 +70,7 @@
 							</div>
 
 							<div class="form-group">
-								<div class="col-sm-6">
-									<label>첨부서류</label>
-									<div class="col-md-12">
-										<input class="form-control" type="file">
-									</div>
-								</div>
-
+								
 								<div class="col-sm-6">
 									<label>보존기간</label>
 									<div class="col-md-12">

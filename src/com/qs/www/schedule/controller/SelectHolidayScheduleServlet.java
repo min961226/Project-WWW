@@ -25,6 +25,8 @@ public class SelectHolidayScheduleServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("휴가 신청 현황");
 		
+		HolidayService holidayService = new HolidayService();
+		
 		//로그인 중인 사용자가 올린 결재(상신, 상신 별 항목> 가져오기
 		HttpSession session = request.getSession();
 		int memberNo = ((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo();
@@ -64,7 +66,7 @@ public class SelectHolidayScheduleServlet extends HttpServlet {
 		Pagenation pagenation = new Pagenation();
 		
 		//totalCount 는 DB에 가서 조건에 해당하는 총 게시물 수를 세어와야 함. count(*) 중, where 삭제안된거.
-		int totalCount = new HolidayService().selectAllCount(countMap);
+		int totalCount = holidayService.selectAllHolidayReportCount(countMap);
 
 		//limit는 한 페이지에서 보여지는 게시물 수
 		int limit = 10;
@@ -92,8 +94,7 @@ public class SelectHolidayScheduleServlet extends HttpServlet {
 		selectedInfoMap.put("selectCriteria", selectCriteria);
 		
 		//조건 selectedInfoMap을 통해 검색한 reportList
-		List<ReportDTO> holidayReportList = new HolidayService().selectMyholidayReport(selectedInfoMap);
-
+		List<ReportDTO> holidayReportList = holidayService.selectMyholidayReport(selectedInfoMap);
 
 		request.setAttribute("holidayReportList", holidayReportList);
 		request.setAttribute("selectCriteria", selectCriteria);

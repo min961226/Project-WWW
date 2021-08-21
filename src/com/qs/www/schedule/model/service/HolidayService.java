@@ -93,10 +93,10 @@ public class HolidayService {
 	}
 
 	/* 페이징에서 사용할 totalCount를 세오는 메소드 */
-	public int selectAllCount(Map<String, Object> countMap) {
+	public int selectAllHolidayReportCount(Map<String, Object> countMap) {
 		SqlSession session = getSqlSession();
 		
-		int totalCount = holidayDAO.selectAllCount(session, countMap);
+		int totalCount = holidayDAO.selectAllHolidayReportCount(session, countMap);
 		
 		session.close();
 		
