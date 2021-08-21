@@ -12,13 +12,10 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.qs.www.main.model.dto.AuthorityDTO;
-import com.qs.www.main.model.service.MainService;
-import com.qs.www.member.model.dto.MemberInfoDTO;
-import com.qs.www.member.model.dto.RoleDTO;
-import com.qs.www.mng.employee.model.service.MngEmployeeService;
 
 @WebFilter(urlPatterns = "/mng/*")
 public class AuthenticationFilter implements Filter {
@@ -35,34 +32,27 @@ public class AuthenticationFilter implements Filter {
 		/* 세션에 권한이 있는지 확인하여 허용된 url에만 접근 가능하도록 설정한다. */
 		HttpSession requestSession = hrequest.getSession();
 		
-		MemberInfoDTO memberInfo = (MemberInfoDTO) requestSession.getAttribute("memberInfo");
-		String roleCode = memberInfo.getRole().getRoleCode();
+		@SuppressWarnings("unchecked")
+		List<AuthorityDTO> memberAuthority = (List<AuthorityDTO>) requestSession.getAttribute("memberAuthority");
+		List<String> menuUri = new ArrayList<>();
 		
 		boolean isAuthorized = false;
 		
-		chain.doFilter(request, response);
+		if(memberAuthority != null) {
+			for(AuthorityDTO authority : memberAuthority) {
+				System.out.println("Authority : " + authority.getMenuUri());
+				if(authority.getMenuUri().equals(intent)) {
+					isAuthorized = true;
+				}
+			}
+		}
 		
+		if(isAuthorized) {
+			chain.doFilter(request, response);
+		} else {
+			((HttpServletResponse) response).sendError(403);
+		}
 	}
 
-	public void init(FilterConfig fConfig) throws ServletException {
-		
-//		MainService mainService = new MainService();
-//		MngEmployeeService mngEmployeeService = new MngEmployeeService();
-//		
-//		List<RoleDTO> roleList = mngEmployeeService.selectRoleList();
-//		List<AuthorityDTO> roleAuthorityList = new ArrayList(); 
-//		
-//		for(RoleDTO role : roleList) {
-//			
-//		}
-//		
-//		List<String> accessMenu = new ArrayList<>();
-//		for(AuthorityDTO roleAuthority : roleAuthorityList) {
-//			String menu = roleAuthority.getMenuUri().split("/")[2];
-//			
-//			if(!accessMenu.contains(menu)) {
-//				accessMenu.add(menu);
-//			}
-//		}
-	}
+	public void init(FilterConfig fConfig) throws ServletException {}
 }

@@ -17,7 +17,7 @@
 		<result property="roleName" column="ROLE_NAME"/>
 	</resultMap>
 	
-	<resultMap type="com.qs.www.member.model.dto.MemberInfoDTO" id="mngEmployeeResultMap">
+	<resultMap type="com.qs.www.member.model.dto.MemberInfoDTO" id="mngEmployeeListResultMap">
 		<id property="memberNo" column="MEMBER_NO"/>
 		<result property="memberId" column="MEMBER_ID"/>
 		<result property="password" column="PASSWORD"/>
@@ -59,6 +59,12 @@
 			<id property="jobCode" column="JOB_CODE"/>
 			<result property="jobName" column="JOB_NAME"/>
 		</association>
+	</resultMap>
+	
+	<resultMap type="com.qs.www.main.model.dto.AuthorityDTO" id="authorityListResultMap">
+		<id property="menuAuthorityCode" column="MENU_AUTHORITY_CODE"/>
+		<result property="menuUri" column="MENU_URI"/>
+		<result property="menuName" column="MENU_NAME"/>
 	</resultMap>
 	
 	<select id="selectMemberNo" resultType="_int">
@@ -128,7 +134,7 @@
         )
 	</insert>
 	
-	<select id="selectMngEmployeeList" resultMap="mngEmployeeResultMap">
+	<select id="selectMngEmployeeList" resultMap="mngEmployeeListResultMap">
         SELECT /* com.qs.www.mng.employee.model.dao.MngEmployeeDAO#selectMngEmployeeList() */
                A.MEMBER_NO
              , A.MEMBER_ID
@@ -147,7 +153,7 @@
          ORDER BY A.MEMBER_NO
 	</select>
 	
-	<select id="selectOneMngEmployee" parameterType="_int" resultMap="mngEmployeeResultMap">
+	<select id="selectOneMngEmployee" parameterType="_int" resultMap="mngEmployeeListResultMap">
         SELECT /* com.qs.www.mng.employee.model.dao.MngEmployeeDAO#selectOneMngEmployee() */
                A.MEMBER_NO
              , A.MEMBER_ID
@@ -190,4 +196,12 @@
              , A.RRN = #{ rrn }
          WHERE A.MEMBER_NO = #{ memberNo }
 	</update>
+	
+	<select id="selectAuthorityList" resultMap="authorityListResultMap">
+        SELECT /* com.qs.www.mng.employee.model.dao.MngEmployeeDAO#selectAuthorityList() */
+               A.MENU_AUTHORITY_CODE
+             , A.MENU_URI
+             , A.MENU_NAME
+          FROM TBL_AUTHORITY A
+	</select>
 </mapper>
