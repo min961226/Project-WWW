@@ -24,7 +24,6 @@ import com.qs.www.welfare.model.dto.MemberOverTimeLogDTO;
 import com.qs.www.welfare.model.dto.SeminarRoomDTO;
 import com.qs.www.welfare.model.service.WelfareService;
 
-import jdk.internal.misc.FileSystemOption;
 
 @WebServlet("/welfare/list/selected")
 public class SelectedWelfareServlet extends HttpServlet {
@@ -71,13 +70,8 @@ public class SelectedWelfareServlet extends HttpServlet {
 		case "자기개발비신청":
 			List<String> selfDevList = welfareService.checkSelfDevList();
 			System.out.println(selfDevList);
-				if(selfDevList != null) {
-					request.setAttribute("selfDevList", selfDevList);
-					path = "/WEB-INF/views/welfare/insertSelfDevelopment.jsp";
-				} else {
-					request.setAttribute("message", "복지 목록조회 실패!");
-					path = "/WEB-INF/views/common/error-500.jsp";
-				}
+			request.setAttribute("selfDevList", selfDevList);
+			path = "/WEB-INF/views/welfare/insertSelfDevelopment.jsp";
 			break;
 		case "기숙사입주신청":
 			List<DomitoryListDTO> domitoryList = welfareService.selectDomitory();

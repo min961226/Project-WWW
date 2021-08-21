@@ -25,16 +25,17 @@ public class DeleteAppliedSeminarRoomServlet extends HttpServlet {
 		WelfareService welfareService = new WelfareService();
 		SeminarRoomReservDTO seminarRoomReservDTO = new SeminarRoomReservDTO();
 		
-		int roomNo = Integer.parseInt(request.getParameter("roomNo"));
-		String useDate = request.getParameter("useDate");
-		int reservNo = Integer.parseInt(request.getParameter("reservNo"));
+		int roomNo = Integer.parseInt(request.getParameter("roomNo"));							//데이터 값 삭제할 회의실
+		String useDate = request.getParameter("useDate");										//회의실 사용일자
+		int reservNo = Integer.parseInt(request.getParameter("reservNo"));						//회의실 예약 번호
 		
 		seminarRoomReservDTO.setMeetingRoomNo(roomNo);											// 삭제할 방번호 설정
 		seminarRoomReservDTO.setUseDate(Date.valueOf(useDate));									// 해당하는 날짜설정
 		seminarRoomReservDTO.setReservNo(reservNo);												// 해당하는 시간 설정
 		
 		
-		int result = welfareService.deleteAppliedSeminarRoom(seminarRoomReservDTO);
+		int result = welfareService.deleteAppliedSeminarRoom(seminarRoomReservDTO);				//예약된 회의실 번호 삭제
+		
 		String path = "";
 		if(result > 0 ) {
             path = "/WEB-INF/views/common/success.jsp";

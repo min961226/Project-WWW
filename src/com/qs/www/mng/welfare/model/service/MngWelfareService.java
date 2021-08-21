@@ -242,6 +242,48 @@ public class MngWelfareService {
 		return domitoryDTO;
 	}
 
+	public List<DomitoryLogDTO> selectDomitoryLogResult(int domitoryManageNo) {
+		SqlSession session = getSqlSession();
+
+		List<DomitoryLogDTO> domitoryLogList = mngWelfareDAO.selectDomitoryLogResult(session, domitoryManageNo);
+
+		session.close();
+
+		return domitoryLogList;
+	}
+
+	public int updateOutReason(DomitoryLogDTO domitoryLogDTO) {
+		SqlSession session = getSqlSession();
+
+		int updateOutReason = mngWelfareDAO.updateOutReason(session,domitoryLogDTO);
+
+		if (updateOutReason > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+
+		session.close();
+		
+		return updateOutReason;
+	}
+
+	public int minusDomitoryCapacity(int domitoryManageNo) {
+		SqlSession session = getSqlSession();
+
+		int minusDomitoryCapacity = mngWelfareDAO.minusDomitoryCapacity(session,domitoryManageNo);
+
+		if (minusDomitoryCapacity > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+
+		session.close();
+
+		return minusDomitoryCapacity;
+	}
+
 
 
 }

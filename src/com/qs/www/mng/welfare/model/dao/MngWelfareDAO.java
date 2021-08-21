@@ -81,5 +81,17 @@ public class MngWelfareDAO {
 		return session.selectOne("MngWelfareDAO.selectDomitory",domitoryNo);
 	}
 
+	public List<DomitoryLogDTO> selectDomitoryLogResult(SqlSession session, int domitoryManageNo) {
+		return session.selectList("MngWelfareDAO.selectDomitoryLogResult",domitoryManageNo);
+	}
+
+	public int updateOutReason(SqlSession session, DomitoryLogDTO domitoryLogDTO) {
+		return session.update("MngWelfareDAO.updateOutReason",domitoryLogDTO);
+	}
+
+	public int minusDomitoryCapacity(SqlSession session, int domitoryManageNo) {
+		return session.update("MngWelfareDAO.minusDomitoryCapacity",domitoryManageNo);
+	}
+
 
 }

@@ -190,6 +190,11 @@
 				failedMessage = "해당 기숙사 객실은 현재 만원입니다.";
 				movePath = "${ pageContext.servletContext.contextPath }/mng/welfare/domitory/select";
 				break;
+
+			case "leaveDomitory":
+				failedMessage = "입주자 퇴거 처리에 실패하였습니다.";
+				movePath = "${ pageContext.servletContext.contextPath }/mng/welfare/domitory/select";
+        break;
 			case "updateHolidayType" :
 				failedMessage = "휴가유형 수정에 실패하였습니다";
 				movePath = "${ pageContext.servletContext.contextPath }/mng/holiday/category/select";
@@ -197,6 +202,7 @@
 			case "insertHolidayType" :
 				failedMessage = "휴가유형 생성에 실패하였습니다";
 				movePath = "${ pageContext.servletContext.contextPath }/mng/holiday/category/select";
+
 				break;
 				
 

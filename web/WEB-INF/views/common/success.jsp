@@ -15,6 +15,7 @@
 			let movePath = "";
 
 			switch (successCode) {
+
 			
 				case "updateInfo" :
 					successMessage = "프로필이 수정되었습니다.";
@@ -149,7 +150,7 @@
 				case "updateholidayRule" :
 					successMessage = "휴가일수 발생규칙 수정이 완료되었습니다.";
 					movePath = "${ pageContext.servletContext.contextPath }/mng/holiday/rule/select";
-          			break;
+          break;
 					
 				case "insertMngNotice" :
 					successMessage = "공지사항 작성이 완료되었습니다.";
@@ -231,7 +232,13 @@
 					successMessage = "휴가유형 생성을 완료하였습니다.";
 					movePath = "${ pageContext.servletContext.contextPath }/mng/holiday/category/select";
 					break;
+          
+        case "leaveDomitory":
+				successMessage = "입주자 퇴거 처리를 완료하였습니다.";
+				movePath = "${ pageContext.servletContext.contextPath }/mng/welfare/domitory/select";
+				  break;
 				
+
 
 			}
 
