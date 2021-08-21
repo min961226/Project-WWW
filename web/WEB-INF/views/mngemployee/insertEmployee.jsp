@@ -88,6 +88,7 @@
 		                                    <label class="control-label col-lg-4" >부서</label>
 		                                    <div class="col-md-8">
 		                                        <select class="form-control" name="department" onchange="changeSelection(this.value)" required>
+													<option value=""></option>
 													<c:forEach var="deptList" items="${ deptList }">
 														<option><c:out value="${ deptList.deptCode } ${ deptList.deptName }" /></option>
 													</c:forEach>
@@ -98,6 +99,7 @@
 		                                    <label class="control-label col-lg-4">직급</label>
 		                                    <div class="col-md-8">
 		                                        <select class="form-control" name="job" required>
+													<option value=""></option>
 													<c:forEach var="jobList" items="${ jobList }">
 														<option><c:out value="${ jobList.jobCode } ${ jobList.jobName }" /></option>
 													</c:forEach>

@@ -26,6 +26,12 @@
 		<result property="breakStartTime" column="BREAK_START_TIME"/>
 		<result property="breakEndTime" column="BREAK_END_TIME"/>
 	</resultMap>
+	
+	<resultMap type="com.qs.www.main.model.dto.AuthorityDTO" id="accessAuthorityResultMap">
+		<id property="menuAuthorityCode" column="MENU_AUTHORITY_CODE"/>
+		<result property="menuUri" column="MENU_URI"/>
+		<result property="menuName" column="MENU_NAME"/>
+	</resultMap>
 
 	<select id="selectCommutingLog" parameterType="com.qs.www.main.model.dto.WorkInfoDTO" resultMap="commutingLogResultMap">
         SELECT /* com.qs.www.main.model.dao.MainDAO#selectCommutingLog() */
@@ -79,5 +85,15 @@
          WHERE A.WORK_NO = #{ workNo }
            AND B.DAY_OF_WEEK = #{ selectedDayOfWeek }
 		</if>
+	</select>
+	
+	<select id="selectAccessAuthorityList" resultMap="accessAuthorityResultMap">
+        SELECT /* com.qs.www.main.model.dao.MainDAO#selectAccessAuthorityList() */
+               B.MENU_AUTHORITY_CODE
+             , B.MENU_URI
+             , B.MENU_NAME
+          FROM TBL_AUTHORITY_PER_ROLE A
+          JOIN TBL_AUTHORITY B ON (A.MENU_AUTHORITY_CODE = B.MENU_AUTHORITY_CODE)
+         WHERE A.ROLE_CODE = #{ roleCode }
 	</select>
 </mapper>

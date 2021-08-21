@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.qs.www.member.model.dto.DepartmentDTO;
 import com.qs.www.member.model.dto.JobDTO;
+import com.qs.www.member.model.dto.MemberDTO;
 import com.qs.www.member.model.dto.MemberInfoDTO;
 import com.qs.www.member.model.dto.RoleDTO;
 
@@ -41,5 +42,9 @@ public class MngEmployeeDAO {
 
 	public MemberInfoDTO selectOneMngEmployee(SqlSession sqlSession, int memberNo) {
 		return sqlSession.selectOne("MngEmployeeDAO.selectOneMngEmployee", memberNo);
+	}
+
+	public int updateMngEmployee(SqlSession sqlSession, MemberDTO member) {
+		return sqlSession.update("MngEmployeeDAO.updateMngEmployee", member);
 	}
 }

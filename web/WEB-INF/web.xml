@@ -10,8 +10,6 @@
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
   
-
-  
   <context-param>
   	<param-name>mybatis-config-location</param-name>
   	<param-value>mybatis/mybatis-config.xml</param-value>
@@ -33,15 +31,15 @@
     
   <error-page>
   	<error-code>403</error-code>
-  	<location>/WEB-INF/views/common/error403.jsp</location>
+  	<location>/WEB-INF/views/common/error-403.jsp</location>
   </error-page>
   <error-page>
   	<error-code>404</error-code>
-  	<location>/WEB-INF/views/common/error404.jsp</location>
+  	<location>/WEB-INF/views/common/error-404.jsp</location>
   </error-page>
   <error-page>
   	<error-code>500</error-code>
-  	<location>/WEB-INF/views/common/error500.jsp</location>
+  	<location>/WEB-INF/views/common/error-500.jsp</location>
   </error-page>
   <context-param>
     <param-name>upload-location</param-name>

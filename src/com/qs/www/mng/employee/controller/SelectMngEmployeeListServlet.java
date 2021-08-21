@@ -21,10 +21,6 @@ public class SelectMngEmployeeListServlet extends HttpServlet {
 		
 		List<MemberInfoDTO> memberInfoList = mngEmployeeService.selectMngEmployeeList();
 		
-		for(MemberInfoDTO memberInfo : memberInfoList) {
-			System.out.println(memberInfo);
-		}
-		
 		String path = "";
 		if(memberInfoList != null) {
 			path = "/WEB-INF/views/mngemployee/employeeList.jsp";
@@ -35,9 +31,5 @@ public class SelectMngEmployeeListServlet extends HttpServlet {
 		}
 		
 		request.getRequestDispatcher(path).forward(request, response);
-	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 	}
 }

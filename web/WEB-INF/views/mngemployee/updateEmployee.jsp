@@ -62,7 +62,7 @@
 		                                    <div class="col-md-8">
 		                                        <select class="form-control" name="department" onchange="changeSelection(this.value)" required>
 													<c:forEach var="deptList" items="${ deptList }">
-														<option><c:out value="${ deptList.deptCode } ${ deptList.deptName }" /></option>
+														<option <c:if test="${ deptList.deptCode eq memberInfo.department.deptCode }">selected</c:if>><c:out value="${ deptList.deptCode } ${ deptList.deptName }" /></option>
 													</c:forEach>
 												</select>
 		                                    </div>
@@ -72,7 +72,7 @@
 		                                    <div class="col-md-8">
 		                                        <select class="form-control" name="job" required>
 													<c:forEach var="jobList" items="${ jobList }">
-														<option><c:out value="${ jobList.jobCode } ${ jobList.jobName }" /></option>
+														<option <c:if test="${ jobList.jobCode eq memberInfo.job.jobCode }">selected</c:if>><c:out value="${ jobList.jobCode } ${ jobList.jobName }" /></option>
 													</c:forEach>
 												</select>
 		                                    </div>
@@ -112,7 +112,7 @@
 		                                        <select class="form-control" name="role">
 													<option><c:out value="" /></option>
 													<c:forEach var="roleList" items="${ roleList }">
-														<option><c:out value="${ roleList.roleCode } ${ roleList.roleName }" /></option>
+														<option <c:if test="${ roleList.roleCode eq memberInfo.role.roleCode }">selected</c:if>><c:out value="${ roleList.roleCode } ${ roleList.roleName }" /></option>
 													</c:forEach>
 												</select>
 		                                    </div>
@@ -143,11 +143,11 @@
 	                                	<div class="form-group">
 		                                    <label class="control-label col-lg-4">주민등록번호</label>
 		                                    <div class="col-md-3">
-		                                        <input type="text" class="form-control" name="firstRrn" value="${ firstRrn }" required readonly>
+		                                        <input type="text" class="form-control" name="firstRrn" value="${ firstRrn }" required>
 		                                    </div>
 		                                    <label class="control-label col-lg-1"> - </label>
 		                                    <div class="col-md-4">
-		                                        <input type="password" class="form-control" name="lastRrn" value="${ lastRrn }" required readonly>
+		                                        <input type="password" class="form-control" name="lastRrn" value="${ lastRrn }" required>
 		                                    </div>
 	                                	</div>
 	                                	<div class="form-group">
@@ -203,7 +203,7 @@
 	                
 	                <div align="center">
 	                	<button type="submit" class="btn btn-success">프로필 수정</button>
-	                	<button type="reset" class="btn btn-default" id="goBack">돌아가기</button>
+	                	<button type="button" class="btn btn-default" onclick="goBack()" >돌아가기</button>
 	                </div>
 	            </form>
             </div>
@@ -211,8 +211,8 @@
     </div>
     
     <script>
-	    $goBack.onclick = function() {
-			location.href = "${ pageContext.servletContext.contextPath }/mypage/info/select"
+	    function goBack() {
+			location.href = "${ pageContext.servletContext.contextPath }/mng/employee/list/select"
 		}
     </script>
 </body>
