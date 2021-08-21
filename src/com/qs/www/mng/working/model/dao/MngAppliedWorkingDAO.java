@@ -21,4 +21,28 @@ public class MngAppliedWorkingDAO {
 		return session.selectList("MngAppliedWorkingDAO.selectAllMemberWorkReport", selectedInfoMap);
 	}
 
+	public int deleteWorkLog(SqlSession session, int reportNo) {
+		
+		return session.delete("MngAppliedWorkingDAO.deleteWorkLog", reportNo);
+	}
+
+	public int selectCustomWorkNo(SqlSession session, int reportNo) {
+		
+		return session.selectOne("MngAppliedWorkingDAO.selectCustomWorkNo", reportNo);
+	}
+	
+	public int deleteCustomWorktime(SqlSession session, int customWorkNo) {
+		
+		return session.delete("MngAppliedWorkingDAO.deleteCustomWorktime", customWorkNo);
+	}
+	
+	public int deleteCustomWork(SqlSession session, int reportNo) {
+		
+		return session.delete("MngAppliedWorkingDAO.deleteCustomWork", reportNo);
+	}
+
+
+
+	
+
 }

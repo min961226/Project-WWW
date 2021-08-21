@@ -141,6 +141,11 @@
 					successMessage = "근무제 삭제가 완료되었습니다.";
 					movePath = "${ pageContext.servletContext.contextPath }/mng/workingSystem/select";
 					break;
+				
+				case "deleteWork" :
+					successMessage = "근무 취소가 완료되었습니다.";
+					movePath = "${ pageContext.servletContext.contextPath }/mng/workingSystem/applied/select";
+					break;
 
 				case "deleteHoliday" :
 					successMessage = "휴가 취소가 완료되었습니다.";

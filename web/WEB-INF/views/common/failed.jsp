@@ -141,6 +141,11 @@
 				successMessage = "근무제 추가가 실패하였습니다.";
 				movePath = "${ pageContext.servletContext.contextPath }/mng/workingSystem/select";
 				break;
+				
+			case "deletework" : 
+				failedMessage = "근무취소에 실패하였습니다.";
+				movePath = "${ pageContext.servletContext.contextPath }/mng/workingSystem/applied/select";
+				break;
 
 			case "deleteHoliday" :
 				failedMessage = "휴가취소에 실패하였습니다.";

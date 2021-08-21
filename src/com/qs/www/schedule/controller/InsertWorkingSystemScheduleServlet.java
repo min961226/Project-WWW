@@ -57,13 +57,10 @@ public class InsertWorkingSystemScheduleServlet extends HttpServlet {
 		
 		//근무제목록 가져오기
 		List<StandardWorkDTO> workTypeList = new ScheduleService().selectAllWorkType();
-		System.out.println("workTypeList 목록 : " + workTypeList);
-		
 		request.setAttribute("workTypeList", workTypeList);
 		session.setAttribute("workTypeList", workTypeList);
 		
 		String path = "/WEB-INF/views/schedule/insertApplyWorkingSystem.jsp";
-
 		request.getRequestDispatcher(path).forward(request, response);
 
 	}
@@ -85,8 +82,6 @@ public class InsertWorkingSystemScheduleServlet extends HttpServlet {
                 lineName = line.getLineName();
             }
         }
-        System.out.println("lineName : " + lineName);
-        
         
         			
 		int workNo = Integer.parseInt(request.getParameter("workNo"));
