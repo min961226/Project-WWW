@@ -191,7 +191,7 @@
 	                            <li><a href="${ pageContext.servletContext.contextPath }/mng/welfare/list/select">시행 복지 관리</a></li>
 	                            <li><a href="${ pageContext.servletContext.contextPath }/mng/welfare/applied/select">복지 신청 목록</a></li>
 	                            <li><a href="${ pageContext.servletContext.contextPath }/mng/welfare/laptopRental/select">복지 물품 관리</a></li>
-	                            <li><a href="${ pageContext.servletContext.contextPath }/mng/welfare/domitory/select">기숙사 입주 관리</a></li>
+	                            <li><a href="${ pageContext.servletContext.contextPath }/mng/welfare/domitory/select">입주/퇴거 관리</a></li>
 	                        </ul>
 	                    </li>
 	                </ul>

@@ -2,6 +2,7 @@ package com.qs.www.schedule.model.dao;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -57,9 +58,9 @@ public class ScheduleDAO {
 		return session.update("ScheduleDAO.setFirstWorkingSystemApprover", approverPerReportDTO);
 	}
 
-	public List<ReportDTO> selectMyWorkReport(SqlSession session, int no) {
+	public List<ReportDTO> selectMyWorkReport(SqlSession session, HashMap<String, Object> selectedInfoMap) {
 		
-		return session.selectList("ScheduleDAO.selectMyWorkReport", no);
+		return session.selectList("ScheduleDAO.selectMyWorkReport", selectedInfoMap);
 	}
 	
 	/* 해당월의 지각횟수 count */
@@ -123,6 +124,11 @@ public class ScheduleDAO {
 	public int insertOvertimeLog(SqlSession session, OvertimeLogDTO overtimeLogDTO) {
 		
 		return session.insert("ScheduleDAO.insertOvertimeLog", overtimeLogDTO);
+	}
+
+	public int selectAllScheduleReportCount(SqlSession session, Map<String, Object> countMap) {
+		
+		return session.selectOne("ScheduleDAO.selectAllScheduleReportCount", countMap);
 	}
 
 	

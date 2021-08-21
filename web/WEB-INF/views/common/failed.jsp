@@ -176,6 +176,22 @@
 				failedMessage = "복지 품목 삭제에 실패하였습니다.";
 				movePath = "${ pageContext.servletContext.contextPath }/mng/welfare/laptopRental/select";
 				break;
+
+			case "insertManualHolidayLog":
+				failedMessage = "휴가수동지급에 실패하였습니다.";
+				movePath = "${ pageContext.servletContext.contextPath }/mng/holiday/manual/select";
+				break;
+
+			case "insertDomitoryLog" :
+				failedMessage = "대기자 입주 처리를 실패하였습니다.";
+				movePath = "${ pageContext.servletContext.contextPath }/mng/welfare/domitory/select";
+				break;
+			case "maxCapacity" :
+				failedMessage = "해당 기숙사 객실은 현재 만원입니다.";
+				movePath = "${ pageContext.servletContext.contextPath }/mng/welfare/domitory/select";
+				break;
+				
+
 			}
 
 			alert(failedMessage);

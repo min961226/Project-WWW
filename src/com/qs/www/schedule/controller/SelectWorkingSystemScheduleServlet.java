@@ -24,6 +24,8 @@ public class SelectWorkingSystemScheduleServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("근무 신청 현황");
+		
+		ScheduleService scheduleService = new ScheduleService();
 
 		//로그인 중인 사용자가 올린 결재중, documentNo가  4, 5인 문서(근무신청, 초과근무신청)
 		HttpSession session = request.getSession();
@@ -55,18 +57,19 @@ public class SelectWorkingSystemScheduleServlet extends HttpServlet {
 		searchMap.put("searchCondition", searchCondition);
 		searchMap.put("searchValue", searchValue);
 		
-		int documentNo = 1;
 		int documentNo1 = 4;
 		int documentNo2 = 5;
+		
 		HashMap<String, Object> countMap = new HashMap<>();
 		countMap.put("memberNo", memberNo);
-		countMap.put("documentNo", documentNo);
 		countMap.put("documentNo2", documentNo2);
 		countMap.put("documentNo1", documentNo1);
 		countMap.put("searchMap", searchMap);
+		
+		Pagenation pagenation = new Pagenation();
 
 		//totalCount 는 DB에 가서 조건에 해당하는 총 게시물 수를 세어와야 함. count(*) 중, where 삭제안된거.
-		int totalCount = new HolidayService().selectAllCount(countMap);
+		int totalCount = scheduleService.selectAllScheduleReportCount(countMap);
 
 		//limit는 한 페이지에서 보여지는 게시물 수
 		int limit = 10;
@@ -88,21 +91,17 @@ public class SelectWorkingSystemScheduleServlet extends HttpServlet {
 		//로그인한 사람의 사번과 문서번호를 넘겨준다.
 		HashMap<String, Object> selectedInfoMap = new HashMap<>();
 		selectedInfoMap.put("memberNo", memberNo);
-		selectedInfoMap.put("documentNo", documentNo);
 		selectedInfoMap.put("documentNo1", documentNo1);
 		selectedInfoMap.put("documentNo2", documentNo2);
 		selectedInfoMap.put("selectCriteria", selectCriteria);
 				
 		//조건 selectedInfoMap을 통해 검색한 reportList
-		List<ReportDTO> workReportList = new HolidayService().selectMyholidayReport(selectedInfoMap);
-		
+		List<ReportDTO> workReportList = scheduleService.selectMyWorkReport(selectedInfoMap);
 		System.out.println(workReportList);
 
 		request.setAttribute("workReportList", workReportList);
 		request.setAttribute("selectCriteria", selectCriteria);
 		request.getRequestDispatcher("/WEB-INF/views/schedule/appliedWorkingSystem.jsp").forward(request, response);
-
-
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="MngWelfareDAO">
 
-<resultMap type="com.qs.www.mng.welfare.model.dto.ItemDTO" id="itemListResultMap">
+	<resultMap type="com.qs.www.mng.welfare.model.dto.ItemDTO" id="itemListResultMap">
 		<result property="logNo" column="LOG_NO" />
 		<result property="itemNo" column="ITEM_NO" />
 		<result property="itemCategory" column="ITEM_CATEGORY" />
@@ -13,13 +13,32 @@
 		<result property="returnDate" column="RETURN_DATE" />
 		<result property="returnDueDate" column="RETURN_DUE_DATE" />
 	</resultMap>
+	
+	<resultMap type="com.qs.www.welfare.model.dto.DomitoryListDTO" id="domitoryListResultMap">
+		<result property="domitoryManageNo" column="DOMITORY_MANAGE_NO" />
+		<result property="domitoryBlockNo" column="BLOCK_NO" />
+		<result property="roomNo" column="ROOM_NO" />
+		<result property="currCapacity" column="CURR_CAPACITY" />
+		<result property="maxCapacity" column="MAX_CAPACITY" />
+	</resultMap>
 
-<select id="selectNextItemNo" resultType="_int">
+	<resultMap type="com.qs.www.welfare.model.dto.DomitoryWaitListDTO" id="domitoryWaitListResultMap">
+		<result property="waitingNo" column="WAITING_NO" />
+		<result property="memberNo" column="MEMBER_NO" />
+		<result property="memberName" column="MEMBER_NAME" />
+		<result property="waitingStatus" column="WAITING_STATUS" />
+		<result property="hopeDate" column="HOPE_DATE" />
+	</resultMap>
+
+
+	<select id="selectNextItemNo" resultType="_int">
 		SELECT /* com.qs.www.mngwelfare.model.dao.WelfareDAO#selectNextItemNo() */
 		       LAST_NUMBER
 		  FROM USER_SEQUENCES
 		 WHERE SEQUENCE_NAME = 'SEQ_LAPTOP_ITEM_NO'
 	</select>
+	
+	
 	
 	<insert id="insertItem" parameterType="com.qs.www.mng.welfare.model.dto.ItemDTO">
 
@@ -97,5 +116,55 @@
 		   SET RESERVATION_STATUS = DEFAULT
 		 WHERE ITEM_NO = #{ itemNo }
 	</update>
-   		   
+   		 
+   		 
+   	<select id="selectMemberNoByWaitingNo" resultType="_int">
+		SELECT
+			   A.MEMBER_NO
+		  FROM TBL_DOMITORY_WAITLIST A
+		 WHERE A.WAITING_NO = #{ waitingNo }
+	</select>
+	
+	<insert id="insertDomitoryLog" parameterType="com.qs.www.mng.welfare.model.dto.DomitoryLogDTO">
+
+		INSERT /* com.qs.www.mngwelfare.model.dao.MngWelfareDAO#insertDomitoryLog() */
+		  INTO TBL_DOMITORY_LOG A
+		 	 (
+	  	   	   A.LOG_NO
+		 	 , A.IN_DATE
+		 	 , A.OUT_DATE
+		 	 , A.OUT_REASON
+		 	 , A.DOMITORY_MANAGE_NO
+		 	 , A.MEMBER_NO
+		 	 )
+		 	 VALUES
+		 	 (
+	  	   	   SEQ_DOMITORY_LOG_NO.NEXTVAL
+		 	 , SYSDATE
+		 	 , DEFAULT
+		 	 , DEFAULT
+		 	 , #{ domitoryManageNo }
+		 	 , #{ memberNo }
+		 	 )
+	</insert>  
+	
+	<delete id="deleteDomitoryWaitList" >
+		DELETE 
+		  FROM TBL_DOMITORY_WAITLIST
+		 WHERE WAITING_NO = #{ waitingNo }
+	</delete>
+	
+	
+	<update id="updateDomitoryCapacity" >
+		UPDATE TBL_DOMITORY
+		   SET CURR_CAPACITY = CURR_CAPACITY + 1
+		 WHERE DOMITORY_MANAGE_NO = #{ domitoryNo }
+	</update>
+	
+	<select id="selectDomitory" resultMap="domitoryListResultMap">
+		SELECT 
+			   A.*
+		  FROM TBL_DOMITORY A
+		 WHERE DOMITORY_MANAGE_NO = #{ domitoryNo }
+	</select>
 </mapper>

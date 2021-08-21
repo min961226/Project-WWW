@@ -29,7 +29,7 @@
 					<div class="col-lg-12">
 						<form class="form-horizontal"
 							action="${ pageContext.servletContext.contextPath }/board/free/update"
-							method="POST">
+							method="POST" onsubmit="return askAgain();"  enctype="multipart/form-data">
 							<input type="text" name="no" value="${ requestScope.free.no }"
 								hidden="hidden" />
 							<div class="form-group">
@@ -44,12 +44,12 @@
 
 							<div class="form-group">
 								<div class="col-sm-12">
-									<label>첨부서류</label>
-									<div class="col-md-12">
-										<input name="file" class="form-control" type="file" disabled>
-									</div>
+								<label>첨부</label>
+								<div class="col-lg-12">
+									<input class="form-control" type="file" name="file1" multiple="multiple"> <small	class="help-block">파일 최대 사이즈: 10 MB. 허용된 확장자: jpg,	gif, png. </small>
 								</div>
-							</div>
+								</div>
+								</div>
 
 							<div class="form-group">
 								<div class="col-sm-12">

@@ -19,6 +19,7 @@ import static com.qs.www.common.mybatis.Template.getSqlSession;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -115,11 +116,11 @@ public class ScheduleService {
 		return result;
 	}
 
-	public List<ReportDTO> selectMyWorkReport(int no) {
+	public List<ReportDTO> selectMyWorkReport(HashMap<String, Object> selectedInfoMap) {
 		
 		SqlSession session = getSqlSession();
 		
-		List<ReportDTO> workReportList = scheduleDAO.selectMyWorkReport(session, no);
+		List<ReportDTO> workReportList = scheduleDAO.selectMyWorkReport(session, selectedInfoMap);
 				
 		session.close();
 		
@@ -280,6 +281,17 @@ public class ScheduleService {
 		session.close();
 		
 		return workTypeList;
+	}
+	
+	/* 페이징에서 사용할 totalCount를 세오는 메소드 */
+	public int selectAllScheduleReportCount(Map<String, Object> countMap) {
+		SqlSession session = getSqlSession();
+		
+		int totalCount = scheduleDAO.selectAllScheduleReportCount(session, countMap);
+		
+		session.close();
+		
+		return totalCount;
 	}
 	
 	

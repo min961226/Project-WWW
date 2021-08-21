@@ -10,6 +10,8 @@ import javax.servlet.http.HttpSession;
 
 import com.qs.www.board.model.dto.FreeDTO;
 import com.qs.www.board.model.service.FreeService;
+import com.qs.www.common.attachment.model.dto.BoardAttachmentDTO;
+import com.qs.www.common.attachment.model.service.BoardAttachmentService;
 import com.qs.www.member.model.dto.MemberInfoDTO;
 import com.qs.www.mng.board.model.dto.MngNoticeDTO;
 import com.qs.www.mng.board.model.service.MngNoticeService;
@@ -25,8 +27,12 @@ public class SelectOneMngNoticeBoardServlet extends HttpServlet {
 				MngNoticeService mngnoticeService = new MngNoticeService();
 				MngNoticeDTO mngnoticeDetail = mngnoticeService.selectMngNoticeDetail(no);
 				
-				System.out.println("freeDetail : " + mngnoticeDetail);
+				/* 파일 첨부 DTO 서비스 실행 reportNo로 갖고옴 */
+				BoardAttachmentDTO boardattachmentDTO = new BoardAttachmentService().selectBoardAttachmentByBoardNo(mngnoticeDetail.getNo());		//boardNo로 값을 갖고옴
+				System.out.println(boardattachmentDTO);
 				
+				System.out.println("freeDetail : " + mngnoticeDetail);
+				request.setAttribute("boardattachmentDTO", boardattachmentDTO);
 				String path = "";
 				if(mngnoticeDetail != null) {
 					path = "/WEB-INF/views/mngboard/detailNoticeBoard.jsp";

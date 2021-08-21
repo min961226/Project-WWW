@@ -136,5 +136,12 @@
                ) C
          WHERE C.RNUM >= #{ startRow }     
 	</select>
+	
+		<select id="selectBoardNum" resultType="_int">
+		SELECT /* com.qs.www.board.model.dao.NoticeDAO#selectBoardNum() */
+		       LAST_NUMBER
+		  FROM USER_SEQUENCES
+		 WHERE SEQUENCE_NAME = 'SEQ_BOARD_NO'
+		</select>
 
 </mapper>
