@@ -35,7 +35,7 @@
                                 ${ requestScope.selectCriteria.searchCondition eq "content"? "selected": "" }>비고</option>
                         </select> <input type="search" id="searchValue" name="searchValue"
                             value="<c:out value="${ requestScope.selectCriteria.searchValue }"/>">
-                        <button type="submit">검색하기</button>
+                        <button class="btn-success" type="submit">검색하기</button>
                         <!-- <button type="button" id="writeFree">작성하기</button> -->
                     </form>
                     </div>
@@ -53,6 +53,7 @@
                                                 <th>결재라인</th>
                                                 <th>결재 날짜</th>
                                                 <th>진행상태</th>
+                                                <th>회수가능여부</th>
                                             </tr>
 
                                         </thead>
@@ -69,7 +70,16 @@
                                                 <td><c:out value="${ board.reportTitle}" /></td>
                                                 <td><c:out value="${ board.lineName }" /></td>
                                                 <td><c:out value="${ board.reportDate }" /></td>
-                                                <td><c:out value="${ board.reportStatus }" /></td>
+                                                <td><button  class=
+                                                <c:if test="${board.reportStatus eq '대기'}">"btn btn-success btn-xs"</c:if>
+                                                <c:if test="${board.reportStatus eq '승인'}">"btn btn-info btn-xs"</c:if>
+                                                <c:if test="${board.reportStatus eq '반려'}">"btn btn-danger btn-xs"</c:if>
+												type="submit">${ board.reportStatus }</button></td>
+                                                
+                                                <c:if test="${board.reportStatus eq '대기' }"><td><button  class="btn btn-success btn-xs"
+												type="submit">회수가능</button></td></c:if>
+												<c:if test="${board.reportStatus ne '대기' }"><td><button  class="btn btn-danger btn-xs"
+												type="submit">회수불가</button></td></c:if>
                                             </tr>
                                         </c:forEach>
 
@@ -91,7 +101,7 @@
             for (let i = 0; i < $tds.length; i++) {
 
                 $tds[i].onmouseenter = function() {
-                    this.parentNode.style.backgroundColor = "orangered";
+                    this.parentNode.style.backgroundColor = "LightGoldenRodYellow";
                     this.parentNode.style.cursor = "pointer";
                 }
 

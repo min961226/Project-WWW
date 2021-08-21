@@ -56,7 +56,7 @@
 										<c:if test="${ holidayType.holidayNote == null}">
 										<c:out value="비고없음" /></c:if>
 										</td>
-										<td><c:if test="${ holidayType.useYn == 'Y'}"><button id="delete" class="btn btn-success btn-xs"
+										<td><c:if test="${ holidayType.useYn == 'Y'}"><button id="delete" class="btn btn-info btn-xs"
 												type="submit">활성</button></c:if>
 										<c:if test="${ holidayType.useYn == 'N'}"><button id="delete" class="btn btn-danger btn-xs"
 												type="submit">비활성</button></c:if>

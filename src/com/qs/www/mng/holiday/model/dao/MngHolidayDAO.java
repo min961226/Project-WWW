@@ -120,5 +120,10 @@ public class MngHolidayDAO {
 		return session.insert("MngHolidayDAO.insertHolidayType", holidayCategory);
 	}
 
+	public int deleteHolidayType(SqlSession session, List<Integer> itemList) {
+		
+		return session.delete("MngHolidayDAO.deleteHolidayType", itemList);
+	}
+
 	
 }

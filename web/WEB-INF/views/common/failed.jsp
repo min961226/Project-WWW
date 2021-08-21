@@ -204,6 +204,10 @@
 				movePath = "${ pageContext.servletContext.contextPath }/mng/holiday/category/select";
 
 				break;
+			case "deleteItemCheck" :
+				failedMessage = "휴가유형 삭제에 실패하였습니다";
+				movePath = "${ pageContext.servletContext.contextPath }/mng/holiday/category/select";
+				break;
 				
 
 			}

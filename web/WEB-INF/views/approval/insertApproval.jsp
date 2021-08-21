@@ -42,10 +42,7 @@
 												<option value=3>일반결의서</option>
 											</select>
 										</div>
-									</div>
-									
-									
-									
+									</div>			
 									<div class="col-sm-6">
 										<label>결재 제목</label>
 										<div class="col-md-12">
@@ -53,8 +50,6 @@
 										</div>
 									</div>
 								</div>
-
-
 								<div class="form-group">
 									<div class="col-sm-6">
 										<label>기안자</label>
@@ -66,8 +61,8 @@
 									<div class="col-sm-6">
 										<label>결재라인</label>
 										<div class="col-md-12">
-											<select class="form-control" name="line">
-												<option value=1>기본 결재라인(테스트1)</option>
+											<select class="form-control" name="line" required>
+												<option value=''>--결재라인 선택--</option>
 												<c:forEach var="line" items="${ requestScope.lineList }">
 												<option value= ${ line.lineNo }>${ line.lineName }</option>
 												</c:forEach>
@@ -152,9 +147,7 @@
 											placeholder="비고를 입력해주세요"></textarea>
 									</div>
 								</div>
-								</div>
-								
-								
+								</div>					
 								<div class="row">
                                     <div class="col-sm-12 text-center m-t-20">
                                         <button type="submit" class="btn btn-primary btn-lg"> 신청 </button>

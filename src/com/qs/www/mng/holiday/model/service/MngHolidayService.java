@@ -263,6 +263,20 @@ public class MngHolidayService {
 		return result;
 	}
 
+	public int deleteHolidayType(List<Integer> itemList) {
+		SqlSession session = getSqlSession();
+
+		int result = mngHolidayDAO.deleteHolidayType(session, itemList);
+		if(result > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+		session.close();
+
+		return result;
+	}
+
 
 
 
