@@ -39,7 +39,7 @@ import com.qs.www.schedule.model.service.ScheduleService;
         maxRequestSize = 1024*1024*10*5,											//파일 허용 최대 갯수
         fileSizeThreshold = 1024)
 @WebServlet("/schedule/workingSystem/insert")
-public class InsertWorkingSystemScheduleServlet extends HttpServlet {
+public class InsertWorkingSystemScheduleServlet extends HttpServlet { 
 	
 	//파일 저장공간
 	private static final String ATTACHES_REPORT = "C:\\WWW\\Project-WWW\\web\\upload\\report";							//경로지정				
@@ -57,13 +57,10 @@ public class InsertWorkingSystemScheduleServlet extends HttpServlet {
 		
 		//근무제목록 가져오기
 		List<StandardWorkDTO> workTypeList = new ScheduleService().selectAllWorkType();
-		System.out.println("workTypeList 목록 : " + workTypeList);
-		
 		request.setAttribute("workTypeList", workTypeList);
 		session.setAttribute("workTypeList", workTypeList);
 		
 		String path = "/WEB-INF/views/schedule/insertApplyWorkingSystem.jsp";
-
 		request.getRequestDispatcher(path).forward(request, response);
 
 	}
@@ -85,8 +82,6 @@ public class InsertWorkingSystemScheduleServlet extends HttpServlet {
                 lineName = line.getLineName();
             }
         }
-        System.out.println("lineName : " + lineName);
-        
         
         			
 		int workNo = Integer.parseInt(request.getParameter("workNo"));

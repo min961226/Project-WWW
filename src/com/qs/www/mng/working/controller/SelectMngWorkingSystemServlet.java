@@ -17,7 +17,7 @@ import com.qs.www.schedule.model.service.ScheduleService;
 public class SelectMngWorkingSystemServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("근무 제도 관리");
+		System.out.println("근무 제도 관리"); 
 		
 		HttpSession session = request.getSession();	
 		

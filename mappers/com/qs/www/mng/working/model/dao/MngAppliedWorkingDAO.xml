@@ -29,7 +29,7 @@
 	</select>
 	
 	<select id="selectAllMemberWorkReport" parameterType="hashmap" resultMap="reportResultMap">
-	SELECT
+	SELECT /* com.qs.www.schedule.mng.working.dao.MngAppliedWorkingDAO#selectAllMemberWorkReport() */
 	       C.RNUM
 	     , C.REPORT_NO
 	     , C.REPORT_DATE
@@ -74,5 +74,31 @@
                ) C
          WHERE C.RNUM >= #{ selectCriteria.startRow }
 	</select>
+	
+	<delete id="deleteWorkLog">
+	DELETE /* com.qs.www.schedule.mng.working.dao.MngAppliedWorkingDAO#deleteWorkLog() */
+	  FROM TBL_MEMBER_WORK_LOG A
+	 WHERE A.WORK_REPORT_NO = #{ reportNo }
+	</delete> 
+	
+	<select id="selectCustomWorkNo">
+	SELECT /* com.qs.www.schedule.mng.working.dao.MngAppliedWorkingDAO#selectCustomWorkNo() */
+	       A.WORK_NO
+	  FROM TBL_CUSTOM_WORK A
+	 WHERE A.WORK_REPORT_NO = #{ reportNo }
+	</select>
+	
+	<delete id="deleteCustomWorktime">
+	DELETE /* com.qs.www.schedule.mng.working.dao.MngAppliedWorkingDAO#deleteCustomWork() */
+	  FROM TBL_CUSTOM_WORKTIME A
+	 WHERE A.WORK_NO = #{ customWorkNo }
+	</delete>
+	
+	<delete id="deleteCustomWork">
+	DELETE /* com.qs.www.schedule.mng.working.dao.MngAppliedWorkingDAO#deleteCustomWork() */
+	  FROM TBL_CUSTOM_WORK A
+	 WHERE A.WORK_REPORT_NO = #{ reportNo }
+	</delete>
+	
 	
 </mapper>

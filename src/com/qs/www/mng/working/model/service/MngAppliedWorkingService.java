@@ -42,4 +42,67 @@ public class MngAppliedWorkingService {
 		return workReportList;
 	}
 
+	public int deleteWorkLog(int reportNo) {
+		
+		SqlSession session = getSqlSession();
+		
+		int result = mngAppliedWorkingDAO.deleteWorkLog(session, reportNo);
+		
+		if(result > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+		session.close();
+		
+		return result;
+	}
+
+	public int selectCustomWorkNo(int reportNo) {
+		
+		SqlSession session = getSqlSession();
+		
+		int customWorkNo = mngAppliedWorkingDAO.selectCustomWorkNo(session, reportNo);
+		
+		session.close();
+		
+		return customWorkNo;
+	} 
+	
+	public int deleteCustomWorktime(int customWorkNo) {
+		
+		SqlSession session = getSqlSession();
+		
+		int result = mngAppliedWorkingDAO.deleteCustomWorktime(session, customWorkNo);
+		
+		if(result > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+		session.close();
+		
+		return result;
+	}
+	
+	public int deleteCustomWork(int reportNo) {
+		
+		SqlSession session = getSqlSession();
+		
+		int result = mngAppliedWorkingDAO.deleteCustomWork(session, reportNo);
+		
+		if(result > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+		session.close();
+		
+		return result;
+	}
+
+
+
+	
+
 }

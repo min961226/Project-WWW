@@ -11,7 +11,7 @@
 <title>Wonderful Welfare Workspace</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-</head>
+</head> 
 
 <body>
 	<div class="main-wrapper">

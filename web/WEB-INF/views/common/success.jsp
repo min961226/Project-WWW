@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-<head>
+<head> 
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -140,6 +140,11 @@
 				case "deleteWorkType" : 
 					successMessage = "근무제 삭제가 완료되었습니다.";
 					movePath = "${ pageContext.servletContext.contextPath }/mng/workingSystem/select";
+					break;
+				
+				case "deleteWork" :
+					successMessage = "근무 취소가 완료되었습니다.";
+					movePath = "${ pageContext.servletContext.contextPath }/mng/workingSystem/applied/select";
 					break;
 
 				case "deleteHoliday" :

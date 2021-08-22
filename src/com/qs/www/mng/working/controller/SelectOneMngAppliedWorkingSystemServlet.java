@@ -22,7 +22,7 @@ import com.qs.www.schedule.model.dto.WorkingDocumentItemDTO;
 public class SelectOneMngAppliedWorkingSystemServlet extends HttpServlet {
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("근무 신청 목록 상세");
+		System.out.println("근무 신청 목록 상세"); 
 		
 		//윤서님 SelectOneMngAppliedHolidayServlet 참조함
 		//선택한 근무신청결재의 결재번호를 넘겨받음
@@ -31,9 +31,9 @@ public class SelectOneMngAppliedWorkingSystemServlet extends HttpServlet {
 		// 참조함에서 선택한 게시물의 살세정보 가져오기
 		ReportDTO selectedReport = new ApprovalService().selectOneReportDetail(no);
 
-		/* 파일 첨부 DTO 서비스 실행 reportNo로 가져오기 */
+		/* 파일 첨부 DTO 서비스 실행 reportNo로 가져오기  */
 		AttachmentDTO attachmentDTO = new AttachmentService().selectAttachmentByReportNo(selectedReport.getReportNo()); 
-		System.out.println(attachmentDTO);
+		System.out.println(attachmentDTO);  
 
 		List<WorkingDocumentItemDTO> itemList = new ApprovalService().selectReportItemList(no);
 		List<ApproverLogPerReportDTO> ALPRList = new ApprovalService().selectALPRList(no);

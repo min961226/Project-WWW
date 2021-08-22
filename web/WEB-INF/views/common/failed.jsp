@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html>
 <head>
 <meta charset="UTF-8">
@@ -140,6 +140,11 @@
 			case "inserWorkType" :
 				successMessage = "근무제 추가가 실패하였습니다.";
 				movePath = "${ pageContext.servletContext.contextPath }/mng/workingSystem/select";
+				break;
+				
+			case "deletework" : 
+				failedMessage = "근무취소에 실패하였습니다.";
+				movePath = "${ pageContext.servletContext.contextPath }/mng/workingSystem/applied/select";
 				break;
 
 			case "deleteHoliday" :

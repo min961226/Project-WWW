@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 
@@ -60,7 +61,7 @@
 										<input class="form-control"
 											value=<c:if test="${ requestScope.selectedReport.documentNo eq 4 }">"근무신청서"</c:if>
 											<c:if test="${ requestScope.selectedReport.documentNo eq 5 }">"초과근무신청서"</c:if>
-											disabled />
+											disabled/>
 									</div>
 								</div>
 							</div>
@@ -98,18 +99,106 @@
 									</div>
 								</div>
 							</div>
+							
+						
+						<c:if test="${requestScope.selectedReport.documentNo == 4 and requestScope.itemList.get(5).itemContent eq '커스텀'}">
+							<div class="form-group col-xs-12">
+								<div>
+									<div class="col-sm-6">
+										<label>${ requestScope.itemList.get(0).itemName } : </label> <input
+											class="form-control"
+											value="${ requestScope.itemList.get(0).itemContent }"
+											disabled />
+									</div>
+									<div class="col-sm-6">
+										<label>${ requestScope.itemList.get(1).itemName } : </label> <input
+											class="form-control"
+											value="${ requestScope.itemList.get(1).itemContent }"
+											disabled />
+									</div>
+								</div>
+								<div>
+									<div class="col-sm-6">
+										<label>${ requestScope.itemList.get(2).itemName } : </label> <input
+											class="form-control"
+											value="${ requestScope.itemList.get(2).itemContent }"
+											disabled />
+									</div>
+									<div class="col-sm-6">
+										<label>${ requestScope.itemList.get(3).itemName } : </label> <input
+											class="form-control"
+											value="${ requestScope.itemList.get(3).itemContent }"
+											disabled />
+									</div>
+								</div>
+								<div>
+									<div class="col-sm-6">
+										<label>${ requestScope.itemList.get(4).itemName } : </label> <input
+											class="form-control"
+											value="${ requestScope.itemList.get(4).itemContent }"
+											disabled />
+									</div>
+									<div class="col-sm-6">
+										<label>${ requestScope.itemList.get(5).itemName } : </label> <input
+											class="form-control"
+											value="${ requestScope.itemList.get(5).itemContent }"
+											disabled /> <br>
+									</div>
+								</div>
+								<div>
+									<div class="col-sm-6">
+										<label>${ requestScope.itemList.get(6).itemName } : </label> <input
+											class="form-control"
+											value="${ requestScope.itemList.get(6).itemContent } ~ ${ requestScope.itemList.get(7).itemContent }"
+											disabled />
+									</div>
+
+									<div class="col-sm-6">
+										<label>${ requestScope.itemList.get(8).itemName } : </label> <input
+											class="form-control"
+											value="${ requestScope.itemList.get(8).itemContent } ~ ${ requestScope.itemList.get(9).itemContent }"
+											disabled />
+									</div>
+								</div>
+								<div>
+									<div class="col-sm-6">
+										<label>${ requestScope.itemList.get(10).itemName } : </label>
+										<input class="form-control"
+											value="${ requestScope.itemList.get(10).itemContent } ~ ${ requestScope.itemList.get(11).itemContent }"
+											disabled />
+									</div>
+									<div class="col-sm-6">
+										<label>${ requestScope.itemList.get(12).itemName } : </label>
+										<input class="form-control"
+											value="${ requestScope.itemList.get(12).itemContent } ~ ${ requestScope.itemList.get(13).itemContent }"
+											disabled />
+									</div>
+								</div>
+								<div>
+									<div class="col-sm-6">
+										<label>${ requestScope.itemList.get(14).itemName } : </label>
+										<input class="form-control"
+											value="${ requestScope.itemList.get(14).itemContent } ~ ${ requestScope.itemList.get(14).itemContent }"
+											disabled />
+									</div>
+								</div>
+							</div>
+						</c:if>
+
+						<c:if test="${requestScope.selectedReport.documentNo == 4 and requestScope.itemList.get(5).itemContent ne '커스텀'}">
 							<div class="form-group col-xs-12">
 								<c:forEach var="item" items="${ requestScope.itemList }">
 									<div>
-										<div class="col-xs-6">
+										<div class="col-sm-6">
 											<label>${ item.itemName } : </label> <input
 												class="form-control" value="${ item.itemContent }" disabled />
 										</div>
 									</div>
 								</c:forEach>
 							</div>
-
-							<div class="form-group">
+						</c:if>
+						
+						<div class="form-group">
 								<div class="col-sm-12">
 									<br> <br> <br> <label>사유 : </label>
 									<div class="col-lg-12">
@@ -119,6 +208,10 @@
 								</div>
 							</div>
 						</div>
+
+
+
+
 						<div class="card-box col-xs-6">
 							<div class="col-xs-12">
 								<h4 align="center">결재내역 목록</h4>
@@ -147,21 +240,21 @@
 									</div>
 								</div>
 							</div>
-
+ 
 						</c:forEach>
 						<form class="form-horizontal"
 							action="${ pageContext.servletContext.contextPath }/mng/workingSystem/applied/delete?no=${ requestScope.selectedReport.reportNo }"
 							method="post" onsubmit="return askAgain();">
 							<div class="row">
-								<div hidden>
-									<input name="status"
-										value="${ requestScope.selectedReport.reportStatus }" /> <input
-										name="memberNo"
-										value="${ requestScope.selectedReport.memberNo }" />
+								<!-- DeleteMngAppliedWorkingSystemServlet 서블릿에서 표준/커스텀/초과근무 등을 판단하기 위해 넘겨줄 값 -->
+								<div hidden=hidden> 
+									<input name="status" value="${ requestScope.selectedReport.reportStatus }" /> 
+									<input name="memberNo" value="${ requestScope.selectedReport.memberNo }" />
+									<input name="workType" value="${ requestScope.itemList.get(5).itemContent }">
+									<input name="documentNo" value="${ requestScope.selectedReport.documentNo }">
 								</div>
 								<div class="col-sm-12 text-center m-t-20">
-									<c:if
-										test="${ requestScope.selectedReport.reportStatus ne '취소'}">
+									<c:if test="${ requestScope.selectedReport.reportStatus ne '취소' || requestScope.selectedReport.reportStatus ne '회수'}">
 										<button type="submit" class="btn btn-primary btn-lg">
 											취소하기</button>
 									</c:if>

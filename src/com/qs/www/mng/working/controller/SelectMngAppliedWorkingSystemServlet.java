@@ -78,7 +78,7 @@ public class SelectMngAppliedWorkingSystemServlet extends HttpServlet {
 			selectCriteria = Pagenation.getSelectCriteria(pageNo, totalCount, limit, buttonAmount, searchCondition, searchValue);
 		} else {
 			selectCriteria = Pagenation.getSelectCriteria(pageNo, totalCount, limit, buttonAmount);
-		}
+		} 
 		System.out.println(selectCriteria);
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				
@@ -94,7 +94,7 @@ public class SelectMngAppliedWorkingSystemServlet extends HttpServlet {
 		
 		request.setAttribute("workReportList", workReportList);
 		request.setAttribute("selectCriteria", selectCriteria);
-		request.getRequestDispatcher("/WEB-INF/views/schedule/appliedWorkingSystem.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/views/mngworkingsystem/appliedWorkingSystem.jsp").forward(request, response);
 		
 	}
 

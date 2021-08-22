@@ -13,7 +13,7 @@
 </head>
 
 <body>
-    <div class="main-wrapper">
+    <div class="main-wrapper"> 
 		<jsp:include page="../common/navbar.jsp"/>
         
         <div class="page-wrapper" style="min-height: 722px;">

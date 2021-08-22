@@ -9,7 +9,7 @@
 <link rel="shortcut icon" type="image/x-icon"
 	href="${ pageContext.servletContext.contextPath }/assets/img/favicon.png">
 <title>Wonderful Welfare Workspace</title>
-<script
+<script 
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 
@@ -31,7 +31,7 @@
 						<div class="card-box">
 							<h4 class="card-title">내용작성</h4>
 
-							<form class="form-horizontal"
+							<form class="form-horizontal" id="frm"
 								action="${ pageContext.servletContext.contextPath }/schedule/holiday/insert"
 								method="post" onsubmit="return askAgain();" enctype="multipart/form-data">
 
@@ -85,7 +85,7 @@
 										<div class="form-group">
 											<label class="col-md-3 control-label">시작일</label>
 											<div class="col-md-4">
-												<input id="startDay" type="date" class="form-control" name="startDay"  required>
+												<input id="startDay" type="date" class="form-control" name="startDay" required>
 											</div>
 											<div class="col-md-4">
 												<select class="select" id="startDayAllday" name="startDayAllday">
@@ -111,6 +111,7 @@
 										</div>
 
 										<!-- 자바스크립트로 기간을... 바로 계산해주는 걸 해보자... -->
+										<!-- InsertHolidayScheduleServlet 에서 기간일수 계산하는거 확인해야 함 -->
 										<div class="form-group">
 											<label class="col-md-3 control-label">기간</label>
 											<div class="col-md-9">
@@ -195,175 +196,9 @@
 						</div>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-md-12">
-						<div class="card-box">
-							<h4 class="card-title">Two Column Horizontal Form</h4>
-							<h4 class="card-title">Personal Information</h4>
-							<form action="#" class="form-horizontal">
-								<div class="row">
-									<div class="col-md-6">
-										<div class="form-group">
-											<label class="col-md-3 control-label">Gender</label>
-											<div class="col-md-9">
-												<label class="radio-inline"> <input type="radio"
-													name="gender" checked="checked"> Male
-												</label> <label class="radio-inline"> <input type="radio"
-													name="gender"> Female
-												</label>
-											</div>
-										</div>
-										<div class="form-group">
-											<label class="col-md-3 control-label">Blood Group</label>
-											<div class="col-md-9">
-												<select class="select">
-													<option>Select</option>
-													<option value="1">A+</option>
-													<option value="2">O+</option>
-													<option value="3">B+</option>
-													<option value="4">AB+</option>
-												</select>
-											</div>
-										</div>
-									</div>
-									<div class="col-md-6">
-										<div class="form-group">
-											<label class="col-md-3 control-label">Password</label>
-											<div class="col-md-9">
-												<input type="password" class="form-control">
-											</div>
-										</div>
-										<div class="form-group">
-											<label class="col-md-3 control-label">Repeat Password</label>
-											<div class="col-md-9">
-												<input type="password" class="form-control">
-											</div>
-										</div>
-									</div>
-								</div>
-								<h4 class="card-title">Address</h4>
-								<div class="row">
-									<div class="col-md-6">
-										<div class="form-group">
-											<label class="col-md-3 control-label">Address Line 1</label>
-											<div class="col-md-9">
-												<input type="text" class="form-control">
-											</div>
-										</div>
-										<div class="form-group">
-											<label class="col-md-3 control-label">State</label>
-											<div class="col-md-9">
-												<input type="text" class="form-control">
-											</div>
-										</div>
-									</div>
-									<div class="col-md-6">
-										<div class="form-group">
-											<label class="col-md-3 control-label">Country</label>
-											<div class="col-md-9">
-												<input type="text" class="form-control">
-											</div>
-										</div>
-										<div class="form-group">
-											<label class="col-md-3 control-label">Postal Code</label>
-											<div class="col-md-9">
-												<input type="text" class="form-control">
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="text-right">
-									<button type="submit" class="btn btn-primary">Submit</button>
-								</div>
-							</form>
-						</div>
-					</div>
-				</div>
 				
-				<div class="row">
-					<div class="col-md-12">
-						<form class="form-horizontal" action="#">
-							<div class="card-box">
-								<div class="row">
-									<div class="col-md-6">
-										<h4 class="card-title">Personal Details</h4>
-										<div class="form-group">
-											<label class="col-lg-3 control-label">Name:</label>
-											<div class="col-lg-9">
-												<input type="text" class="form-control">
-											</div>
-										</div>
-										<div class="form-group">
-											<label class="col-lg-3 control-label">State:</label>
-											<div class="col-lg-9">
-												<select class="select">
-													<option>Select State</option>
-													<option value="1">California</option>
-													<option value="2">Texas</option>
-													<option value="3">Florida</option>
-												</select>
-											</div>
-										</div>
-										<div class="form-group">
-											<label class="col-lg-3 control-label">About:</label>
-											<div class="col-lg-9">
-												<textarea rows="5" cols="5" class="form-control"
-													placeholder="Enter message"></textarea>
-											</div>
-										</div>
-									</div>
-									<div class="col-md-6">
-										<h4 class="card-title">Personal details</h4>
-										<div class="form-group">
-											<label class="col-lg-3 control-label">Name:</label>
-											<div class="col-lg-9">
-												<div class="row">
-													<div class="col-md-6">
-														<input type="text" placeholder="First name"
-															class="form-control">
-													</div>
-													<div class="col-md-6">
-														<input type="text" placeholder="Last name"
-															class="form-control">
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="form-group">
-											<label class="col-lg-3 control-label">Address:</label>
-											<div class="col-lg-9">
-												<input type="text" class="form-control m-b-20">
-												<div class="row">
-													<div class="col-md-6">
-														<div class=" m-b-20">
-															<select class="select">
-																<option>Select Country</option>
-																<option value="1">USA</option>
-																<option value="2">France</option>
-																<option value="3">India</option>
-																<option value="4">Spain</option>
-															</select>
-														</div>
-														<input type="text" placeholder="ZIP code"
-															class="form-control">
-													</div>
-													<div class="col-md-6">
-														<input type="text" placeholder="State/Province"
-															class="form-control m-b-20"> <input type="text"
-															placeholder="City" class="form-control">
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="text-right">
-									<button type="submit" class="btn btn-primary">Submit</button>
-								</div>
-							</div>
-						</form>
-					</div>
-				</div>
+				
+				
 			</div>
 		</div>
 
@@ -388,7 +223,7 @@
 			
 			//근무기간 계산 
 			//onchange를 endDayAllday에 달아야 할 것 같은데
-			function calDuring(obj) {
+			/* function calDuring(obj) {
 				var sdd = document.getElementById('startDay').value;
 				var edd = document.getElementById('endDay').value;
 				var sda = document.getElementById('startDayAllday').value; //'오후'이면 -0.5
@@ -420,7 +255,7 @@
 					$during.value = parseInt(dif/cDay) + 0.5;
 					}
 				 }
-			}
+			} */
 
 			const $goBack = document.getElementById("goBack");
 			$goBack.onclick = function() {
@@ -441,6 +276,11 @@
 					return false;
 				}
 			}
+			
+			/* function doSubmit()
+			 { frm.action = "insertHoliday.jsp";
+			 frm.encoding = "application/x-www-form-urlencoded";
+			 frm.submit(); } */
 			
 		</script>
 	

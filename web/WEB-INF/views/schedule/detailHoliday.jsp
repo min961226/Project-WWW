@@ -28,7 +28,7 @@
 
 						<form class="form-horizontal"
 							action="${ pageContext.servletContext.contextPath }/approval/applied/selectOne?no=${ requestScope.selectedReport.reportNo }"
-							method="post">
+							method="post"> 
 
 							<div class="form-group">
 								<div class="col-sm-6">
