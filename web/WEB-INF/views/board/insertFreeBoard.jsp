@@ -57,7 +57,7 @@
 									<label>내용</label>
 									<div class="col-lg-12">
 										<textarea name="body" rows="8" cols="5" class="form-control"
-											placeholder="내용을 입력해주세요" required="required"></textarea>
+											placeholder="내용을 입력해주세요" required="required" ></textarea>
 									</div>
 								</div>
 								</div>

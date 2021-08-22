@@ -53,7 +53,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 		int totalCount = new ContactService().selectAllCount(searchMap);
 
 		//limit는 한 페이지에서 보여지는 게시물 수
-		int limit = 10;
+		int limit = 5;
 		
 		//buttonAmount는 한번에 보여줄 버튼 수
 		int buttonAmount = 5;
