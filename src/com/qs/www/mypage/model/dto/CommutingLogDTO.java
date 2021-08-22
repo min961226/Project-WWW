@@ -10,13 +10,12 @@ public class CommutingLogDTO implements Serializable {
 	private int memberNo;
 	private String yearMonth;
 	private String day;
+	private String dayOfWeek;
 	private String inTime;
 	private String outTime;
 	private WorkingLogDTO workingLog;
 	private String lateYn;
 	private String leaveEarlyYn;
-	
-	private String dayOfWeek;
 	
 	public CommutingLogDTO() {}
 

@@ -204,4 +204,16 @@
              , A.MENU_NAME
           FROM TBL_AUTHORITY A
 	</select>
+	
+	<select id="selectRoleAuthorityList" resultMap="authorityListResultMap">
+        SELECT /* com.qs.www.mng.employee.model.dao.MngEmployeeDAO#selectAuthorityList() */
+               DISTINCT
+               B.MENU_AUTHORITY_CODE
+             , B.MENU_URI
+             , B.MENU_NAME
+          FROM TBL_AUTHORITY_PER_ROLE A
+          JOIN TBL_AUTHORITY B ON (A.MENU_AUTHORITY_CODE = B.MENU_AUTHORITY_CODE)
+         WHERE A.ROLE_CODE = #{ roleCode }
+         ORDER BY B.MENU_AUTHORITY_CODE
+	</select>
 </mapper>

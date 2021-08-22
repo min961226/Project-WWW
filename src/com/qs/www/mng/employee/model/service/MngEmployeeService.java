@@ -143,4 +143,15 @@ public class MngEmployeeService {
 		
 		return authorityList;
 	}
+	
+	public List<AuthorityDTO> selectRoleAuthorityList(String roleCode) {
+		
+		SqlSession sqlSession = getSqlSession();
+		
+		List<AuthorityDTO> roleAuthorityList = mngEmployeeDAO.selectRoleAuthorityList(sqlSession, roleCode);
+		
+		sqlSession.close();
+		
+		return roleAuthorityList;
+	}
 }

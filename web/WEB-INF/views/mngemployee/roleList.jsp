@@ -28,9 +28,11 @@
                 		<div class="card-box" style="background-color:#FEEB99;">
                 			<h5 class="role-title m-b-20"><b>관리자 역할</b></h5>
 	                		<div class="roles-menu">
-	                            <ul class="nav">
+	                            <ul class="nav role-menu">
 	                            	<c:forEach var="role" items="${ roleList }">
-	                            		<li value="${ role.roleCode }"><a>${ role.roleName }</a></li>
+	                            		<li value="${ role.roleCode }">
+	                            			<a>${ role.roleName }</a>
+	                            		</li>
 	                            	</c:forEach>
 	                            </ul>
 	                        </div>
@@ -58,7 +60,12 @@
 		                                			<c:if test="${ authority.menuCategoryUri eq menu.menuCategoryUri }">
 				                                		<td>
 				                                			<c:if test="${ authority.menuName ne null }">
-			                                					<input type="checkbox" style="margin:3px">
+			                                					<c:if test="${ authority.menuAuthorityCode eq roleAuthority.menuAuthorityCode }">
+			                                						<input type="checkbox" style="margin:3px" checked>
+			                                					</c:if>
+			                                					<c:if test="${ authority.menuAuthorityCode ne roleAuthority.menuAuthorityCode }">
+			                                						<input type="checkbox" style="margin:3px">
+			                                					</c:if>
 			                                					<c:out value="${ authority.menuName }"/>
 			                                				</c:if>
 				                                		</td>
@@ -77,19 +84,10 @@
     </div>
     
     <script>
-    	$("li").click(function() {
-    		/* $(this).attr(selected);
-    		console.log($(this)); */
-			/* $.ajax({
-				url: "${ pageContext.servletContext.contextPath }/mng/employee/role/select",
-				type: "post",
-				data: "$(this).value()",
-				success: function(data, textStatus, xhr) {
-				},
-				error: function(xhr, status, error) {
-					alert(error);
-				}
-			}); */
+    	$(".role-menu > li").click(function() {
+    		$("li").removeClass('active');
+    		$(this).addClass('active');
+    		
 		});
     
     </script>

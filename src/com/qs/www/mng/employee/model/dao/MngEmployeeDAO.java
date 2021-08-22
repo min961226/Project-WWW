@@ -52,4 +52,8 @@ public class MngEmployeeDAO {
 	public List<AuthorityDTO> selectAuthorityList(SqlSession sqlSession) {
 		return sqlSession.selectList("MngEmployeeDAO.selectAuthorityList");
 	}
+	
+	public List<AuthorityDTO> selectRoleAuthorityList(SqlSession sqlSession, String roleCode) {
+		return sqlSession.selectList("MngEmployeeDAO.selectRoleAuthorityList", roleCode);
+	}
 }

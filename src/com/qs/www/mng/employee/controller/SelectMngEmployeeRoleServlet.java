@@ -52,7 +52,14 @@ public class SelectMngEmployeeRoleServlet extends HttpServlet {
 		menuList.add(new MenuCategoryDTO("/mng/welfare/applied", "복지 신청 목록"));
 		menuList.add(new MenuCategoryDTO("/mng/welfare/laptopRental", "노트북 관리"));
 		menuList.add(new MenuCategoryDTO("/mng/welfare/domitory", "기숙사 입주 관리"));
-
+		
+		String roleCode = request.getParameter("role");
+		List<AuthorityDTO> roleAuthorityList = new ArrayList<>();
+		if(roleCode == null) {
+			roleCode = "A1";
+		}
+		
+		roleAuthorityList = mngEmployeeService.selectRoleAuthorityList(roleCode);
 		String path = "";
 		
 		if(authorityList != null) {
@@ -63,6 +70,8 @@ public class SelectMngEmployeeRoleServlet extends HttpServlet {
 			request.setAttribute("jobList", jobList);
 			request.setAttribute("authorityList", authorityList);
 			request.setAttribute("menuList", menuList);
+			request.setAttribute("roleCode", roleCode);
+			request.setAttribute("roleAuthorityList", roleAuthorityList);
 		} else {
 			path = "/WEB-INF/views/common/error-500.jsp";
 		}
@@ -71,5 +80,6 @@ public class SelectMngEmployeeRoleServlet extends HttpServlet {
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 	}
 }

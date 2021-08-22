@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
+import com.qs.www.main.model.dto.WorkingLogDTO;
+import com.qs.www.main.model.dto.WorkingTypeDTO;
 import com.qs.www.member.model.dto.CheckQuestionDTO;
 import com.qs.www.member.model.dto.MemberInfoDTO;
 import com.qs.www.mypage.model.dto.CommutingLogDTO;
@@ -26,11 +28,15 @@ public class MypageDAO {
 		return sqlSession.selectOne("MypageDAO.selectCommuteOutTime", commutingLog);
 	}
 	
-	public int insertCommute(SqlSession sqlSession, CommutingLogDTO commutingLog) {
-		return sqlSession.insert("MypageDAO.insertCommute", commutingLog);
+	public WorkingTypeDTO selectWorkingType(SqlSession sqlSession, WorkingLogDTO workingLog) {
+		return sqlSession.selectOne("MypageDAO.selectWorkingType", workingLog);
+	}
+	
+	public int updateCommuteTo(SqlSession sqlSession, CommutingLogDTO commutingLog) {
+		return sqlSession.update("MypageDAO.updateCommuteTo", commutingLog);
 	}
 
-	public int updateCommute(SqlSession sqlSession, CommutingLogDTO commutingLog) {
-		return sqlSession.update("MypageDAO.updateCommute", commutingLog);
+	public int updateCommuteFrom(SqlSession sqlSession, CommutingLogDTO commutingLog) {
+		return sqlSession.update("MypageDAO.updateCommuteFrom", commutingLog);
 	}
 }

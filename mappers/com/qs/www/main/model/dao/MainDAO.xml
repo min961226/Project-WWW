@@ -96,4 +96,34 @@
           JOIN TBL_AUTHORITY B ON (A.MENU_AUTHORITY_CODE = B.MENU_AUTHORITY_CODE)
          WHERE A.ROLE_CODE = #{ roleCode }
 	</select>
+	
+	<select id="selectCommute" parameterType="com.qs.www.main.model.dto.WorkInfoDTO" resultType="java.lang.String">
+        SELECT /* com.qs.www.main.model.dao.MainDAO#selectCommute() */
+               A.YEAR_MONTH || '-' || A.DAY
+          FROM TBL_COMMUTE A
+         WHERE A.MEMBER_NO = #{ memberNo }
+           AND A.YEAR_MONTH || '-' || A.DAY = #{ selectedDate }
+	</select>
+	
+	<insert id="insertCommute" parameterType="com.qs.www.main.model.dto.WorkInfoDTO">
+        INSERT /* com.qs.www.main.model.dao.MainDAO#insertCommute() */
+          INTO TBL_COMMUTE A
+        (
+          A.COMMUTE_NO
+        , A.MEMBER_NO
+        , A.YEAR_MONTH
+        , A.DAY
+        , A.DAILY_WORK_TYPE
+        , A.DAILY_WORK_CODE
+        )
+        VALUES
+        (
+          SEQ_COMMUTE_NO.NEXTVAL
+        , #{ memberNo }
+        , SUBSTR(#{ selectedDate }, 1, 7)
+        , SUBSTR(#{ selectedDate }, -2, 2)
+        , #{ appWorkType }
+        , #{ workCode }
+        )
+	</insert>
 </mapper>

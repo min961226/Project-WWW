@@ -23,6 +23,8 @@
                             	<img src="${ pageContext.servletContext.contextPath }/assets/img/www_icon.png" alt="">
                             </a>
                         </div>
+                        
+                        <!-- 아이디 찾기 form -->
                         <form action="${ pageContext.servletContext.contextPath }/member/id/check" method="post">
                             <div class="form-group form-focus">
                                 <label class="control-label">이름</label>

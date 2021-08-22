@@ -41,7 +41,7 @@ public class LoginServlet extends HttpServlet {
 		// 일치하는 로그인 정보를 session에 저장
 		String path = "";
 		if(loginMember != null) {
-			// 로그인 계정의 권한을 확인하여 DB에 저장
+			// 로그인 계정의 권한을 확인하여 session에 저장
 			String roleCode = loginMember.getRole().getRoleCode();
 			
 			List<AuthorityDTO> roleAuthorityList = mainService.selectAccessAuthorityList(roleCode);
@@ -55,6 +55,10 @@ public class LoginServlet extends HttpServlet {
 			workInfo.setSelectedDate(todayDate);
 			
 			WorkingLogDTO workingLog = mainService.selectWorkingLog(workInfo);
+			workInfo.setAppWorkType(workingLog.getWorkType());
+			workInfo.setWorkCode(workingLog.getWorkNo());
+			int result = mainService.insertCommute(workInfo);
+			
 			loginMember.setAppWorkType(workingLog.getWorkType());
 			loginMember.setWorkCode(workingLog.getWorkNo());
 			

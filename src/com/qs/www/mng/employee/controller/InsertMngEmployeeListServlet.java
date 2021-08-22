@@ -58,8 +58,8 @@ public class InsertMngEmployeeListServlet extends HttpServlet {
 		String jobCode = request.getParameter("job").split(" ")[0];
 		String email = request.getParameter("email");
 		Date enrollDate = Date.valueOf(request.getParameter("enrollDate"));
-		String entYn = request.getParameter("entYn");
 		String roleCode = request.getParameter("role").split(" ")[0];
+		
 		
 		MemberInfoDTO memberInfo = new MemberInfoDTO();
 		memberInfo.setMemberId(memberId);

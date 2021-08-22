@@ -24,6 +24,8 @@
                             	<img src="${ pageContext.servletContext.contextPath }/assets/img/www_icon.png" alt="">
                             </a>
                         </div>
+                        
+                        <!-- 비밀번호 변경 form -->
                         <form action="${ pageContext.servletContext.contextPath }/member/pwd/update" method="post" onsubmit="return test()">
                             <input type="text" name="memberId" value="${ memberId }" hidden="hidden">
                             <div class="form-group form-focus has-feedback" id="checkPwd1">
@@ -49,6 +51,7 @@
     
     <script type="text/javascript" src="${ pageContext.servletContext.contextPath }/assets/js/jquery-3.2.1.min.js"></script>
     <script>
+		/* 비밀번호 입력 시 일치 여부 확인  */
 	    $(function() {
 			$("#changePwd, #changePwd2").keyup(function() {
 	    		const pwd1 = $("#changePwd").val();
@@ -66,6 +69,7 @@
 			});
 		});
 	    
+		/* 비밀번호 일치 시 submit */
 	    function test() {
 	    	const pwd1 = $("#changePwd").val();
     		const pwd2 = $("#changePwd2").val();

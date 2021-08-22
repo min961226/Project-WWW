@@ -27,4 +27,12 @@ public class MainDAO {
 	public List<AuthorityDTO> selectAccessAuthorityList(SqlSession sqlSession, String roleCode) {
 		return sqlSession.selectList("MainDAO.selectAccessAuthorityList", roleCode);
 	}
+
+	public String selectCommute(SqlSession sqlSession, WorkInfoDTO workInfo) {
+		return sqlSession.selectOne("MainDAO.selectCommute", workInfo);
+	}
+	
+	public int insertCommute(SqlSession sqlSession, WorkInfoDTO workInfo) {
+		return sqlSession.insert("MainDAO.insertCommute", workInfo);
+	}
 }

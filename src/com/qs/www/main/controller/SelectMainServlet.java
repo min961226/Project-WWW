@@ -61,10 +61,10 @@ public class SelectMainServlet extends HttpServlet {
 		todayWorkInfo.setWeekEndDate(weekEndDate);
 		todayWorkInfo.setSelectedLocalDate(selectedLocalDate);
 		
-//		WorkInfoDTO weeklyWorkInfo = new WorkInfoDTO();
-//		weeklyWorkInfo.setMemberNo(memberNo);
-//		weeklyWorkInfo.setStartDate(weekStartDate);
-//		weeklyWorkInfo.setEndDate(weekEndDate);
+		WorkInfoDTO weeklyWorkInfo = new WorkInfoDTO();
+		weeklyWorkInfo.setMemberNo(memberNo);
+		weeklyWorkInfo.setWeekStartDate(weekStartDate);
+		weeklyWorkInfo.setWeekEndDate(weekEndDate);
 		
 //		WorkInfoDTO monthlyWorkInfo = new WorkInfoDTO();
 //		monthlyWorkInfo.setMemberNo(memberNo);
@@ -73,10 +73,10 @@ public class SelectMainServlet extends HttpServlet {
 		
 		
 		List<WorkingLogDTO> workingLogList = mainService.selectWorkingLogList(todayWorkInfo);
-//		List<WorkingLogDTO> weeklyWorkingLogList = mainService.selectWorkingLogList(weeklyWorkInfo);
+		List<WorkingLogDTO> weeklyWorkingLogList = mainService.selectWorkingLogList(weeklyWorkInfo);
 //		List<WorkingLogDTO> monthlyWorkingLogList = mainService.selectWorkingLogList(monthlyWorkInfo);
 		List<CommutingLogDTO> commutingLogList = mainService.selectCommutingLog(todayWorkInfo);
-//		List<CommutingLogDTO> weeklyCommutingLogList = mainService.selectCommutingLog(weeklyWorkInfo);
+		List<CommutingLogDTO> weeklyCommutingLogList = mainService.selectCommutingLog(weeklyWorkInfo);
 //		List<CommutingLogDTO> monthlyCommutingLogList = mainService.selectCommutingLog(monthlyWorkInfo);
 
 		
