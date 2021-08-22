@@ -28,13 +28,9 @@ import com.qs.www.welfare.model.service.WelfareService;
 @WebServlet("/welfare/list/selected")
 public class SelectedWelfareServlet extends HttpServlet {
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String selectedWelfare = request.getParameter("selectedWelfare");
-		System.out.println(selectedWelfare);
-		System.out.println("복지선택완료");
-		
 		WelfareService welfareService = new WelfareService();
 		HttpSession session = request.getSession();
 
@@ -44,18 +40,11 @@ public class SelectedWelfareServlet extends HttpServlet {
 		String jobName = ((MemberInfoDTO) session.getAttribute("memberInfo")).getJob().getJobName();
 		List<ApprovalLineDTO> lineList = new ApprovalService().selectApprovalLine(memberNo);
 		
-		System.out.println(memberNo);
-		System.out.println(name);
-		System.out.println(deptName);
-		System.out.println(jobName);
-		System.out.println(lineList);
-		
 		request.setAttribute("memberNo", memberNo);
 		request.setAttribute("deptName", deptName);
 		request.setAttribute("jobName", jobName);
 		request.setAttribute("name", name);
 		request.setAttribute("lineList", lineList);
-		
 		
 		String path = "";
 		switch (selectedWelfare) {

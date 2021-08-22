@@ -16,6 +16,7 @@
 <body>
 
 	<div class="main-wrapper">
+		<jsp:include page="../common/navbar.jsp" />
 		<div class="page-wrapper">
 			<div class="content container-fluid">
 				<div class="row">
@@ -59,7 +60,6 @@
 										<i class="fa fa-plus"></i> 기숙사 신청
 									</button>
 								</div>
-								<jsp:include page="../common/navbar.jsp" />
 								<h5>
 									***기숙사 신청 시 참고 사항 : <br>
 									1. 대기 순번에 따라서 신청이 반려되거나 미뤄질 수 있습니다.<br>

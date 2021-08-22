@@ -16,6 +16,7 @@
 <body>
 
 	<div class="main-wrapper">
+								<jsp:include page="../common/navbar.jsp" />
 		<div class="page-wrapper">
 			<div class="content container-fluid">
 				<div class="row">
@@ -58,7 +59,6 @@
 									</c:forEach>
 									</tbody>
 								</table>
-								<jsp:include page="../common/navbar.jsp" />
 							</form>
 						</div>
 					</div>

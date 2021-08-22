@@ -352,14 +352,35 @@
 	)
 	</insert>
 	
-	<select id= "selectLaptopList" resultMap="laptopListResultMap">
+	<select id="selectLaptopList" resultMap="laptopListResultMap">
 		SELECT /* com.qs.www.welfare.model.dao.WelfareDAO#selectLaptopList() */
-			   A.ITEM_NO
-			 , A.ITEM_CATEGORY
-			 , A.ITEM_NAME
-			 , A.RESERVATION_STATUS
-		  FROM TBL_LAPTOP A
-		 WHERE A.DELETE_YN = 'N'
+			   C.*
+		  FROM (SELECT ROWNUM RNUM
+		  			 , B.*
+            FROM (SELECT 
+						 A.ITEM_NO
+	     	 		   , A.ITEM_CATEGORY
+	     	 		   , A.ITEM_NAME
+	     	 		   , A.RESERVATION_STATUS
+                    FROM TBL_LAPTOP A
+              <where>
+				<if test="searchCondition == 'category'">
+                       A.ITEM_CATEGORY LIKE '%' || #{ searchValue } || '%'    
+               		</if>
+               		<if test="searchCondition == 'name'">
+                       A.ITEM_NAME LIKE '%' || #{ searchValue } || '%'    
+               		</if>
+               		<if test="searchCondition == 'status'">
+                       A.RESERVATION_STATUS LIKE '%' || #{ searchValue } || '%'    
+               		</if>
+				   AND A.DELETE_YN = 'N'
+               </where>
+                ) B
+          <![CDATA[
+          WHERE ROWNUM <= #{ endRow }
+          ]]>
+        ) C
+   WHERE C.RNUM >= #{ startRow } 
 	</select>
 	
 	<select id= "selectOneLaptop" resultType="String">
@@ -587,4 +608,30 @@
 		 	 , #{ transBill }
 		 	 )
 	</insert>
+	
+	<select id="selectItemsListCount" resultType="_int" parameterType="map">
+		 SELECT /* com.qs.www.welfare.model.dao.welfareDAO#selectItemsListCount"()*/
+                COUNT(*)
+           FROM TBL_LAPTOP A
+               	<where>
+               		<if test="searchCondition == 'category'">
+                       A.ITEM_CATEGORY LIKE '%' || #{ searchValue } || '%'    
+               		</if>
+               		<if test="searchCondition == 'name'">
+                       A.ITEM_NAME LIKE '%' || #{ searchValue } || '%'    
+               		</if>
+               		<if test="searchCondition == 'status'">
+                       A.RESERVATION_STATUS LIKE '%' || #{ searchValue } || '%'    
+               		</if>
+               	</where>
+	</select>
+	<select id="selectLaptopListWithOutpaging" resultMap="laptopListResultMap">
+		SELECT /* com.qs.www.welfare.model.dao.WelfareDAO#selectLaptopList() */
+			   A.ITEM_NO
+	     	 , A.ITEM_CATEGORY
+	     	 , A.ITEM_NAME
+	     	 , A.RESERVATION_STATUS
+          FROM TBL_LAPTOP A
+		 WHERE A.DELETE_YN = 'N'
+	</select>
 </mapper>

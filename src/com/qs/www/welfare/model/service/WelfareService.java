@@ -7,6 +7,7 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 
 import com.qs.www.board.model.dto.NoticeDTO;
+import com.qs.www.common.paging.SelectCriteria;
 import com.qs.www.mng.welfare.model.dto.ItemDTO;
 import com.qs.www.mng.welfare.model.dto.WelfareYnDTO;
 import com.qs.www.schedule.model.dto.ApproverPerReportDTO;
@@ -235,10 +236,10 @@ public class WelfareService {
 		return insertSeminarRoomResult;
 	}
 
-	public List<LaptopDTO> selectLaptopList() {
+	public List<LaptopDTO> selectLaptopList(SelectCriteria selectCriteria) {
 		SqlSession session = getSqlSession();
 
-		List<LaptopDTO> laptopList = welfareDAO.selectLaptopList(session);
+		List<LaptopDTO> laptopList = welfareDAO.selectLaptopList(session,selectCriteria);
 
 		session.close();
 
@@ -428,6 +429,27 @@ public class WelfareService {
 		session.close();
 
 		return insertNightTransLog;
+	}
+
+	public int selectItemsListCount(Map<String, String> searchMap) {
+
+		SqlSession session = getSqlSession();
+
+		int selectItemsListCount = welfareDAO.selectItemsListCount(session,searchMap);
+
+		session.close();
+
+		return selectItemsListCount;
+	}
+
+	public List<LaptopDTO> selectLaptopList() {
+		SqlSession session = getSqlSession();
+
+		List<LaptopDTO> laptopList = welfareDAO.selectLaptopList(session);
+
+		session.close();
+
+		return laptopList;
 	}
 
 
