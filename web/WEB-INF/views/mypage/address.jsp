@@ -19,7 +19,7 @@
             <div class="content container-fluid">
                 <div class="row">
                     <div class="col-xs-12">
-                        <h4 class="page-title">공지사항</h4>
+                        <h4 class="page-title">사내 연락망</h4>
                     </div>
                 </div>
                 
@@ -29,9 +29,9 @@
 			    		<input type="hidden" name="currentPage" value="1">
 						<select id="searchCondition" name="searchCondition">
 							
-							<option value="name" ${ requestScope.selectCriteria.searchCondition eq "name"? "selected": "" }>작성자</option>
-							<option value="title" ${ requestScope.selectCriteria.searchCondition eq "title"? "selected": "" }>제목</option>
-							<option value="body" ${ requestScope.selectCriteria.searchCondition eq "body"? "selected": "" }>내용</option>
+							<option value="code" ${ requestScope.selectCriteria.searchCondition eq "code"? "selected": "" }>사원번호</option>
+							<option value="name" ${ requestScope.selectCriteria.searchCondition eq "name"? "selected": "" }>부서</option>
+							<option value="number" ${ requestScope.selectCriteria.searchCondition eq "number"? "selected": "" }>핸드폰번호</option>
 						</select>
 						<input type="search" id="searchValue" name="searchValue" value="<c:out value="${ requestScope.selectCriteria.searchValue }"/>">
 					<button type="submit" class="btn btn-success btn-sm" >검색하기</button>
@@ -47,6 +47,7 @@
 	                            <table class="display datatable table table-stripped">
 	                                <thead>
 	                                    <tr bgcolor = "FFBC35">
+	                                    	<th>프로필 사진</th>
 	                                        <th>사원번호</th>
 	                                        <th>이름</th>
 	                                        <th>핸드폰번호</th>
@@ -55,6 +56,12 @@
 	                                </thead>
 	                                <c:forEach var="board" items="${ requestScope.contactList }">
 										<tr>
+										
+											<td><img class="img-responsive img-circle" src="${ pageContext.servletContext.contextPath }/assets/img/user.jpg" alt=""></td>
+                                        	<!-- <td>
+                                            <a href="profile.html" class="avatar">A</a>
+                                            <h2><a href="profile.html"> <span></span></a></h2>
+                                        	</td> -->
 											<td><c:out value="${ board.code }"/></td>
 											<td><c:out value="${ board.name }"/></td>
 											<td><c:out value="${ board.number }"/></td>
@@ -64,14 +71,7 @@
 	                            
 	                            		<%-- 페이지 처리 --%>
 								<jsp:include page="../common/navbar.jsp"/>
-								
-								 <div class="search-area" align="left">
-			             		<form id="loginForm" action="${ pageContext.servletContext.contextPath }/mng/board/notice/select" method="get" style="display:inline-block">							
-								<button type="button" class="btn btn-primary rounded pull-right" id="writeFree"><i class="fa fa-plus"></i> 작성하기</button>
-								</form>
-								</div>  
-	                           
- 		                      
+	                           		                      
                             </div>
                         </div>
                     </div>
@@ -79,37 +79,14 @@
             </div>
         </div>
     </div>
+    
+    
+    
                     
    	<script>
-		if(document.getElementsByTagName("td")) {
-			const $tds = document.getElementsByTagName("td");
-			for(let i = 0; i < $tds.length; i++) {
-				
-				$tds[i].onmouseenter = function() {
-					this.parentNode.style.backgroundColor = "LightGoldenRodYellow";
-					this.parentNode.style.cursor = "pointer";
-				}
-				
-				$tds[i].onmouseout = function() {
-					this.parentNode.style.backgroundColor = "white";
-				}
-				
-				$tds[i].onclick = function() {
-					/* 게시물 번호까지 알아왔으니 이제 상세보기는 할 수 있겠지? */
-					const no = this.parentNode.children[0].innerText;
-					location.href = "${ pageContext.servletContext.contextPath }/mng/board/notice/selectOne?no=" + no;
-				}
-								
-			}
-			
-		}
+
 		
-		if(document.getElementsByTagName("writeFree")) {
-			const $goBack = document.getElementById("writeFree");
-    		$goBack.onclick = function() {
-    			location.href = "${ pageContext.servletContext.contextPath }/mng/board/notice/insert"
-    		}
-		}
+
 		
 		/* 제이쿼리 이용하는 경우 */
 		/* $(function() {

@@ -21,53 +21,29 @@
 	<select id="selectBoardList" resultMap="contactResultMap">
          SELECT 
                 C.RNUM
-        	  , C.BOARD_NO
-              , C.BOARD_TITLE
-         	  , C.MEMBER_NO
-              , C.BOARD_TYPE
-              , C.BOARD_COUNT
-              , C.BOARD_BODY
-              , C.DELETE_YN
-              , C.CREATED_DATE
-              , C.MODIFIED_DATE
-              , C.NAME
+        	  , C.DEPT_NAME
+              , C.DEPT_CALL_NUMBER
+              , C.DEPT_CODE
           FROM (SELECT ROWNUM RNUM
-          			 , B.BOARD_NO
-                     , B.BOARD_TITLE
-           			 , B.MEMBER_NO
-		             , B.BOARD_TYPE
-		             , B.BOARD_COUNT
-		             , B.BOARD_BODY
-		             , B.DELETE_YN
-		             , B.CREATED_DATE
-		             , B.MODIFIED_DATE
-		             , B.NAME
-                  FROM (SELECT A.BOARD_NO
-             				 , A.BOARD_TITLE
-             				 , A.MEMBER_NO
-				             , A.BOARD_TYPE
-				             , A.BOARD_COUNT
-				             , A.BOARD_BODY
-				             , A.DELETE_YN
-				             , A.CREATED_DATE
-				             , A.MODIFIED_DATE
-				             , D.NAME
-                          FROM TBL_BOARD A
-	      				  LEFT JOIN TBL_MEMBER D ON(A.MEMBER_NO = D.MEMBER_NO)
+          			 , B.DEPT_NAME
+                     , B.DEPT_CALL_NUMBER
+		             , B.DEPT_CODE
+                  FROM (SELECT A.DEPT_NAME
+             				 , A.DEPT_CALL_NUMBER
+				             , A.DEPT_CODE
+                           FROM TBL_DEPARTMENT A
     					<where>
+							<if test="searchCondition == 'code'">
+	           				    A.DEPT_CODE LIKE '%' || #{ searchValue } || '%'	
+							</if>
 							<if test="searchCondition == 'name'">
-	           				   D.NAME LIKE '%' || #{ searchValue } || '%'	
+	           				   A.DEPT_NAME LIKE '%' || #{ searchValue } || '%' 	
 							</if>
-							<if test="searchCondition == 'title'">
-	           				   A.BOARD_TITLE LIKE '%' || #{ searchValue } || '%' 	
+							<if test="searchCondition == 'number'">
+	           				   A.DEPT_CALL_NUMBER LIKE '%' || #{ searchValue } || '%' 	
 							</if>
-							<if test="searchCondition == 'body'">
-	           				   A.BOARD_BODY LIKE '%' || #{ searchValue } || '%' 	
-							</if>
-	       				   AND A.DELETE_YN = 'N'
-	       				   AND A.BOARD_TYPE = '자유'
     					</where>
-                         ORDER BY A.BOARD_NO DESC
+                         ORDER BY A.DEPT_CODE DESC
                         ) B
                   <![CDATA[
                   WHERE ROWNUM <= #{ endRow }
@@ -81,20 +57,18 @@
 		<select id="selectAllCount" resultType="_int" parameterType="hashmap">
         SELECT /* com.qs.www.mypage.model.dao.ContactDAO#selectAllCount() */
                COUNT(*)
-          FROM TBL_BOARD A
-          LEFT JOIN TBL_MEMBER D ON(A.MEMBER_NO = D.MEMBER_NO)
+          FROM TBL_DEPARTMENT A
     	<where>
+			<if test="searchCondition == 'code'">
+	           A.DEPT_CODE LIKE '%' || #{ searchValue } || '%'	
+			</if>
 			<if test="searchCondition == 'name'">
-	           D.NAME LIKE '%' || #{ searchValue } || '%'	
+	           A.DEPT_NAME LIKE '%' || #{ searchValue } || '%' 	
 			</if>
-			<if test="searchCondition == 'title'">
-	           A.BOARD_TITLE LIKE '%' || #{ searchValue } || '%' 	
+			<if test="searchCondition == 'number'">
+	           A.A.DEPT_CALL_NUMBER LIKE '%' || #{ searchValue } || '%' 	
 			</if>
-			<if test="searchCondition == 'body'">
-	           A.BOARD_BODY LIKE '%' || #{ searchValue } || '%' 	
-			</if>
-			AND A.DELETE_YN = 'N'
-            AND A.BOARD_TYPE = '자유'
+
             
     	</where>
 	</select>
