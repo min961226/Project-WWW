@@ -25,26 +25,16 @@
                 
                 <div class="row">
                 	<div class="col-lg-3">
-                		<a href="#" class="btn btn-primary btn-block" data-toggle="modal" data-target="#add_role"><i class="fa fa-plus"></i> Add Roles</a>
-                        <div class="roles-menu">
-                            <ul class="nav">
-                                <!-- <li class="active">
-                                    <a href="javascript:void(0);">Administrator
-										<span class="role-action">
-											<span class="action-circle large" title="Edit" data-toggle="modal" data-target="#edit_role">
-												<i class="material-icons">edit</i>
-											</span>
-											<span class="action-circle large delete-btn" title="Delete" data-toggle="modal" data-target="#delete_role">
-												<i class="material-icons">delete</i>
-											</span>
-										</span>
-									</a>
-								</li> -->
-                            	<c:forEach var="role" items="${ roleList }">
-                            		<li><a href="">${ role.roleName }</a></li>
-                            	</c:forEach>
-                            </ul>
-                        </div>
+                		<div class="card-box" style="background-color:#FEEB99;">
+                			<h5 class="role-title m-b-20"><b>관리자 역할</b></h5>
+	                		<div class="roles-menu">
+	                            <ul class="nav">
+	                            	<c:forEach var="role" items="${ roleList }">
+	                            		<li value="${ role.roleCode }"><a>${ role.roleName }</a></li>
+	                            	</c:forEach>
+	                            </ul>
+	                        </div>
+	                    </div>
                     </div>
                     
 	                <div class="col-lg-9">
@@ -52,14 +42,31 @@
 	                    	<div class="card-block">
 	                            <table class="table table-hover">
 	                                <thead>
-	                                    <tr bgcolor = "FFBC35">
-	                                        <th>관리자 메뉴</th>
-	                                        <th>읽기</th>
-	                                        <th>생성</th>
-	                                        <th>수정</th>
-	                                        <th>삭제</th>
+	                                    <tr bgcolor="FFBC35">
+	                                        <th class="text-center">관리자 메뉴</th>
+	                                        <th class="text-center">읽기</th>
+	                                        <th class="text-center">수정</th>
+	                                        <th class="text-center">생성</th>
+	                                        <th class="text-center">삭제</th>
 	                                    </tr>
 	                                </thead>
+	                                <tbody>
+	                                	<c:forEach var="menu" items="${ menuList }">
+		                                	<tr>
+		                                		<td><b>${ menu.menuCategoryName }</b></td>
+		                                		<c:forEach var="authority" items="${ authorityList }">
+		                                			<c:if test="${ authority.menuCategoryUri eq menu.menuCategoryUri }">
+				                                		<td>
+				                                			<c:if test="${ authority.menuName ne null }">
+			                                					<input type="checkbox" style="margin:3px">
+			                                					<c:out value="${ authority.menuName }"/>
+			                                				</c:if>
+				                                		</td>
+				                                	</c:if>
+		                                		</c:forEach>
+	                                		</tr>
+	                                	</c:forEach>
+	                                </tbody>
 	                            </table>
                             </div>
                         </div>
@@ -70,26 +77,22 @@
     </div>
     
     <script>
-		if(document.getElementsByTagName("td")) {
-			const $tds = document.getElementsByTagName("td");
-			for(let i = 0; i < $tds.length; i++) {
-				
-				$tds[i].onmouseenter = function() {
-					this.parentNode.style.backgroundColor = "LightGoldenRodYellow";
-					this.parentNode.style.cursor = "pointer";
+    	$("li").click(function() {
+    		/* $(this).attr(selected);
+    		console.log($(this)); */
+			/* $.ajax({
+				url: "${ pageContext.servletContext.contextPath }/mng/employee/role/select",
+				type: "post",
+				data: "$(this).value()",
+				success: function(data, textStatus, xhr) {
+				},
+				error: function(xhr, status, error) {
+					alert(error);
 				}
-				
-				$tds[i].onmouseout = function() {
-					this.parentNode.style.backgroundColor = "white";
-				}
-				
-				$tds[i].onclick = function() {
-					const no = this.parentNode.children[0].innerText;
-					location.href = "${ pageContext.servletContext.contextPath }/mng/employee/list/update?no=" + no;
-				}
-			}
-		}
-	</script>
+			}); */
+		});
+    
+    </script>
 </body>
 
 </html>

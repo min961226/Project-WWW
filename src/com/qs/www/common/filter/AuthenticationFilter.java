@@ -36,11 +36,10 @@ public class AuthenticationFilter implements Filter {
 		List<AuthorityDTO> memberAuthority = (List<AuthorityDTO>) requestSession.getAttribute("memberAuthority");
 		List<String> menuUri = new ArrayList<>();
 		
-		boolean isAuthorized = false;
+		boolean isAuthorized = true;
 		
 		if(memberAuthority != null) {
 			for(AuthorityDTO authority : memberAuthority) {
-				System.out.println("Authority : " + authority.getMenuUri());
 				if(authority.getMenuUri().equals(intent)) {
 					isAuthorized = true;
 				}
