@@ -64,13 +64,9 @@ public class InsertFreeBoardServlet extends HttpServlet {
 		newFree.setType(type);
 		newFree.setNo(boardNo);
 		
-		System.out.println(newFree);
-
 		FreeService freeService = new FreeService();
 		int result = freeService.insertFree(newFree);
-		
-		System.out.println(result);
-		
+				
 		/*---------------------------------------------------------------------------파일 업로드---------------------------------------------------------------------*/
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
@@ -136,16 +132,7 @@ public class InsertFreeBoardServlet extends HttpServlet {
 		 /*---------------------------------------------------------------------------파일 업로드---------------------------------------------------------------------*/
 		
 		
-//		String path = "";
-//		if(result > 0) {
-//			path = "/WEB-INF/views/common/success.jsp";
-//			request.setAttribute("successCode", "insertFree");
-//		} else {
-//			path = "/WEB-INF/views/common/failed.jsp";
-//			request.setAttribute("message", "자유게시판 등록에 실패하셨습니다.");
-//		}
-//		
-//		request.getRequestDispatcher(path).forward(request, response);
+
 	
         String path = "";
 		if(resultFileUpload == -1) {																										//파일첨부를 하지 않았을때는 result값을 더해주면안된다.

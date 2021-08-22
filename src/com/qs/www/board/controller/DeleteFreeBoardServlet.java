@@ -14,13 +14,10 @@ import com.qs.www.board.model.service.FreeService;
 
 @WebServlet("/board/free/delete")
 public class DeleteFreeBoardServlet extends HttpServlet {
-	
+	//자유게시판 삭제
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		System.out.println("삭제");
-		
 		int No = Integer.parseInt(request.getParameter("no"));
-
 		int result =  new FreeService().deleteFree(No);
 		
 		String path = "";
@@ -34,9 +31,5 @@ public class DeleteFreeBoardServlet extends HttpServlet {
 		}
 		
 		request.getRequestDispatcher(path).forward(request, response);
-	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 	}
 }

@@ -44,7 +44,7 @@
 	                <div class="col-lg-12">
 	                    <div class="card-box">
 	                    	<div class="card-block">
-	                            <table class="display datatable table table-stripped">
+	                            <table class="display datatable table table-stripped" text-align: center;>
 	                                <thead>
 	                                    <tr bgcolor = "FFBC35">
 	                                    	<th>프로필 사진</th>
