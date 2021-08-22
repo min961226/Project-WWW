@@ -73,10 +73,10 @@ public class SelectMainServlet extends HttpServlet {
 		
 		
 		List<WorkingLogDTO> workingLogList = mainService.selectWorkingLogList(todayWorkInfo);
-		List<WorkingLogDTO> weeklyWorkingLogList = mainService.selectWorkingLogList(weeklyWorkInfo);
+//		List<WorkingLogDTO> weeklyWorkingLogList = mainService.selectWorkingLogList(weeklyWorkInfo);
 //		List<WorkingLogDTO> monthlyWorkingLogList = mainService.selectWorkingLogList(monthlyWorkInfo);
 		List<CommutingLogDTO> commutingLogList = mainService.selectCommutingLog(todayWorkInfo);
-		List<CommutingLogDTO> weeklyCommutingLogList = mainService.selectCommutingLog(weeklyWorkInfo);
+//		List<CommutingLogDTO> weeklyCommutingLogList = mainService.selectCommutingLog(weeklyWorkInfo);
 //		List<CommutingLogDTO> monthlyCommutingLogList = mainService.selectCommutingLog(monthlyWorkInfo);
 
 		

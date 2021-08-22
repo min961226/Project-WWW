@@ -57,7 +57,7 @@
 	                                <c:forEach var="board" items="${ requestScope.contactList }">
 										<tr>
 										
-											<td><img class="img-responsive img-circle" src="${ pageContext.servletContext.contextPath }/assets/img/user.jpg" alt=""></td>
+											<td ><img class="img-responsive img-circle" src="${ pageContext.servletContext.contextPath }/assets/img/user.jpg" alt="" style="width: 80px"></td>
                                         	<!-- <td>
                                             <a href="profile.html" class="avatar">A</a>
                                             <h2><a href="profile.html"> <span></span></a></h2>
