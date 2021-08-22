@@ -34,6 +34,7 @@
 		<mapper resource="com/qs/www/mng/employee/model/dao/MngEmployeeDAO.xml"/>
 		<mapper resource="com/qs/www/mng/board/model/dao/MngNoticeDAO.xml"/>
 		<mapper resource="com/qs/www/mng/holiday/model/dao/MngHolidayDAO.xml"/>
+		<mapper resource="com/qs/www/mng/working/model/dao/MngCommuteDAO.xml"/>
 		<mapper resource="com/qs/www/mng/working/model/dao/MngWorkingSystemDAO.xml"/>
 		<mapper resource="com/qs/www/mng/working/model/dao/MngAppliedWorkingDAO.xml"/>
 		<mapper resource="com/qs/www/mng/board/model/dao/MngFormDAO.xml"/>

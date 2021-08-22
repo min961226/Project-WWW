@@ -265,41 +265,6 @@
          WHERE C.RNUM >= #{ selectCriteria.startRow }     
 	</select>
 	
-	<!-- <select id="countLateTimeNum" parameterType="com.qs.www.schedule.model.dto.MonthlyWorkLogDTO" resultType="_int">
-	SELECT /* com.qs.www.schedule.model.dao.ScheduleDAO#countLateTimeNum() */
-	       COUNT(*)
-	  FROM TBL_DAILY_WORK_LOG A
-	 WHERE A.MEMBER_NO = #{ memberNo }
-	   AND A.DAILY_WORK_STATE = '지각'
-	   AND A.WORK_DATE BETWEEN #{ monthStartDate } AND #{ monthEndDate }
-	</select>
-	
-	<select id="countNoCheckInTimeNum" parameterType="com.qs.www.schedule.model.dto.MonthlyWorkLogDTO" resultType="_int">
-	SELECT
-	       COUNT(*)
-	  FROM TBL_COMMUTE A
-	 WHERE A.MEMBER_NO = #{ memberNo }
-	   AND A.YEAR_MONTH = #{ monthAndYear }
-	   AND A.IN_TIME IS NULL	
-	</select>
-	
-	<select id="countNoCheckOutTimeNum" parameterType="com.qs.www.schedule.model.dto.MonthlyWorkLogDTO" resultType="_int">
-	SELECT
-	       COUNT(*)
-	  FROM TBL_COMMUTE A
-	 WHERE A.MEMBER_NO = #{ memberNo }
-	   AND A.YEAR_MONTH = #{ monthAndYear }
-	   AND A.OUT_TIME IS NULL	
-	</select> -->
-	
-	<select id="checkedOutToday" parameterType="com.qs.www.schedule.model.dto.MonthlyWorkLogDTO" resultType="_int">
-	SELECT
-	       COUNT(*)
-	  FROM TBL_COMMUTE A
-	 WHERE A.MEMBER_NO = #{ memberNo }
-	   AND (A.YEAR_MONTH || '-' || A.DAY) = #{ selectedDate }
-	   AND A.OUT_TIME IS NULL
-	</select>
 	
 	<select id="selectOverTimeLog" parameterType="com.qs.www.schedule.model.dto.OvertimeLogDTO" resultMap="overtimeResultMap">
 	SELECT

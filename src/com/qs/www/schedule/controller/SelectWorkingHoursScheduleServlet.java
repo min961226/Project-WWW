@@ -45,7 +45,6 @@ public class SelectWorkingHoursScheduleServlet extends HttpServlet {
 		int memberNo = memberInfo.getMemberNo();
 		String appWorkType = memberInfo.getAppWorkType();
 		int workCode = memberInfo.getWorkCode();
-		
 
 		/* 1. 이번 달 근태 통계 */
 		/* 1-1. 이번달 근무일수가 몇일이고, 그 중 몇 일째인지 */
@@ -148,7 +147,9 @@ public class SelectWorkingHoursScheduleServlet extends HttpServlet {
 		overtimeLogDTO.setWeekStartDate(weekStartDate);
 		overtimeLogDTO.setWeekEndDate(weekEndDate);
 		List<OvertimeLogDTO> overTimeLogList = scheduleService.selectOverTimeLog(overtimeLogDTO);
-		System.out.println("overTimeLogList : " + overTimeLogList);
+		for(OvertimeLogDTO ot : overTimeLogList) {
+			System.out.println(ot);
+		}
 
 		int overtimeSum = 0;
 		if(overTimeLogList != null) {
@@ -169,14 +170,14 @@ public class SelectWorkingHoursScheduleServlet extends HttpServlet {
 		workInfo3.setMemberNo(memberNo);	
 		workInfo3.setWeekStartDate(thisMonthFirstString); //주의 시작/끝이 아니라 월의 시작/끝을 넣어서 출력
 		workInfo3.setWeekEndDate(thisMonthLastString);
-		List<CommutingLogDTO> commutingLogMontlyList = mainService.selectCommutingLog(workInfo3); //OK
+		List<CommutingLogDTO> commutingLogMontlyList = mainService.selectCommutingLog(workInfo3); 
 		for(CommutingLogDTO dto : commutingLogMontlyList) {
 			System.out.println(dto);
 		}
 		
 		
-		//view에 넘길 용도로 만든 List
-		List<DailyCommuteDTO> dailyCommuteList = new ArrayList<>(); //이걸 써먹을라 했는데...
+		//view에 넘길 용도로 만든 한 사람의 List(재구축용)
+		List<DailyCommuteDTO> dailyCommuteList = new ArrayList<>(); 
 		
 		int forStartDate = 1;			//1일부터 시작
 		int thisMonthWorkDateNum = 0; 	//이번 달 총 근무일수

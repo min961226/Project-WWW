@@ -41,7 +41,6 @@ public class HolidayDAO {
 
 	public int selectAllHolidayReportCount(SqlSession session, Map<String, Object> countMap) {
 		
-
 		return session.selectOne("HolidayDAO.selectAllHolidayReportCount", countMap);
 	}	
 
