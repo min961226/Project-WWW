@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="MngCommuteDAO">
+
+	<resultMap type="com.qs.www.schedule.model.dto.MemberCommuteLogDTO" id="CriteriaMemberResultMap">
+		<result property="memberNo" column="MEMBER_NO"/>
+		<result property="deptName" column="DEPT_NAME"/>
+		<result property="jobName" column="JOB_NAME"/>
+	</resultMap>
+	
+	<select id="selectAllMemberCount" resultType="_int" parameterType="hashmap">
+	SELECT /*com.qs.www.mng.schedule.model.dao.MngCommuteDAO#selectAllMemberCount() */
+	       COUNT(*)
+	  FROM TBL_MEMBER A
+	  LEFT JOIN TBL_DEPARTMENT B ON (A.DEPT_CODE = B.DEPT_CODE)
+	  LEFT JOIN TBL_JOB C ON (A.JOB_CODE = C.JOB_CODE)
+	  <where>
+	    <if test="searchCondition == 'name'">
+	       A.NAME LIKE '%' || #{ searchValue } || '%'
+	    </if>
+	    <if test="searchCondition == 'deptName'">
+	       B.DEPT_NAME LIKE '%' || #{ searchValue } || '%' 	
+		</if>
+		<if test="searchCondition == 'jobName'">
+	       C.JOB_NAME '%' || #{ searchValue } || '%' 	
+		</if>
+	   AND A.ENT_YN = 'N'
+	  </where>
+	 ORDER BY A.MEMBER_NO DESC
+	</select>
+
+	<select id="selectCriteriaMemberList" parameterType="hashmap" resultMap="CriteriaMemberResultMap">
+	SELECT /*com.qs.www.mng.schedule.model.dao.MngCommuteDAO#selectAllMemberCount() */
+           C.RNUM
+         , C.MEMBER_NO
+         , C.DEPT_NAME
+         , C.JOB_NAME
+      FROM (SELECT ROWNUM RNUM
+          		 , B.MEMBER_NO
+          		 , B.DEPT_NAME
+          		 , B.JOB_NAME
+           	 FROM (SELECT
+          	              A.MEMBER_NO
+          	            , D.DEPT_NAME
+          	            , E.JOB_NAME
+          	         FROM TBL_MEMBER A
+	                 LEFT JOIN TBL_DEPARTMENT D ON (A.DEPT_CODE = D.DEPT_CODE)
+	                 LEFT JOIN TBL_JOB E ON (A.JOB_CODE = E.JOB_CODE)
+	               <where>
+	                  <if test="selectCriteria.searchCondition == 'name'">
+	                      A.NAME LIKE '%' || #{ selectCriteria.searchValue } || '%'
+	                  </if>
+	                  <if test="selectCriteria.searchCondition == 'deptName'">
+	                      D.DEPT_NAME LIKE '%' || #{ selectCriteria.searchValue } || '%' 	
+		              </if>
+		              <if test="selectCriteria.searchCondition == 'jobName'">
+	                      E.JOB_NAME '%' || #{ selectCriteria.searchValue } || '%' 	
+		              </if>
+	                  AND A.ENT_YN = 'N'
+	                  AND A.MEMBER_NO = #{ selectCriteria. }
+    			   </where>
+    			 ORDER BY A.MEMBER_NO DESC
+                ) B
+          <![CDATA[
+          WHERE ROWNUM <= #{ selectCriteria.endRow }
+          ]]>
+        ) C
+    WHERE C.RNUM >= #{ selectCriteria.startRow }
+	</select>
+
+</mapper>
