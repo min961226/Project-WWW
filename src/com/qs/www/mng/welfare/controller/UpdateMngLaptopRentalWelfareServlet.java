@@ -28,7 +28,6 @@ public class UpdateMngLaptopRentalWelfareServlet extends HttpServlet {
 		
 		itemDTO.setLogNo(logNo);																	//기록번호를 담아준다
 		itemDTO.setReturnDate(Date.valueOf(sysDate));												//오늘 날짜를 담아준다
-		System.out.println(itemDTO);
 		
 		int returnItem = mngWelfareService.updateReturnItem(itemDTO);																		//dto를 통해 반납일자 등록 서비스 실행
 		int changeStatus = mngWelfareService.updateChangeStatus(Integer.parseInt(request.getParameter("itemNo")));							//dto를 통해 대여 상태를 대여중으로 변환 등록 서비스 실행

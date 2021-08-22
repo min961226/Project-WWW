@@ -43,10 +43,6 @@ public class FileUploadServlet extends HttpServlet {
 
 		if(ServletFileUpload.isMultipartContent(request)) {
 
-			System.out.println("파일 저장 ROOT 경로 : " + rootLocation);
-			System.out.println("최대 업로드 파일 용량 : " + maxFileSize);
-			System.out.println("인코딩 방식 : " + encodingType);
-
 			String fileUploadDirectory = rootLocation + "/commons";
 
 			File directory = new File(fileUploadDirectory);
@@ -110,9 +106,6 @@ public class FileUploadServlet extends HttpServlet {
 					}
 				}
 
-				System.out.println("parameter : " + parameter);
-				System.out.println("fileList : " + fileList);
-				
 				response.setCharacterEncoding("UTF-8");
 				PrintWriter out = response.getWriter();
 				
@@ -136,7 +129,6 @@ public class FileUploadServlet extends HttpServlet {
 				}
 
 				if(cnt == fileList.size()) {
-					System.out.println("업로드에실패한 모든 사진 삭제 완료!");
 				} else {
 					e.printStackTrace();
 				}

@@ -32,7 +32,7 @@ public class WelfareService {
 
 	private final WelfareDAO welfareDAO;
 
-	public WelfareService() {
+	public () {
 		welfareDAO = new WelfareDAO();
 	}
 

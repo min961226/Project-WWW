@@ -69,7 +69,6 @@ public class SelectMngLaptopRentalWelfareServlet extends HttpServlet {
 		} else {
 			selectCriteria = Pagenation.getSelectCriteria(pageNo, totalCount, limit, buttonAmount);
 		}
-		System.out.println(selectCriteria);
 
 		/*-----------------------------------------------------------------------------------------------------------------------*/
 		List<LaptopDTO> laptopList = welfareService.selectLaptopList(selectCriteria);

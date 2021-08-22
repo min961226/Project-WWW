@@ -16,10 +16,9 @@ import com.qs.www.mng.welfare.model.service.MngWelfareService;
 public class SelectMngWelfareListServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("시행 복지 관리");
 		
-		MngWelfareService mngWelfareService = new MngWelfareService();
-		List<WelfareYnDTO> welfareYn = mngWelfareService.selectWelfareYn();
+		MngWelfareService mngWelfareService = new MngWelfareService();							
+		List<WelfareYnDTO> welfareYn = mngWelfareService.selectWelfareYn();						//전체 복지 목록
 		
 		request.setAttribute("welfareYn", welfareYn);
 

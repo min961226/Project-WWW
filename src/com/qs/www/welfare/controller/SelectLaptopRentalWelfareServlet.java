@@ -27,8 +27,7 @@ public class SelectLaptopRentalWelfareServlet extends HttpServlet {
 		int itemNo = Integer.parseInt(request.getParameter("no"));													//신청 품목 번호
 		String laptopStatus = welfareService.selectOneLaptop(itemNo); 												//대여 상태
 		String itemName = welfareService.selectItemNameByItemNo(itemNo);											//신청 품목명
-		System.out.println(laptopStatus);
-		System.out.println(itemName);
+
 		String path="";
 		if("대여가능".equals(laptopStatus)) {																			//대여가능할때
 

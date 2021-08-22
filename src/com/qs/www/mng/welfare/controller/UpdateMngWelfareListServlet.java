@@ -16,12 +16,7 @@ import com.qs.www.mng.welfare.model.service.MngWelfareService;
 @WebServlet("/mng/welfare/list/update")
 public class UpdateMngWelfareListServlet extends HttpServlet {
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-	}
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("시행복지 관리 수정 완료!");
 		
 		MngWelfareService mngWelfareService = new MngWelfareService();
 	
