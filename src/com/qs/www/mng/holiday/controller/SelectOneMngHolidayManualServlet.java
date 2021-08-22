@@ -75,7 +75,6 @@ public class SelectOneMngHolidayManualServlet extends HttpServlet {
 		} else {
 			selectCriteria = Pagenation.getSelectCriteria(pageNo, totalCount, limit, buttonAmount);
 		}
-		System.out.println(selectCriteria);
 
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -84,8 +83,6 @@ public class SelectOneMngHolidayManualServlet extends HttpServlet {
 		selectedInfoMap.put("selectCriteria", selectCriteria);
 		
 		List<HolidayLogDTO> holidayLogList = mngHolidayService.selectPagingHolidayLogList(selectedInfoMap);
-		
-		System.out.println(holidayLogList);
 		
 		request.setAttribute("memberHolidayInfo", memberHolidayInfo);
 		request.setAttribute("holidayLogList", holidayLogList);

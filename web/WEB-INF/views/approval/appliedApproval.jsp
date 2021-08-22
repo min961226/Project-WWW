@@ -70,11 +70,11 @@
                                                 <td><c:out value="${ board.reportTitle}" /></td>
                                                 <td><c:out value="${ board.lineName }" /></td>
                                                 <td><c:out value="${ board.reportDate }" /></td>
-                                                <td><button  class=
-                                                <c:if test="${board.reportStatus eq '대기'}">"btn btn-success btn-xs"</c:if>
-                                                <c:if test="${board.reportStatus eq '승인'}">"btn btn-info btn-xs"</c:if>
-                                                <c:if test="${board.reportStatus eq '반려'}">"btn btn-danger btn-xs"</c:if>
-												type="submit">${ board.reportStatus }</button></td>
+                                                <td><i class=
+                                                <c:if test="${board.reportStatus eq '대기'}">"fa fa-dot-circle-o text-success"</c:if>
+                                                <c:if test="${board.reportStatus eq '승인'}">"fa fa-dot-circle-o text-info"</c:if>
+                                                <c:if test="${board.reportStatus eq '반려'}">"fa fa-dot-circle-o text-danger"</c:if>
+												></i> ${ board.reportStatus }</td>
                                                 
                                                 <c:if test="${board.reportStatus eq '대기' }"><td><button  class="btn btn-success btn-xs"
 												type="submit">회수가능</button></td></c:if>

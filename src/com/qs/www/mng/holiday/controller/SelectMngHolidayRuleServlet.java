@@ -20,9 +20,8 @@ public class SelectMngHolidayRuleServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		List<HolidayRuleDTO> holidayRule = new MngHolidayService().selectHolidayRule();
+		List<HolidayRuleDTO> holidayRule = new MngHolidayService().selectHolidayRule();    //휴가발생규칙 받아오기
 		
-		System.out.println("휴가발생규칙 : " + holidayRule);
 		String fullDate = holidayRule.get(0).getFiscalStateDate();
 		String stDate = fullDate.substring(0, 2);
 		int giveDate = Integer.parseInt(stDate);

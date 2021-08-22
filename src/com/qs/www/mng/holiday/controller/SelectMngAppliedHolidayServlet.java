@@ -69,9 +69,8 @@ public class SelectMngAppliedHolidayServlet extends HttpServlet {
 		
 		
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		List<ReportDTO> reportList = new MngHolidayService().selectHolidayAPP(selectCriteria);
+		List<ReportDTO> reportList = new MngHolidayService().selectHolidayAPP(selectCriteria);    //휴가신청목록 가죠오기
 		
-		System.out.println(reportList);
 		request.setAttribute("reportList", reportList);
 		request.setAttribute("selectCriteria", selectCriteria);
 		request.getRequestDispatcher("/WEB-INF/views/mngholiday/holidayList.jsp").forward(request, response);

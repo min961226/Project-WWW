@@ -32,7 +32,6 @@ public class SelectOneMngAppliedHolidayServlet extends HttpServlet {
 		ReportDTO selectedReport  = new ApprovalService().selectOneReportDetail(no);
 		/* 파일 첨부 DTO 서비스 실행 reportNo로 갖고옴 */
 		AttachmentDTO attachmentDTO = new AttachmentService().selectAttachmentByReportNo(selectedReport.getReportNo());		//reportNo로 값을 갖고옴
-		System.out.println(attachmentDTO);
 		
 		List<WorkingDocumentItemDTO> itemList = new ApprovalService().selectReportItemList(no);
 		List<ApproverLogPerReportDTO>ALPRList = new ApprovalService().selectALPRList(no);

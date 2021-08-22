@@ -28,7 +28,6 @@ public class SelectOneApprovalLineServlet extends HttpServlet {
 		
 		ApprovalLineDTO line = new ApprovalService().selectApprovalOneLine(no);
 		List<ApproverDTO> approverList = new ApprovalService().selectApprover(no);
-		System.out.println(approverList);
 		
 		request.setAttribute("line", line);
 		request.setAttribute("approverList", approverList);

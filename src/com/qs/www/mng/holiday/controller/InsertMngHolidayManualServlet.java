@@ -17,13 +17,10 @@ import com.qs.www.schedule.model.service.HolidayService;
 public class InsertMngHolidayManualServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("얀결됐니");
 		int memberNo = Integer.parseInt(request.getParameter("memberNo"));    //휴가를 부여받을 사원번호
-		System.out.println(memberNo);
 		
 		MemberInfoDTO memberInfo = new MngHolidayService().selectMemberInfo(memberNo);
 		
-		System.out.println(memberInfo);
 		request.setAttribute("memberInfo", memberInfo);
 		request.getRequestDispatcher("/WEB-INF/views/mngholiday/insertHolidayManual.jsp").forward(request, response);
 	}
@@ -31,13 +28,11 @@ public class InsertMngHolidayManualServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int memberNo = Integer.parseInt(request.getParameter("memberNo"));    //휴가를 부여받을 사원번호
 		int dayNumber = Integer.parseInt(request.getParameter("dayNumber"));
-		System.out.println(memberNo);
 		
 		HolidayService holidayService = new HolidayService();
 		int havingHoliday = holidayService.selectHavingHoliday(memberNo);
 		
 		int remainHoliday = havingHoliday + dayNumber;
-		System.out.println(remainHoliday);
 		MemberInfoDTO memberInfo = new MemberInfoDTO();
 		memberInfo.setMemberNo(memberNo);
 		memberInfo.setRemainingHoliday(remainHoliday);

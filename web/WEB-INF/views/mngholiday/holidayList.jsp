@@ -65,12 +65,12 @@
 											<td><c:out value="${ board.memberName }"/></td>
 											<td><c:out value="${ board.lineName }"/></td>
 											<td><c:out value="${ board.reportDate }"/></td>
-											<td><button  class=
-                                                <c:if test="${board.reportStatus eq '대기'}">"btn btn-success btn-xs"</c:if>
-                                                <c:if test="${board.reportStatus eq '승인'}">"btn btn-info btn-xs"</c:if>
-                                                <c:if test="${board.reportStatus eq '반려'}">"btn btn-danger btn-xs"</c:if>
-                                                <c:if test="${board.reportStatus eq '취소'}">"btn btn-warning btn-xs"</c:if>
-												type="submit">${ board.reportStatus }</button></td>
+											 <td><i class=
+                                                <c:if test="${board.reportStatus eq '대기'}">"fa fa-dot-circle-o text-success"</c:if>
+                                                <c:if test="${board.reportStatus eq '승인'}">"fa fa-dot-circle-o text-info"</c:if>
+                                                <c:if test="${board.reportStatus eq '반려'}">"fa fa-dot-circle-o text-danger"</c:if>
+                                                <c:if test="${board.reportStatus eq '취소'}">"fa fa-dot-circle-o text-purple"</c:if>
+												></i> ${ board.reportStatus }</td>
 										</tr>
 										</c:forEach>
 

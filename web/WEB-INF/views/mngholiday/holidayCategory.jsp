@@ -1,19 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 
 <head>
 <meta charset="UTF-8">
-<link rel="shortcut icon" type="image/x-icon" href="${ pageContext.servletContext.contextPath }/assets/img/favicon.png">
+<link rel="shortcut icon" type="image/x-icon"
+	href="${ pageContext.servletContext.contextPath }/assets/img/favicon.png">
 <title>Wonderful Welfare Workspace</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 
 <body>
 	<div class="main-wrapper">
-	    <jsp:include page="../common/navbar.jsp" />
+		<jsp:include page="../common/navbar.jsp" />
 		<div class="page-wrapper">
 			<div class="content container-fluid">
 				<div class="row">
@@ -46,33 +48,34 @@
 									</tr>
 
 								</thead>
-								<c:forEach var="holidayType" items="${ requestScope.holidayTypeList }">
+								<c:forEach var="holidayType"
+									items="${ requestScope.holidayTypeList }">
 									<tr>
 										<td><c:out value="${ holidayType.holidayCode }" /></td>
 										<td><c:out value="${ holidayType.holidayName }" /></td>
 										<td><c:out value="${ holidayType.holidayType }" /></td>
 										<td><c:if test="${ holidayType.holidayNote != null}">
-										<c:out value="${ holidayType.holidayNote }" /></c:if>
-										<c:if test="${ holidayType.holidayNote == null}">
-										<c:out value="비고없음" /></c:if>
-										</td>
-										<td><c:if test="${ holidayType.useYn == 'Y'}"><button id="delete" class="btn btn-info btn-xs"
-												type="submit">활성</button></c:if>
-										<c:if test="${ holidayType.useYn == 'N'}"><button id="delete" class="btn btn-danger btn-xs"
-												type="submit">비활성</button></c:if>
-										</td>
+												<c:out value="${ holidayType.holidayNote }" />
+											</c:if> <c:if test="${ holidayType.holidayNote == null}">
+												<c:out value="비고없음" />
+											</c:if></td>
+										<td><c:if test="${ holidayType.useYn == 'Y'}">
+												<i class="fa fa-dot-circle-o text-info"></i> 활성</c:if> <c:if
+												test="${ holidayType.useYn == 'N'}">
+												<i class="fa fa-dot-circle-o text-danger"></i> 비활성</c:if></td>
 										<td><button id="delete" class="btn btn-success btn-xs"
 												type="submit">상세보기/수정하기</button></td>
 									</tr>
 								</c:forEach>
 							</table>
-								<div align="right" style="margin-right: 20px; padding: 5px">
+							<div align="right" style="margin-right: 20px; padding: 5px">
 								<a
-							href="${ pageContext.servletContext.contextPath }/mng/holiday/category/delete"
-							class="btn btn-danger pull-right"><i
-							class="fa fa-minus"></i>휴가유형 삭제</a>
-								</div>
-								<br><br>
+									href="${ pageContext.servletContext.contextPath }/mng/holiday/category/delete"
+									class="btn btn-danger pull-right"><i class="fa fa-minus"></i>휴가유형
+									삭제</a>
+							</div>
+							<br>
+							<br>
 						</div>
 					</div>
 				</div>

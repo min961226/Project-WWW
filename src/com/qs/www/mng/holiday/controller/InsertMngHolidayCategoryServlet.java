@@ -29,7 +29,7 @@ public class InsertMngHolidayCategoryServlet extends HttpServlet {
 		holidayCategory.setHolidayName(holidayName);
 		holidayCategory.setUseYn(useYn);
 		holidayCategory.setHolidayNote(holidayNote);
-		System.out.println("holidayCategory : " + holidayCategory);
+		
 		
 		int result = new MngHolidayService().insertHolidayType(holidayCategory);
 		
