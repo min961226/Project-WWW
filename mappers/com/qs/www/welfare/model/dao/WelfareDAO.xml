@@ -568,4 +568,23 @@
 		  FROM TBL_DOMITORY_WAITLIST A
 	</select>
 	
+	<insert id="insertNightTransLog" parameterType="com.qs.www.welfare.model.dto.NightTransportationLogDTO">
+		INSERT /* com.qs.www.welfare.model.dao.WelfareDAO#insertNightTransLog() */
+		  INTO TBL_TRANSPORTATION_COST_LOG A
+		 	 (
+	  	   	   A.LOG_NO
+		 	 , A.MEMBER_NO
+		 	 , A.DEPOSIT_DATE
+		 	 , A.REF_REPORT_NO
+		 	 , A.TRANS_BILL
+		 	 )
+		 	 VALUES
+		 	 (
+	  	   	   SEQ_TRANSPORTATION_COST_LOG_NO.NEXTVAL
+		 	 , #{ memberNo }
+		 	 , SYSDATE
+		 	 , #{ refReportNo }
+		 	 , #{ transBill }
+		 	 )
+	</insert>
 </mapper>

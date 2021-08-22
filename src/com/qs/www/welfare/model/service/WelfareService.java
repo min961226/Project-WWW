@@ -18,6 +18,7 @@ import com.qs.www.welfare.model.dto.DomitoryWaitListDTO;
 import com.qs.www.welfare.model.dto.FamilyEventDTO;
 import com.qs.www.welfare.model.dto.LaptopDTO;
 import com.qs.www.welfare.model.dto.MemberOverTimeLogDTO;
+import com.qs.www.welfare.model.dto.NightTransportationLogDTO;
 import com.qs.www.welfare.model.dto.SelfDevelopmetLogDTO;
 import com.qs.www.welfare.model.dto.SeminarReservTimeDTO;
 import com.qs.www.welfare.model.dto.SeminarRoomDTO;
@@ -411,6 +412,22 @@ public class WelfareService {
 		session.close();
 
 		return selectDomitoryWaitList;
+	}
+
+	public int insertNightTransLog(NightTransportationLogDTO nightTransportationLogDTO) {
+		SqlSession session = getSqlSession();
+
+		int insertNightTransLog = welfareDAO.insertNightTransLog(session, nightTransportationLogDTO);
+
+		if (insertNightTransLog > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+
+		session.close();
+
+		return insertNightTransLog;
 	}
 
 

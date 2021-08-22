@@ -32,6 +32,7 @@ import com.qs.www.schedule.model.dto.WorkingDocumentItemDTO;
 import com.qs.www.schedule.model.service.HolidayService;
 import com.qs.www.schedule.model.service.ScheduleService;
 import com.qs.www.welfare.model.dto.DomitoryWaitListDTO;
+import com.qs.www.welfare.model.dto.NightTransportationLogDTO;
 import com.qs.www.welfare.model.dto.SelfDevelopmetLogDTO;
 import com.qs.www.welfare.model.service.WelfareService;
 
@@ -290,7 +291,18 @@ public class SelectOneWaitingApprovalServlet extends HttpServlet {
 				
 				if(selectedReport.getDocumentNo() == 7) {																	//야간교통비 신청서
 					
+					NightTransportationLogDTO nightTransportationLogDTO = new NightTransportationLogDTO();
 					
+					memberNo = selectedReport.getMemberNo();																//신청자 사번
+					reportNo = selectedReport.getReportNo();																//결재 문서 번호
+					int transBill = Integer.parseInt(itemList.get(2).getItemContent());										//청구 금액
+
+					System.out.println(transBill);
+					nightTransportationLogDTO.setMemberNo(memberNo);
+					nightTransportationLogDTO.setRefReportNo(reportNo);
+					nightTransportationLogDTO.setTransBill(transBill);
+					
+					int transportationLog = welfareService.insertNightTransLog(nightTransportationLogDTO);					//log에 값 삽입
 					
 				}
 				
@@ -303,7 +315,7 @@ public class SelectOneWaitingApprovalServlet extends HttpServlet {
 					java.sql.Date depositDate = java.sql.Date.valueOf(itemList.get(4).getItemContent());					//지급일자
 					reportNo = selectedReport.getReportNo();																//근거결재 문서번호
 						
-					selfDevelopmetLogDTO.setDevelopmentNo(eventNo);														//경조사 번호
+					selfDevelopmetLogDTO.setDevelopmentNo(eventNo);															//경조사 번호
 					selfDevelopmetLogDTO.setMemberNo(memberNo);																//사번
 					selfDevelopmetLogDTO.setDepositDate(depositDate);														//청구일
 					selfDevelopmetLogDTO.setReportNo(reportNo);																//결재 문서 번호

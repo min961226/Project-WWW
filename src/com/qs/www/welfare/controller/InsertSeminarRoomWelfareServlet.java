@@ -17,14 +17,11 @@ import com.qs.www.welfare.model.service.WelfareService;
 @WebServlet("/welfare/seminarRoom/insert")
 public class InsertSeminarRoomWelfareServlet extends HttpServlet {
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		System.out.println("회의실 대여 완료");
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		WelfareService welfareService = new WelfareService();
 		SeminarRoomReservDTO seminarRoomReservDTO = new SeminarRoomReservDTO();
-		List<SeminarRoomReservDTO> seminarRoomReserv = welfareService
-				.selectSeminarRoomReserv(Integer.parseInt(request.getParameter("roomNo")));
+		List<SeminarRoomReservDTO> seminarRoomReserv = welfareService.selectSeminarRoomReserv(Integer.parseInt(request.getParameter("roomNo")));
 
 		seminarRoomReservDTO.setMeetingRoomNo(Integer.parseInt(request.getParameter("roomNo")));
 		seminarRoomReservDTO.setMemberNo(Integer.parseInt(request.getParameter("memberNo")));

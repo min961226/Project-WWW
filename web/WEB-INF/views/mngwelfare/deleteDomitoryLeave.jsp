@@ -108,6 +108,7 @@
 		$goBack.onclick = function() {
 			location.href = "${ pageContext.servletContext.contextPath }/mng/welfare/domitory/select"
 		}
+		
 		/* 제이쿼리 이용하는 경우 */
 		/* $(function() {
 			$("#listArea td").hover(function() {

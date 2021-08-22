@@ -119,13 +119,22 @@
 	</div>
 	<script>
 		const $goBack = document.getElementById("goBack");
-
 		$goBack.onclick = function() {
-			if (!confirm("돌아가시겠습니까?\n작성중이던 모든 내용이 삭제됩니다.")) {
-	        	
-	        } else {
-				location.href = "${ pageContext.servletContext.contextPath }/welfare/list/selected?selectedWelfare=회의실예약신청"
-	        }
+			Swal.fire({
+				  title: '돌아가시겠습니까?',
+				  text: '작성중이던 모든 내용이 삭제됩니다.',
+				  icon: 'warning',
+				  showCancelButton: true,
+				  confirmButtonColor: '#ffbc34',
+				  cancelButtonColor: '#d33',
+				  confirmButtonText: '예',
+				  cancelButtonText: '아니오'
+				}).then((result) => {
+					if (result.isConfirmed) {
+						location.href = "${ pageContext.servletContext.contextPath }/welfare/list/selected?selectedWelfare=회의실예약신청"
+					  } else if (result.isDenied) {
+					  }
+				})
 		}
 		
 		function askAgain(){

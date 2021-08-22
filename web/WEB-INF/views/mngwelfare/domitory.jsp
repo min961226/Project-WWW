@@ -88,24 +88,24 @@
 		const $insertDomitory1 = document.getElementById("I1");
 
 		$insertDomitory1.onclick = function() {
-			location.href = "${ pageContext.servletContext.contextPath }/mng/welfare/domitory/waiting/select?no=1"
+			location.href = "${ pageContext.servletContext.contextPath }/mng/welfare/domitory/update?no=1"
 		}
 		
 		const $insertDomitory2 = document.getElementById("I2");
 
 		$insertDomitory2.onclick = function() {
-			location.href = "${ pageContext.servletContext.contextPath }/mng/welfare/domitory/waiting/select?no=2"
+			location.href = "${ pageContext.servletContext.contextPath }/mng/welfare/domitory/update?no=2"
 		}
 		
 		const $insertDomitory3 = document.getElementById("I3");
 
 		$insertDomitory3.onclick = function() {
-			location.href = "${ pageContext.servletContext.contextPath }/mng/welfare/domitory/waiting/select?no=3"
+			location.href = "${ pageContext.servletContext.contextPath }/mng/welfare/domitory/update?no=3"
 		}
 		const $insertDomitory4 = document.getElementById("I4");
 
 		$insertDomitory4.onclick = function() {
-			location.href = "${ pageContext.servletContext.contextPath }/mng/welfare/domitory/waiting/select?no=4"
+			location.href = "${ pageContext.servletContext.contextPath }/mng/welfare/domitory/update?no=4"
 		}
 		
 		/*------------------------------퇴거 버튼--------------------------------------------------*/

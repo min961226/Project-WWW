@@ -24,8 +24,7 @@ public class DeleteMngDomitoryWelfareServlet extends HttpServlet {
 		
 		int domitoryManageNo = Integer.parseInt(request.getParameter("no"));																//선택한 입주자를 퇴거시키기 위한 기숙사 번호
 		
-		List<DomitoryLogDTO> domitoryLogResult = mngWelfareService.selectDomitoryLogResult(domitoryManageNo);												//해당 기숙사에 대한 입주정보를가져와야함.
-	System.out.println(domitoryLogResult);
+		List<DomitoryLogDTO> domitoryLogResult = mngWelfareService.selectDomitoryLogResult(domitoryManageNo);								//해당 기숙사에 대한 입주정보를가져와야함.
 		
 		request.setAttribute("domitoryLogResult", domitoryLogResult);
 		String path = "/WEB-INF/views/mngwelfare/deleteDomitoryLeave.jsp";
