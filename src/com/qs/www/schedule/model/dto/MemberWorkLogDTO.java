@@ -15,11 +15,12 @@ public class MemberWorkLogDTO implements java.io.Serializable{
 	private java.sql.Date endDay;			//종료일
 	private java.sql.Date changeDate;		//변경일자
 	private String changeReason;			//변경사유
+	private int workReportNo;				//변경의 근거가 된 상신번호
 	
 	public MemberWorkLogDTO() {}
 
 	public MemberWorkLogDTO(int memberWorkLogNo, int memberNo, String workType, int approverLine, int workNo,
-			Date startDay, Date endDay, Date changeDate, String changeReason) {
+			Date startDay, Date endDay, Date changeDate, String changeReason, int workReportNo) {
 		super();
 		this.memberWorkLogNo = memberWorkLogNo;
 		this.memberNo = memberNo;
@@ -30,6 +31,7 @@ public class MemberWorkLogDTO implements java.io.Serializable{
 		this.endDay = endDay;
 		this.changeDate = changeDate;
 		this.changeReason = changeReason;
+		this.workReportNo = workReportNo;
 	}
 
 	public int getMemberWorkLogNo() {
@@ -104,12 +106,23 @@ public class MemberWorkLogDTO implements java.io.Serializable{
 		this.changeReason = changeReason;
 	}
 
+	public int getWorkReportNo() {
+		return workReportNo;
+	}
+
+	public void setWorkReportNo(int workReportNo) {
+		this.workReportNo = workReportNo;
+	}
+
 	@Override
 	public String toString() {
 		return "MemberWorkLogDTO [memberWorkLogNo=" + memberWorkLogNo + ", memberNo=" + memberNo + ", workType="
 				+ workType + ", approverLine=" + approverLine + ", workNo=" + workNo + ", startDay=" + startDay
-				+ ", endDay=" + endDay + ", changeDate=" + changeDate + ", changeReason=" + changeReason + "]";
+				+ ", endDay=" + endDay + ", changeDate=" + changeDate + ", changeReason=" + changeReason
+				+ ", workReportNo=" + workReportNo + "]";
 	}
+
+	
 
 	
 

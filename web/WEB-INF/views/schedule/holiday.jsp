@@ -40,8 +40,8 @@
 					<form id="loginForm"
 						action="${ pageContext.servletContext.contextPath }/schedule/holiday/select"
 						method="get" style="display: inline-block">
-						<input type="hidden" name="currentPage" value="1"> <select
-							id="searchCondition" name="searchCondition">
+						<input type="hidden" name="currentPage" value="1"> 
+						<select id="searchCondition" name="searchCondition">
 							<option value="title"
 								${ requestScope.selectCriteria.searchCondition eq "title"? "selected": "" }>제목</option>
 							<option value="status"

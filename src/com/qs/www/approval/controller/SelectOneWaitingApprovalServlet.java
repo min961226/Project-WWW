@@ -167,6 +167,7 @@ public class SelectOneWaitingApprovalServlet extends HttpServlet {
 		 				memberWorkLogDTO.setWorkNo(Integer.parseInt(itemList.get(1).getItemContent()));			//변경후 근무제번호
 		 				memberWorkLogDTO.setStartDay(startDaySql);												//변경일자
 		 				memberWorkLogDTO.setChangeReason(itemList.get(4).getItemContent());						//변경사유
+		 				memberWorkLogDTO.setWorkReportNo(reportNo);												//변경의 근거가 된 상신번호
 		 				
 		 				System.out.println("memberWorkLogDTO : " + memberWorkLogDTO);	 				
 		 				int result5 = scheduleService.applyWorkingSystemMemberWorkLog(memberWorkLogDTO);
@@ -183,6 +184,7 @@ public class SelectOneWaitingApprovalServlet extends HttpServlet {
 		 				memberWorkLogDTO2.setWorkNo(1);															//변경후 근무제번호
 		 				memberWorkLogDTO2.setStartDay(endDateSql);												//변경일자
 		 				memberWorkLogDTO2.setChangeReason("이전 근태신청의 기간만료");									//변경사유
+		 				memberWorkLogDTO2.setWorkReportNo(reportNo);											//변경의 근거가 된 상신번호
 		 				
 		 				System.out.println("memberWorkLogDTO2 : " + memberWorkLogDTO2);
 		 				int result6 = scheduleService.applyWorkingSystemMemberWorkLog(memberWorkLogDTO2);

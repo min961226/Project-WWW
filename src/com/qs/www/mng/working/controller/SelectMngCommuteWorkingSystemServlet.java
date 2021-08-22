@@ -58,7 +58,7 @@ public class SelectMngCommuteWorkingSystemServlet extends HttpServlet {
 		/* 검색에 사용할것*/
 		String searchCondition = request.getParameter("searchCondition");
 		String searchValue = request.getParameter("searchValue");
-		
+				
 		//검색의 내용(name, deptCode, jobCode)
 		Map<String, String> searchMap = new HashMap<>();
 		searchMap.put("searchCondition", searchCondition);
@@ -71,6 +71,7 @@ public class SelectMngCommuteWorkingSystemServlet extends HttpServlet {
 		Pagenation pagenation = new Pagenation();
 		
 		//totalCount 는 DB에 가서 조건에 해당하는 총 게시물 수를 세어와야 함. count(*) 중, where 삭제안된거.
+		//연월(yearMonth)로 검색한다면, 모든 직원을 totalCount로 세게 될 것이다.
 		int totalCount = mngCommuteService.selectAllMemberCount(countMap);
 		
 		//limit는 한 페이지에서 보여지는 게시물 수
@@ -114,22 +115,27 @@ public class SelectMngCommuteWorkingSystemServlet extends HttpServlet {
 		String thisMonthFirstString = thisMonthFirst + "";
 		String thisMonthLastString = thisMonthLast + "";
 		
+		//월별로도 검색이 가능하게 해야 되남...
+		if(searchCondition != null) {
+			if(searchCondition.equals("yearMonth")) {
+				String getYearMonth = searchValue;
+			}
+			
+		}
+		
 		//우선 페이징으로 보여줄 member들 부터 뽑아와야 한다
+		List<Integer> memberNo = new ArrayList<>();
 		HashMap<String, Object> selectedInfoMap = new HashMap<>();
 		selectedInfoMap.put("selectCriteria", selectCriteria);
 		
 		//조건 selectedInfoMap을 통해 검색한 member
-		//이름, 부서명, 직급을 가져온다
+		//사번, 이름, 부서명, 직급을 가져온다. 
+		//List<DailyCommuteDTO> dailyCommuteList 필드는 NULL인 DTO를 받아오게 된다.
 		List<MemberCommuteLogDTO> memberList = mngCommuteService.selectCriteriaMemberList(selectedInfoMap);
 		System.out.println("페이징 memberList : " + memberList);
 		
 		
 		//조건과 달을 입력하여 출근시간, 퇴근시간들을 가져와야 함
-		//월별로도 검색이 가능하게 해야 되남...
-		String YearMonth = todayYearInt + "" + todayMonthInt;
-		
-		//제일 큰 리스트
-		List<List> MemberCommuteLogList = new ArrayList<>();
 		
 		for(int j = 0; j < memberList.size(); j++) {
 			
@@ -213,7 +219,7 @@ public class SelectMngCommuteWorkingSystemServlet extends HttpServlet {
 				
 				forStartDate++;		//for문에서 다음 날짜를 돌리기위해, 1 증가시킨다
 				
-				dailyCommuteList.add(dailyCommuteDTO);				//DTO를 List에 add. 안 하면 NullPointerException
+				dailyCommuteList.add(dailyCommuteDTO);				//만들어진 한줄의 DTO를 List에 add
 			}
 			
 			//확인용 1인 출퇴근기록
@@ -222,12 +228,13 @@ public class SelectMngCommuteWorkingSystemServlet extends HttpServlet {
 				System.out.println(commute);
 			}
 			
-			MemberCommuteLogList.add(dailyCommuteList);
+			memberList.get(j).setDailyCommuteList(dailyCommuteList);
 		}
 		
-		request.setAttribute("MemberCommuteLogList", MemberCommuteLogList);
+		request.setAttribute("memberList", memberList);
+		request.setAttribute("selectCriteria", selectCriteria);
 		
-		String path = "/WEB-INF/views/schedule/commuteList.jsp";
+		String path = "/WEB-INF/views/mngworkingsystem/commuteList.jsp";
 		request.getRequestDispatcher(path).forward(request, response);
 		
 	}

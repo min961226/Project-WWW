@@ -6,15 +6,19 @@ import java.util.List;
 public class MemberCommuteLogDTO implements Serializable{
 	
 	private int memberNo;
+	private String name;
 	private String deptName;
 	private String jobName;
+	
 	private List<DailyCommuteDTO> dailyCommuteList;
 	
 	public MemberCommuteLogDTO() {}
 
-	public MemberCommuteLogDTO(int memberNo, String deptName, String jobName, List<DailyCommuteDTO> dailyCommuteList) {
+	public MemberCommuteLogDTO(int memberNo, String name, String deptName, String jobName,
+			List<DailyCommuteDTO> dailyCommuteList) {
 		super();
 		this.memberNo = memberNo;
+		this.name = name;
 		this.deptName = deptName;
 		this.jobName = jobName;
 		this.dailyCommuteList = dailyCommuteList;
@@ -26,6 +30,14 @@ public class MemberCommuteLogDTO implements Serializable{
 
 	public void setMemberNo(int memberNo) {
 		this.memberNo = memberNo;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getDeptName() {
@@ -54,10 +66,10 @@ public class MemberCommuteLogDTO implements Serializable{
 
 	@Override
 	public String toString() {
-		return "MemberCommuteLogDTO [memberNo=" + memberNo + ", deptName=" + deptName + ", jobName=" + jobName
-				+ ", dailyCommuteList=" + dailyCommuteList + "]";
+		return "MemberCommuteLogDTO [memberNo=" + memberNo + ", name=" + name + ", deptName=" + deptName + ", jobName="
+				+ jobName + ", dailyCommuteList=" + dailyCommuteList + "]";
 	}
-	
+
 	
 	
 	

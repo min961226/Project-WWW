@@ -98,7 +98,9 @@ public class SelectHolidayScheduleServlet extends HttpServlet {
 
 		request.setAttribute("holidayReportList", holidayReportList);
 		request.setAttribute("selectCriteria", selectCriteria);
-		request.getRequestDispatcher("/WEB-INF/views/schedule/holiday.jsp").forward(request, response);
+		
+		String path = "/WEB-INF/views/schedule/holiday.jsp";
+		request.getRequestDispatcher(path).forward(request, response);
 		
 	}
 

@@ -4,6 +4,7 @@
 
 	<resultMap type="com.qs.www.schedule.model.dto.MemberCommuteLogDTO" id="CriteriaMemberResultMap">
 		<result property="memberNo" column="MEMBER_NO"/>
+		<result property="name" column="NAME"/>
 		<result property="deptName" column="DEPT_NAME"/>
 		<result property="jobName" column="JOB_NAME"/>
 	</resultMap>
@@ -33,14 +34,17 @@
 	SELECT /*com.qs.www.mng.schedule.model.dao.MngCommuteDAO#selectAllMemberCount() */
            C.RNUM
          , C.MEMBER_NO
+         , C.NAME
          , C.DEPT_NAME
          , C.JOB_NAME
       FROM (SELECT ROWNUM RNUM
           		 , B.MEMBER_NO
+          		 , B.NAME
           		 , B.DEPT_NAME
           		 , B.JOB_NAME
            	 FROM (SELECT
           	              A.MEMBER_NO
+          	            , A.NAME
           	            , D.DEPT_NAME
           	            , E.JOB_NAME
           	         FROM TBL_MEMBER A
@@ -57,7 +61,6 @@
 	                      E.JOB_NAME '%' || #{ selectCriteria.searchValue } || '%' 	
 		              </if>
 	                  AND A.ENT_YN = 'N'
-	                  AND A.MEMBER_NO = #{ selectCriteria. }
     			   </where>
     			 ORDER BY A.MEMBER_NO DESC
                 ) B
