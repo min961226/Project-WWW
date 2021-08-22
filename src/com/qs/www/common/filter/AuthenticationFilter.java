@@ -40,7 +40,6 @@ public class AuthenticationFilter implements Filter {
 		
 		if(memberAuthority != null) {
 			for(AuthorityDTO authority : memberAuthority) {
-				System.out.println("Authority : " + authority.getMenuUri());
 				if(authority.getMenuUri().equals(intent)) {
 					isAuthorized = true;
 				}
