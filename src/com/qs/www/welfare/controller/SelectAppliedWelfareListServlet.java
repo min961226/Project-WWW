@@ -84,7 +84,6 @@ public class SelectAppliedWelfareListServlet extends HttpServlet {
 		selectedInfoMap.put("memberNo", memberNo);
 		selectedInfoMap.put("selectCriteria", selectCriteria);
 		
-		
 		List<ReportDTO> appliedWelfareList = new WelfareService().selectAppliedWelfareList(selectedInfoMap); // 멤버 번호에 해당하는 신청
 																										// 복지 목록을 가져온다.
 

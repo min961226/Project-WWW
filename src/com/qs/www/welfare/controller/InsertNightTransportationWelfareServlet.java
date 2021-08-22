@@ -51,11 +51,11 @@ public class InsertNightTransportationWelfareServlet extends HttpServlet {
 		AttachmentService attachmentService = new AttachmentService();													//서비스 인스턴스 생성
 		/* ---------------------------------파일 업로드 서비스-----------------------------------------*/
 
-		String welfareTitle = "야간 교통비 신청"; // 결재 제목
-		int documentNo = 7; // 야간 교통비 신청 문서 번호
+		String welfareTitle = "야간 교통비 신청"; 																			// 결재 제목
+		int documentNo = 7; 																							// 야간 교통비 신청 문서 번호
 		
 		
-		String overTime = request.getParameter("overTimeLog");
+		String overTime = request.getParameter("overTimeLog");															//야근 기록
 		int transBill = Integer.parseInt(request.getParameter("transBill"));
 		System.out.println(overTime);
 		String overTimeLogInfo = request.getParameter("overTimeLogInfo");

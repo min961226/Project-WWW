@@ -32,6 +32,20 @@
 					</div>
 				</div>
 			</div>
+			<div class="search-area" align="right">
+                   <form id="loginForm" action="${ pageContext.servletContext.contextPath }/mng/welfare/laptopRental/select" method="get" style="display:inline-block">      
+                   <input type="hidden" name="currentPage" value="1">
+                  <select id="searchCondition" name="searchCondition">
+                      <option value="category" ${ requestScope.selectCriteria.searchCondition eq "category"? "selected": "" }>품목 종류</option>
+                      <option value="name" ${ requestScope.selectCriteria.searchCondition eq "name"? "selected": "" }>품명</option>
+                     <option value="status" ${ requestScope.selectCriteria.searchCondition eq "status"? "selected": "" }>대여 상태</option>
+                  </select>
+                  <input type="search" id="searchValue" name="searchValue" value="<c:out value="${ requestScope.searchValue }"/>">
+               <button type="submit" class="btn-primary btn-sm" >검색하기</button>
+               <!-- <button type="button" id="writeFree">작성하기</button> -->
+               </form>
+            </div>
+			
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="card-box">

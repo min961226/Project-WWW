@@ -2,9 +2,11 @@ package com.qs.www.welfare.model.dao;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
+import com.qs.www.common.paging.SelectCriteria;
 import com.qs.www.mng.welfare.model.dto.ItemDTO;
 import com.qs.www.schedule.model.dto.ApproverPerReportDTO;
 import com.qs.www.schedule.model.dto.ReportDTO;
@@ -92,8 +94,8 @@ public class WelfareDAO {
 		return session.insert("WelfareDAO.insertSeminarRoom", seminarRoomReservDTO);
 	}
 
-	public List<LaptopDTO> selectLaptopList(SqlSession session) {
-		return session.selectList("WelfareDAO.selectLaptopList");
+	public List<LaptopDTO> selectLaptopList(SqlSession session, SelectCriteria selectCriteria) {
+		return session.selectList("WelfareDAO.selectLaptopList",selectCriteria);
 	}
 
 	public String selectOneLaptop(SqlSession session, int itemNo) {
@@ -150,6 +152,14 @@ public class WelfareDAO {
 
 	public int insertNightTransLog(SqlSession session, NightTransportationLogDTO nightTransportationLogDTO) {
 		return session.insert("WelfareDAO.insertNightTransLog", nightTransportationLogDTO);
+	}
+
+	public int selectItemsListCount(SqlSession session, Map<String, String> searchMap) {
+		return session.selectOne("WelfareDAO.selectItemsListCount",searchMap);
+	}
+
+	public List<LaptopDTO> selectLaptopList(SqlSession session) {
+		return session.selectList("WelfareDAO.selectLaptopListWithOutpaging");
 	}
 
 	

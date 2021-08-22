@@ -240,17 +240,14 @@
 					movePath = "${ pageContext.servletContext.contextPath }/mng/holiday/category/select";
 					break;
           
-        case "leaveDomitory":
-				successMessage = "입주자 퇴거 처리를 완료하였습니다.";
-				movePath = "${ pageContext.servletContext.contextPath }/mng/welfare/domitory/select";
-				  break;
-		case "deleteItemCheck" :
-			successMessage = "휴가유형 삭제를 완료하였습니다.";
-			movePath = "${ pageContext.servletContext.contextPath }/mng/holiday/category/select";
-			break;
-				
-
-
+        		case "leaveDomitory":
+					successMessage = "입주자 퇴거 처리를 완료하였습니다.";
+					movePath = "${ pageContext.servletContext.contextPath }/mng/welfare/domitory/select";
+				  	break;
+			case "deleteItemCheck" :
+					successMessage = "휴가유형 삭제를 완료하였습니다.";
+					movePath = "${ pageContext.servletContext.contextPath }/mng/holiday/category/select";
+					break;
 			}
 
 			Swal.fire({

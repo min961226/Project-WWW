@@ -5,6 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
 </head>
 <body>
 	<script>
@@ -109,12 +111,12 @@
 
 			case "alreadyInsertedLaptop" :
 				failedMessage = "해당 품목은 이미 대여중입니다.";
-				movePath = "${ pageContext.servletContext.contextPath }/welfare/list/selected?selectedWelfare=노트북대여신청";
+				movePath = "${ pageContext.servletContext.contextPath }/welfare/list/selected?selectedWelfare=복지물품대여신청";
 				break;
 
 			case "insertLaptopDateError" :
 				failedMessage = "대여는 2주 이상 할 수 없습니다";
-				movePath = "${ pageContext.servletContext.contextPath }/welfare/list/selected?selectedWelfare=노트북대여신청";
+				movePath = "${ pageContext.servletContext.contextPath }/welfare/list/selected?selectedWelfare=복지물품대여신청";
 				break;
 
 			case "insertLaptop" :
@@ -133,12 +135,12 @@
 				break;
 				
 			case "updateMngEmployee" :
-				failedMessate = "직원 정보 수정에 실패하였습니다."
+				failedMessage = "직원 정보 수정에 실패하였습니다."
 				movePath = "${ pageContext.servletContext.contextPath }/mng/employee/list/update?no=${ requestScope.MemberNo }";
 				break;
 
 			case "inserWorkType" :
-				successMessage = "근무제 추가가 실패하였습니다.";
+				failedMessage = "근무제 추가가 실패하였습니다.";
 				movePath = "${ pageContext.servletContext.contextPath }/mng/workingSystem/select";
 				break;
 				
@@ -217,7 +219,8 @@
 
 			}
 	
-			Swal.fire({
+		
+			 Swal.fire({
 				  position: 'center',
 				  icon: 'error',
 				  title: failedMessage,
@@ -226,9 +229,7 @@
 				  width: 600
 			}).then((result) => {
 							location.replace(movePath);
-					
-					})
-
+			})
 		})();
 	</script>
 </body>

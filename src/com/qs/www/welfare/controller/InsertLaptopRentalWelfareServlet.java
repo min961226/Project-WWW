@@ -26,22 +26,22 @@ import com.qs.www.welfare.model.service.WelfareService;
 public class InsertLaptopRentalWelfareServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String welfareTitle = "노트북 대여 신청서"; // 결재 제목
-		int documentNo = 12; // 노트북 대여 신청 문서 번호
+		String welfareTitle = "노트북 대여 신청서"; 																			// 결재 제목
+		int documentNo = 12; 																								// 노트북 대여 신청 문서 번호
 		
 		WelfareService welfareService = new WelfareService();
-		int lineNo = Integer.parseInt(request.getParameter("lineList"));
-		LocalDate sysDateAfterWeek = LocalDate.now().plusWeeks(2);
-		LocalDate pickDate = LocalDate.parse(request.getParameter("date"));
+		int lineNo = Integer.parseInt(request.getParameter("lineList"));													//결재 라인 번호
+		LocalDate sysDateAfterWeek = LocalDate.now().plusWeeks(2);															//시스템시간의 2주후
+		LocalDate pickDate = LocalDate.parse(request.getParameter("date"));													//데이터값에서 입력받아온 날짜
 
 		String path = "";
-		if(sysDateAfterWeek.isAfter(pickDate)) {
+		if(sysDateAfterWeek.isAfter(pickDate)) {																			//대여기간이 2주보다 길경우 안됌.
 			
 			List<ApprovalLineDTO> lineList = new ApprovalService().selectApprovalLine(Integer.parseInt(request.getParameter("memberNo")));
 			
 			String lineName = "";					
 			
-			for (ApprovalLineDTO line : lineList) {
+			for (ApprovalLineDTO line : lineList) {																			//결재라인명
 				if (line.getLineNo() == lineNo) {
 					lineName = line.getLineName();
 				}
@@ -49,17 +49,17 @@ public class InsertLaptopRentalWelfareServlet extends HttpServlet {
 			
 			WelfareListDTO welfareListDTO = new WelfareListDTO();
 			
-			welfareListDTO.setMemberNo(request.getParameter("memberNo"));
-			welfareListDTO.setLineName(request.getParameter("lineList"));
-			welfareListDTO.setDocumentNo(documentNo);
-			welfareListDTO.setReportNote(request.getParameter("laptopInfo"));
-			welfareListDTO.setLineName(lineName);
-			welfareListDTO.setWelfareTitle(welfareTitle);
+			welfareListDTO.setMemberNo(request.getParameter("memberNo"));													//사번
+			welfareListDTO.setLineName(request.getParameter("lineList"));													//결재 리스트
+			welfareListDTO.setDocumentNo(documentNo);																		//복지번호
+			welfareListDTO.setReportNote(request.getParameter("laptopInfo"));												//대여사유
+			welfareListDTO.setLineName(lineName);																			//결재 라인명
+			welfareListDTO.setWelfareTitle(welfareTitle);																	//복지 신청명
 			
-			int reportNo = welfareService.selectReportNum();
+			int reportNo = welfareService.selectReportNum();													
 			int result1 = welfareService.insertWelfareReport(welfareListDTO);
 			
-			List<String> documentItem = new ArrayList<>();												//document_item에 들어가는 값 설정
+			List<String> documentItem = new ArrayList<>();																	//document_item에 들어가는 값 설정
 			documentItem.add(welfareTitle);
 			documentItem.add(request.getParameter("date"));
 			documentItem.add(request.getParameter("itemNo"));
@@ -68,7 +68,7 @@ public class InsertLaptopRentalWelfareServlet extends HttpServlet {
 			int priority = 1;
 			int result2 = 0;
 			
-			for(String item : documentItem) {															//for문 지정후 itemcontent에 값 넣기
+			for(String item : documentItem) {																				//for문 지정후 itemcontent에 값 넣기
 				WorkingDocumentItemDTO documentItemDTO = new WorkingDocumentItemDTO();
 				documentItemDTO.setReportNo(reportNo);
 				documentItemDTO.setDocumentNo(documentNo);
@@ -80,10 +80,10 @@ public class InsertLaptopRentalWelfareServlet extends HttpServlet {
 				priority++;
 			}
 			
-			List<ApproverDTO> approverList = new ApprovalService().selectApprover(lineNo);				//라인번호로 결재 참조자 목록 가져오기
+			List<ApproverDTO> approverList = new ApprovalService().selectApprover(lineNo);									//라인번호로 결재 참조자 목록 가져오기
 			
 			int result3 = 0;
-			for(ApproverDTO approver : approverList) {													//결재자 역활구분
+			for(ApproverDTO approver : approverList) {																		//결재자 역활구분
 				ApproverPerReportDTO approverPerReportDTO = new ApproverPerReportDTO();
 				ScheduleService scheduleService =new ScheduleService();
 				if(approver.getApproverType().equals("결재")) {
@@ -103,14 +103,14 @@ public class InsertLaptopRentalWelfareServlet extends HttpServlet {
 			}
 			
 			
-			if(result1 > 0 && result2 > 0 && result3 > 0 ) {
+			if(result1 > 0 && result2 > 0 && result3 > 0 ) {																//전부다 실행되었을경우
 				path = "/WEB-INF/views/common/success.jsp";
 				request.setAttribute("successCode", "insertLaptop");
 			} else {
 				path = "/WEB-INF/views/common/failed.jsp";
 				request.setAttribute("failedCode", "insertLaptop");
 			}
-		}else {
+		}else {																												//빌린 기간이 2주보다 길경우
 			path = "/WEB-INF/views/common/failed.jsp";
 			request.setAttribute("failedCode", "insertLaptopDateError");
 		}
