@@ -35,14 +35,14 @@
 
 									<div class="col-xs-12" align="center">
 										<c:set var="startHourNum" value="1" />
-										<table class="col-xs-1 " style="background-color: #eeeeee;">
+										<table class="col-xs-1 " style="background-color:LightGoldenRodYellow;">
 											<tr>
 												<td>01년차 :</td>
 												<td><input style="width: 50px;" value="15" disabled />일</td>
 											</tr>
 										</table>
 										<c:forEach var="year" items="${ requestScope.holidayRule }">
-											<table class="col-xs-1 " style="background-color: #eeeeee;">
+											<table class="col-xs-1 " style="background-color: LightGoldenRodYellow;">
 												<tr>
 													<td>
 														<c:if test="${ year.workPeriod < 10}">0</c:if>${ year.workPeriod }년차 :</td>
@@ -55,7 +55,7 @@
 									<br>
 									<div class="col-xs-12">
 										<br>
-										<table class="col-xs-2 " style="background-color: #eeeeee;">
+										<table class="col-xs-2 " style="background-color: LightGoldenRodYellow;">
 											<tr>
 												<td>발생일 :</td>
 												

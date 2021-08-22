@@ -135,10 +135,6 @@ public class UpdateApprovalLineServlet extends HttpServlet {
 			line.setLineName(lineName);
 			line.setLineNo(lineNo);
 			
-			System.out.println(approverList);
-			System.out.println(referrerList);
-			System.out.println(line);
-			
 			
 			int result1 = new ApprovalService().updateLine(line);
 			int result2 = new ApprovalService().deleteApprover(lineNo);

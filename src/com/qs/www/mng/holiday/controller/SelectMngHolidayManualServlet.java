@@ -24,8 +24,6 @@ import com.qs.www.schedule.model.dto.HolidayLogDTO;
 public class SelectMngHolidayManualServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("휴가일수 수동 발생");
-
 		
 		//////////////////////////////////////////////////////////////////////////////////////
 		/* 목록보기를 눌렀을 시 가장 처음에 보여지는 페이지는 1페이지이다.
@@ -88,15 +86,13 @@ public class SelectMngHolidayManualServlet extends HttpServlet {
 
 		
 		for(MemberHolidayInfoDTO info : memberHolidayInfoIList) {
-			//직원의 입사날짜에서 년도만 추출
+			//직원의 입사날짜에서 입사년도만 추출
 			String enrStr = format.format(info.getEnrollDate());
 			String[] enryDate = enrStr.split("-");
 			
-			int enrYear = Integer.parseInt(enryDate[0]);
-			System.out.println("입사년도 "+ enrYear);
-			System.out.println("연차 : " + (currYear - enrYear + 1));
+			int enrYear = Integer.parseInt(enryDate[0]);;
 			
-			if(currYear == enrYear) {
+			if(currYear == enrYear) {    //올해 입사자일시 기본 15일
 				info.setAutoDayNumber(15);
 			} else {
 				for(HolidayRuleDTO rule : holidayRule) {
@@ -107,7 +103,6 @@ public class SelectMngHolidayManualServlet extends HttpServlet {
 			}
 			
 			//수동발생일
-			
 			 List<HolidayLogDTO> holidayLogList = mngHolidayService.selectHolidayLogList(info.getMemberNo());
 			int passiveday = 0;
 			for(HolidayLogDTO log : holidayLogList ) {
@@ -116,7 +111,6 @@ public class SelectMngHolidayManualServlet extends HttpServlet {
 			
 			info.setPassivedayNumber(passiveday);
 		}
-		System.out.println(memberHolidayInfoIList);
 		request.setAttribute("MemberHolidayInfoIList", memberHolidayInfoIList);
 		request.setAttribute("selectCriteria", selectCriteria);
 		request.getRequestDispatcher("/WEB-INF/views/mngholiday/holidayManual.jsp").forward(request, response);

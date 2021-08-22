@@ -34,7 +34,6 @@ public class SelectOneReceivedApprovalServlet extends HttpServlet {
 		
 		/* 파일 첨부 DTO 서비스 실행 reportNo로 갖고옴 */
 		AttachmentDTO attachmentDTO = new AttachmentService().selectAttachmentByReportNo(selectedReport.getReportNo());		//reportNo로 값을 갖고옴
-		System.out.println(attachmentDTO);
 		
 		List<WorkingDocumentItemDTO> itemList = new ApprovalService().selectReportItemList(no);
 		List<ApproverLogPerReportDTO>ALPRList = new ApprovalService().selectALPRList(no);
@@ -64,42 +63,6 @@ public class SelectOneReceivedApprovalServlet extends HttpServlet {
 			
 		}
 		
-		if(selectedReport.getDocumentNo() == 4) {
-			request.setAttribute("body", itemList.get(1).getItemContent());
-		}
-		if(selectedReport.getDocumentNo() == 5) {
-			request.setAttribute("body", itemList.get(1).getItemContent());
-		}
-		if(selectedReport.getDocumentNo() == 6) {
-			request.setAttribute("body", itemList.get(1).getItemContent());
-		}
-		if(selectedReport.getDocumentNo() == 7) {
-			request.setAttribute("body", itemList.get(1).getItemContent());
-		}
-		if(selectedReport.getDocumentNo() == 8) {
-			request.setAttribute("body", itemList.get(1).getItemContent());
-		}
-		if(selectedReport.getDocumentNo() == 9) {
-			request.setAttribute("body", itemList.get(1).getItemContent());
-		}
-		if(selectedReport.getDocumentNo() == 10) {
-			request.setAttribute("body", itemList.get(1).getItemContent());
-		}
-		if(selectedReport.getDocumentNo() == 11) {
-			request.setAttribute("body", itemList.get(1).getItemContent());
-		}
-		if(selectedReport.getDocumentNo() == 12) {
-			request.setAttribute("body", itemList.get(1).getItemContent());
-		}
-		if(selectedReport.getDocumentNo() == 13) {
-			request.setAttribute("body", itemList.get(1).getItemContent());
-		}
-		if(selectedReport.getDocumentNo() == 14) {
-			request.setAttribute("body", itemList.get(1).getItemContent());
-		}
-		if(selectedReport.getDocumentNo() == 15) {
-			request.setAttribute("body", itemList.get(1).getItemContent());
-		}
 		
 		request.getRequestDispatcher("/WEB-INF/views/approval/detailReceivedApproval.jsp").forward(request, response);
 	}

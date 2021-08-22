@@ -16,10 +16,8 @@ import com.qs.www.schedule.model.dto.HolidayTypeDTO;
 public class SelectMngHolidayCategoryServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("휴가 유형 관리");
-		List<HolidayTypeDTO> holidayTypeList = new MngHolidayService().selectHolidayType();
 		
-		System.out.println(holidayTypeList);
+		List<HolidayTypeDTO> holidayTypeList = new MngHolidayService().selectHolidayType();
 
 		request.setAttribute("holidayTypeList", holidayTypeList);
 		request.getRequestDispatcher("/WEB-INF/views/mngholiday/holidayCategory.jsp").forward(request, response);

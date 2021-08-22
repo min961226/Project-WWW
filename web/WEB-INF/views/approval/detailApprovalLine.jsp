@@ -65,11 +65,16 @@
 								</c:if>
 							</div>
 						</c:forEach>
+
 						<div class="row">
-							<div class="col-sm-12 text-center m-t-20">
-								<button type="sublit" class="btn btn-primary btn-lg" id="modify">수정하기</button>
-								<button type="reset" class="btn btn-primary btn-lg" id="delete">삭제하기</button>
-								<button type="reset" class="btn btn-primary btn-lg" id="goBack">돌아가기</button>
+							<div class="col-xs-12 text-center m-t-20">
+								<form class="form-horizontal"
+									action="${ pageContext.servletContext.contextPath }/approval/line/delete?no=${ requestScope.line.lineNo }"
+									method="post" onsubmit="return askAgain();">
+									<button type="reset" class="btn btn-primary btn-lg" id="modify">수정하기</button>
+									<button type="submit" class="btn btn-primary btn-lg" id="delete">삭제하기</button>
+									<button type="reset" class="btn btn-primary btn-lg" id="goBack">돌아가기</button>
+								</form>
 							</div>
 						</div>
 
@@ -87,17 +92,21 @@
 			location.href = "${ pageContext.servletContext.contextPath }/approval/line/update?no=${ requestScope.line.lineNo }"
 		}
 
-		const $delete = document.getElementById("delete");
-		$delete.onclick = function() {
-			if (!confirm("삭제하시겠습니까?")) {
-
-			} else {
-				location.href = "${ pageContext.servletContext.contextPath }/approval/line/delete?no=${ requestScope.line.lineNo  }"
-			}
-		}
 		const $goBack = document.getElementById("goBack");
 		$goBack.onclick = function() {
 			location.href = "${ pageContext.servletContext.contextPath }/approval/line/select"
+		}
+		function askAgain(){
+			
+			var yn;
+			yn = confirm('삭제하시겠습니까?');
+			
+			if(yn == true){
+				return true;
+			}
+			else if(yn == false){
+				return false;
+			}
 		}
 	</script>
 </body>

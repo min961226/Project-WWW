@@ -14,12 +14,9 @@ import com.qs.www.member.model.dto.MemberInfoDTO;
 @WebServlet("/approval/line/delete")
 public class DeleteApprovalLineServlet extends HttpServlet {
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		int no = ((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo();
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		int lineNo = Integer.parseInt(request.getParameter("no"));
-
 		int result =  new ApprovalService().deleteLine(lineNo);
 		
 		String path = "";
@@ -33,9 +30,5 @@ public class DeleteApprovalLineServlet extends HttpServlet {
 		}
 		
 		request.getRequestDispatcher(path).forward(request, response);
-	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 	}
 }

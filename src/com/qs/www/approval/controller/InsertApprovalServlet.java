@@ -50,7 +50,8 @@ public class InsertApprovalServlet extends HttpServlet {
 		int no = ((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo();
 
 		List<ApprovalLineDTO> lineList = new ApprovalService().selectApprovalLine(no);
-
+		
+		//현재날짜 + 5년뒤로 보존날짜 설정
 		Date now  = new Date();
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		String str = format.format(now);
@@ -80,7 +81,8 @@ public class InsertApprovalServlet extends HttpServlet {
 		int documentNo = Integer.parseInt(request.getParameter("documentNo"));
 		int memberNo = ((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo();
 		String note = request.getParameter("note");
-
+		
+		//신청창에서 선택한 라인 번호를 통해 라인목록에서 해당하는 라인면 가져오기
 		List<ApprovalLineDTO> lineList = (List<ApprovalLineDTO>) session.getAttribute("lineList");
 
 		String lineName = "";
