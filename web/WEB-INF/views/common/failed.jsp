@@ -216,10 +216,19 @@
 				
 
 			}
+	
+			Swal.fire({
+				  position: 'center',
+				  icon: 'error',
+				  title: failedMessage,
+				  showConfirmButton: false,
+				  timer: 1500,
+				  width: 600
+			}).then((result) => {
+							location.replace(movePath);
+					
+					})
 
-			alert(failedMessage);
-
-			location.replace(movePath);
 		})();
 	</script>
 </body>

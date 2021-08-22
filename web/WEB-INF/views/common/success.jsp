@@ -5,6 +5,8 @@
 <head> 
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
 </head>
 <body>
 	<script>
@@ -155,7 +157,7 @@
 				case "updateholidayRule" :
 					successMessage = "휴가일수 발생규칙 수정이 완료되었습니다.";
 					movePath = "${ pageContext.servletContext.contextPath }/mng/holiday/rule/select";
-          break;
+         			break;
 					
 				case "insertMngNotice" :
 					successMessage = "공지사항 작성이 완료되었습니다.";
@@ -224,7 +226,7 @@
 				case "insertManualHolidayLog" : 
 					successMessage = "휴가수동지급이 완료되었습니다.";
 					movePath = "${ pageContext.servletContext.contextPath }/mng/holiday/manual/select";
-          break;
+          			break;
 				case "insertDomitoryLog" :
 					successMessage = "대기자 입주 처리를 완료하였습니다.";
 					movePath = "${ pageContext.servletContext.contextPath }/mng/welfare/domitory/select";
@@ -251,10 +253,21 @@
 
 			}
 
-			alert(successMessage);
+			Swal.fire({
+				  position: 'center',
+				  icon: 'success',
+				  title: successMessage,
+				  showConfirmButton: false,
+				  timer: 1500,
+				  width: 600
+			}).then((result) => {
+							location.replace(movePath);
+					
+					})
 
-			location.replace(movePath);
+/* 			alert(successMessage); */
 		})();
+		
 	</script>
 </body>
 

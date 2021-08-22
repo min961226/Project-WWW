@@ -30,33 +30,37 @@
 				<div class="col-lg-12">
 					<div class="card-box">
 						<div class="card-block">
-						<form name="insertLaptopRental"
-							action="${ pageContext.servletContext.contextPath }/mng/welfare/laptopRental/deleteComplete" method="post" onsubmit="return askAgain();">
-							<table class="display datatable table table-stripped">
-								<thead>
-									<tr bgcolor="FFBC35">
-										<th>번호</th>
-										<th>종류</th>
-										<th>품명</th>
-										<th>대여 상태</th>
-										<th>삭제할 품목</th>
-									</tr>
+							<form name="insertLaptopRental"
+								action="${ pageContext.servletContext.contextPath }/mng/welfare/laptopRental/deleteComplete"
+								method="post" onsubmit="return askAgain();">
+								<table class="display datatable table table-stripped">
+									<thead>
+										<tr bgcolor="FFBC35">
+											<th>번호</th>
+											<th>종류</th>
+											<th>품명</th>
+											<th>대여 상태</th>
+											<th>삭제할 품목</th>
+										</tr>
 
-								</thead>
-								<c:forEach var="laptopList" items="${ requestScope.laptopList }">
-									<tr>
-										<td><c:out value="${ laptopList.itemNo }" /></td>
-										<td><c:out value="${ laptopList.itemCateGory }" /></td>
-										<td><c:out value="${ laptopList.itemName }" /></td>
-										<td><c:out value="${ laptopList.reservationStatus }" /></td>
-										<td><input type="checkbox" name="deleteItemCheck" value="${ laptopList.itemNo }"></td>
-									</tr>
-								</c:forEach>
-							</table>
+									</thead>
+									<c:forEach var="laptopList"
+										items="${ requestScope.laptopList }">
+										<tr>
+											<td><c:out value="${ laptopList.itemNo }" /></td>
+											<td><c:out value="${ laptopList.itemCateGory }" /></td>
+											<td><c:out value="${ laptopList.itemName }" /></td>
+											<td><c:out value="${ laptopList.reservationStatus }" /></td>
+										<td><input type="checkbox" name="deleteItemCheck"
+											value="${ laptopList.itemNo }"></td>
+										</tr>
+									</c:forEach>
+								</table>
 								<div align="right" style="margin-right: 20px; padding: 5px">
-									<button class="btn btn-danger pull-right" type="submit">삭제 완료</button>
+									<button class="btn btn-danger pull-right" type="submit">삭제
+										완료</button>
 								</div>
-								</form>
+							</form>
 							<%-- 페이징 처리 부분, 네비바 --%>
 							<jsp:include page="../common/navbar.jsp" />
 						</div>
@@ -89,7 +93,7 @@
 		$goBack.onclick = function() {
 			location.href = "${ pageContext.servletContext.contextPath }/mng/welfare/laptopRental/select"
 		}
-		
+
 		function askAgain() {
 
 			var yn;
@@ -101,6 +105,7 @@
 				return false;
 			}
 		}
+
 		/* 제이쿼리 이용하는 경우 */
 		/* $(function() {
 			$("#listArea td").hover(function() {

@@ -111,8 +111,8 @@
 														<c:otherwise>
 															<i class="fa fa-dot-circle-o text-danger"></i>
 															<c:out value=" ${ welfareList.reportStatus }" />
-														</c:otherwise>
-													</c:choose></td>
+											</c:otherwise>
+																</c:choose></td>
 												<td><c:out value="${ welfareList.reportNote }" /></td>
 											</tr>
 										</c:forEach>

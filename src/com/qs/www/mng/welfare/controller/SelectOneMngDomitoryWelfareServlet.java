@@ -9,8 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.qs.www.mng.welfare.model.dto.DomitoryLogDTO;
 import com.qs.www.mng.welfare.model.service.MngWelfareService;
-import com.qs.www.welfare.model.dto.DomitoryWaitListDTO;
-import com.qs.www.welfare.model.service.WelfareService;
 
 @WebServlet("/mng/welfare/domitory/selectOne")
 public class SelectOneMngDomitoryWelfareServlet extends HttpServlet {
