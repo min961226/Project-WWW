@@ -25,6 +25,8 @@
                         <div class="account-logo">
                             <a href="${ pageContext.servletContext.contextPath }"><img src="assets/img/www_icon.png" alt="WWW"></a>
                         </div>
+                        
+                        <!-- 로그인 form(ID 및 비밀번호 입력) -->
                         <form id="loginForm" action="${ pageContext.servletContext.contextPath }/member/login" method="post">
                             <div class="form-group form-focus">
                                 <label class="control-label">ID</label>
@@ -37,12 +39,14 @@
                             <div class="form-group text-center">
                                 <button class="btn btn-primary btn-block account-btn" type="submit">Login</button>
                             </div>
-                            <div class="text-center">
-                                <span><a href="${ pageContext.servletContext.contextPath }/member/id/check">아이디 찾기</a></span>
-                                <span> | </span>
-                                <span><a href="${ pageContext.servletContext.contextPath }/member/pwd/check">비밀번호 찾기</a></span>
-                            </div>
                         </form>
+                        
+                        <!-- ID 및 비밀번호 찾기 -->
+                        <div class="text-center">
+                            <span><a href="${ pageContext.servletContext.contextPath }/member/id/check">아이디 찾기</a></span>
+                            <span> | </span>
+                            <span><a href="${ pageContext.servletContext.contextPath }/member/pwd/check">비밀번호 찾기</a></span>
+                        </div>
                     </div>
                 </div>
             </div>

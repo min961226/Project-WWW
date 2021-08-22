@@ -5,6 +5,14 @@
 		<id property="questionCode" column="QUESTION_CODE"/>
 		<result property="questionBody" column="QUESTION_BODY"/>
 	</resultMap>
+	
+	<resultMap type="com.qs.www.main.model.dto.WorkingTypeDTO" id="workingTypeResultMap">
+		<result property="dayOfWeek" column="DAY_OF_WEEK"/>
+		<result property="checkInTime" column="CHECK_IN_TIME"/>
+		<result property="checkOutTime" column="CHECK_OUT_TIME"/>
+		<result property="breakStartTime" column="BREAK_START_TIME"/>
+		<result property="breakEndTime" column="BREAK_END_TIME"/>
+	</resultMap>
 
 	<select id="selectQuestionList" resultMap="questionListResultMap">
         SELECT /* com.qs.www.mypage.model.dao.MypageDAO#selectQuestionList() */
@@ -46,40 +54,43 @@
            AND A.MEMBER_NO = #{ memberNo }
 	</select>
 	
-	<insert id="insertCommute" parameterType="com.qs.www.mypage.model.dto.CommutingLogDTO">
-        INSERT /* com.qs.www.mypage.model.dao.MypageDAO#insertCommute() */
-          INTO TBL_COMMUTE A
-        (
-          A.COMMUTE_NO
-        , A.MEMBER_NO
-        , A.YEAR_MONTH
-        , A.DAY
-		<if test="inTime != null">
-        , A.IN_TIME
+	<select id="selectWorkingType" parameterType="com.qs.www.mypage.model.dto.CommutingLogDTO" resultMap="workingTypeResultMap">
+        SELECT /* com.qs.www.mypage.model.dao.MypageDAO#selectWorkingType() */
+		<if test="workType eq '표준'">
+               A.CHECK_IN_TIME
+             , A.CHECK_OUT_TIME
+             , A.BREAK_START_TIME
+             , A.BREAK_END_TIME
+          FROM TBL_STANDARD_WORK A
+         WHERE A.WORK_CODE = #{ workNo }
 		</if>
-		<if test="outTime != null">
-        , A.OUT_TIME
+		<if test="workType eq '커스텀'">
+               B.CHECK_IN_TIME
+             , B.CHECK_OUT_TIME
+             , A.BREAK_START_TIME
+             , A.BREAK_END_TIME
+          FROM TBL_CUSTOM_WORK A
+          JOIN TBL_CUSTOM_WORKTIME B ON (A.WORK_NO = B.WORK_NO)
+         WHERE A.WORK_NO = #{ workNo }
+           AND B.DAY_OF_WEEK = #{ selectedDayOfWeek }
 		</if>
-        )
-        VALUES
-        (
-          SEQ_COMMUTE_NO.NEXTVAL
-        , #{ memberNo }
-        , #{ yearMonth }
-        , #{ day }
-		<if test="inTime != null">
-        , #{ inTime }
-		</if>
-		<if test="outTime != null">
-        , #{ outTime }
-		</if>
-        )
-	</insert>
+	</select>
 	
-	<update id="updateCommute" parameterType="com.qs.www.mypage.model.dto.CommutingLogDTO">
-        UPDATE /* com.qs.www.mypage.model.dao.MypageDAO#updateCommute() */
+	<update id="updateCommuteTo" parameterType="com.qs.www.mypage.model.dto.CommutingLogDTO">
+        UPDATE /* com.qs.www.mypage.model.dao.MypageDAO#updateCommuteTo() */
+               TBL_COMMUTE A
+           SET A.IN_TIME = #{ inTime }
+             , A.LATE_YN = #{ lateYn }
+         WHERE A.YEAR_MONTH = #{ yearMonth }
+           AND A.DAY = #{ day }
+           AND A.MEMBER_NO = #{ memberNo }
+	</update>
+	
+	<update id="updateCommuteFrom" parameterType="com.qs.www.mypage.model.dto.CommutingLogDTO">
+        UPDATE /* com.qs.www.mypage.model.dao.MypageDAO#updateCommuteFrom() */
                TBL_COMMUTE A
            SET A.OUT_TIME = #{ outTime }
+             , A.LEAVE_EARLY_YN = #{ leaveEarlyYn }
          WHERE A.YEAR_MONTH = #{ yearMonth }
            AND A.DAY = #{ day }
            AND A.MEMBER_NO = #{ memberNo }

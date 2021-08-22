@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.qs.www.common.wrapper.EncryptRequestWrapper;
 
-@WebFilter("/member/*, /mng/employee")
+@WebFilter(urlPatterns= {"/member/*", "/mng/employee/**"})
 public class PasswordEncyrptFilter implements Filter {
 
 	public void destroy() {}

@@ -67,19 +67,15 @@ public class MemberService {
 		
 		SqlSession sqlSession = getSqlSession();
 		
-		String questionBody = checkPwd.getQuestion().getQuestionBody();
-		String questionCode = memberDAO.selectQuestionCode(sqlSession, questionBody);
-		System.out.println("Code : " + questionCode);
-		int result = 0;
+		String questionCode = checkPwd.getQuestion().getQuestionCode();
+		checkPwd.getQuestion().setQuestionCode(questionCode);
 		
-		if(questionCode != null) {
-			checkPwd.getQuestion().setQuestionCode(questionCode);
+		int result = 0;
 
-			CheckPwdDTO checkedMember = memberDAO.selectMemberPwd(sqlSession, checkPwd);
-			
-			if(checkedMember != null) {
-				result = 1;
-			}
+		CheckPwdDTO checkedMember = memberDAO.selectMemberPwd(sqlSession, checkPwd);
+		
+		if(checkedMember != null) {
+			result = 1;
 		}
 		
 		sqlSession.close();
@@ -90,10 +86,6 @@ public class MemberService {
 	public int updateMemberPwd(MemberDTO changePwdMember) {
 		
 		SqlSession sqlSession = getSqlSession();
-		
-//		String memberId = changePwdMember.getMemberId();
-//		String changePwd = changePwdMember.getPassword();
-//		String encPwd = memberDAO.selectEncryptedPwd(sqlSession, memberId);
 		
 		int result = memberDAO.updateMemberPwd(sqlSession, changePwdMember);
 		

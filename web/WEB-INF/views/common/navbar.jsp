@@ -30,10 +30,11 @@
 </head>
 
 <body>
-	<%-- 페이지 처리 --%>
+	<!-- 페이지 처리 -->
 	<jsp:include page="../common/paging.jsp"/>
 	
 	<div class="main-wrapper">
+		<!-- 헤더 메뉴 -->
 		<div class="header">
 			<div class="header-left">
 				<a href="${ pageContext.servletContext.contextPath }" class="logo">
@@ -73,7 +74,7 @@
 			</ul>
 		</div>
 		
-		<div class="sidebar-overlay" data-reff=""></div>
+		<!-- 사이드바 메뉴 -->
 		<div class="sidebar" id="sidebar">
 	        <div class="sidebar-inner slimscroll">
 	            <div id="sidebar-menu" class="sidebar-menu">
@@ -201,41 +202,9 @@
 	    </div>
 	</div>
 	<div class="sidebar-overlay" data-reff=""></div>
+	
 	<script>
-		/* (function() {
-			const accessMenu = ${ accessMenu };
-			
-			if(accessMenu != null) {
-				$("#submenu_admin").show();
-			}
-			
-			$.each(accessMenu, function(index, item) {
-				switch(item) {
-					case "employee" :
-						$("#submenu_mng_employee").show();
-						break;
-						
-					case "workingSystem" :
-						$("#submenu_mng_working_system").show();
-						break;
-						
-					case "holiday" :
-						$("#submenu_mng_holiday").show();
-						break;
-						
-					case "board" :
-						$("#submenu_mng_board").show();
-						break;
-						
-					case "welfare" :
-						$("#submenu_mng_welfare").show();
-						break;
-				}
-			});
-		}) (); */
-		
-		
-		
+		/* 출근 기록 버튼 동작 */
 		$("#in_time").click(function() {
 			$.ajax({
 				url: "${ pageContext.servletContext.contextPath }/mypage/commute/insert",
@@ -260,6 +229,7 @@
 			});
 		});
 		
+		/* 퇴근 기록 버튼 동작 */
 		$("#out_time").click(function() {
 			$.ajax({
 				url: "${ pageContext.servletContext.contextPath }/mypage/commute/update",
@@ -284,8 +254,6 @@
 				}
 			});
 		});
-		
-		
 	</script>
     <script type="text/javascript" src="${ pageContext.servletContext.contextPath }/assets/js/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="${ pageContext.servletContext.contextPath }/assets/js/bootstrap.min.js"></script>

@@ -39,7 +39,7 @@ public class CheckMemberPwdServlet extends HttpServlet {
 		checkPwd.setName(name);
 		checkPwd.setEmail(email);
 		checkPwd.setQuestion(new CheckQuestionDTO());
-		checkPwd.getQuestion().setQuestionBody(question);
+		checkPwd.getQuestion().setQuestionCode(question);
 		checkPwd.setQuestionAnswer(answer);
 		
 		MemberService memberService = new MemberService();

@@ -100,4 +100,26 @@ public class MainService {
 		
 		return roleAuthorityList;
 	}
+
+	public int insertCommute(WorkInfoDTO workInfo) {
+		
+		SqlSession sqlSession = getSqlSession();
+		
+		String commuteLog = mainDAO.selectCommute(sqlSession, workInfo);
+		int result = 0;
+		
+		if(commuteLog == null) {
+			result = mainDAO.insertCommute(sqlSession, workInfo);
+		
+			if(result > 0) {
+				sqlSession.commit();
+			} else {
+				sqlSession.rollback();
+			}
+		}
+		
+		sqlSession.close();
+		
+		return result;
+	}
 }

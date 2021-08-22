@@ -24,6 +24,8 @@
                             	<img src="${ pageContext.servletContext.contextPath }/assets/img/www_icon.png" alt="">
                             </a>
                         </div>
+                        
+                        <!-- 비밀번호 찾기 form -->
                         <form action="${ pageContext.servletContext.contextPath }/member/pwd/check" method="post">
                             <div class="form-group form-focus">
                                 <label class="control-label">아이디</label>
@@ -41,7 +43,7 @@
                                	<select name="question" class="form-control">
                                 <option class="control-option" value="">== 본인 확인 질문 ==</option>
 								<c:forEach items="${ requestScope.questionList }" var="question">
-									<option value="${ question }"><c:out value="${ question }" /></option>
+									<option value="${ question.questionCode }"><c:out value="${ question.questionCode } ${ question.questionBody }" /></option>
 								</c:forEach>
 								</select>
                             </div>

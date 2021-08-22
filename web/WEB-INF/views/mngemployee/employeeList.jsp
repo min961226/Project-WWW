@@ -83,36 +83,6 @@
                         </div>
                     </div>
                 </div>
-                
-                <div class="row filter-row">
-                    <div class="col-sm-3 col-xs-6">
-                        <div class="form-group form-focus">
-                            <label class="control-label">Employee ID</label>
-                            <input type="text" class="form-control floating">
-                        </div>
-                    </div>
-                    <div class="col-sm-3 col-xs-6">
-                        <div class="form-group form-focus">
-                            <label class="control-label">Employee Name</label>
-                            <input type="text" class="form-control floating">
-                        </div>
-                    </div>
-                    <div class="col-sm-3 col-xs-6">
-                        <div class="form-group form-focus select-focus">
-                            <label class="control-label">Designation</label>
-                            <select class="select floating">
-                                <option>Select Designation</option>
-                                <option>Web Developer</option>
-                                <option>Web Designer</option>
-                                <option>Android Developer</option>
-                                <option>Ios Developer</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-sm-3 col-xs-6">
-                        <a href="#" class="btn btn-success btn-block"> Search </a>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
