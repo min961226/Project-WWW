@@ -31,9 +31,9 @@ public class SelectOneMngAppliedWorkingSystemServlet extends HttpServlet {
 		// 참조함에서 선택한 게시물의 살세정보 가져오기
 		ReportDTO selectedReport = new ApprovalService().selectOneReportDetail(no);
 
-		/* 파일 첨부 DTO 서비스 실행 reportNo로 가져오기 */
+		/* 파일 첨부 DTO 서비스 실행 reportNo로 가져오기  */
 		AttachmentDTO attachmentDTO = new AttachmentService().selectAttachmentByReportNo(selectedReport.getReportNo()); 
-		System.out.println(attachmentDTO);
+		System.out.println(attachmentDTO);  
 
 		List<WorkingDocumentItemDTO> itemList = new ApprovalService().selectReportItemList(no);
 		List<ApproverLogPerReportDTO> ALPRList = new ApprovalService().selectALPRList(no);
