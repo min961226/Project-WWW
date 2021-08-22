@@ -29,6 +29,7 @@
 		<mapper resource="com/qs/www/welfare/model/dao/WelfareDAO.xml"/>
 		<mapper resource="com/qs/www/common/attachment/model/dao/AttachmentDAO.xml"/>
 		<mapper resource="com/qs/www/common/attachment/model/dao/BoardAttachmentDAO.xml"/>
+		<mapper resource="com/qs/www/mypage/model/dao/ContactDAO.xml"/>
 		
 		<mapper resource="com/qs/www/mng/employee/model/dao/MngEmployeeDAO.xml"/>
 		<mapper resource="com/qs/www/mng/board/model/dao/MngNoticeDAO.xml"/>

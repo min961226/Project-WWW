@@ -1,6 +1,6 @@
 package com.qs.www.mypage.controller;
 
-import java.io.IOException;
+import java.io.IOException; 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -76,7 +76,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 		
 		String path = "";
 		if(contactList != null) {
-			path = "/WEB-INF/views/mypage/adress.jsp";
+			path = "/WEB-INF/views/mypage/address.jsp";
 			request.setAttribute("selectCriteria", selectCriteria);
 			request.setAttribute("contactList", contactList);
 		} else {
