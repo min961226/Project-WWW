@@ -213,7 +213,7 @@ public class SelectMngCommuteWorkingSystemServlet extends HttpServlet {
 				
 				forStartDate++;		//for문에서 다음 날짜를 돌리기위해, 1 증가시킨다
 				
-				dailyCommuteList.add(dailyCommuteDTO);							//DTO를 List에 add. 안 하면 NullPointerException
+				dailyCommuteList.add(dailyCommuteDTO);				//DTO를 List에 add. 안 하면 NullPointerException
 			}
 			
 			//확인용 1인 출퇴근기록
