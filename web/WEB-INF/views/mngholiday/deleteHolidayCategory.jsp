@@ -99,15 +99,28 @@
 		}
 		
 		function askAgain() {
-
-			var yn;
-			yn = confirm('선택한 유형을 정말로 삭제하시겠습니까?');
-
-			if (yn == true) {
-				return true;
-			} else if (yn == false) {
-				return false;
+			var objWrite3 = document.getElementsByName("deleteItemCheck");
+			var count = 0;
+			for(var i=0;i<objWrite3.length;i++){
+			    if(objWrite3[i].checked == true){
+			        count++;
+			    }
 			}
+			if(count<=0){
+			    alert("삭제할 품목을 선택해주세요.");
+			    return false;
+			}else{
+				var yn;
+				yn = confirm('선택한 유형을 정말로 삭제하시겠습니까?');
+
+				if (yn == true) {
+					return true;
+				} else if (yn == false) {
+					return false;
+				}
+			}
+
+			
 		}
 		/* 제이쿼리 이용하는 경우 */
 		/* $(function() {

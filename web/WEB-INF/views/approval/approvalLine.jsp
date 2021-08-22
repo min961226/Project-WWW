@@ -37,7 +37,7 @@
 							<option value="content" ${ requestScope.selectCriteria.searchCondition eq "content"? "selected": "" }>결재분류</option>
 						</select>
 						<input type="search" id="searchValue" name="searchValue" value="<c:out value="${ requestScope.selectCriteria.searchValue }"/>">
-					<button type="submit" >검색하기</button>
+					<button class="btn-success" type="submit" >검색하기</button>
 					<!-- <button type="button" id="writeFree">작성하기</button> -->
 					</form>
 				</div>
@@ -54,6 +54,7 @@
                                             <th>라인번호</th>
                                             <th>라인제목</th>
                                             <th>결재분류</th>
+                                            <th>상세보기</th>
                                         </tr>
 
                                     </thead>
@@ -61,7 +62,12 @@
 										<tr>
 											<td><c:out value="${ line.lineNo }"/></td>
 											<td><c:out value="${ line.lineName}"/></td>
-											<td><c:out value="${ line.workType }"/></td>
+											<td><button  class=
+                                                <c:if test="${line.workType  eq '복지'}">"btn btn-warning btn-xs"</c:if>
+                                                <c:if test="${line.workType  eq '업무'}">"btn btn-info btn-xs"</c:if>
+												type="submit">${ line.workType }</button></td>
+											<td><button  class="btn btn-success btn-xs"
+												type="submit">상세보기/수정/삭제</button></td>
 										</tr>
 										</c:forEach>
 
@@ -82,7 +88,7 @@
 			for(let i = 0; i < $tds.length; i++) {
 				
 				$tds[i].onmouseenter = function() {
-					this.parentNode.style.backgroundColor = "orangered";
+					this.parentNode.style.backgroundColor = "LightGoldenRodYellow";
 					this.parentNode.style.cursor = "pointer";
 				}
 				

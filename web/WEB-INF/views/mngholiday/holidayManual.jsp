@@ -21,7 +21,7 @@
 			<div class="content container-fluid">
 				<div class="row">
 					<div class="col-xs-12">
-						<h4 class="page-title">휴가신청목록</h4>
+						<h4 class="page-title">직원 별 휴가정보 </h4>
 					</div>
 				</div>
 			</div>
@@ -37,7 +37,7 @@
 							${ requestScope.selectCriteria.searchCondition eq "name"? "selected": "" }>사원명</option>
 					</select> <input type="search" id="searchValue" name="searchValue"
 						value="<c:out value="${ requestScope.selectCriteria.searchValue }"/>">
-					<button type="submit">검색하기</button>
+					<button class="btn-success" type="submit">검색하기</button>
 					<!-- <button type="button" id="writeFree">작성하기</button> -->
 				</form>
 			</div>
@@ -57,7 +57,9 @@
 										<th>부여일수</th>
 										<th>자동발생일</th>
 										<th>수동발생일</th>
+										<th>사용일수</th>
 										<th>잔여휴가일</th>
+										<th>상세보기</th>
 									</tr>
 
 								</thead>
@@ -69,7 +71,10 @@
 										<td><c:out value="${ board.autoDayNumber + board.passivedayNumber }" /></td>
 										<td><c:out value="${ board.autoDayNumber }" /></td>
 										<td><c:out value="${ board.passivedayNumber }" /></td>
+										<td><c:out value="${ board.autoDayNumber + board.passivedayNumber - board.remainingHoliday }" /></td>
 										<td><c:out value="${ board.remainingHoliday }" /></td>
+										<td><button  class="btn btn-success btn-xs"
+												type="submit">상세보기</button></td>
 									</tr>
 								</c:forEach>
 
@@ -91,7 +96,7 @@
 			for(let i = 0; i < $tds.length; i++) {
 				
 				$tds[i].onmouseenter = function() {
-					this.parentNode.style.backgroundColor = "orangered";
+					this.parentNode.style.backgroundColor = "LightGoldenRodYellow";
 					this.parentNode.style.cursor = "pointer";
 				}
 				

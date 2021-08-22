@@ -324,4 +324,12 @@
 	, 0
 	)
 	</insert>
+	<delete id="deleteHolidayType">
+	DELETE    /* com.qs.www.mng.holiday.model.dao.MngHolidayDAO#deleteHolidayType()*/
+	  FROM TBL_HOLIDAY_TYPE A
+	 WHERE A.HOLIDAY_CODE IN
+	 <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+	       			#{item}
+                    </foreach>
+	</delete>
 </mapper>

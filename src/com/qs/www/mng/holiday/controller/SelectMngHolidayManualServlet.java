@@ -90,10 +90,10 @@ public class SelectMngHolidayManualServlet extends HttpServlet {
 		for(MemberHolidayInfoDTO info : memberHolidayInfoIList) {
 			//직원의 입사날짜에서 년도만 추출
 			String enrStr = format.format(info.getEnrollDate());
-			String[] enryDate = str.split("-");
+			String[] enryDate = enrStr.split("-");
 			
-			int enrYear = Integer.parseInt(arrayDate[0]);
-			
+			int enrYear = Integer.parseInt(enryDate[0]);
+			System.out.println("입사년도 "+ enrYear);
 			System.out.println("연차 : " + (currYear - enrYear + 1));
 			
 			if(currYear == enrYear) {

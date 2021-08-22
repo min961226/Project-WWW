@@ -47,7 +47,7 @@
 													<td>
 														<c:if test="${ year.workPeriod < 10}">0</c:if>${ year.workPeriod }년차 :</td>
 													<td><input name="${ year.ruleCode }" type="number"
-														style="width: 50px;" value="${ year.dayNumber }" />일</td>
+														min="1" style="width: 50px;" value="${ year.dayNumber }" />일</td>
 												</tr>
 											</table>
 										</c:forEach>
