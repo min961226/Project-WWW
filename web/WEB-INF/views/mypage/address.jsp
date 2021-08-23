@@ -48,9 +48,9 @@
 	                                <thead>
 	                                    <tr bgcolor = "FFBC35">
 	                                    	<th>프로필 사진</th>
-	                                        <th>사원번호</th>
+	                                        <th>사원이름</th>
 	                                        <th>부서</th>
-	                                        <th>사내전화</th>
+	                                        <th>휴대폰번호</th>
 
 	                                    </tr>
 	                                </thead>
@@ -62,9 +62,9 @@
                                             <a href="profile.html" class="avatar">A</a>
                                             <h2><a href="profile.html"> <span></span></a></h2>
                                         	</td> -->
-											<td><c:out value="${ board.code }"/></td>
 											<td><c:out value="${ board.name }"/></td>
-											<td><c:out value="${ board.number }"/></td>
+											<td><c:out value="${ board.deptname }"/></td>
+											<td><c:out value="${ board.phone }"/></td>
 										</tr>
 									</c:forEach>	
 	                            </table>
