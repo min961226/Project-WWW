@@ -25,13 +25,8 @@
 				</div>
 				<div class="row">
 					<div class="col-lg-12">
-
-
 						<form class="form-horizontal"
 							action="${ pageContext.servletContext.contextPath }/welfare/applied/list/seminarRoom/delete?roomNo=${ requestScope.roomNo }&useDate=${ requestScope.useDate }&reservNo=${requestScope.reservNo}" method="post" onsubmit="return askAgain();">
-
-
-
 							<div class="form-group">
 								<div class="col-sm-6">
 									<div class="col-md-12">
@@ -40,7 +35,6 @@
 											readonly="readonly" />
 									</div>
 								</div>
-
 								<div class="col-sm-6">
 									<div class="col-md-12">
 									<label>회의실 번호</label>
@@ -48,10 +42,7 @@
 											disabled />
 									</div>
 								</div>
-
 							</div>
-
-
 							<div class="form-group">
 								<div class="col-sm-6">
 									<div class="col-md-12">
@@ -60,7 +51,6 @@
 											value="${ sessionScope.memberInfo.name }" disabled />
 									</div>
 								</div>
-
 								<div class="col-sm-6">
 									<div class="col-md-12">
 									<label>신청자 번호</label>
@@ -69,7 +59,6 @@
 									</div>
 								</div>
 							</div>
-
 							<div class="form-group">
 								<div class="col-sm-12">
 									<div class="col-md-12">
@@ -83,10 +72,8 @@
 								<div class="col-sm-12">
 									<div class="col-sm-6">
 										<label>파트별 시간 번호</label>
-											<input class="form-control"
-												value="${ requestScope.reservNo }" disabled />
+											<input class="form-control"	value="${ requestScope.reservNo }" disabled />
 									</div>
-
 									<div class="col-md-6">
 									<label>이용 시간</label>
 										<input class="form-control"
@@ -99,7 +86,6 @@
 									</div>
 								</div>
 							</div>
-
 							<div class="form-group">
 								<div class="col-sm-12">
 									<div class="col-lg-12">
@@ -109,8 +95,6 @@
 									</div>
 								</div>
 							</div>
-
-
 							<div class="row">
 								<div class="col-sm-12 text-center m-t-20">
 									<c:set var="isDatePassed" value="${ requestScope.isDatePassed }" />
@@ -120,20 +104,13 @@
 									<button type="reset" class="btn btn-primary btn-lg" id="goBack">돌아가기</button>
 								</div>
 							</div>
-
 						</form>
-
-
-
 					</div>
 				</div>
 			</div>
-
 		</div>
-
 	</div>
 	<div class="sidebar-overlay" data-reff=""></div>
-
 	<script>
 		const $goBack = document.getElementById("goBack");
 		$goBack.onclick = function() {

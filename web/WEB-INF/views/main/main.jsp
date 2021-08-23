@@ -23,9 +23,9 @@
                 	</div>
                 </div>
                 <div class="row">
-                	<div class="col-lg-5 col-md-5 col-xs-12">
+                	<div class="col-lg-6 col-md-6 col-xs-12">
 	                    <div class="panel">
-	                       	<div class="panel-heading text-center">
+	                       	<!-- <div class="panel-heading text-center">
 	                           	<h3 class="panel-title" style="color:red">Weekly Report</h3>
 	                       	</div>
 	                       	<div class="panel-body">
@@ -35,20 +35,39 @@
                                 <div class="col-xs-6">
                                 	<div id="donutChart" class="rad-chart"></div>
                                 </div>
-                            </div>
+                            </div> -->
+                            <div class="panel-heading text-center">
+	                           	<h2  style="height: 40px;font: bold;"><b><최근 공지사항></b></h2>
+	                       	</div>
+                            <table class="display datatable table table-stripped">
+								<thead>
+									<tr bgcolor="FFBC35">
+										<th>번호</th>
+										<th>공지사항명</th>
+										<th>조회수</th>
+										<th>작성일</th>
+									</tr>
+								</thead>
+								<c:forEach var="noticeList"
+									items="${ requestScope.noticeList }">
+									<tr style="height: 40px">
+										<td><c:out value="${ noticeList.rowNum }" /></td>
+										<td><c:out value="${ noticeList.title }" /></td>
+										<td><c:out value="${ noticeList.count }" /></td>
+										<td><c:out value="${ noticeList.createdDate }" /></td>
+									</tr>
+								</c:forEach>
+							</table>
 	                    </div>
                     </div>
-                    <div class="col-lg-7 col-md-7 col-xs-12">
+                    <div class="col-lg-6 col-md-6 col-xs-12">
                     	<div class="panel">
-	                       	<div class="panel-heading text-center">
-	                           	<h3 class="panel-title">출퇴근 현황</h3>
-	                       	</div>
-	                       	<div class="panel-body">
+	                           	<h3  style="height: 40px;font: bold;margin-top: 10px" align="center"><b><출퇴근 현황></b></h3>
+									<h6 align="right">근무 제도 : ${ sessionScope.memberInfo.appWorkType }</h6>	                           	
                                 <div class="table-resposive">
-                                	<h5>근무 제도 : ${ sessionScope.memberInfo.appWorkType }</h5>
-                                    <table class="table table-hover custom-table">
+                                    <table class="display datatable table table-stripped">
                                         <thead>
-                                            <tr>
+                                          <tr bgcolor="FFBC35">
                                                 <th>날짜</th>
                                                 <th>출근</th>
                                                 <th>퇴근</th>
@@ -69,12 +88,11 @@
                                         </tbody>
                                     </table>
                                 </div>
-                            </div>
 	                    </div>
                     </div>
             	</div>
             	<div class="row">
-                	<div class="col-lg-5 col-md-5 col-xs-12">
+                	<div class="col-lg-6 col-md-6 col-xs-12">
                 		<hr style="background-color: #888888; height: 2px; border:0px;">
 	                    <div class="panel">
 	                       	<div class="panel-heading text-center">
@@ -96,30 +114,49 @@
                             </div>
 	                    </div>
                     </div>
-                    <div class="col-lg-7 col-md-7 col-xs-12">
+                    <div class="col-lg-6 col-md-6 col-xs-12">
                 		<hr style="background-color: #888888; height: 2px; border:0px;">
                     	<div class="panel">
-	                       	<div class="panel-heading text-center">
-	                           	<h3 class="panel-title">휴가 현황</h3>
+	                         <div class="panel-heading text-center">
+	                           	<h2  style="height: 40px;font: bold;"><b><신청 복지목록></b></h2>
 	                       	</div>
 	                       	<div class="panel-body">
                                 <div class="table-resposive">
-                                    <table class="table table-hover custom-table m-b-0">
-                                        <tbody>
-                                        	<tr>
-                                        		<td class="col-md-2">생성 연차</td>
-                                        		<td class="col-md-4" style="color:red">15일 (정기: 15일, 포상: 0일)</td>
-                                        		<td class="col-md-2">기간</td>
-                                        		<td class="col-md-4" style="color:red">[2021.01.01] ~ [2021.12.31]</td>
-                                        	</tr>
-                                        	<tr>
-                                        		<td>사용 연차</td>
-                                        		<td style="color:red">5일</td>
-                                        		<td>잔여 연차</td>
-                                        		<td style="color:red">10일</td>
-                                        	</tr>
-                                        </tbody>
-                                    </table>
+                                    <table class="table table-striped custom-table m-b-0 datatable">
+
+										<thead>
+											<tr style="background-color: #ffbc34">
+												<!-- 시작일과 종료일도 뜨게 해주고 싶네 -->
+												<th>번호</th>
+												<th>신청 복지 제목</th>
+												<th>진행상태</th>
+												<th>상신일</th>
+											</tr>
+										</thead>
+
+
+										<c:forEach var="welfareList"
+											items="${ requestScope.welfareList }">
+
+											<tr>
+												<td><c:out value="${ welfareList.rowNum }" /></td>
+												<td ><c:out value="${ welfareList.welfareTitle }" /></td>
+
+												<td><c:choose>
+														<c:when test="${ welfareList.reportNote eq '승인' }">
+															<i class="fa fa-dot-circle-o text-success"></i>
+															<c:out value=" ${ welfareList.reportNote }" />
+														</c:when>
+														<c:otherwise>
+															<i class="fa fa-dot-circle-o text-danger"></i>
+															<c:out value=" ${ welfareList.reportNote }" />
+														</c:otherwise>
+												</c:choose></td>
+												<td><c:out value="${ welfareList.selfDevDate }" /></td>
+											</tr>
+										</c:forEach>
+
+									</table>
                                 </div>
                             </div>
 	                    </div>

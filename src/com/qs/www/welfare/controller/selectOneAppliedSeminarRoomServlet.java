@@ -26,27 +26,21 @@ public class selectOneAppliedSeminarRoomServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("복지 신청 상세보기");
 		
 		int no = Integer.parseInt(request.getParameter("no"));
-		String useDate = request.getParameter("useDate");
-		int reservNo =Integer.parseInt(request.getParameter("reservNo"));
+		String useDate = request.getParameter("useDate");										//세미나실 사용일자
+		int reservNo =Integer.parseInt(request.getParameter("reservNo"));						//세미나실 사용 시간 번호
 
-		System.out.println(no);
-		System.out.println(useDate);
-		System.out.println(reservNo);
-		
 		SeminarRoomReservDTO seminarRoomReservDTO = new SeminarRoomReservDTO();
-		seminarRoomReservDTO.setMeetingRoomNo(no);
-		seminarRoomReservDTO.setUseDate(Date.valueOf(useDate));
-		seminarRoomReservDTO.setReservNo(reservNo);
+		seminarRoomReservDTO.setMeetingRoomNo(no);												//세미나실 번호
+		seminarRoomReservDTO.setUseDate(Date.valueOf(useDate));									//사용일자
+		seminarRoomReservDTO.setReservNo(reservNo);												//예약시간
 		
 		SeminarRoomReservDTO selectSeminarRoom = new WelfareService().selectAppliedSeminarRoom(seminarRoomReservDTO);
-		System.out.println(selectSeminarRoom);
 
 		LocalDate sysDate = LocalDate.now();
 		LocalDate seminarDate = LocalDate.parse(useDate);
-		Boolean isDatePassed = sysDate.isBefore(seminarDate);							//세미나실 예약일자가 지났는가?
+		Boolean isDatePassed = sysDate.isBefore(seminarDate);									//세미나실 예약일자가 지났는가?
 		
 		request.setAttribute("roomNo", selectSeminarRoom.getMeetingRoomNo());
 		request.setAttribute("memberNo", selectSeminarRoom.getMemberNo());

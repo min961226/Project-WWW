@@ -23,16 +23,15 @@ public class SelectDomitoryWelfareServlet extends HttpServlet {
 		WelfareService welfareService = new WelfareService();
 		HttpSession session = request.getSession();
 		
-		int memberNo = ((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo();
-		String name = ((MemberInfoDTO) session.getAttribute("memberInfo")).getName();
-		String deptName = ((MemberInfoDTO) session.getAttribute("memberInfo")).getDepartment().getDeptName();
-		String jobName = ((MemberInfoDTO) session.getAttribute("memberInfo")).getJob().getJobName();
-		String addressAll = ((MemberInfoDTO) session.getAttribute("memberInfo")).getAddress();
+		int memberNo = ((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo();							//사번
+		String name = ((MemberInfoDTO) session.getAttribute("memberInfo")).getName();								//이름
+		String deptName = ((MemberInfoDTO) session.getAttribute("memberInfo")).getDepartment().getDeptName();		//부서
+		String jobName = ((MemberInfoDTO) session.getAttribute("memberInfo")).getJob().getJobName();				//직책
+		String addressAll = ((MemberInfoDTO) session.getAttribute("memberInfo")).getAddress();						//주소
 		String address = addressAll.replace("$", " ");
 		List<ApprovalLineDTO> lineList = new ApprovalService().selectApprovalLine(memberNo);
 		
-		String manageNo = request.getParameter("no");
-		System.out.println(manageNo);
+		String manageNo = request.getParameter("no");																//기숙사 번호
 		
 		request.setAttribute("memberNo", memberNo);
 		request.setAttribute("deptName", deptName);

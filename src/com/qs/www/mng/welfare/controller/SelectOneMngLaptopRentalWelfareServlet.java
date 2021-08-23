@@ -22,8 +22,6 @@ public class SelectOneMngLaptopRentalWelfareServlet extends HttpServlet {
 		
 		List<ItemDTO> itemLog = mngWelfareService.selectAllItemLog(itemNo);				//예전 대여한기록, 반납된 값 가져오기
 		ItemDTO item = mngWelfareService.selectOneItemLog(itemNo);						//현재 대여자 값 갖고오기
-		System.out.println(itemLog);
-		System.out.println(item);
 		
 		request.setAttribute("itemLog",itemLog);
 		request.setAttribute("item", item);

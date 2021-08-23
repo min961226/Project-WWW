@@ -14,11 +14,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.qs.www.board.model.dto.NoticeDTO;
 import com.qs.www.main.model.dto.WorkInfoDTO;
 import com.qs.www.main.model.dto.WorkingLogDTO;
 import com.qs.www.main.model.service.MainService;
 import com.qs.www.member.model.dto.MemberInfoDTO;
 import com.qs.www.mypage.model.dto.CommutingLogDTO;
+import com.qs.www.welfare.model.dto.WelfareListDTO;
 
 @WebServlet("/main")
 public class SelectMainServlet extends HttpServlet {
@@ -55,11 +57,17 @@ public class SelectMainServlet extends HttpServlet {
 		todayWorkInfo.setWeekEndDate(weekEndDate);
 		todayWorkInfo.setSelectedLocalDate(selectedLocalDate);
 		
-		// 근무 유형과 출퇴근 기록 조회
-		List<WorkingLogDTO> workingLogList = mainService.selectWorkingLogList(todayWorkInfo);
-		List<CommutingLogDTO> commutingLogList = mainService.selectCommutingLog(todayWorkInfo);
-
+		
+		
+		
+		List<NoticeDTO> noticeList= mainService.selectNoticeList();
+		List<WelfareListDTO> welfareList = mainService.selectWelfareList(memberNo);
+		
 		String path = "/WEB-INF/views/main/main.jsp";
+
+		request.setAttribute("welfareList", welfareList);
+		request.setAttribute("noticeList", noticeList);
+
 		request.setAttribute("workInfo", todayWorkInfo);
 		request.setAttribute("commutingLogList", commutingLogList);
 		request.setAttribute("workingLogList", workingLogList);

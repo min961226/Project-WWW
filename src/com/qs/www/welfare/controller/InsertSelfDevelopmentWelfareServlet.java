@@ -51,13 +51,12 @@ public class InsertSelfDevelopmentWelfareServlet extends HttpServlet {
 		AttachmentService attachmentService = new AttachmentService();													//서비스 인스턴스 생성
 		/* ---------------------------------파일 업로드 서비스-----------------------------------------*/
 		
-		System.out.println("자기개발비 신청!");
 		int documentNo = 9; 													// 자기개발비 신청 문서 번호
 		int developmentNo = 0;													// 신청목적 번호
 		String welfareTitle = "자기개발비 신청"; 									// 결재 제목
 		int lineNo = Integer.parseInt(request.getParameter("lineList"));
 
-		switch (request.getParameter("selfDevList")) {						//신청목적=> 번호 도출
+		switch (request.getParameter("selfDevList")) {							//신청목적=> 번호 도출
 		case "시험":
 			developmentNo=1;
 			break;
@@ -94,12 +93,7 @@ public class InsertSelfDevelopmentWelfareServlet extends HttpServlet {
 		welfareListDTO.setLineName(request.getParameter("selfDevList"));
 		welfareListDTO.setWelfareTitle(welfareTitle);
 		welfareListDTO.setDate(Date.valueOf(request.getParameter("date")));
-		System.out.println(welfareListDTO);
-		System.out.println(documentNo);
 		
-//		int developmentNo = welfareService.selectDevNo(welfareListDTO.getLineName());		//지원 목록
-////		int limitCost = welfareService.selectLimitCost(developmentNo);					//지원 최대 금액
-
 		int reportNo = welfareService.selectReportNum();
 		int result1 = welfareService.insertWelfareReport(welfareListDTO);
 		
@@ -129,7 +123,6 @@ public class InsertSelfDevelopmentWelfareServlet extends HttpServlet {
 		
 		
 		List<ApproverDTO> approverList = new ApprovalService().selectApprover(lineNo);
-		System.out.println(approverList);
 		
 		int result3 = 0;
 		for(ApproverDTO approver : approverList) {
@@ -152,7 +145,7 @@ public class InsertSelfDevelopmentWelfareServlet extends HttpServlet {
         }
 		
 		/*---------------------------------------------------------------------------파일 업로드---------------------------------------------------------------------*/
-		response.setContentType("text/html; charset=UTF-8");
+		response.setContentType("text/html; charset=UTF-8");																				//값이 넘어올때 다른 방식으로 인코딩되기때문에 한번더 인코딩해주어야함
 		PrintWriter out = response.getWriter();
         String contentType = request.getContentType();
         Map<String, Object> fileMap = new HashMap<>();
@@ -164,7 +157,6 @@ public class InsertSelfDevelopmentWelfareServlet extends HttpServlet {
             Collection<Part> parts = request.getParts();
  
             for (Part part : parts) {
-                System.out.printf("파라미터 명 : %s, contentType :  %s,  size : %d bytes \n", part.getName(),									//파트로 넘어온 값들 전부 출력
                         part.getContentType(), part.getSize());
  
  
@@ -172,15 +164,12 @@ public class InsertSelfDevelopmentWelfareServlet extends HttpServlet {
                     String fileName =  extractFileName(part.getHeader("Content-Disposition"));
                     
                     if(fileName.length()>0) {																								//첨부한 파일이 존재하지 않을때(파일을 미첨부시, 파일 첨부한 값이 없을때)
-                    System.out.println("fileName : "+fileName);
-                    System.out.println(part.getHeader("Content-Disposition"));
                     
                     int dot = fileName.lastIndexOf(".");
 					String ext = fileName.substring(dot);
 					String randomFileName = UUID.randomUUID().toString().replace("-", "") + ext;											//파일 이름 랜덤 부여
-					System.out.println(randomFileName);			
+					
                     if (part.getSize() > 0) {																								// 업로드 할때 파일 크기가 0 보다 작을 수 없다.
-                    	System.out.println(part.getHeaderNames());
                     	
                     	fileMap.put("reportNo", reportNo);
                     	fileMap.put("attachmentNo", 1);
@@ -188,15 +177,9 @@ public class InsertSelfDevelopmentWelfareServlet extends HttpServlet {
                     	fileMap.put("savedFileName", randomFileName);
                     	fileMap.put("savePath", ATTACHES_REPORT);
                     	
-                    	System.out.printf("업로드 파일 명 : %s  \n", randomFileName);
-                    	System.out.println(ATTACHES_REPORT + File.separator  + fileName);
-                        
-                        part.write(ATTACHES_REPORT + File.separator  + randomFileName);													//파일 경로에 따른 파일 추가
+                        part.write(ATTACHES_REPORT + File.separator  + randomFileName);														//파일 경로에 따른 파일 추가
                         part.delete();																										//임시 파일 삭제
                         
-                        
-                        System.out.println("map:" + fileMap);
-                        System.out.println(resultFileUpload);
                         resultFileUpload = attachmentService.insertFileUpload(fileMap);
                     }
                     }else {
@@ -204,12 +187,9 @@ public class InsertSelfDevelopmentWelfareServlet extends HttpServlet {
                     }
                 } else {
                     String formValue =  request.getParameter(part.getName());																//파트로 찢긴값들 파일이 아닐경우 처리하는 파트
-                    System.out.printf("name : %s, value : %s  \n", part.getName(), formValue);
                 }
             }
-            System.out.println("<h1>업로드 완료</h1>");
-        } else {
-            System.out.println("<h1>enctype이 multipart/form-data가  아님</h1>");
+        } else {																															//인코딩타입이 multipart for이아님
         }
         
         
@@ -244,7 +224,7 @@ public class InsertSelfDevelopmentWelfareServlet extends HttpServlet {
             if (cd.trim().startsWith("filename")) {
                 String fileName = cd.substring(cd.indexOf("=") +  1).trim().replace("\"", "");
                 int index = fileName.lastIndexOf(File.separator);
-                return fileName.substring(index + 1);
+                return fileName.substring(index + 1);																						//파일 이름 추출
             }
         }
         return null;

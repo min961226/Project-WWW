@@ -25,26 +25,21 @@ import com.qs.www.welfare.model.service.WelfareService;
 public class SelectSerminarRoomWelfareServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("세미나실 예약");
 		
 		WelfareService welfareService = new WelfareService();
 		HttpSession session = request.getSession();
 		
-		int roomNo = Integer.parseInt(request.getParameter("no"));
-		List<SeminarRoomReservDTO> seminarRoomReserv = welfareService.selectSeminarRoomReserv(roomNo); 
-		List<SeminarReservTimeDTO> seminarReservTime = welfareService.selectSeminarReservTime();
-		
-		System.out.println(roomNo);
-		System.out.println(seminarRoomReserv);
-		System.out.println(seminarReservTime);
+		int roomNo = Integer.parseInt(request.getParameter("no"));												//선택한 세미나실 번호
+		List<SeminarRoomReservDTO> seminarRoomReserv = welfareService.selectSeminarRoomReserv(roomNo); 			//번호로 예약 내역 가져옴
+		List<SeminarReservTimeDTO> seminarReservTime = welfareService.selectSeminarReservTime();				//사용할 시간 가져옴
 		
 		int memberNo = ((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo();
 		String name = ((MemberInfoDTO) session.getAttribute("memberInfo")).getName();
 		String deptName = ((MemberInfoDTO) session.getAttribute("memberInfo")).getDepartment().getDeptName();
 		String jobName = ((MemberInfoDTO) session.getAttribute("memberInfo")).getJob().getJobName();
-		LocalDate sysDate = LocalDate.now();
-		LocalDate sysNextDate = sysDate.plusDays(1);
-		LocalDate sysTwiceNextDate = sysDate.plusDays(2);
+		LocalDate sysDate = LocalDate.now();																	//시스템 날짜
+		LocalDate sysNextDate = sysDate.plusDays(1);															//시스템 날짜로부터 1일후
+		LocalDate sysTwiceNextDate = sysDate.plusDays(2);														//시스템 날짜로부터 2일후
 		
 		request.setAttribute("memberNo", memberNo);
 		request.setAttribute("deptName", deptName);

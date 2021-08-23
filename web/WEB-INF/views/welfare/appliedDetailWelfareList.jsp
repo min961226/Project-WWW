@@ -177,7 +177,6 @@
 									</div>
 								</div>
 							</c:if>
-
 							<c:if test="${ no eq 10 }">
 								<%--기숙사 신청 내역 --%>
 								<div class="form-group">
@@ -188,7 +187,6 @@
 												value="${ requestScope.domitoryAddress }" disabled />
 										</div>
 									</div>
-
 									<div class="col-sm-6">
 										<label>입주 희망일</label>
 										<div class="col-md-12">
@@ -198,12 +196,9 @@
 									</div>
 								</div>
 							</c:if>
-
 							<c:if test="${ no eq 12 }">
 								<%--노트북 대여 신청 내역 --%>
 								<div class="form-group">
-
-
 									<div class="col-sm-6">
 										<label>대여 품목 번호</label>
 										<div class="col-md-12">
@@ -220,7 +215,6 @@
 									</div>
 								</div>
 							</c:if>
-
 							<div class="form-group">
 								<div class="col-sm-12">
 									<label>신청사유</label>
@@ -240,7 +234,6 @@
 									</div>
 								</div>
 							</c:if>
-							
 							<div class="row">
 								<div class="col-sm-12 text-center m-t-20">
 									<c:set var="reportStatus"
@@ -258,7 +251,6 @@
 		</div>
 	</div>
 	<div class="sidebar-overlay" data-reff=""></div>
-
 	<script>
 		function askAgain() {
 

@@ -26,7 +26,7 @@ public class SelectAppliedWelfareListServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("복지 신청 내역");
+
 		HttpSession session = request.getSession();
 
 		int memberNo = ((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo(); // 세션에 저장된 멤버 번호를 가져온다
@@ -42,8 +42,8 @@ public class SelectAppliedWelfareListServlet extends HttpServlet {
 			pageNo = Integer.parseInt(currentPage);
 		}
 
-		/* 0보다 작은 숫자값을 입력해도 1페이지를 보여준다 */
-		if (pageNo <= 0) {
+		
+		if (pageNo <= 0) {																		//0보다 작은 숫자값을 입력해도 1페이지를 보여준다
 			pageNo = 1;
 		}
 
@@ -55,20 +55,17 @@ public class SelectAppliedWelfareListServlet extends HttpServlet {
 		searchMap.put("searchCondition", searchCondition);
 		searchMap.put("searchValue", searchValue);
 
-		HashMap<String, Object> countMap = new HashMap<>();
+		HashMap<String, Object> countMap = new HashMap<>();										//검색값들에 해당하는 사번을 넣어준다
 		countMap.put("memberNo", memberNo);
 		countMap.put("searchMap", searchMap);
 
 		Pagenation pagenation = new Pagenation();
 
-//totalCount 는 DB에 가서 총 게시물 수를 세어와야 함 count(*) 중, where 삭제안된거.
-		int totalCount = new WelfareService().selectMyWelfareListCount(countMap);
+		int totalCount = new WelfareService().selectMyWelfareListCount(countMap); 				//totalCount 는 DB에 가서 총 게시물 수를 세어와야 함 count(*) 중, where 삭제안된거.
 
-//limit는 한 페이지에서 보여지는 게시물 수
-		int limit = 10;
+		int limit = 10;																			//limit는 한 페이지에서 보여지는 게시물 수
 
-//buttonAmount는 한번에 보여줄 버튼 수
-		int buttonAmount = 5;
+		int buttonAmount = 5;																	//buttonAmount는 한번에 보여줄 버튼 수
 
 		SelectCriteria selectCriteria = null;
 
@@ -77,7 +74,6 @@ public class SelectAppliedWelfareListServlet extends HttpServlet {
 		} else {
 			selectCriteria = Pagenation.getSelectCriteria(pageNo, totalCount, limit, buttonAmount);
 		}
-		System.out.println(selectCriteria);
 
 		/*-----------------------------------------------------------------------------------------------------------------------*/
 		HashMap<String, Object> selectedInfoMap = new HashMap<>();
@@ -85,10 +81,7 @@ public class SelectAppliedWelfareListServlet extends HttpServlet {
 		selectedInfoMap.put("selectCriteria", selectCriteria);
 		
 		List<ReportDTO> appliedWelfareList = new WelfareService().selectAppliedWelfareList(selectedInfoMap); // 멤버 번호에 해당하는 신청
-																										// 복지 목록을 가져온다.
-
-		System.out.println(appliedWelfareList); // 신청된 복지 목록 확인
-
+																											// 복지 목록을 가져온다.
 		request.setAttribute("appliedWelfareList", appliedWelfareList);
 		request.setAttribute("selectCriteria", selectCriteria);
 		request.getRequestDispatcher("/WEB-INF/views/welfare/appliedWelfareList.jsp").forward(request, response);

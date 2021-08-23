@@ -21,20 +21,16 @@ import com.qs.www.schedule.model.dto.WorkingDocumentItemDTO;
 public class SelectOneMngAppliedWelfareServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	System.out.println("복지 신청 상세보기");
 		
 		int no = Integer.parseInt(request.getParameter("no"));
 		// 요청함에서 선택한 게시물의 살세정보 가져오기
-		// 상신번호, 상신일자, 상신자 사번, 문서번호, 비고, 결재상태, 라인명, 상신명
-		ReportDTO selectedReport = new ApprovalService().selectOneReportDetail(no);
+		
+		ReportDTO selectedReport = new ApprovalService().selectOneReportDetail(no);											// 상신번호, 상신일자, 상신자 사번, 문서번호, 비고, 결재상태, 라인명, 상신명
 		
 		/* 파일 첨부 DTO 서비스 실행 reportNo로 갖고옴 */
 		AttachmentDTO attachmentDTO = new AttachmentService().selectAttachmentByReportNo(selectedReport.getReportNo());		//reportNo로 값을 갖고옴
-		System.out.println(attachmentDTO);
 		
-		// 상신번호, 문서번호, 순번, 내용
-		List<WorkingDocumentItemDTO> itemList = new ApprovalService().selectReportItemList(no);
-		System.out.println("itemList : " + itemList);
+		List<WorkingDocumentItemDTO> itemList = new ApprovalService().selectReportItemList(no);								//상신번호 문서번호 상세내용
 
 		// 야간교통비 신청서
 		if (selectedReport.getDocumentNo() == 7) {

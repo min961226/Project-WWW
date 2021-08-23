@@ -16,9 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 public class FileDownController  extends HttpServlet{
 
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 4357653489057931185L;
 	
 	public FileDownController() {
@@ -34,13 +31,10 @@ public class FileDownController  extends HttpServlet{
 		String uploadFilePath = context.getRealPath("upload/report");
 		String filePath = uploadFilePath + File.separator + fileName;
 		
-		System.out.println(" LOG [업로드된 파일 경로] :: " + uploadFilePath);
-		System.out.println(" LOG [파일 전체 경로] :: " + filePath);
-		
-		byte[] b = new byte[4096];
+		byte[] b = new byte[4096];														//byte에 공간할당
 		FileInputStream fileInputStream = new FileInputStream(filePath);
 		
-		String mimeType = getServletContext().getMimeType(filePath);
+		String mimeType = getServletContext().getMimeType(filePath);					//경ㄴ로 설정
 		if(mimeType == null) {
 			mimeType = "application/octet-stream";
 		}
@@ -51,14 +45,14 @@ public class FileDownController  extends HttpServlet{
         response.setHeader("Content-Disposition", "attachment; fileName= " + sEncoding);
         
         // 파일 쓰기 OutputStream
-        ServletOutputStream servletOutStream = response.getOutputStream();
+        ServletOutputStream servletOutStream = response.getOutputStream();				//outputstream으로 실행
         
         int read;
         while((read = fileInputStream.read(b,0,b.length))!= -1){
             servletOutStream.write(b,0,read);            
         }
         
-        servletOutStream.flush();
+        servletOutStream.flush();														//할당된 데이터 반납
         servletOutStream.close();
         fileInputStream.close();
 	}
