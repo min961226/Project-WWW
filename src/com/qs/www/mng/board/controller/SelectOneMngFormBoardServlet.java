@@ -1,6 +1,6 @@
 package com.qs.www.mng.board.controller;
 
-import java.io.IOException;  
+import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,64 +21,64 @@ import com.qs.www.schedule.model.dto.ReportDTO;
 
 @WebServlet("/mng/board/form/selectOne")
 public class SelectOneMngFormBoardServlet extends HttpServlet {
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-	//게시판 상세보기
-	System.out.println("확인");
-	int no = Integer.parseInt(request.getParameter("no"));
-	System.out.println(no);
-	
-	MngFormService mngformService = new MngFormService();
-	MngFormDTO mngformDetail = mngformService.selectMngFormDetail(no);
-	
-	/* 파일 첨부 DTO 서비스 실행 reportNo로 갖고옴 */
-	BoardAttachmentDTO boardattachmentDTO = new BoardAttachmentService().selectBoardAttachmentByBoardNo(mngformDetail.getNo());		//boardNo로 값을 갖고옴
-	System.out.println(boardattachmentDTO);
-	
-	System.out.println("mngformDetail : " + mngformDetail);
-	request.setAttribute("boardattachmentDTO", boardattachmentDTO);
-	String path = "";
-	if(mngformDetail != null) {
-		path = "/WEB-INF/views/mngboard/detailFormBoard.jsp";
-		request.setAttribute("mngform", mngformDetail);
-	} else {
-		path = "/WEB-INF/views/common/failed.jsp";
-		request.setAttribute("message", "문서서식 게시판 상세보기 실패");
-		
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		// 게시판 상세보기
+		System.out.println("확인");
+		int no = Integer.parseInt(request.getParameter("no"));
+		System.out.println(no);
+
+		MngFormService mngformService = new MngFormService();
+		MngFormDTO mngformDetail = mngformService.selectMngFormDetail(no);
+
+		/* 파일 첨부 DTO 서비스 실행 reportNo로 갖고옴 */
+		BoardAttachmentDTO boardattachmentDTO = new BoardAttachmentService()
+				.selectBoardAttachmentByBoardNo(mngformDetail.getNo()); // boardNo로 값을 갖고옴
+		System.out.println(boardattachmentDTO);
+
+		System.out.println("mngformDetail : " + mngformDetail);
+		request.setAttribute("boardattachmentDTO", boardattachmentDTO);
+		String path = "";
+		if (mngformDetail != null) {
+			path = "/WEB-INF/views/mngboard/detailFormBoard.jsp";
+			request.setAttribute("mngform", mngformDetail);
+		} else {
+			path = "/WEB-INF/views/common/failed.jsp";
+			request.setAttribute("message", "문서서식 게시판 상세보기 실패");
+
+		}
+
+		request.getRequestDispatcher(path).forward(request, response);
+
 	}
-	
-	request.getRequestDispatcher(path).forward(request, response);
-	
-}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	HttpSession session = request.getSession();
-	int memberNo = ((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo();
-	int no = Integer.parseInt(request.getParameter("no"));
-	
-	MngFormService mngformService = new MngFormService();
-	MngFormDTO mngformDetail = mngformService.selectMngFormDetail(no);
-	
-	System.out.println("mngformDetail : " + mngformDetail);
-	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		int memberNo = ((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo();
+		int no = Integer.parseInt(request.getParameter("no"));
 
-	System.out.println(memberNo);
+		MngFormService mngformService = new MngFormService();
+		MngFormDTO mngformDetail = mngformService.selectMngFormDetail(no);
 
-	System.out.println(no);
-	
-	MngFormDTO mngform = new MngFormDTO();
+		System.out.println("mngformDetail : " + mngformDetail);
 
-	mngform.setNo(no);
+		System.out.println(memberNo);
 
-	mngform.setMember(memberNo);
-	System.out.println(mngform);
-	
-	
+		System.out.println(no);
+
+		MngFormDTO mngform = new MngFormDTO();
+
+		mngform.setNo(no);
+
+		mngform.setMember(memberNo);
+		System.out.println(mngform);
 
 //	int result = freeService.updateFree(free);
 
-	String path = "";
+		String path = "";
 //	if(result > 0) {
 //		path = "/WEB-INF/views/common/success.jsp";
 //		request.setAttribute("successCode", "updateFree");

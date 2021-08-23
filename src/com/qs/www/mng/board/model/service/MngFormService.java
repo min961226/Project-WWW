@@ -20,7 +20,7 @@ public class MngFormService {
 		mngformDAO = new MngFormDAO();
 		
 	}
-
+	//문서서식 게시글 조회
 	public List<MngFormDTO> selectAllMngFormList(SelectCriteria selectCriteria) {
 		
 		SqlSession session = getSqlSession();
@@ -31,7 +31,7 @@ public class MngFormService {
 		
 		return mngformList;
 	}
-
+	//문서서식 게시글 상세조회
 	public MngFormDTO selectMngFormDetail(int no) {
 		SqlSession session = getSqlSession();
 		MngFormDTO mngformDetail = new MngFormDTO();
@@ -54,7 +54,7 @@ public class MngFormService {
 		
 		return mngformDetail;
 	}
-
+	//문서서식 게시글 작성
 	public int insertMngForm(MngFormDTO newMngForm) {
 		SqlSession session = getSqlSession();
 		
@@ -72,7 +72,7 @@ public class MngFormService {
 		
 		return result;
 	}
-
+	//문서서식 게시글 수정
 	public int updateMngForm(MngFormDTO mngform) {
 		SqlSession session = getSqlSession();
 
@@ -88,7 +88,7 @@ public class MngFormService {
 
 		return result;
 	}
-
+	//문서서식 게시글 삭제
 	public int deleteMngForm(int no) {
 		SqlSession session = getSqlSession();
 
@@ -104,7 +104,7 @@ public class MngFormService {
 
 		return result;
 	}
-
+	//게시글 번호 검색
 	public int selectBoardNum() {
 		SqlSession session = getSqlSession();
 

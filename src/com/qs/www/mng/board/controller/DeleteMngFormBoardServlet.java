@@ -13,28 +13,26 @@ import com.qs.www.mng.board.model.service.MngFormService;
 @WebServlet("/mng/board/form/delete")
 public class DeleteMngFormBoardServlet extends HttpServlet {
 
-protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		System.out.println("삭제");
-		
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		// 삭제하고자 하는 게시글 번호를 불러옴
 		int No = Integer.parseInt(request.getParameter("no"));
 
-		int result =  new MngFormService().deleteMngForm(No);
+		int result = new MngFormService().deleteMngForm(No);
 		
+		//화면 연결
 		String path = "";
-		if(result > 0) {
-            path = "/WEB-INF/views/common/success.jsp";
+		if (result > 0) {
+			path = "/WEB-INF/views/common/success.jsp";
 			request.setAttribute("successCode", "deleteMngForm");
-			
+
 		} else {
 			path = "/WEB-INF/views/common/failed.jsp";
 			request.setAttribute("failedCode", "deleteMngForm");
 		}
-		
+
 		request.getRequestDispatcher(path).forward(request, response);
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-	}
 }
