@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.qs.www.approval.model.dto.ApproverDTO;
 import com.qs.www.member.model.dto.DepartmentDTO;
+import com.qs.www.member.model.dto.MemberInfoDTO;
 import com.qs.www.schedule.model.dto.ApproverPerReportDTO;
 import com.qs.www.schedule.model.dto.CustomWorkDTO;
 import com.qs.www.schedule.model.dto.CustomWorkTimeDTO;
@@ -105,6 +106,11 @@ public class ScheduleDAO {
 	public int selectAllScheduleReportCount(SqlSession session, Map<String, Object> countMap) {
 		
 		return session.selectOne("ScheduleDAO.selectAllScheduleReportCount", countMap);
+	}
+
+	public List<MemberInfoDTO> selectAllTeamMember(SqlSession session, HashMap<String, Object> deptAndDay) {
+		
+		return session.selectList("ScheduleDAO.selectAllTeamMember", deptAndDay);
 	}
 
 	

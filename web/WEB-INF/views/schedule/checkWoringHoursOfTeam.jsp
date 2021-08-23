@@ -29,79 +29,49 @@
                             <div class="card-block">
                                 <h6 class="card-title text-bold">같은 팀원들의 오늘 출퇴근기록입니다</h6>
                                 
-                                <div>
-                                <!-- 페이징 부분 -->
-								<div class="pagingArea col-xs-6" align="left">
-		
-									<!-- 이전 페이지 버튼 -->
-										<button id="prevPage"><</button>
-										
-										<button id="today">Today</button>
-									<!-- 숫자 버튼 필요없을 것 같은데
-									<c:forEach var="p" begin="${ requestScope.selectCriteria.startPage }" end="${ requestScope.selectCriteria.endPage }" step="1">
-										<c:if test="${ requestScope.selectCriteria.pageNo eq p }">
-											<button disabled><c:out value="${ p }"/></button>
-										</c:if>
-										<c:if test="${ requestScope.selectCriteria.pageNo ne p }">
-											<button onclick="pageButtonAction(this.innerText);"><c:out value="${ p }"/></button>
-										</c:if>
-									</c:forEach> -->
-		
-									<!-- 다음 페이지 버튼 -->
-										<button id="nextPage">></button>
-		
-								</div>
-								
-								<div class="search-area col-xs-6" align="right">
-             						<form id="loginForm" action="${ pageContext.servletContext.contextPath }/board/free/select" method="get" style="display:inline-block">		
-			    						<input type="hidden" name="date" value="${ requestScope.date }">
-											<select id="searchCondition" name="searchCondition">
-											<option value="date" ${ requestScope.selectCriteria.searchCondition eq "date"? "selected": "" }>연월일</option>
-											</select>
-										<input type="search" id="searchValue" name="searchValue" value="<c:out value="${ requestScope.selectCriteria.searchValue }"/>">
-										<button type="submit" >검색하기</button>
-									</form>
-								</div>
-								
-								
-								</div>
-								
-								<br>
-								<br>
-                                
+                                                                
                                 <table class="table table-bordered">
                                     <thead>
                                         <tr align="center">
                                             <th>이름</th>
                                             <th>부서</th>
                                             <th>직위</th>
-                                            <th>시간</th>
-                                            <%-- <th colspan="2">12</th>
-                                            <c:set var="startHourNum" value="1"/>
-                                            <c:forEach var="hours" begin="1" end="23" step="1">
-                                            	<th colspan="2"><c:out value="${ hours }"/></th>
-                                            </c:forEach> --%>
                                             <th>근무제명</th>
                                             <th>근무제코드</th>
-                                            
+                                            <th>휴가시작일</th>
+                                            <th>휴가종료일</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                      
-                                        <c:forEach var="workinghour" items="${ requestScope.teamWorkingHourList }">
-                                            <tr>
-                                            	<td><c:out value="${ workinghour.name }"/></td>
-                                            	<td><c:out value="${ workinghour.deptName }"/></td>
-                                            	<td><c:out value="${ workinghour.jobName }"/></td>
-                                            	<td><c:out value="${ workinghour.appWorkType }"/></td>
-                                            	<td><c:out value="${ workinghour.workCode }"/></td>
-                                           		<td></td>
-	                                            <td>1</td>
-	                                            <td>1</td>
-	                                            <td>2</td>
-                                            
-                                            </tr>
-                                         </c:forEach>
+                                      	<c:forEach var="member" items="${ requestScope.teamMemberInfoList }">
+	                                        <tr>
+		                                        <c:forEach var="workinghour" items="${ requestScope.teamWorkingHourList }">
+		                                        	<c:if test="${ member.name eq workinghour.name }">
+		                                        		<td><c:out value="${ workinghour.name }"/></td>
+		                                            	<td><c:out value="${ workinghour.deptName }"/></td>
+		                                            	<td><c:out value="${ workinghour.jobName }"/></td>
+		                                            	<td><c:out value="${ workinghour.appWorkType }"/></td>
+		                                            	<td><c:out value="${ workinghour.workCode }"/></td>
+		                                        	</c:if>
+		                                         </c:forEach>
+		                                         
+		                                         <c:forEach var="holiday" items="${ requestScope.teamHolidayLogList }">
+		                                         	<c:if test="${ member.memberNo eq holiday.memberNo }">
+		                                         	<c:choose>
+		                                         		<c:when test="${ holiday eq null }">
+		                                         			<td></td>
+		                                         			<td></td>
+		                                         		</c:when>
+		                                         		<c:otherwise>
+		                                         			<td><c:out value="${ holiday.holidayUseInfoDTO.holidayStartDay }"></c:out></td>
+			                                            	<td><c:out value="${ holiday.holidayUseInfoDTO.holidayEndDay }"></c:out></td>
+		                                         		</c:otherwise>
+		                                         	</c:choose>
+		                                         	</c:if>
+		                                         </c:forEach>
+	                                         </tr>
+	                                         
+                                      	</c:forEach>
                                         
                                         
                                     </tbody>

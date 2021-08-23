@@ -93,6 +93,29 @@
 		</association>
 	</resultMap>
 	
+	<resultMap type="com.qs.www.member.model.dto.MemberInfoDTO" id="memberInfoResultMap">
+		<id property="memberNo" column="MEMBER_NO"/>
+		<result property="memberId" column="MEMBER_ID"/>
+		<result property="password" column="PASSWORD"/>
+		<result property="name" column="NAME"/>
+		<result property="rrn" column="RRN"/>
+		<result property="enrollDate" column="ENROLL_DATE"/>
+		<result property="entDate" column="ENT_DATE"/>
+		<result property="entYn" column="ENT_YN"/>
+		<result property="email" column="EMAIL"/>
+		<result property="birthday" column="BIRTHDAY"/>
+		<result property="address" column="ADDRESS"/>
+		<result property="gender" column="GENDER"/>
+		<result property="phone" column="PHONE"/>
+		<result property="questionAnswer" column="QUESTION_ANSWER"/>
+		<result property="domitoryYn" column="DOMITORY_YN"/>
+		<result property="appWorkType" column="APP_WORK_TYPE"/>
+		<result property="workCode" column="WORK_CODE"/>
+		<result property="remainingHoliday" column="REMAINING_HOLIDAY"/>
+	</resultMap>
+	
+	
+	
 	<select id="selectAllWorkType" resultMap="workListResultMap">
 	SELECT /* com.qs.www.schedule.model.dao.ScheduleDAO#selectAllWorkType() */
 	       A.WORK_CODE
@@ -282,6 +305,15 @@
 	   AND A.OVERTIME_START_DAY BETWEEN #{ weekStartDate } AND #{ weekEndDate }
 	</select>
 	
+	<select id="selectAllTeamMember" parameterType="hashmap" resultMap="memberInfoResultMap">
+	SELECT /* com.qs.www.schedule.model.dao.ScheduleDAO#selectAllWorkType() */
+          A.*
+     FROM TBL_MEMBER A
+    WHERE A.ENT_YN = 'N'
+      AND A.DEPT_CODE = #{ myDeptCode }
+	</select>
+	
+	
 	<select id="selectteamWorkingHourList" parameterType="hashmap" resultMap="TeamWorkingHourResultMap">
 	SELECT
            A.MEMBER_NO
@@ -295,12 +327,10 @@
          , E.JOB_NAME
          , A.APP_WORK_TYPE
          , A.WORK_CODE
-    <if test="appWorkType == '표준근무제'">
-         , B.WORK_NAME
-         , B.CHECK_IN_TIME
-         , B.CHECK_OUT_TIME
+    <if test="appWorkType == '표준'">
+         , B.*
     </if>
-    <if test="appWorkType == '커스텀근무제'">
+    <if test="appWorkType == '커스텀'">
          , F.*
          , G.*
     </if>
@@ -308,10 +338,10 @@
       LEFT JOIN TBL_ROLE C ON (A.ROLE_CODE = C.ROLE_CODE)
       LEFT JOIN TBL_DEPARTMENT D ON (A.DEPT_CODE = D.DEPT_CODE)
       LEFT JOIN TBL_JOB E ON (A.JOB_CODE = E.JOB_CODE)
-   <if test="appWorkType == '표준근무제'">
+   <if test="appWorkType == '표준'">
       LEFT JOIN TBL_STANDARD_WORK B ON (A.WORK_CODE = B.WORK_CODE)
    </if>
-   <if test="appWorkType == '커스텀근무제'">
+   <if test="appWorkType == '커스텀'">
       LEFT JOIN TBL_CUSTOM_WORK F ON (A.WORK_CODE = F.WORK_NO)
       LEFT JOIN TBL_CUSTOM_WORKTIME G ON (F.WORK_NO = G.WORK_NO)
    </if>

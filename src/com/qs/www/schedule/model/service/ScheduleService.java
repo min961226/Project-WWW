@@ -1,5 +1,6 @@
 package com.qs.www.schedule.model.service;
 
+import com.qs.www.member.model.dto.MemberInfoDTO;
 import com.qs.www.schedule.model.dao.ScheduleDAO;
 import com.qs.www.schedule.model.dto.ApproverPerReportDTO;
 import com.qs.www.schedule.model.dto.CustomWorkDTO;
@@ -269,6 +270,16 @@ public class ScheduleService {
 		return result;
 	}
 
+	public List<MemberInfoDTO> selectAllTeamMember(HashMap<String, Object> deptAndDay) {
+		SqlSession session = getSqlSession();
+		
+		List<MemberInfoDTO> teamMemberInfoList = scheduleDAO.selectAllTeamMember(session, deptAndDay);
+		
+		session.close();
+		
+		return teamMemberInfoList;
+	}
+	
 	public List<StandardWorkDTO> selectAllWorkType() {
 		
 		SqlSession session = getSqlSession();
@@ -290,6 +301,7 @@ public class ScheduleService {
 		
 		return totalCount;
 	}
+
 	
 	
 

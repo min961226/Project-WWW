@@ -31,36 +31,37 @@
 					</div>
 				</div>
 				
-				<div class="row" style="display : inline-block">>
-					<div class="col-lg-3 col-sm-4">
+				<div class="row">
+					<div class="col-lg-3 col-sm-4" style="display : block">
+						
 						<c:forEach var="workTypeContent" items="${ requestScope.workTypeList }">
-						<div class="card-box project-box">
-							<h4 class="project-title"><c:out value="${ workTypeContent.workName }"/></h4>
-							<small class="block text-ellipsis m-b-15">
-									<span class="text-xs">근무제코드 : </span><c:out value="${ workTypeContent.workCode }"/>
-							</small>
-							<div class="pro-deadline m-b-15">
-                                <div class="sub-title"> 최소근무시간(일일기준) </div>
-                                <div class="text-muted"><c:out value="${ workTypeContent.minimalWorkHour }"/></div>
-                            </div>
-                            <div class="pro-deadline m-b-15">
-                                <div class="sub-title"> 휴게시작시간 </div>
-                                <div class="text-muted"><c:out value="${ workTypeContent.breakStartTime }"/></div>
-                            </div>
-                            <div class="pro-deadline m-b-15">
-                                <div class="sub-title"> 휴게종료시간 </div>
-                                <div class="text-muted"><c:out value="${ workTypeContent.breakEndTime }"/></div>
-                            </div>
-                            <div class="pro-deadline m-b-15">
-                                <div class="sub-title"> 출근 ~ 퇴근 </div>
-                                <div class="text-muted"><c:out value="${ workTypeContent.checkInTime } ~ ${ workTypeContent.checkOutTime }"/></div>
-                            </div>
-                            <form action="${ pageContext.servletContext.contextPath }/mng/workingSystem/delete" method="post">
-                            	<input type="text" name="workCode" value="${ workTypeContent.workCode }" hidden>
-                            	<button type="submit" id="decline" class="btn btn-danger btn-md"> 삭제하기 </button>
-                            </form>
+							<div class="card-box project-box">
+								<h4 class="project-title"><c:out value="${ workTypeContent.workName }"/></h4>
+								<small class="block text-ellipsis m-b-15">
+										<span class="text-xs">근무제코드 : </span><c:out value="${ workTypeContent.workCode }"/>
+								</small>
+								<div class="pro-deadline m-b-15">
+	                                <div class="sub-title"> 최소근무시간(일일기준) </div>
+	                                <div class="text-muted"><c:out value="${ workTypeContent.minimalWorkHour }"/></div>
+	                            </div>
+	                            <div class="pro-deadline m-b-15">
+	                                <div class="sub-title"> 휴게시작시간 </div>
+	                                <div class="text-muted"><c:out value="${ workTypeContent.breakStartTime }"/></div>
+	                            </div>
+	                            <div class="pro-deadline m-b-15">
+	                                <div class="sub-title"> 휴게종료시간 </div>
+	                                <div class="text-muted"><c:out value="${ workTypeContent.breakEndTime }"/></div>
+	                            </div>
+	                            <div class="pro-deadline m-b-15">
+	                                <div class="sub-title"> 출근 ~ 퇴근 </div>
+	                                <div class="text-muted"><c:out value="${ workTypeContent.checkInTime } ~ ${ workTypeContent.checkOutTime }"/></div>
+	                            </div>
+	                            <form action="${ pageContext.servletContext.contextPath }/mng/workingSystem/delete" method="post">
+	                            	<input type="text" name="workCode" value="${ workTypeContent.workCode }" hidden>
+	                            	<button type="submit" id="decline" class="btn btn-danger btn-md"> 삭제하기 </button>
+	                            </form>
+							</div>
 							
-						</div>
 						</c:forEach>
 					</div>
 				</div>
