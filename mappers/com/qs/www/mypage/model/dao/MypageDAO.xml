@@ -30,9 +30,7 @@
              , A.PHONE = #{ phone }
              , A.ADDRESS = #{ address }
              , A.QUESTION_ANSWER = #{ questionAnswer }
-             , A.QUESTION_CODE = (SELECT B.QUESTION_CODE
-                                    FROM TBL_CHECK_QUESTION B
-                                   WHERE B.QUESTION_BODY = #{ checkQuestion.questionBody })
+             , A.QUESTION_CODE = #{ checkQuestion.questionCode }
          WHERE A.MEMBER_NO = #{ memberNo }
 	</update>
 	

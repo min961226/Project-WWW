@@ -19,6 +19,7 @@ public class CheckMemberIdServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		/* 입력받은 정보를 DB와 비교 */
 		String name = request.getParameter("name");
 		String email = request.getParameter("email");
 		

@@ -216,4 +216,28 @@
          WHERE A.ROLE_CODE = #{ roleCode }
          ORDER BY B.MENU_AUTHORITY_CODE
 	</select>
+	
+	<insert id="insertWorkingLog" parameterType="com.qs.www.member.model.dto.MemberInfoDTO">
+        INSERT /* com.qs.www.mng.employee.model.dao.MngEmployeeDAO#insertWorkingLog() */
+          INTO TBL_MEMBER_WORK_LOG A
+        (
+          A.MEMBER_WORK_LOG_NO
+        , A.MEMBER_NO
+        , A.WORK_TYPE
+        , A.WORK_NO
+        , A.CHANGE_DATE
+        , A.CHANGE_REASON
+        , A.WORK_REPORT_NO
+        )
+        VALUES
+        (
+          SEQ_MEMBER_WORK_LOG_NO.NEXTVAL
+        , #{ memberNo }
+        , '표준'
+        , 1
+        , SYSDATE
+        , '기본 근무 제도'
+        , DEFAULT
+        )
+	</insert>
 </mapper>

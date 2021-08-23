@@ -17,6 +17,7 @@ import com.qs.www.member.model.service.MemberService;
 public class UpdateMemberPwdServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		/* 입력받은 ID와 비밀번호를 DB에 저장 */
 		String memberId = request.getParameter("memberId");
 		String changePwd = request.getParameter("changePwd");
 		
@@ -24,11 +25,10 @@ public class UpdateMemberPwdServlet extends HttpServlet {
 		changePwdMember.setMemberId(memberId);
 		changePwdMember.setPassword(changePwd);
 		
-		String path = "";
-		
 		MemberService memberService = new MemberService();
-		
 		int result = memberService.updateMemberPwd(changePwdMember);
+		
+		String path = "";
 		
 		if(result > 0) {
 			path = "/WEB-INF/views/common/success.jsp";

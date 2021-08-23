@@ -38,6 +38,8 @@ public class UpdateMypageServlet extends HttpServlet {
 						+ "$" + request.getParameter("address1")
 						+ "$" + request.getParameter("address2");
 		String question = request.getParameter("question");
+		String questionCode = question.split(" ")[0];
+		String questionBody = question.substring(question.indexOf(" ") + 1);
 		String answer = request.getParameter("answer");
 		
 		HttpSession session = request.getSession();
@@ -47,7 +49,8 @@ public class UpdateMypageServlet extends HttpServlet {
 		memberInfo.setRrn(rrn);
 		memberInfo.setPhone(phone);
 		memberInfo.setAddress(address);
-		memberInfo.getCheckQuestion().setQuestionBody(question);
+		memberInfo.getCheckQuestion().setQuestionCode(questionCode);
+		memberInfo.getCheckQuestion().setQuestionBody(questionBody);
 		memberInfo.setQuestionAnswer(answer);
 		
 		MypageService mypageService = new MypageService();

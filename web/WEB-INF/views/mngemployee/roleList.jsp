@@ -60,12 +60,7 @@
 		                                			<c:if test="${ authority.menuCategoryUri eq menu.menuCategoryUri }">
 				                                		<td>
 				                                			<c:if test="${ authority.menuName ne null }">
-			                                					<c:if test="${ authority.menuAuthorityCode eq roleAuthority.menuAuthorityCode }">
-			                                						<input type="checkbox" style="margin:3px" checked>
-			                                					</c:if>
-			                                					<c:if test="${ authority.menuAuthorityCode ne roleAuthority.menuAuthorityCode }">
-			                                						<input type="checkbox" style="margin:3px">
-			                                					</c:if>
+			                                					<input type="checkbox" style="margin:3px" <c:if test="${ authority.menuAuthorityCode eq roleAuthority.menuAuthorityCode }">checked</c:if>>
 			                                					<c:out value="${ authority.menuName }"/>
 			                                				</c:if>
 				                                		</td>
@@ -84,12 +79,12 @@
     </div>
     
     <script>
+		/* 관리자 역할 선택 시 해당 역할의 권한 출력 (미구현) */
     	$(".role-menu > li").click(function() {
     		$("li").removeClass('active');
     		$(this).addClass('active');
     		
 		});
-    
     </script>
 </body>
 

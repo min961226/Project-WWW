@@ -18,7 +18,7 @@ import com.qs.www.mypage.model.service.MypageService;
 public class CheckMemberPwdServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		/* 본인 확인 질문 출력 */
 		MypageService mypageService = new MypageService();
 		List<CheckQuestionDTO> questionList = mypageService.selectQuestionList();
 		
@@ -28,6 +28,7 @@ public class CheckMemberPwdServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		/* 입력받은 정보를 DB와 비교 */
 		String memberId = request.getParameter("id");
 		String name = request.getParameter("name");
 		String email = request.getParameter("email");

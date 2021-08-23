@@ -24,7 +24,7 @@ import com.qs.www.member.model.service.MemberService;
 public class LoginServlet extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		/* 입력받은 ID와 비밀번호를 DB에 저장된 정보와 비교 */
 		String memberId = request.getParameter("memberId");
 		String memberPwd = request.getParameter("memberPwd");
 		
