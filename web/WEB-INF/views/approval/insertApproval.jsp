@@ -111,15 +111,14 @@
 									
 									
 									 <div class="col-sm-6">
-										<label>물품번호</label>
+										<label>물품분류</label>
 										<div class="col-md-12">
 											<select class="form-control" name="productNo">
-												<option value="p-1">p-1</option>
-												<option value="p-2">p-2</option>
-												<option value="p-3">p-3</option>
-												<option value="p-4">p-4</option>
-												<option value="p-5">p-5</option>
-												<option value="p-6">p-6</option>
+												<option value="p-1">업무지원비</option>
+												<option value="p-2">식비</option>
+												<option value="p-3">교통비</option>
+												<option value="p-4">물품구입비</option>
+												<option value="p-5">기타</option>
 											</select>
 										</div>
 									</div>

@@ -68,7 +68,7 @@
 								<label>비고</label>
 								<div class="col-lg-12">
 									<textarea name="holidayNote" rows="5" cols="5" class="form-control"
-										placeholder="비고를 입력해주세요"  required="required">${ requestScope.holidayType.holidayNote }</textarea>
+										placeholder="비고를 입력해주세요">${ requestScope.holidayType.holidayNote }</textarea>
 								</div>
 							</div>
 
