@@ -144,7 +144,7 @@
 	                        <ul class="list-unstyled" style="display: none;">
 	                            <li><a href="${ pageContext.servletContext.contextPath }/mng/employee/list/select">전체 직원 조회</a></li>
 	                            <li><a href="${ pageContext.servletContext.contextPath }/mng/employee/list/insert">계정 생성</a></li>
-	                            <li><a href="${ pageContext.servletContext.contextPath }/mng/employee/role/select">권한 관리</a></li>
+	                            <%-- <li><a href="${ pageContext.servletContext.contextPath }/mng/employee/role/select">권한 관리</a></li> --%>
 	                        </ul>
 	                    </li>
 	                    <li class="submenu" id="submenu_mng_working_system">
