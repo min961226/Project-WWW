@@ -25,6 +25,70 @@
                 <div class="row">
                 	<div class="col-lg-6 col-md-6 col-xs-12">
 	                    <div class="panel">
+	                       	<div class="panel-heading text-center">
+	                           	<h3 class="panel-title">Weekly Report</h3>
+	                       	</div>
+	                       	<div class="panel-body">
+	                       		<div>
+		                       		<div class="col-xs-6" style="height: 80px;">
+		                       			<h1>${ workTimeSum } hr</h1>
+		                       		</div>
+	                                <div class="col-xs-6" style="height: 80px;">
+	                                	<h1>${ overtimeSum } hr</h1>
+	                                </div>
+	                       		</div>
+	                       		<div>
+	                                <div class="col-xs-6">정규 근무시간
+	                                	<hr style="background-color: #888888; height: 1px; border:0px;">
+	                                </div>
+	                                <div class="col-xs-6">초과 근무시간
+	                                	<hr style="background-color: #888888; height: 1px; border:0px;">
+	                                </div>
+	                       		</div>
+                            </div>
+	                    </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-xs-12">
+                    	<div class="panel">
+                        	<h3 style="height: 40px;font: bold;margin-top: 10px" align="center"><b><출퇴근 현황></b></h3>
+							<h6 align="right">근무 제도 : ${ sessionScope.memberInfo.appWorkType }</h6>	                           	
+                            <div class="table-resposive">
+                                <table class="display datatable table table-stripped">
+                                    <thead>
+                                      <tr bgcolor="FFBC35">
+                                            <th>날짜</th>
+                                            <th>출근</th>
+                                            <th>퇴근</th>
+                                            <th>정규 근무시간</th>
+                                            <th>초과 근무시간</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    	<c:forEach var="workingLog" items="${ workingLogList }" varStatus="status">
+                                    		<tr>
+                                    			<td>${ workingLog.selectedDate } (${ workingLog.selectedDayOfWeek })</td>
+                                    			<td>${ commutingLogList[status.index].inTime }</td>
+                                    			<td>${ commutingLogList[status.index].outTime }</td>
+                                    			<td>${ workingLog.dailyWorkTime } hr</td>
+                                    			<td>
+                                    				<c:forEach var="overTimeLog" items="${ overTimeLogList }">
+                                      			<c:if test="${ workingLog.selectedSqlDate eq overTimeLog.overtimeStartDay}">
+                                      				${ overTimeLog.overtimeDuring } hr
+                                      			</c:if>
+                                     			</c:forEach>
+                                    			</td>
+                                    		</tr>
+                                    	</c:forEach>
+                                    </tbody>
+                                </table>
+                            </div>
+	                    </div>
+                    </div>
+            	</div>
+            	<div class="row">
+                	<div class="col-lg-6 col-md-6 col-xs-12">
+                		<hr style="background-color: #888888; height: 2px; border:0px;">
+	                    <div class="panel">
 	                       	<!-- <div class="panel-heading text-center">
 	                           	<h3 class="panel-title" style="color:red">Weekly Report</h3>
 	                       	</div>
@@ -58,60 +122,6 @@
 									</tr>
 								</c:forEach>
 							</table>
-	                    </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-xs-12">
-                    	<div class="panel">
-	                           	<h3  style="height: 40px;font: bold;margin-top: 10px" align="center"><b><출퇴근 현황></b></h3>
-									<h6 align="right">근무 제도 : ${ sessionScope.memberInfo.appWorkType }</h6>	                           	
-                                <div class="table-resposive">
-                                    <table class="display datatable table table-stripped">
-                                        <thead>
-                                          <tr bgcolor="FFBC35">
-                                                <th>날짜</th>
-                                                <th>출근</th>
-                                                <th>퇴근</th>
-                                                <th>정규 근무시간</th>
-                                                <th>초과 근무시간</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        	<c:forEach var="workingLog" items="${ workingLogList }" varStatus="status">
-                                        		<tr>
-                                        			<td>${ workingLog.selectedDate } (${ workingLog.selectedDayOfWeek })</td>
-                                        			<td>${ commutingLogList[status.index].inTime }</td>
-                                        			<td>${ commutingLogList[status.index].outTime }</td>
-                                        			<td>${ workingLog.workingType.checkInTime }</td>
-                                        			<td>-</td>
-                                        		</tr>
-                                        	</c:forEach>
-                                        </tbody>
-                                    </table>
-                                </div>
-	                    </div>
-                    </div>
-            	</div>
-            	<div class="row">
-                	<div class="col-lg-6 col-md-6 col-xs-12">
-                		<hr style="background-color: #888888; height: 2px; border:0px;">
-	                    <div class="panel">
-	                       	<div class="panel-heading text-center">
-	                           	<h3 class="panel-title">Monthly Report</h3>
-	                       	</div>
-	                       	<div class="panel-body">
-	                       		<div>
-		                       		<div class="col-xs-6" style="height: 80px; color:red"><h1>58h 40m</h1></div>
-	                                <div class="col-xs-6" style="height: 80px; color:red"><h1>0h</h1></div>
-	                       		</div>
-	                       		<div>
-	                                <div class="col-xs-6">정규 근무시간
-	                                	<hr style="background-color: #888888; height: 1px; border:0px;">
-	                                </div>
-	                                <div class="col-xs-6">초과 근무시간
-	                                	<hr style="background-color: #888888; height: 1px; border:0px;">
-	                                </div>
-	                       		</div>
-                            </div>
 	                    </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-xs-12">
