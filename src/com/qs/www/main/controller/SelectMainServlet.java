@@ -1,8 +1,11 @@
 package com.qs.www.main.controller;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.time.DayOfWeek;
+import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
 import java.util.List;
@@ -20,6 +23,8 @@ import com.qs.www.main.model.dto.WorkingLogDTO;
 import com.qs.www.main.model.service.MainService;
 import com.qs.www.member.model.dto.MemberInfoDTO;
 import com.qs.www.mypage.model.dto.CommutingLogDTO;
+import com.qs.www.schedule.model.dto.OvertimeLogDTO;
+import com.qs.www.schedule.model.service.ScheduleService;
 import com.qs.www.welfare.model.dto.WelfareListDTO;
 
 @WebServlet("/main")
@@ -49,12 +54,6 @@ public class SelectMainServlet extends HttpServlet {
 		// 요일별 날짜를 담을 변수(월요일 ~ 일요일)
 		LocalDate selectedLocalDate = currentDate
 								.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
-//		String monthlyStartDate = currentDate
-//				.with(TemporalAdjusters.firstDayOfMonth())
-//				.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-//		String monthlyEndDate = currentDate
-//				.with(TemporalAdjusters.lastDayOfMonth())
-//				.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 		
 		WorkInfoDTO todayWorkInfo = new WorkInfoDTO();
 		todayWorkInfo.setMemberNo(memberNo);
@@ -68,31 +67,71 @@ public class SelectMainServlet extends HttpServlet {
 		weeklyWorkInfo.setWeekStartDate(weekStartDate);
 		weeklyWorkInfo.setWeekEndDate(weekEndDate);
 		
-//		WorkInfoDTO monthlyWorkInfo = new WorkInfoDTO();
-//		monthlyWorkInfo.setMemberNo(memberNo);
-//		monthlyWorkInfo.setStartDate(monthlyStartDate);
-//		monthlyWorkInfo.setEndDate(monthlyEndDate);
-		
-		
 		List<WorkingLogDTO> workingLogList = mainService.selectWorkingLogList(todayWorkInfo);
-//		List<WorkingLogDTO> weeklyWorkingLogList = mainService.selectWorkingLogList(weeklyWorkInfo);
-//		List<WorkingLogDTO> monthlyWorkingLogList = mainService.selectWorkingLogList(monthlyWorkInfo);
 		List<CommutingLogDTO> commutingLogList = mainService.selectCommutingLog(todayWorkInfo);
-//		List<CommutingLogDTO> weeklyCommutingLogList = mainService.selectCommutingLog(weeklyWorkInfo);
-//		List<CommutingLogDTO> monthlyCommutingLogList = mainService.selectCommutingLog(monthlyWorkInfo);
 		
+		// 일간 및 주간 근무시간 계산
+		long workTimeSum = 0;
+		if(workingLogList != null) {
+			for(WorkingLogDTO workingLog : workingLogList) {
+				Date selectedSqlDate = Date.valueOf(workingLog.getSelectedDate());
+				workingLog.setSelectedSqlDate(selectedSqlDate);
+				
+				if(workingLog.getSelectedDayOfWeek() != "토" && workingLog.getSelectedDayOfWeek() != "일") {
+					LocalTime checkInTime = LocalTime.parse(workingLog.getWorkingType().getCheckInTime());
+					LocalTime checkOutTime = LocalTime.parse(workingLog.getWorkingType().getCheckOutTime());
+					LocalTime breakStartTime = LocalTime.parse(workingLog.getWorkingType().getBreakStartTime());
+					LocalTime breakEndTime = LocalTime.parse(workingLog.getWorkingType().getBreakEndTime());
+					
+					long beforeBreakTime = Duration.between(checkInTime, breakStartTime).toHours();
+					long afterBreakTime = Duration.between(breakEndTime, checkOutTime).toHours();
+					
+					long dailyWorkTime = beforeBreakTime + afterBreakTime;
+					workingLog.setDailyWorkTime(dailyWorkTime);
+					
+					LocalDate selectedDate = LocalDate.parse(workingLog.getSelectedDate());
+					if(selectedDate.isBefore(currentDate.plusDays(1))) {
+						workTimeSum += workingLog.getDailyWorkTime();
+					}
+				} else {
+					workingLog.setDailyWorkTime(0);
+				}
+			}
+		}
 		
 		List<NoticeDTO> noticeList= mainService.selectNoticeList();
 		List<WelfareListDTO> welfareList = mainService.selectWelfareList(memberNo);
 		
+		/* 이번주 초과근무 시간과 잔여시간 */
+		// 초과근무 결재시간이 있는지 검색
+		OvertimeLogDTO overtimeLogDTO = new OvertimeLogDTO();
+		overtimeLogDTO.setMemberNo(memberNo);
+		overtimeLogDTO.setWeekStartDate(weekStartDate);
+		overtimeLogDTO.setWeekEndDate(weekEndDate);
+		ScheduleService scheduleService = new ScheduleService();
+		List<OvertimeLogDTO> overTimeLogList = scheduleService.selectOverTimeLog(overtimeLogDTO);
+		
+		//결재된 초과근무를 모두 더한다.
+		int overtimeSum = 0;
+		if(overTimeLogList != null) {
+			for(OvertimeLogDTO overtimeLog : overTimeLogList) {
+				LocalDate selectedDate = new java.sql.Date(overtimeLog.getOvertimeStartDay().getTime()).toLocalDate();
+				if(selectedDate.isBefore(currentDate.plusDays(1))) {
+					overtimeSum += overtimeLog.getOvertimeDuring();
+				}
+			}
+		}
+		
 		String path = "/WEB-INF/views/main/main.jsp";
-//		request.setAttribute("accessMenu", accessMenuJsonString);
 		
 		request.setAttribute("welfareList", welfareList);
 		request.setAttribute("noticeList", noticeList);
 		request.setAttribute("workInfo", todayWorkInfo);
 		request.setAttribute("commutingLogList", commutingLogList);
 		request.setAttribute("workingLogList", workingLogList);
+		request.setAttribute("workTimeSum", workTimeSum);
+		request.setAttribute("overTimeLogList", overTimeLogList);
+		request.setAttribute("overtimeSum", overtimeSum);
 			
 		request.getRequestDispatcher(path).forward(request, response);
 	}

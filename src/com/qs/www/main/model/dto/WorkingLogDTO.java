@@ -12,11 +12,13 @@ public class WorkingLogDTO implements Serializable {
 	private String selectedDate;
 	private String selectedDayOfWeek;
 	private Date changeDate;
+	private long dailyWorkTime;
+	private java.util.Date selectedSqlDate;
 	
 	public WorkingLogDTO() {}
 
 	public WorkingLogDTO(int workLogNo, int workNo, String workType, WorkingTypeDTO workingType, String selectedDate,
-			String selectedDayOfWeek, Date changeDate) {
+			String selectedDayOfWeek, Date changeDate, long dailyWorkTime, java.util.Date selectedSqlDate) {
 		super();
 		this.workLogNo = workLogNo;
 		this.workNo = workNo;
@@ -25,6 +27,8 @@ public class WorkingLogDTO implements Serializable {
 		this.selectedDate = selectedDate;
 		this.selectedDayOfWeek = selectedDayOfWeek;
 		this.changeDate = changeDate;
+		this.dailyWorkTime = dailyWorkTime;
+		this.selectedSqlDate = selectedSqlDate;
 	}
 
 	public int getWorkLogNo() {
@@ -83,10 +87,27 @@ public class WorkingLogDTO implements Serializable {
 		this.changeDate = changeDate;
 	}
 
+	public long getDailyWorkTime() {
+		return dailyWorkTime;
+	}
+
+	public void setDailyWorkTime(long dailyWorkTime) {
+		this.dailyWorkTime = dailyWorkTime;
+	}
+
+	public java.util.Date getSelectedSqlDate() {
+		return selectedSqlDate;
+	}
+
+	public void setSelectedSqlDate(java.util.Date selectedSqlDate) {
+		this.selectedSqlDate = selectedSqlDate;
+	}
+
 	@Override
 	public String toString() {
 		return "WorkingLogDTO [workLogNo=" + workLogNo + ", workNo=" + workNo + ", workType=" + workType
 				+ ", workingType=" + workingType + ", selectedDate=" + selectedDate + ", selectedDayOfWeek="
-				+ selectedDayOfWeek + ", changeDate=" + changeDate + "]";
+				+ selectedDayOfWeek + ", changeDate=" + changeDate + ", dailyWorkTime=" + dailyWorkTime
+				+ ", selectedSqlDate=" + selectedSqlDate + "]";
 	}
 }
