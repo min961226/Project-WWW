@@ -135,7 +135,6 @@ public class InsertNightTransportationWelfareServlet extends HttpServlet {
             Collection<Part> parts = request.getParts();
  
             for (Part part : parts) {
-                        part.getContentType(), part.getSize());
  
  
                 if  (part.getHeader("Content-Disposition").contains("filename=")) {							

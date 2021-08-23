@@ -92,7 +92,7 @@ public class InsertSelfDevelopmentWelfareServlet extends HttpServlet {
 		welfareListDTO.setReportNote(request.getParameter("selfDevInfo"));
 		welfareListDTO.setLineName(request.getParameter("selfDevList"));
 		welfareListDTO.setWelfareTitle(welfareTitle);
-		welfareListDTO.setDate(Date.valueOf(request.getParameter("date")));
+		welfareListDTO.setSelfDevDate(Date.valueOf(request.getParameter("date")));
 		
 		int reportNo = welfareService.selectReportNum();
 		int result1 = welfareService.insertWelfareReport(welfareListDTO);
@@ -157,7 +157,6 @@ public class InsertSelfDevelopmentWelfareServlet extends HttpServlet {
             Collection<Part> parts = request.getParts();
  
             for (Part part : parts) {
-                        part.getContentType(), part.getSize());
  
  
                 if  (part.getHeader("Content-Disposition").contains("filename=")) {							
