@@ -45,6 +45,16 @@
 	                                	<hr style="background-color: #888888; height: 1px; border:0px;">
 	                                </div>
 	                       		</div>
+	                       		<div><h5><c:out value="이번 주 정규근무시간 : ${ requestScope.workTimeSum }시간 [잔여 : ${ 40 - requestScope.workTimeSum } 시간]"/></h5></div>
+                                <div class="progress">
+                                	<div class="progress-bar progress-bar-striped bg-warning" role="progressbar" style="width: ${ requestScope.workTimeSumPercent }%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                
+                                <div><h5><c:out value="이번 주 초과근무시간 : ${ requestScope.overtimeSum } 시간 [잔여 : ${ 12 - requestScope.overtimeSum } 시간]"/></h5></div>
+                                <div class="progress">
+                                	<div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: ${ requestScope.overtimePercent }%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+	                       		
                             </div>
 	                    </div>
                     </div>

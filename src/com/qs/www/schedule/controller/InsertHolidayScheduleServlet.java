@@ -96,10 +96,10 @@ public class InsertHolidayScheduleServlet extends HttpServlet {
 		long longStartDay = startDay.getTime();
 		long longendDay = endDay.getTime();
 
-		//기간일수 계산... 일단 '종일'인 걸로 상정하고 계산.
 		//기간일수 어떻게 할지 고민해봐야 함
 		long during = longendDay - longStartDay;
 		long duringDate = during / (24 * 60 * 60 * 1000) + 1;
+		
 		String duringDateString = duringDate + "";
 		System.out.println(startDay + " 와 " + endDay + "의 기간일수 : " + duringDate);
 
