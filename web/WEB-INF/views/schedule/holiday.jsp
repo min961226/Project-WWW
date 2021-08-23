@@ -15,23 +15,17 @@
 </head>
 
 <body>
-
 	<div class="main-wrapper">
-
 		<div class="page-wrapper">
 			<div class="content container-fluid">
-
 				<div class="row">
 					<div class="col-xs-8">
 						<h4 class="page-title">휴가 신청 현황</h4>
 					</div>
-
 					<!-- 휴가신청으로 이동하는 버튼 -->
 					<div class="col-xs-4 text-right m-b-30">
-						<a
-							href="${ pageContext.servletContext.contextPath }/schedule/holiday/insert"
-							class="btn btn-primary rounded pull-right"><i
-							class="fa fa-plus"></i> 휴가신청하기</a>
+						<a href="${ pageContext.servletContext.contextPath }/schedule/holiday/insert" class="btn btn-primary rounded pull-right">
+							<i class="fa fa-plus"></i> 휴가신청하기</a>
 					</div>
 				</div>
 
@@ -49,18 +43,14 @@
 						</select> <input type="search" id="searchValue" name="searchValue"
 							value="<c:out value="${ requestScope.selectCriteria.searchValue }"/>">
 						<button type="submit" class="btn btn-success btn-sm">검색하기</button>
-						<!-- <button type="button" id="writeFree">작성하기</button> -->
 					</form>
 				</div>
-				<!-- 검색조건 end -->
-
 
 				<!-- 휴가신청내용 -->
 				<div class="row">
 					<div class="col-md-12">
 						<div class="table-responsive">
 							<table class="table table-striped custom-table m-b-0 datatable">
-
 								<tbody>
 								<thead>
 									<tr>
@@ -74,12 +64,8 @@
 									</tr>
 								</thead>
 
-
 								<c:forEach var="holiday" items="${ requestScope.holidayReportList }">
-
-									<!-- 승인인지 여부만 확인. 승인 이외에는 빨간색으로 -->
-									<c:set var="isApproved" value="${ fn:contains(holiday.reportStatus, \"승인\") }" />
-
+									<c:set var="isApproved" value="${ fn:contains(holiday.reportStatus, \"승인\") }" /><!-- 승인인지 여부만 확인. 승인 이외에는 빨간색으로 -->
 									<tr>
 										<td><c:out value="${ holiday.reportNo }" /></td>
 										<td><c:if test="${ holiday.documentNo eq 6 }">
@@ -98,18 +84,15 @@
 													<c:out value=" ${ holiday.reportStatus }" />
 												</c:otherwise>
 											</c:choose></td>
-
 										<td><c:out value="${ holiday.reportNote }" /></td>
 									</tr>
 								</c:forEach>
-
 								</tbody>
 							</table>
 							<!-- 근무신청내용 end -->
 
 							<!-- 페이징 부분 -->
 							<jsp:include page="../common/navbar.jsp" />
-
 						</div>
 					</div>
 				</div>

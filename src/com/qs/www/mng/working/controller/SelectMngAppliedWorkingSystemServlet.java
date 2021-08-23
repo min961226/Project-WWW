@@ -20,7 +20,6 @@ import com.qs.www.schedule.model.dto.ReportDTO;
 public class SelectMngAppliedWorkingSystemServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("근무 신청 목록 조회");
 
 		MngAppliedWorkingService mngAppliedWorkingService = new MngAppliedWorkingService();
 		
@@ -79,7 +78,6 @@ public class SelectMngAppliedWorkingSystemServlet extends HttpServlet {
 		} else {
 			selectCriteria = Pagenation.getSelectCriteria(pageNo, totalCount, limit, buttonAmount);
 		} 
-		System.out.println(selectCriteria);
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				
 		//로그인한 사람의 사번과 문서번호를 넘겨준다.

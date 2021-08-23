@@ -15,10 +15,7 @@
 
 <body>
 	<div class="main-wrapper">
-		<jsp:include page="../common/navbar.jsp" />
-
 		<div class="page-wrapper">
-
 			<div class="content container-fluid">
 				<div class="row">
 					<div class="col-xs-12">
@@ -127,9 +124,9 @@
 										</div>
 
 										<div class="form-group">
-											<label>증빙자료 첨부</label>
-											<div>
-												<input class="form-control" type="file" name="file1" multiple="multiple"> 
+											<label class="col-md-3 control-label">증빙자료 첨부</label>
+											<div class="col-md-9">
+												<input type="file" class="form-control" name="file1" multiple="multiple"> 
 												<small class="help-block">파일 최대 사이즈: 10 MB. 허용된 확장자: jpg, gif, png. </small>
 											</div>
 
@@ -144,61 +141,13 @@
 								</div>
 
 							</form>
+							<jsp:include page="../common/navbar.jsp" />
 						</div>
 					</div>
 				</div>
 
 				<br> <br>
 
-				<div class="row">
-					<div class="col-md-6">
-						<div class="card-box">
-							<h4 class="card-title">Basic Form</h4>
-							<form action="#" class="form-horizontal">
-								<div class="form-group">
-									<label class="col-md-3 control-label">First Name</label>
-									<div class="col-md-9">
-										<input type="text" class="form-control">
-									</div>
-								</div>
-								<div class="form-group">
-									<label class="col-md-3 control-label">Last Name</label>
-									<div class="col-md-9">
-										<input type="text" class="form-control">
-									</div>
-								</div>
-								<div class="text-right">
-									<button type="submit" class="btn btn-primary">Submit</button>
-								</div>
-							</form>
-						</div>
-					</div>
-					<div class="col-md-6">
-						<div class="card-box">
-							<h4 class="card-title">Address Form</h4>
-							<form action="#" class="form-horizontal">
-								<div class="form-group">
-									<label class="col-md-3 control-label">Country</label>
-									<div class="col-md-9">
-										<input type="text" class="form-control">
-									</div>
-								</div>
-								<div class="form-group">
-									<label class="col-md-3 control-label">Postal Code</label>
-									<div class="col-md-9">
-										<input type="text" class="form-control">
-									</div>
-								</div>
-								<div class="text-right">
-									<button type="submit" class="btn btn-primary">Submit</button>
-								</div>
-							</form>
-						</div>
-					</div>
-				</div>
-				
-				
-				
 			</div>
 		</div>
 
@@ -223,7 +172,7 @@
 			
 			//근무기간 계산 
 			//onchange를 endDayAllday에 달아야 할 것 같은데
-			/* function calDuring(obj) {
+			function calDuring(obj) {
 				var sdd = document.getElementById('startDay').value;
 				var edd = document.getElementById('endDay').value;
 				var sda = document.getElementById('startDayAllday').value; //'오후'이면 -0.5
@@ -255,7 +204,7 @@
 					$during.value = parseInt(dif/cDay) + 0.5;
 					}
 				 }
-			} */
+			} 
 
 			const $goBack = document.getElementById("goBack");
 			$goBack.onclick = function() {

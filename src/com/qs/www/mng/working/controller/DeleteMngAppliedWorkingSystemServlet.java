@@ -24,16 +24,11 @@ public class DeleteMngAppliedWorkingSystemServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		System.out.println("근태 취소할거임"); 
 		int reportNo = Integer.parseInt(request.getParameter("no"));
 		int memberNo = Integer.parseInt(request.getParameter("memberNo"));  //기안자의 회원번호
 		int documentNo = Integer.parseInt(request.getParameter("documentNo"));
 		String workType = request.getParameter("workType");
 		String status = request.getParameter("status");
-		System.out.println("memberNo : " +  memberNo);
-		System.out.println("documentNo : " + documentNo);
-		System.out.println("workType : " + workType);
-		System.out.println("status : " + status);
 		
 		MngAppliedWorkingService mngAppliedWorkingService = new MngAppliedWorkingService();
 		MngHolidayService mngHolidayService = new MngHolidayService();

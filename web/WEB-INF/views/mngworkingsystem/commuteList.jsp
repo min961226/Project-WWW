@@ -22,7 +22,7 @@
 				<div class="row">
 					<div class="col-xs-12">
 						<h4 class="page-title">직원 근무시간 조회</h4>
-						<input value="${ requestScope.thisYear }년 ${ requestScope.thisMonth }월">
+						<h4><c:out value="${ requestScope.thisYear }년 ${ requestScope.thisMonth }월 조회"></c:out></h4>
 					</div>
 				</div>
 				
@@ -44,7 +44,6 @@
 						</select> <input type="search" id="searchValue" name="searchValue"
 							value="<c:out value="${ requestScope.selectCriteria.searchValue }"/>">
 						<button type="submit" class="btn btn-success btn-sm">검색하기</button>
-						<!-- <button type="button" id="writeFree">작성하기</button> -->
 					</form>
 				</div>
 				<!-- 검색조건 end -->
@@ -60,9 +59,7 @@
 											<thead>
 												<!-- 요일출력부분 -->
 												<tr>
-													<th><c:out value="이름"></c:out></th>
-													<th><c:out value="부서"></c:out></th>
-													<th><c:out value="직급"></c:out></th>
+													<th colspan="2"><c:out value="직원정보"></c:out></th>
 													<c:forEach var="days" items="${ memberList.dailyCommuteList }">
 														<th><c:out value="${ days.dateNum }" /></th>
 													</c:forEach>
@@ -72,9 +69,9 @@
 											<tbody>
 												<!-- 요일 출력부분 -->
 												<tr style="font-size: 8px">
+													<th><c:out value="이름"></c:out></th>
 													<th><c:out value="${ memberList.name }"></c:out></th>
-													<th><c:out value="${ memberList.deptName }"></c:out></th>
-													<th><c:out value="${ memberList.jobName }"></c:out></th>
+													
 													<c:forEach var="days" items="${ memberList.dailyCommuteList }">
 														<c:set var="isSaterDay" value="${ fn:contains(days.dayOfWeek, \"토\") }" />
 														<c:set var="isSundayDay" value="${ fn:contains(days.dayOfWeek, \"일\") }" />
@@ -97,9 +94,8 @@
 												
 												<!-- 출근시간 출력부분 -->
 												<tr style="font-size: 5px">
-													<td></td>
-													<td></td>
-													<td></td>
+													<th><c:out value="부서"></c:out></th>
+													<th><c:out value="${ memberList.deptName }"></c:out></th>
 													<c:forEach var="days" items="${ memberList.dailyCommuteList }">
 														<c:set var="isSaterDay"	value="${ fn:contains(days.dayOfWeek, \"토\") }" />
 														<c:set var="isSundayDay" value="${ fn:contains(days.dayOfWeek, \"일\") }" />
@@ -121,9 +117,8 @@
 												
 												<!-- 퇴근시간 출력부분 -->
 												<tr style="font-size: 5px">
-													<td></td>
-													<td></td>
-													<td></td>
+													<th><c:out value="직급"></c:out></th>
+													<th><c:out value="${ memberList.jobName }"></c:out></th>
 													<c:forEach var="days" items="${ memberList.dailyCommuteList }">
 														<c:set var="isSaterDay" value="${ fn:contains(days.dayOfWeek, \"토\") }" />
 														<c:set var="isSundayDay" value="${ fn:contains(days.dayOfWeek, \"일\") }" />
@@ -133,7 +128,7 @@
 																<td><div style="color: #E94B3B">휴</div></td>
 															</c:when>
 															<c:when test="${ !empty days.checkOutTime && isLeaveEarly}">
-																<th><i class="fa fa-dot-circle-o text-danger"></i><br>
+																<th><i class="fa fa-dot-circle-o text-info"></i><br>
 																<c:out value="${ days.checkOutTime }" /></th>
 															</c:when>
 															<c:otherwise>

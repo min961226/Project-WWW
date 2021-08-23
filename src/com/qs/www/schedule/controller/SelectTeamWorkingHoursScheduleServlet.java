@@ -40,11 +40,12 @@ public class SelectTeamWorkingHoursScheduleServlet extends HttpServlet {
 		// 오늘 날짜
 		LocalDate currentDate = LocalDate.now();
 		Date currentDateSql = Date.valueOf(currentDate);
+		request.setAttribute("date", currentDate);
 		
 		//나의 부서와 오늘날짜 기준으로 검색해야 하므로 HashMap을 만들어준다
 		HashMap<String, Object> deptAndDay = new HashMap<>();
 		deptAndDay.put("myDeptCode", myDept.getDeptCode());
-		deptAndDay.put("currentDate", currentDateSql);
+		deptAndDay.put("searchDate", currentDateSql);
 		System.out.println("myDeptCode : " + myDept.getDeptCode());
 		System.out.println("currentDate : " + currentDateSql);
 		

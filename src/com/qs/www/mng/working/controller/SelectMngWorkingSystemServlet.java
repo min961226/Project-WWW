@@ -21,10 +21,8 @@ public class SelectMngWorkingSystemServlet extends HttpServlet {
 		
 		HttpSession session = request.getSession();	
 		
-		/* 근무제도 관련 기능들 싹 가져오기 */
-		//근무제목록 가져오기
+		/* 근무제도 관련 기능들 가져오기 */
 		List<StandardWorkDTO> workTypeList = new ScheduleService().selectAllWorkType();
-		System.out.println("workTypeList 목록 : " + workTypeList);
 				
 		request.setAttribute("workTypeList", workTypeList);
 		session.setAttribute("workTypeList", workTypeList);

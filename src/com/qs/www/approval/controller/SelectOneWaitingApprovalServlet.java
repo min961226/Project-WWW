@@ -133,10 +133,6 @@ public class SelectOneWaitingApprovalServlet extends HttpServlet {
 				//판단에 필요한 정보 가져오기
 				ReportDTO selectedReport  = approvalService.selectOneReportDetail(reportNo);
 				List<WorkingDocumentItemDTO> itemList = approvalService.selectReportItemList(reportNo);
-				for(WorkingDocumentItemDTO dto : itemList) {
-					System.out.println("순서대로 나오나...?");
-					System.out.println("문서의 item 리스트 : " + dto);
-				}
 				
  				/* 5. 근무제쪽 테이블에도 insert 해주기 */
 				if(selectedReport.getDocumentNo() == 4 || selectedReport.getDocumentNo() == 5) {

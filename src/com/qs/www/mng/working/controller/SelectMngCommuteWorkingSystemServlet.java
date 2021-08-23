@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.sql.Date;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -33,10 +35,8 @@ public class SelectMngCommuteWorkingSystemServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("직원 출퇴근 기록");
 
-		MngCommuteService mngCommuteService = new MngCommuteService();
-
 		//모든 직원의 출퇴근기록을 받아와야 함
-		HttpSession session = request.getSession();
+		MngCommuteService mngCommuteService = new MngCommuteService();
 
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -88,7 +88,6 @@ public class SelectMngCommuteWorkingSystemServlet extends HttpServlet {
 		} else {
 			selectCriteria = Pagenation.getSelectCriteria(pageNo, totalCount, limit, buttonAmount);
 		}
-		System.out.println(selectCriteria);
 
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		
@@ -115,10 +114,25 @@ public class SelectMngCommuteWorkingSystemServlet extends HttpServlet {
 		String thisMonthFirstString = thisMonthFirst + "";
 		String thisMonthLastString = thisMonthLast + "";
 		
-		//월별로도 검색이 가능하게 해야 되남...
+		//검색조건으로 연,월을 선택한 경우, 넣은 searchValue로 검색되게 하는 기능
 		if(searchCondition != null) {
 			if(searchCondition.equals("yearMonth")) {
-				String getYearMonth = searchValue;
+				String getYear = searchValue.substring(0, 4);
+				String getMonth = searchValue.substring(4, 6);
+				request.setAttribute("thisYear", getYear);
+				request.setAttribute("thisMonth", getMonth);
+				
+				String getYearMonthDateFirst = getYear + "-" + getMonth + "-" + "01";
+				
+				//YearMonth 타입으로 변환
+				YearMonth targetYearMonth = YearMonth.from(LocalDate.parse(getYearMonthDateFirst, DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+				//해당월의 마지막 날
+				LocalDate getYearMonthDateLast = targetYearMonth.atEndOfMonth();
+				
+				thisMonthFirst = Date.valueOf(getYearMonthDateFirst);
+				thisMonthLast = Date.valueOf(getYearMonthDateLast);
+				thisMonthFirstString = thisMonthFirst + "";
+				thisMonthLastString = thisMonthLast + "";
 			}
 			
 		}
@@ -132,7 +146,6 @@ public class SelectMngCommuteWorkingSystemServlet extends HttpServlet {
 		//사번, 이름, 부서명, 직급을 가져온다. 
 		//List<DailyCommuteDTO> dailyCommuteList 필드는 NULL인 DTO를 받아오게 된다.
 		List<MemberCommuteLogDTO> memberList = mngCommuteService.selectCriteriaMemberList(selectedInfoMap);
-		System.out.println("페이징 memberList : " + memberList);
 		
 		
 		//조건과 달을 입력하여 출근시간, 퇴근시간들을 가져와야 함
