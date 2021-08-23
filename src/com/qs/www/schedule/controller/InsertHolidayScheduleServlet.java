@@ -44,7 +44,6 @@ public class InsertHolidayScheduleServlet extends HttpServlet {
 	private static final String ATTACHES_REPORT = "C:\\WWW\\Project-WWW\\web\\upload\\report";							//경로지정				
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("휴가 신청");
 
 		/* 1. 생성휴가, 사용휴가, 잔여휴가 일수 가져오기 */
 

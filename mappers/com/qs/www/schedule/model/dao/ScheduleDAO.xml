@@ -332,7 +332,7 @@
     WHERE A.ENT_YN = 'N'
       AND A.DEPT_CODE = #{ myDeptCode }
       AND B.LOG_TYPE = '사용'
-      AND #{ currentDate } between C.HOLIDAY_START_DAY AND C.HOLIDAY_END_DAY
+      AND #{ searchDate } between C.HOLIDAY_START_DAY AND C.HOLIDAY_END_DAY
    </select>
    
    <select id="selectCustomWorkNum" resultType="_int">

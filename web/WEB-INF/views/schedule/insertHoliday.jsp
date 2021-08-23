@@ -15,6 +15,8 @@
 
 <body>
 	<div class="main-wrapper">
+	<jsp:include page="../common/navbar.jsp" />
+	
 		<div class="page-wrapper">
 			<div class="content container-fluid">
 				<div class="row">
@@ -34,23 +36,14 @@
 
 								<div class="row">
 									<div class="col-md-9">
-										<div class="form-group">
-											<label class="col-md-3 control-label">현황</label>
-											<!-- 한줄로 쭉하고싶은데... -->
-											<div class="col-md-9">
-												<input type="text" value="${ sessionScope.memberInfo.name }"
-													class="form-control" disabled> <br>
-												<small>*정기연차 이외 휴가의 소멸기간은 1년 입니다.</small>
-											</div>
-										</div>
-
-										<br>
+										
 
 										<div class="form-group">
 											<label class="col-md-3 control-label">신청자</label>
 											<div class="col-md-9">
 												<input type="text" value="${ sessionScope.memberInfo.name }"
 													class="form-control" disabled>
+												<small>*정기연차 이외 휴가의 소멸기간은 1년 입니다.</small>
 											</div>
 										</div>
 
@@ -107,14 +100,13 @@
 											</div>
 										</div>
 
-										<!-- 자바스크립트로 기간을... 바로 계산해주는 걸 해보자... -->
 										<!-- InsertHolidayScheduleServlet 에서 기간일수 계산하는거 확인해야 함 -->
-										<div class="form-group">
+										<!-- <div class="form-group">
 											<label class="col-md-3 control-label">기간</label>
 											<div class="col-md-9">
 												<input type="text" class="form-control" id="during" disabled>
 											</div>
-										</div>
+										</div> -->
 
 										<div class="form-group">
 											<label class="col-md-3 control-label">사유</label>
@@ -141,7 +133,7 @@
 								</div>
 
 							</form>
-							<jsp:include page="../common/navbar.jsp" />
+							
 						</div>
 					</div>
 				</div>
@@ -196,11 +188,11 @@
 			    			
 				if(sdd && edd){
 					
-					if(sda == '오후') {
+					if(sda === '오후') {
 					$during.value = parseInt(dif/cDay) + 0.5;
 					}
 					
-					if(sda == '오전') {
+					if(sda === '오전') {
 					$during.value = parseInt(dif/cDay) + 0.5;
 					}
 				 }

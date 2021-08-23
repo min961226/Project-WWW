@@ -23,7 +23,6 @@ import com.qs.www.schedule.model.service.ScheduleService;
 public class SelectTeamWorkingHoursScheduleServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("팀 근무/휴가 조회"); 
 		
 		ScheduleService scheduleService = new ScheduleService();
 		
@@ -46,12 +45,9 @@ public class SelectTeamWorkingHoursScheduleServlet extends HttpServlet {
 		HashMap<String, Object> deptAndDay = new HashMap<>();
 		deptAndDay.put("myDeptCode", myDept.getDeptCode());
 		deptAndDay.put("searchDate", currentDateSql);
-		System.out.println("myDeptCode : " + myDept.getDeptCode());
-		System.out.println("currentDate : " + currentDateSql);
 		
 		//같은부서 사람들의 근무 정보를 DTO로 담는다.
 		List<TeamWorkingHourDTO> teamWorkingHourList = scheduleService.selectteamWorkingHourList(deptAndDay);
-		System.out.println("teamWorkingHourList : " + teamWorkingHourList);
 		request.setAttribute("teamWorkingHourList", teamWorkingHourList);
 		
 		//같은부서 사람들의 명단을 뽑는다. ... 필요없나?? 
@@ -59,11 +55,9 @@ public class SelectTeamWorkingHoursScheduleServlet extends HttpServlet {
 		
 		//같은부서 사람들 중 휴가가 있는 사람의 정보를 DTO로 담는다. 
 		List<HolidayLogDTO> teamHolidayLogList = scheduleService.selectteamHolidayLogList(deptAndDay);
-		System.out.println("teamHolidayLogList : " + teamHolidayLogList);
 		request.setAttribute("teamHolidayLogList", teamHolidayLogList);
 		
 		String path = "/WEB-INF/views/schedule/checkWoringHoursOfTeam.jsp";
-
 		request.getRequestDispatcher(path).forward(request, response);
 	}
 

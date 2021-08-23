@@ -63,9 +63,6 @@ public class DeleteMngAppliedWorkingSystemServlet extends HttpServlet {
 			//초과근무라면, TBL_MEMBER_OVERTIME_LOG의 기록을 delete해야 하는데.. 야간교통비에서도 쓰는데..?
 			if(documentNo == 5) {
 				
-				
-				
-				
 			} 
 			
 		}

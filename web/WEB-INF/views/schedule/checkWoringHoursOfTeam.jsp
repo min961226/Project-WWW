@@ -73,14 +73,16 @@
                                     <thead>
                                         <tr align="center">
                                             <th>이름</th>
+                                            <th>부서</th>
+                                            <th>직위</th>
                                             <th>시간</th>
                                             <%-- <th colspan="2">12</th>
                                             <c:set var="startHourNum" value="1"/>
                                             <c:forEach var="hours" begin="1" end="23" step="1">
                                             	<th colspan="2"><c:out value="${ hours }"/></th>
                                             </c:forEach> --%>
-                                            <th>근무일정</th>
-                                            <th>휴가일정</th>
+                                            <th>근무제명</th>
+                                            <th>근무제코드</th>
                                             
                                         </tr>
                                     </thead>
@@ -89,12 +91,14 @@
                                         <c:forEach var="workinghour" items="${ requestScope.teamWorkingHourList }">
                                             <tr>
                                             	<td><c:out value="${ workinghour.name }"/></td>
-                                            	<td><c:out value="${ workinghour.standardWorkDTO.checkInTime }"/></td>
-                                            	<td>1</td>
-                                            <td style="background:blue">2</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>2</td>
+                                            	<td><c:out value="${ workinghour.deptName }"/></td>
+                                            	<td><c:out value="${ workinghour.jobName }"/></td>
+                                            	<td><c:out value="${ workinghour.appWorkType }"/></td>
+                                            	<td><c:out value="${ workinghour.workCode }"/></td>
+                                           		<td></td>
+	                                            <td>1</td>
+	                                            <td>1</td>
+	                                            <td>2</td>
                                             
                                             </tr>
                                          </c:forEach>
