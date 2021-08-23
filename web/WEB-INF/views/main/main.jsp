@@ -24,7 +24,7 @@
                 </div>
                 <div class="row">
                 	<div class="col-lg-6 col-md-6 col-xs-12">
-	                    <div class="panel">
+	                    <div class="card-box">
 	                       	<div class="panel-heading text-center">
 	                           	<h3 class="panel-title">Weekly Report</h3>
 	                       	</div>
@@ -49,7 +49,7 @@
 	                    </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-xs-12">
-                    	<div class="panel">
+                    	<div class="card-box">
                         	<h3 style="height: 40px;font: bold;margin-top: 10px" align="center"><b><출퇴근 현황></b></h3>
 							<h6 align="right">근무 제도 : ${ sessionScope.memberInfo.appWorkType }</h6>	                           	
                             <div class="table-resposive">
@@ -88,7 +88,7 @@
             	<div class="row">
                 	<div class="col-lg-6 col-md-6 col-xs-12">
                 		<hr style="background-color: #888888; height: 2px; border:0px;">
-	                    <div class="panel">
+	                    <div class="card-box">
 	                       	<!-- <div class="panel-heading text-center">
 	                           	<h3 class="panel-title" style="color:red">Weekly Report</h3>
 	                       	</div>

@@ -32,9 +32,8 @@
 				</div>
 				
 				<div class="row">
-					<div class="col-lg-3 col-sm-4" style="display : block">
-						
-						<c:forEach var="workTypeContent" items="${ requestScope.workTypeList }">
+					<c:forEach var="workTypeContent" items="${ requestScope.workTypeList }">
+						<div class="col-lg-3 col-sm-4" style="display : block">
 							<div class="card-box project-box">
 								<h4 class="project-title"><c:out value="${ workTypeContent.workName }"/></h4>
 								<small class="block text-ellipsis m-b-15">
@@ -57,19 +56,14 @@
 	                                <div class="text-muted"><c:out value="${ workTypeContent.checkInTime } ~ ${ workTypeContent.checkOutTime }"/></div>
 	                            </div>
 	                            <form action="${ pageContext.servletContext.contextPath }/mng/workingSystem/delete" method="post">
-	                            	<input type="text" name="workCode" value="${ workTypeContent.workCode }" hidden>
+	                            	<input type="text" name="workCode" value="${ workTypeContent.workCode }" hidden="">
 	                            	<button type="submit" id="decline" class="btn btn-danger btn-md"> 삭제하기 </button>
 	                            </form>
 							</div>
-							
-						</c:forEach>
-					</div>
+						</div>
+					</c:forEach>
 				</div>
-				
-				
-				
 			</div>
-
 		</div>
 
 		<!-- 모달 부분 -->
@@ -135,7 +129,7 @@
 							</div>
 
 							<!-- 출퇴근시간 설정을 선택할 경우, 나타나는 칸 -->
-							<div id="div1" hidden>
+							<div id="div1" hidden="">
 								<div class="form-group col-sm-6">
 									<label>매일 출근 시간</label> <select class="select"
 										name="checkInHour" required>

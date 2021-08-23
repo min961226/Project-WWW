@@ -34,8 +34,7 @@ public class AuthenticationFilter implements Filter {
 		
 		@SuppressWarnings("unchecked")
 		List<AuthorityDTO> memberAuthority = (List<AuthorityDTO>) requestSession.getAttribute("memberAuthority");
-		List<String> menuUri = new ArrayList<>();
-		
+
 		boolean isAuthorized = true;
 		
 		if(memberAuthority != null) {
