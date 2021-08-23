@@ -98,6 +98,9 @@ public class SelectMainServlet extends HttpServlet {
 				}
 			}
 		}
+		//그래프로 표시할 퍼센티지를 구한다.
+		long workTimeSumPercent = (workTimeSum * 100) / 40;
+		request.setAttribute("workTimeSumPercent", workTimeSumPercent);
 		
 		List<NoticeDTO> noticeList= mainService.selectNoticeList();
 		List<WelfareListDTO> welfareList = mainService.selectWelfareList(memberNo);
@@ -121,6 +124,9 @@ public class SelectMainServlet extends HttpServlet {
 				}
 			}
 		}
+		//그래프로 표시할 퍼센티지를 구한다.
+		int overtimePercent = (overtimeSum * 100) / 12;
+		request.setAttribute("overtimePercent", overtimePercent);
 		
 		String path = "/WEB-INF/views/main/main.jsp";
 		

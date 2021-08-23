@@ -52,16 +52,10 @@ public class SelectTeamWorkingHoursScheduleServlet extends HttpServlet {
 		
 		//같은부서 사람들의 근무 정보를 DTO로 담는다.
 		List<TeamWorkingHourDTO> teamWorkingHourList = scheduleService.selectteamWorkingHourList(deptAndDay);
-		for(TeamWorkingHourDTO teamWorkingHourDTO: teamWorkingHourList) {
-			System.out.println("teamWorkingHourDTO : " + teamWorkingHourDTO);
-		}
 		request.setAttribute("teamWorkingHourList", teamWorkingHourList);
 		
 		//같은부서 사람들 중 휴가가 있는 사람의 정보를 DTO로 담는다. 
 		List<HolidayLogDTO> teamHolidayLogList = scheduleService.selectteamHolidayLogList(deptAndDay);
-		for(HolidayLogDTO holidayLogDTO : teamHolidayLogList) {
-			System.out.println("holidayLogDTO : " + holidayLogDTO);
-		}
 		request.setAttribute("teamHolidayLogList", teamHolidayLogList);
 		
 		String path = "/WEB-INF/views/schedule/checkWoringHoursOfTeam.jsp";

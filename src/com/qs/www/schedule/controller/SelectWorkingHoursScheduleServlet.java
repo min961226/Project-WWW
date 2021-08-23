@@ -168,9 +168,9 @@ public class SelectWorkingHoursScheduleServlet extends HttpServlet {
 				}
 			}
 		}
-		request.setAttribute("standardWorkSum", workTimeSum);
-		long standardWorkPercent = (workTimeSum * 100) / 40;
-		request.setAttribute("standardWorkPercent", standardWorkPercent);
+		request.setAttribute("workTimeSum", workTimeSum);
+		long workTimeSumPercent = (workTimeSum * 100) / 40;
+		request.setAttribute("workTimeSumPercent", workTimeSumPercent);
 		
 		/* 2-3. 이번주 초과근무 시간과 잔여시간 */
 		//초과근무 결재시간이 있는지 검색
