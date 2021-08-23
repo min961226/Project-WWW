@@ -41,7 +41,7 @@
 									value="${ requestScope.holidayType.holidayName }" />
 							</div>
 							<div class="form-group  col-xs-6">
-								<label>븐류</label> <select class="form-control"
+								<label>분류</label> <select class="form-control"
 									name="holidayType">
 									<option value='연가'
 										<c:if test="${requestScope.holidayType.holidayType eq '연가'}"> selected</c:if>>
