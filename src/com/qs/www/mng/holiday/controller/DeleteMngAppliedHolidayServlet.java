@@ -21,7 +21,7 @@ public class DeleteMngAppliedHolidayServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("취소할거임");
+		
 		int reportNo = Integer.parseInt(request.getParameter("no"));
 		int memberNo = Integer.parseInt(request.getParameter("memberNo"));  //기안자의 회원번호
 		String status = request.getParameter("status");
