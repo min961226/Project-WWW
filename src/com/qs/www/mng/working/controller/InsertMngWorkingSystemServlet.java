@@ -21,10 +21,8 @@ public class InsertMngWorkingSystemServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("근무제도 추가");
 		
 		HttpSession session = request.getSession();		
-		
 		String workName = request.getParameter("workName");
 		
 		/* workOutFreeType이 2면 '출퇴근시간 설정'이므로, 그 때 설정해준다. */

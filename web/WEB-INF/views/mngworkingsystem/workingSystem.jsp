@@ -22,116 +22,51 @@
 			<div class="content container-fluid">
 				<div class="row">
 					<div class="col-xs-8">
-						<h4 class="page-title">Product Details</h4>
+						<h4 class="page-title">근무제도 관리</h4>
 					</div>
 					<div class="col-xs-4 text-right m-b-30">
-						<a href="#" class="btn btn-primary rounded pull-right"
-							data-toggle="modal" data-target="#add_leave"> <i
-							class="fa fa-plus"></i> 근무추가하기
+						<a href="#" class="btn btn-primary rounded pull-right" data-toggle="modal" data-target="#add_leave"> 
+							<i class="fa fa-plus"></i> 근무추가하기
 						</a>
 					</div>
 				</div>
-				<div class="card-box">
-					<div class="row">
-						<div class="col-xs-12">
-							<!-- 네비게이션 바 부분 -->
-							<ul class="nav nav-tabs nav-tabs-bottom">
-								<c:forEach var="workType" items="${ requestScope.workTypeList }">
-									<li><a href="w${ workType.workCode }" data-toggle="tab">
-										<c:out value="${ workType.workName }"/></a></li>
-								</c:forEach>
-								<!-- <li><a href="#w1" data-toggle="tab">근무제 추가 설명. 기본근태</a></li>
-								<li><a href="#w2" data-toggle="tab">시차출퇴근1</a></li>
-								<li><a href="#w3" data-toggle="tab">시차출퇴근2</a></li> -->
-							</ul>
-							
-							<!-- 네비게이션 바에 해당하는 내용부분 -->
-							<c:forEach var="workTypeContent" items="${ requestScope.workTypeList }">
-								<div class="tab-content">
-									<div class="tab-pane active" id="w${ workTypeContent.workCode }">
-										<div class="product-content">
-											<div class="form-group">
-												<label>근무제 명 <span class="text-red">*</span></label> 
-												<input name="workNo" type="text" class="form-control" value="${ workTypeContent.workCode }" hidden> 
-												<input type="text" class="form-control"
-													value="${ workTypeContent.workName }">
-											</div>
-											<div class="form-group">
-												<label>최소근무시간 <small> (일일 기준)</small></label> 
-												<input type="text" class="form-control"
-													value="${ workTypeContent.minimalWorkHour }">
-											</div>
-											<div class="form-group">
-												<label>휴게시작시간 <span class="text-red">*</span></label> 
-												<input type="text" class="form-control"
-													value="${ workTypeContent.breakStartTime }">
-											</div>
-											<div class="form-group">
-												<label>휴게종료시간 <span class="text-red">*</span></label> <input
-													type="text" class="form-control"
-													value="${ workTypeContent.breakStartTime }">
-											</div>
-											<div class="form-group">
-												<label>출근시간 <span class="text-red">*</span></label> <input
-													type="text" class="form-control"
-													value="${ workTypeContent.checkInTime }">
-											</div>
-											<div class="form-group">
-												<label>퇴근시간 <span class="text-red">*</span></label> <input
-													type="text" class="form-control"
-													value="${ workTypeContent.checkOutTime }">
-											</div>
-
-											<div class="col-xs-4 text-right m-b-30">
-												<a href="${ pageContext.servletContext.contextPath }/mng/workingSystem/delete?workCode=${ workTypeContent.workCode }" 
-												class="btn btn-danger rounded pull-right"
-													data-toggle="modal" data-target="#delete_approve"
-													id="decline"> <i class="fa fa-minus"></i> 삭제하기
-												</a>
-											</div>
-
-										</div>
-									</div>
-								</div>
-							</c:forEach>
-							
-							<!-- <ul>
-							<li><a href="#w1" data-toggle="tab">근무제 추가 설명. 기본근태</a></li>
-								<li><a href="#w2" data-toggle="tab">시차출퇴근1</a></li>
-								<li><a href="#w3" data-toggle="tab">시차출퇴근2</a></li>
-							</ul> -->
-							
-							<!-- <div class="tab-content">
-								<div class="tab-pane active" id="w1">
-									<div class="product-content">
-										<div class="form-group">
-											<label>근무제 명 <span class="text-red">*</span></label> <input
-												id="workName" type="text" class="form-control" value="기본근태">
-										</div>
-
-										<div class="form-group">
-											<label>근무제 번호 <span class="text-red">*</span></label> <input
-												id="workNo" type="text" class="form-control" value="1">
-										</div>
-										<p>설명설명</p>
-										<blockquote>
-											<p>설명설명</p>
-										</blockquote>
-										<p>설명설명</p>
-									</div>
-									<div class="col-xs-4 text-right m-b-30">
-										<a href="#" class="btn btn-danger rounded pull-right"
-											data-toggle="modal" data-target="#delete_approve"
-											id="decline"> <i class="fa fa-minus"></i> 삭제하기
-										</a>
-									</div>
-								</div>
-							</div> -->
-							
+				
+				<div class="row" style="display : inline-block">>
+					<div class="col-lg-3 col-sm-4">
+						<c:forEach var="workTypeContent" items="${ requestScope.workTypeList }">
+						<div class="card-box project-box">
+							<h4 class="project-title"><c:out value="${ workTypeContent.workName }"/></h4>
+							<small class="block text-ellipsis m-b-15">
+									<span class="text-xs">근무제코드 : </span><c:out value="${ workTypeContent.workCode }"/>
+							</small>
+							<div class="pro-deadline m-b-15">
+                                <div class="sub-title"> 최소근무시간(일일기준) </div>
+                                <div class="text-muted"><c:out value="${ workTypeContent.minimalWorkHour }"/></div>
+                            </div>
+                            <div class="pro-deadline m-b-15">
+                                <div class="sub-title"> 휴게시작시간 </div>
+                                <div class="text-muted"><c:out value="${ workTypeContent.breakStartTime }"/></div>
+                            </div>
+                            <div class="pro-deadline m-b-15">
+                                <div class="sub-title"> 휴게종료시간 </div>
+                                <div class="text-muted"><c:out value="${ workTypeContent.breakEndTime }"/></div>
+                            </div>
+                            <div class="pro-deadline m-b-15">
+                                <div class="sub-title"> 출근 ~ 퇴근 </div>
+                                <div class="text-muted"><c:out value="${ workTypeContent.checkInTime } ~ ${ workTypeContent.checkOutTime }"/></div>
+                            </div>
+                            <form action="${ pageContext.servletContext.contextPath }/mng/workingSystem/delete" method="post">
+                            	<input type="text" name="workCode" value="${ workTypeContent.workCode }" hidden>
+                            	<button type="submit" id="decline" class="btn btn-danger btn-md"> 삭제하기 </button>
+                            </form>
 							
 						</div>
+						</c:forEach>
 					</div>
 				</div>
+				
+				
+				
 			</div>
 
 		</div>
@@ -229,24 +164,6 @@
 								</div>
 							</div>
 
-							<!-- <div class="form-group col-md-6">
-								<label>From <span class="text-danger">*</span></label>
-								<div class="cal-icon">
-									<input class="form-control datetimepicker" type="text">
-								</div>
-							</div>
-							<div class="form-group col-md-6">
-								<label>To <span class="text-danger">*</span></label>
-								<div class="cal-icon">
-									<input class="form-control datetimepicker" type="text">
-								</div>
-							</div>
-
-							<div class="form-group">
-								<label>Leave Reason <span class="text-danger">*</span></label>
-								<textarea rows="4" cols="5" class="form-control"></textarea>
-							</div> -->
-
 							<div class="m-t-20 text-center">
 								<button class="btn btn-primary btn-lg">표준근무제 추가하기</button>
 							</div>
@@ -256,29 +173,6 @@
 				</div>
 			</div>
 		</div>
-
-		<!-- 삭제관련 모달부분 -->
-		<!-- 데이터를 가져와야하는데 그게 번거로울 것 같아서 유보 -->
-		<!-- <div id="delete_approve" class="modal custom-modal fade" role="dialog">
-			<div class="modal-dialog">
-				<div class="modal-content modal-md">
-					<div class="modal-header">
-						<h4 class="modal-title">Decline Leave Request</h4>
-					</div>
-					<form>
-						<div class="modal-body card-box">
-							<input type="text" name="workName" id="declineworkName" value="" /><br>
-							<input type="text" name="workNo" id="declineworkNo" value="" /><br>
-							<p>위 번호의 근무제를 삭제하시겠습니까?</p>
-							<div class="m-t-20 text-left">
-								<a href="#" class="btn btn-default" data-dismiss="modal">Close</a>
-								<button id="decline" type="submit" class="btn btn-danger">Decline</button>
-							</div>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div> -->
 
 	</div>
 	<!-- main-wrapper END -->
@@ -293,18 +187,6 @@
 					$('#div1').hide();
 				}
 			}
-			
-			//삭제 모달부분 함수
-			/* $(document.getElementById("decline")).on("click", function() {
-				var workName = $(this).parant.getElementById("workName").val();
-				console.log(workName);
-				
-				var workNo = getElementById("workNo").val();
-				console.log(workNo);
-				
-				$(".modal-body #declineworkName").val( workName );
-				$(".modal-body #declineworkNo").val( workNo );
-			}) */
 			
 		</script>
 </body>

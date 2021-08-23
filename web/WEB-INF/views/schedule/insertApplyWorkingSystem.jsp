@@ -15,8 +15,6 @@
 
 <body>
 	<div class="main-wrapper">
-		<jsp:include page="../common/navbar.jsp" />
-
 		<div class="page-wrapper">
 			<div class="content container-fluid">
 				<div class="row">
@@ -36,20 +34,6 @@
 										<div class="form-group">
 											<label class="col-md-3 control-label">신청근무제도</label>
 											<div class="col-md-9">
-
-												<!-- 일단은 선택가능한 거에 넣어두기 -->
-												<!-- <select id="work" class="select" name="workNo"
-													onchange="testChange(this)" required>
-													<option value="">-- 근무제목록 --</option>
-													<option value="1">기본근태</option>
-													<option value="2">시차출퇴근A</option>
-													<option value="3">시차출퇴근B</option>
-													<option value="4">시차출퇴근C</option>
-													<option value="5">시차출퇴근D</option>
-													<option value="6">선택근무제</option>
-													<option value="7">초과근무</option>
-													<option value="8">새벽출퇴근</option>
-												</select> -->
 
 												<select id="work" class="select" name="workNo"
 													onchange="testChange(this)" required>
@@ -336,33 +320,8 @@
 													</select>
 												</div>
 											</div>
-											
-											
 										</div>
-
-										<!-- <div class="col-md-6">
-											<div class="form-group">
-												<label class="col-md-3 control-label">Address Line 1</label>
-												<div class="col-md-9">
-													<input type="text" class="form-control">
-												</div>
-											</div>
-											<div class="form-group">
-												<label class="col-md-3 control-label">Address Line 2</label>
-												<div class="col-md-9">
-													<input type="text" class="form-control">
-												</div>
-											</div>
-											<div class="form-group">
-												<label class="col-md-3 control-label">State</label>
-												<div class="col-md-9">
-													<input type="text" class="form-control">
-												</div>
-											</div>
-										</div> -->
-
 									</div>
-
 
 									<div class="row" id="div2" hidden>
 										<h4>초과근무 추가작성내용</h4>
@@ -401,15 +360,13 @@
 											</div>
 											<div class="form-group">
 												<label class="col-md-3 control-label">초과근무시간</label>
-												<div class="col-md-6">
+												<div class="form-group col-md-6">
 													<input type="text" class="form-control"
 														id="overtimeDuring" name="overtimeDuring" required disabled>
 												</div>
 											</div>
 										</div>
 									</div>
-
-
 								</div>
 
 								<div align="center">
@@ -418,7 +375,8 @@
 								</div>
 
 							</form>
-
+							<jsp:include page="../common/navbar.jsp" />
+							
 						</div>
 					</div>
 				</div>
@@ -469,34 +427,13 @@
 			
 			//초과근무시간계산
 			function calOvertimeDuring(obj) {
-				var sdd = document.getElementById('startDay').value;
-				var edd = document.getElementById('endDay').value;
-				console.log(sdd);
-				console.log(edd);
-				
 				var osh = document.getElementById('overtimeStartHour').value;
 				var oeh = document.getElementById('overtimeEndHour').value;
-				console.log(osh);
-				console.log(oeh);
 				
 				var dif = oeh - osh;
-				console.log(dif);
 			    
-				//시작일, 종료일, 시작시간, 종료시간이 모두 있을 때
-			    if(sdd && edd && osh && oeh){
-			    	
-			    	//시작일 != 종료일
-			    	if(sdd != edd) {
-			    		oeh += 24;
-			    		console.log(oeh);
-			    		
-			    		document.getElementById('overtimeDuring').value = dif;
-			    	
-			    	//시작일 == 종료일
-			    	} else {
-				    	document.getElementById('overtimeDuring').value = dif;
-			    	}
-			    	
+			    if(osh && oeh){
+				    document.getElementById('overtimeDuring').value = dif;
 				 }
 			}
 

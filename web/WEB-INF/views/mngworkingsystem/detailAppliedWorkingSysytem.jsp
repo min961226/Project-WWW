@@ -210,8 +210,6 @@
 						</div>
 
 
-
-
 						<div class="card-box col-xs-6">
 							<div class="col-xs-12">
 								<h4 align="center">결재내역 목록</h4>

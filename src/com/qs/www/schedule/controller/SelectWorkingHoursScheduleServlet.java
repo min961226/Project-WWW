@@ -137,20 +137,23 @@ public class SelectWorkingHoursScheduleServlet extends HttpServlet {
 		List<WorkingLogDTO> workingLogList = mainService.selectWorkingLogList(workInfo);
 		System.out.println("workingLogList : " + workingLogList);
 
-		/* 2-3. 이번주 초과근무 시간과 잔여시간 */
 		//정규근무시간 구하기
-
-
-		//초과시간 검색
+		int standardWorkSum = 0;
+		/////////////////////////////////구하기
+		request.setAttribute("standardWorkSum", standardWorkSum);
+		
+		int standardWorkPercent = (standardWorkSum * 100) / 12;
+		request.setAttribute("standardWorkPercent", standardWorkPercent);
+		
+		/* 2-3. 이번주 초과근무 시간과 잔여시간 */
+		//초과근무 결재시간이 있는지 검색
 		OvertimeLogDTO overtimeLogDTO = new OvertimeLogDTO();
 		overtimeLogDTO.setMemberNo(memberNo);
 		overtimeLogDTO.setWeekStartDate(weekStartDate);
 		overtimeLogDTO.setWeekEndDate(weekEndDate);
 		List<OvertimeLogDTO> overTimeLogList = scheduleService.selectOverTimeLog(overtimeLogDTO);
-		for(OvertimeLogDTO ot : overTimeLogList) {
-			System.out.println(ot);
-		}
-
+		
+		//결재된 초과근무를 모두 더한다.
 		int overtimeSum = 0;
 		if(overTimeLogList != null) {
 			for(OvertimeLogDTO overtimeLog : overTimeLogList) {
@@ -158,23 +161,24 @@ public class SelectWorkingHoursScheduleServlet extends HttpServlet {
 			}
 		}
 		request.setAttribute("overtimeSum", overtimeSum);
+		
+		//그래프로 표시할 퍼센티지를 구한다.
+		int overtimePercent = (overtimeSum * 100) / 12;
+		request.setAttribute("overtimePercent", overtimePercent);
 
 
-		/* 2-4. 이번달 일수대로 출근시간, 퇴근시간,  */
+		/* 2-4. 이번달의 출근시간, 퇴근시간,  */
 		java.sql.Date thisMonthFirst = Date.valueOf(LocalDate.of(todayYearInt, todayMonthInt, thisMonthFirstDate));
 		java.sql.Date thisMonthLast = Date.valueOf(LocalDate.of(todayYearInt, todayMonthInt, thisMonthLastDate));
 		String thisMonthFirstString = thisMonthFirst + "";
 		String thisMonthLastString = thisMonthLast + "";
 		
+		//월의 첫날 ~ 끝날까지 CommutingLogDTO에 담아온다.
 		WorkInfoDTO workInfo3 = new WorkInfoDTO();
 		workInfo3.setMemberNo(memberNo);	
 		workInfo3.setWeekStartDate(thisMonthFirstString); //주의 시작/끝이 아니라 월의 시작/끝을 넣어서 출력
 		workInfo3.setWeekEndDate(thisMonthLastString);
 		List<CommutingLogDTO> commutingLogMontlyList = mainService.selectCommutingLog(workInfo3); 
-		for(CommutingLogDTO dto : commutingLogMontlyList) {
-			System.out.println(dto);
-		}
-		
 		
 		//view에 넘길 용도로 만든 한 사람의 List(재구축용)
 		List<DailyCommuteDTO> dailyCommuteList = new ArrayList<>(); 
@@ -256,7 +260,6 @@ public class SelectWorkingHoursScheduleServlet extends HttpServlet {
 			
 			forStartDate++;		//for문에서 다음 날짜를 돌리기위해, 1 증가시킨다
 		}		
-		System.out.println(todayMonthInt + "월 의 총 근무일 수 : " + thisMonthWorkDateNum + "/ 오늘까지 근무일수 : " + thisMonthWorkDateNum2);
 		
 		request.setAttribute("thisMonthWorkDateNum", thisMonthWorkDateNum);
 		request.setAttribute("thisMonthWorkDateNum2", thisMonthWorkDateNum2);
@@ -270,7 +273,6 @@ public class SelectWorkingHoursScheduleServlet extends HttpServlet {
 				thisMonthlateNum++;
 			}
 		}
-		System.out.println("이번달 지각횟수 : " + thisMonthlateNum);
 		request.setAttribute("thisMonthlateNum", thisMonthlateNum);
 		
 		/* 1-3. 이번달 조퇴횟수 */
@@ -280,7 +282,6 @@ public class SelectWorkingHoursScheduleServlet extends HttpServlet {
 				thisMonthLeaveEarlyNum++;
 			}
 		}
-		System.out.println("이번달 조퇴횟수 : " + thisMonthLeaveEarlyNum);
 		request.setAttribute("thisMonthLeaveEarlyNum", thisMonthLeaveEarlyNum);
 	
 		/* 1-4. 이번달 출근 미체크 횟수 */
@@ -290,7 +291,6 @@ public class SelectWorkingHoursScheduleServlet extends HttpServlet {
 				noCheckInTimeNum++;
 			}
 		}
-		System.out.println("이번 달 출근미체크 : " + noCheckInTimeNum);
 		request.setAttribute("noCheckInTimeNum", noCheckInTimeNum);
 		
 		/* 1-4. 이번달 퇴근 미체크 횟수 */
@@ -300,10 +300,9 @@ public class SelectWorkingHoursScheduleServlet extends HttpServlet {
 				noCheckOutTimeNum++;
 			}
 		}
-		System.out.println("이번 달 퇴근미체크 : " + noCheckOutTimeNum);
 		request.setAttribute("noCheckOutTimeNum", noCheckOutTimeNum);
 		
-		/* 1-5. 오늘 퇴근체크를 했는지 */
+		/* 1-5. 오늘 퇴근체크를 했는지. 안 했다면 0 출력 */
 		int checkedOutToday = 0;
 		for(CommutingLogDTO dto : commutingLogMontlyList) {
 			if(dto.getDay().equals(currentDateArr[2])) {
@@ -312,7 +311,6 @@ public class SelectWorkingHoursScheduleServlet extends HttpServlet {
 				}
 			}
 		}
-		System.out.println("오늘 퇴근체크를 안 했으면 0 : " + checkedOutToday);
 		request.setAttribute("checkedOutToday", checkedOutToday);
 		
 		

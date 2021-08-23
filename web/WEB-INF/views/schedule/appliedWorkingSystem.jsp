@@ -48,7 +48,6 @@
 						</select> <input type="search" id="searchValue" name="searchValue"
 							value="<c:out value="${ requestScope.selectCriteria.searchValue }"/>">
 						<button type="submit" class="btn btn-success btn-sm">검색하기</button>
-						<!-- <button type="button" id="writeFree">작성하기</button> -->
 					</form>
 				</div>
 				<!-- 검색조건 end -->
@@ -71,7 +70,6 @@
 											<th>신청사유</th>
 										</tr>
 									</thead>
-
 
 								<c:forEach var="report" items="${ requestScope.workReportList }">
 

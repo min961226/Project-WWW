@@ -14,10 +14,14 @@ import com.qs.www.mng.working.model.service.MngWorkingSystemService;
 public class DeleteMngWorkingSystemServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("근무제도 삭제"); 
 		
 		int deleteWorkCode = Integer.parseInt(request.getParameter("workCode"));
-		System.out.println(deleteWorkCode);
+		System.out.println("deleteWorkCode : " + deleteWorkCode);
 		
 		/* TBL_STANDARD_WORK에 update*/
 		MngWorkingSystemService mngWorkingSystemService = new MngWorkingSystemService();
@@ -37,10 +41,5 @@ public class DeleteMngWorkingSystemServlet extends HttpServlet {
 		}
 
 		request.getRequestDispatcher(path).forward(request, response);
-		
-	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 	}
 }

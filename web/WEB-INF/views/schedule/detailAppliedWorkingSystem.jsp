@@ -84,7 +84,6 @@
 								value="${ requestScope.selectedReport.documentNo }" />
 							<c:if test="${ no eq 4 }">
 								<div class="form-group">
-									<!-- 유형코드도 c:if로 해서 한글로 표시되도록 하고싶다 -->
 									<div class="col-sm-6">
 										<label>근무제 유형코드</label>
 										<div class="col-md-12">
@@ -119,9 +118,7 @@
 										</div>
 									</div>
 								</div>
-
 							</c:if>
-
 
 							<c:if test="${ no eq 5 }">
 								<div id="area3" class="form-group">
@@ -165,11 +162,8 @@
 												value="${ requestScope.overtimeDuring }" disabled />
 										</div>
 									</div>
-
 								</div>
 							</c:if>
-
-
 
 							<div class="form-group">
 								<div class="col-sm-12">
@@ -204,16 +198,12 @@
 									<button type="reset" class="btn btn-primary btn-lg" id="goBack">돌아가기</button>
 								</div>
 							</div>
-
 						</form>
-
 
 					</div>
 				</div>
 			</div>
-
 		</div>
-
 	</div>
 	<div class="sidebar-overlay" data-reff=""></div>
 
