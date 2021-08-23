@@ -23,7 +23,7 @@ public class MngNoticeService {
 		mngnoticeDAO = new MngNoticeDAO();
 		
 	}
-
+	//공지사항게시글 수 조회
 	public int selectAllCount(Map<String, String> searchMap) {
 		
 		SqlSession session = getSqlSession();
@@ -34,7 +34,7 @@ public class MngNoticeService {
 		
 		return count;
 	}
-
+	//공지사항 목록 조회
 	public List<MngNoticeDTO> selectAllMngNoticeList(SelectCriteria selectCriteria) {
 		
 		SqlSession session = getSqlSession();
@@ -45,7 +45,7 @@ public class MngNoticeService {
 		
 		return mngnoticeList;
 	}
-
+	//공지사항 작성
 	public int insertMngNotice(MngNoticeDTO newMngNotice) {
 		SqlSession session = getSqlSession();
 		
@@ -63,7 +63,7 @@ public class MngNoticeService {
 		
 		return result;
 	}
-
+	//공지사항 상세조회
 	public MngNoticeDTO selectMngNoticeDetail(int no) {
 		
 		SqlSession session = getSqlSession();
@@ -87,7 +87,7 @@ public class MngNoticeService {
 		
 		return mngnoticeDetail;
 	}
-
+	//공지사항 수정
 	public int updateMngNotice(MngNoticeDTO mngnotice) {
 		SqlSession session = getSqlSession();
 
@@ -103,7 +103,7 @@ public class MngNoticeService {
 
 		return result;
 	}
-
+	//공지사항 삭제
 	public int deleteMngNotice(int no) {
 		SqlSession session = getSqlSession();
 
@@ -119,7 +119,7 @@ public class MngNoticeService {
 
 		return result;
 	}
-
+	//공지사항 번호조회
 	public int selectBoardNum() {
 		SqlSession session = getSqlSession();
 

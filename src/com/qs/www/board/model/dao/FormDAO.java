@@ -12,7 +12,6 @@ public class FormDAO {
 
 	public List<FormDTO> selectAllFormList(SqlSession session, SelectCriteria selectCriteria) {
 		
-		
 		return session.selectList("FormDAO.selectBoardList", selectCriteria);
 	}
 

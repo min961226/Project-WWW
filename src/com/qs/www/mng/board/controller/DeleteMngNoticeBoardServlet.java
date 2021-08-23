@@ -14,30 +14,25 @@ import com.qs.www.mng.board.model.service.MngNoticeService;
 @WebServlet("/mng/board/notice/delete")
 public class DeleteMngNoticeBoardServlet extends HttpServlet {
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		System.out.println("삭제");
-		
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// 삭제 하고자 하는 게시글 번호를 가져옴
 		int no = Integer.parseInt(request.getParameter("no"));
-		
-		
-		
-		int result =  new MngNoticeService().deleteMngNotice(no);
-		
+
+		int result = new MngNoticeService().deleteMngNotice(no);
+
+		// 화면 연결
 		String path = "";
-		if(result > 0) {
-            path = "/WEB-INF/views/common/success.jsp";
+		if (result > 0) {
+			path = "/WEB-INF/views/common/success.jsp";
 			request.setAttribute("successCode", "deleteMngNotice");
-			
+
 		} else {
 			path = "/WEB-INF/views/common/failed.jsp";
 			request.setAttribute("failedCode", "deleteMngNotice");
 		}
-		
+
 		request.getRequestDispatcher(path).forward(request, response);
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-	}
 }

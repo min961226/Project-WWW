@@ -75,6 +75,7 @@ public class FreeService {
 		
 		return freeDetail;
 	}
+	//자유게시판 수정
 	public int updateFree(FreeDTO free) {
 		
 		SqlSession session = getSqlSession();
@@ -91,7 +92,7 @@ public class FreeService {
 
 		return result;
 	}
-
+	//자유게시글 수 조회
 	public int selectAllCount(Map<String, String> searchMap) {
 
 		SqlSession session = getSqlSession();
@@ -102,6 +103,7 @@ public class FreeService {
 		
 		return count;
 	}
+	//자유게시글 삭제
 	public int deleteFree(int no) {
 		SqlSession session = getSqlSession();
 

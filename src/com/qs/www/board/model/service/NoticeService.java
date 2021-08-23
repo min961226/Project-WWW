@@ -31,8 +31,8 @@ public class NoticeService {
 		
 		return noticeList;
 		
-
 	}
+	//공지사항 상세조회
 	public NoticeDTO selectNoticeDetail(int no) {
 		SqlSession session = getSqlSession();
 		NoticeDTO noticeDetail = new NoticeDTO();	
@@ -55,6 +55,7 @@ public class NoticeService {
 		
 		return noticeDetail;
 	}
+	//공지사항게시물 수 조회
 	public int selectAllCount(Map<String, String> searchMap) {
 		SqlSession session = getSqlSession();
 		

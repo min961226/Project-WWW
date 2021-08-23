@@ -19,59 +19,60 @@ import com.qs.www.mng.board.model.service.MngNoticeService;
 @WebServlet("/mng/board/notice/selectOne")
 public class SelectOneMngNoticeBoardServlet extends HttpServlet {
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//게시판 상세보기
-				System.out.println("확인");
-				int no = Integer.parseInt(request.getParameter("no"));
-				System.out.println(no);
-				MngNoticeService mngnoticeService = new MngNoticeService();
-				MngNoticeDTO mngnoticeDetail = mngnoticeService.selectMngNoticeDetail(no);
-				
-				/* 파일 첨부 DTO 서비스 실행 reportNo로 갖고옴 */
-				BoardAttachmentDTO boardattachmentDTO = new BoardAttachmentService().selectBoardAttachmentByBoardNo(mngnoticeDetail.getNo());		//boardNo로 값을 갖고옴
-				System.out.println(boardattachmentDTO);
-				
-				System.out.println("freeDetail : " + mngnoticeDetail);
-				request.setAttribute("boardattachmentDTO", boardattachmentDTO);
-				String path = "";
-				if(mngnoticeDetail != null) {
-					path = "/WEB-INF/views/mngboard/detailNoticeBoard.jsp";
-					request.setAttribute("mngnotice", mngnoticeDetail);
-				} else {
-					path = "/WEB-INF/views/common/failed.jsp";
-					request.setAttribute("message", "공지사항 상세보기 실패");
-				}
-				
-				request.getRequestDispatcher(path).forward(request, response);
-				
-			}
-			
-			protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-				HttpSession session = request.getSession();
-				int memberNo = ((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo();
-				int no = Integer.parseInt(request.getParameter("no"));
-				
-				MngNoticeService mngnoticeService = new MngNoticeService();
-				MngNoticeDTO mngnoticeDetail = mngnoticeService.selectMngNoticeDetail(no);
-				
-				System.out.println("mngnoticeDetail : " + mngnoticeDetail);
-				
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// 게시판 상세보기
+		System.out.println("확인");
+		int no = Integer.parseInt(request.getParameter("no"));
+		System.out.println(no);
+		MngNoticeService mngnoticeService = new MngNoticeService();
+		MngNoticeDTO mngnoticeDetail = mngnoticeService.selectMngNoticeDetail(no);
 
-				System.out.println(memberNo);
+		/* 파일 첨부 DTO 서비스 실행 reportNo로 갖고옴 */
+		BoardAttachmentDTO boardattachmentDTO = new BoardAttachmentService()
+				.selectBoardAttachmentByBoardNo(mngnoticeDetail.getNo()); // boardNo로 값을 갖고옴
+		System.out.println(boardattachmentDTO);
 
-				System.out.println(no);
-				
-				MngNoticeDTO mngnotice = new MngNoticeDTO();
+		System.out.println("freeDetail : " + mngnoticeDetail);
+		request.setAttribute("boardattachmentDTO", boardattachmentDTO);
+		String path = "";
+		if (mngnoticeDetail != null) {
+			path = "/WEB-INF/views/mngboard/detailNoticeBoard.jsp";
+			request.setAttribute("mngnotice", mngnoticeDetail);
+		} else {
+			path = "/WEB-INF/views/common/failed.jsp";
+			request.setAttribute("message", "공지사항 상세보기 실패");
+		}
 
-				mngnotice.setNo(no);
+		request.getRequestDispatcher(path).forward(request, response);
 
-				mngnotice.setMember(memberNo);
-				System.out.println(mngnotice);
+	}
 
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		int memberNo = ((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo();
+		int no = Integer.parseInt(request.getParameter("no"));
+
+		MngNoticeService mngnoticeService = new MngNoticeService();
+		MngNoticeDTO mngnoticeDetail = mngnoticeService.selectMngNoticeDetail(no);
+
+		System.out.println("mngnoticeDetail : " + mngnoticeDetail);
+
+		System.out.println(memberNo);
+
+		System.out.println(no);
+
+		MngNoticeDTO mngnotice = new MngNoticeDTO();
+
+		mngnotice.setNo(no);
+
+		mngnotice.setMember(memberNo);
+		System.out.println(mngnotice);
 
 //				int result = freeService.updateFree(free);
 
-				String path = "";
+		String path = "";
 //				if(result > 0) {
 //					path = "/WEB-INF/views/common/success.jsp";
 //					request.setAttribute("successCode", "updateFree");
@@ -81,5 +82,5 @@ public class SelectOneMngNoticeBoardServlet extends HttpServlet {
 //				}
 
 //				request.getRequestDispatcher(path).forward(request, response);
-			}
-		}
+	}
+}
