@@ -50,14 +50,11 @@ public class DeleteMngLaptopRentalWelfareServlet extends HttpServlet {
 
 		Pagenation pagenation = new Pagenation();
 
-//totalCount 는 DB에 가서 총 게시물 수를 세어와야 함 count(*) 중, where 삭제안된거.
-		int totalCount = new WelfareService().selectItemsListCount(searchMap);
+		int totalCount = new WelfareService().selectItemsListCount(searchMap);										//totalCount 는 DB에 가서 총 게시물 수를 세어와야 함 count(*) 중, where 삭제안된거.
 
-//limit는 한 페이지에서 보여지는 게시물 수
-		int limit = 10;
+		int limit = 10;																								//limit는 한 페이지에서 보여지는 게시물 수
 
-//buttonAmount는 한번에 보여줄 버튼 수
-		int buttonAmount = 5;
+		int buttonAmount = 5;																						//buttonAmount는 한번에 보여줄 버튼 수
 
 		SelectCriteria selectCriteria = null;
 
@@ -70,7 +67,7 @@ public class DeleteMngLaptopRentalWelfareServlet extends HttpServlet {
 		/*-----------------------------------------------------------------------------------------------------------------------*/
 		List<LaptopDTO> laptopList = welfareService.selectLaptopList(selectCriteria);
 		
-		request.setAttribute("laptopList", laptopList);																//노트북목록]
+		request.setAttribute("laptopList", laptopList);																//노트북목록
 		request.setAttribute("selectCriteria", selectCriteria);
 		String path = "/WEB-INF/views/mngwelfare/deleteLaptop.jsp";
 		request.getRequestDispatcher(path).forward(request, response);

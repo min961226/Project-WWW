@@ -14,11 +14,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.qs.www.board.model.dto.NoticeDTO;
 import com.qs.www.main.model.dto.WorkInfoDTO;
 import com.qs.www.main.model.dto.WorkingLogDTO;
 import com.qs.www.main.model.service.MainService;
 import com.qs.www.member.model.dto.MemberInfoDTO;
 import com.qs.www.mypage.model.dto.CommutingLogDTO;
+import com.qs.www.welfare.model.dto.WelfareListDTO;
 
 @WebServlet("/main")
 public class SelectMainServlet extends HttpServlet {
@@ -78,11 +80,15 @@ public class SelectMainServlet extends HttpServlet {
 		List<CommutingLogDTO> commutingLogList = mainService.selectCommutingLog(todayWorkInfo);
 //		List<CommutingLogDTO> weeklyCommutingLogList = mainService.selectCommutingLog(weeklyWorkInfo);
 //		List<CommutingLogDTO> monthlyCommutingLogList = mainService.selectCommutingLog(monthlyWorkInfo);
-
 		
+		
+		List<NoticeDTO> noticeList= mainService.selectNoticeList();
+		List<WelfareListDTO> welfareList = mainService.selectWelfareList(memberNo);
 		
 		String path = "/WEB-INF/views/main/main.jsp";
 //		request.setAttribute("accessMenu", accessMenuJsonString);
+		request.setAttribute("welfareList", welfareList);
+		request.setAttribute("noticeList", noticeList);
 		request.setAttribute("workInfo", todayWorkInfo);
 		request.setAttribute("commutingLogList", commutingLogList);
 		request.setAttribute("workingLogList", workingLogList);

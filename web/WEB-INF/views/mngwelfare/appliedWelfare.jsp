@@ -104,7 +104,7 @@
 												<td><c:out value="${ welfareList.reportDate }" /></td>
 
 												<td><c:choose>
-														<c:when test="${ isApproved }">
+														<c:when test="${ welfareList.reportStatus eq '승인' }">
 															<i class="fa fa-dot-circle-o text-success"></i>
 															<c:out value=" ${ welfareList.reportStatus }" />
 														</c:when>

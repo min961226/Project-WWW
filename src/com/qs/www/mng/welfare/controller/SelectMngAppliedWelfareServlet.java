@@ -25,7 +25,6 @@ public class SelectMngAppliedWelfareServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("복지 신청 내역");
 
 		MngWelfareService mngWelfareService = new MngWelfareService();
 
@@ -56,14 +55,11 @@ public class SelectMngAppliedWelfareServlet extends HttpServlet {
 
 		Pagenation pagenation = new Pagenation();
 
-//totalCount 는 DB에 가서 총 게시물 수를 세어와야 함 count(*) 중, where 삭제안된거.
-		int totalCount = mngWelfareService.selectWaitingAPPCount(searchMap);
+		int totalCount = mngWelfareService.selectWaitingAPPCount(searchMap);					//totalCount 는 DB에 가서 총 게시물 수를 세어와야 함 count(*) 중, where 삭제안된거.
 
-//limit는 한 페이지에서 보여지는 게시물 수
-		int limit = 10;
+		int limit = 10;																			//limit는 한 페이지에서 보여지는 게시물 수
 
-//buttonAmount는 한번에 보여줄 버튼 수
-		int buttonAmount = 5;
+		int buttonAmount = 5;																	//buttonAmount는 한번에 보여줄 버튼 수
 
 		SelectCriteria selectCriteria = null;
 
@@ -73,13 +69,10 @@ public class SelectMngAppliedWelfareServlet extends HttpServlet {
 		} else {
 			selectCriteria = Pagenation.getSelectCriteria(pageNo, totalCount, limit, buttonAmount);
 		}
-		System.out.println(selectCriteria);
 
 		/*-----------------------------------------------------------------------------------------------------------------------*/
 
 		List<ReportDTO> allAppliedWelfareList = mngWelfareService.selectAllAppliedWelfareList(selectCriteria);
-
-		System.out.println(allAppliedWelfareList); // 신청된 복지 목록 확인
 
 		request.setAttribute("selectCriteria", selectCriteria);
 		request.setAttribute("allAppliedWelfareList", allAppliedWelfareList);

@@ -22,7 +22,6 @@
 					<div class="col-xs-8">
 						<h4 class="page-title">물품 관리 현황</h4>
 					</div>
-
 					<!-- 복지신청으로 이동하는 버튼 -->
 					<div class="col-xs-4 text-right m-b-30">
 						<a
@@ -45,7 +44,6 @@
                <!-- <button type="button" id="writeFree">작성하기</button> -->
                </form>
             </div>
-			
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="card-box">

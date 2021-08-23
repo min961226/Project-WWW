@@ -58,7 +58,6 @@ public class SelectedWelfareServlet extends HttpServlet {
 			break;
 		case "자기개발비신청":
 			List<String> selfDevList = welfareService.checkSelfDevList();
-			System.out.println(selfDevList);
 			request.setAttribute("selfDevList", selfDevList);
 			path = "/WEB-INF/views/welfare/insertSelfDevelopment.jsp";
 			break;

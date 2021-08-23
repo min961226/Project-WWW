@@ -17,11 +17,10 @@ public class SelectWelfareListServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("복지 신청");
-
-		WelfareService welfareService = new WelfareService();
-		List<String> welfareList = welfareService.checkWelfareList();
-		System.out.println(welfareList);
+		
+		WelfareService welfareService = new WelfareService();			
+		List<String> welfareList = welfareService.checkWelfareList();							//현재 시행중인 복지 목록
+		
 		String path = "";
 			if(welfareList != null) {
 				path = "/WEB-INF/views/welfare/welfareList.jsp";
@@ -31,10 +30,5 @@ public class SelectWelfareListServlet extends HttpServlet {
 				request.setAttribute("message", "복지 목록조회 실패!");
 			}
 			request.getRequestDispatcher(path).forward(request, response);
-	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
 	}
 }

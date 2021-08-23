@@ -151,30 +151,28 @@ public class InsertFamilyEventWelfareServlet extends HttpServlet {
 		}
 		
 		/*---------------------------------------------------------------------------파일 업로드---------------------------------------------------------------------*/
-		response.setContentType("text/html; charset=UTF-8");															//파일업로드를할경우 한번더 utf-8로 인코딩을해줘야함
-		PrintWriter out = response.getWriter();																			//파일 생성 공간을위한 writer
-        String contentType = request.getContentType();																	//파일을 구분할 수 있는 콘텐츠타입 선언
-        Map<String, Object> fileMap = new HashMap<>();																	//키값으로 파일을 값을 저장하기 위한 해쉬맵선언
+		response.setContentType("text/html; charset=UTF-8");																				//파일업로드를할경우 한번더 utf-8로 인코딩을해줘야함
+		PrintWriter out = response.getWriter();																								//파일 생성 공간을위한 writer
+        String contentType = request.getContentType();																						//파일을 구분할 수 있는 콘텐츠타입 선언
+        Map<String, Object> fileMap = new HashMap<>();																						//키값으로 파일을 값을 저장하기 위한 해쉬맵선언
         int resultFileUpload = 0;
  
  
-        if (contentType != null &&  contentType.toLowerCase().startsWith("multipart/")) {								//formdata를 받아오고 타입이 콘텐트 타입인경우에만 진입
+        if (contentType != null &&  contentType.toLowerCase().startsWith("multipart/")) {													//formdata를 받아오고 타입이 콘텐트 타입인경우에만 진입
             // getParts()를 통해 Body에 넘어온 데이터들을 각각의  Part로 쪼개어 리턴
             Collection<Part> parts = request.getParts();
  
-            for (Part part : parts) {																					//파트로 넘어온 값들 전부 출력	
+            for (Part part : parts) {																										//파트로 넘어온 값들 전부 출력	
  
                 if(part.getHeader("Content-Disposition").contains("filename=")) {							
-                    String fileName =  extractFileName(part.getHeader("Content-Disposition"));							//fileName= 이포함된 파일의명을 갖고옴
+                    String fileName =  extractFileName(part.getHeader("Content-Disposition"));												//fileName= 이포함된 파일의명을 갖고옴
                     
-                    if(fileName.length()>0) {																			//첨부한 파일이 존재하지 않을때(파일을 미첨부시, 파일 첨부한 값이 없을때)
+                    if(fileName.length()>0) {																								//첨부한 파일이 존재하지 않을때(파일을 미첨부시, 파일 첨부한 값이 없을때)
                     
-                    int dot = fileName.lastIndexOf(".");																//파일이름의 확장자를 구별할 수있는 인덱스 값 추출
-					String ext = fileName.substring(dot);																//그 뒤에 확장자명을 추출하기 위한 변수 선언
-					String randomFileName = UUID.randomUUID().toString().replace("-", "") + ext;						//파일 이름 랜덤 부여
-					System.out.println(randomFileName);			
+                    int dot = fileName.lastIndexOf(".");																					//파일이름의 확장자를 구별할 수있는 인덱스 값 추출
+					String ext = fileName.substring(dot);																					//그 뒤에 확장자명을 추출하기 위한 변수 선언
+					String randomFileName = UUID.randomUUID().toString().replace("-", "") + ext;											//파일 이름 랜덤 부여
                     if (part.getSize() > 0) {																								// 업로드 할때 파일 크기가 0 보다 작을 수 없다.
-                    	System.out.println(part.getHeaderNames());
                     	
                     	fileMap.put("reportNo", reportNo);
                     	fileMap.put("attachmentNo", 1);
@@ -182,15 +180,9 @@ public class InsertFamilyEventWelfareServlet extends HttpServlet {
                     	fileMap.put("savedFileName", randomFileName);
                     	fileMap.put("savePath", ATTACHES_REPORT);
                     	
-                    	System.out.printf("업로드 파일 명 : %s  \n", randomFileName);
-                    	System.out.println(ATTACHES_REPORT + File.separator  + fileName);
-                        
-                        part.write(ATTACHES_REPORT + File.separator  + randomFileName);													//파일 경로에 따른 파일 추가
+                        part.write(ATTACHES_REPORT + File.separator  + randomFileName);														//파일 경로에 따른 파일 추가
                         part.delete();																										//임시 파일 삭제
                         
-                        
-                        System.out.println("map:" + fileMap);
-                        System.out.println(resultFileUpload);
                         resultFileUpload = attachmentService.insertFileUpload(fileMap);
                     	}
                     }else {
@@ -198,12 +190,9 @@ public class InsertFamilyEventWelfareServlet extends HttpServlet {
                     }
                 } else {
                     String formValue =  request.getParameter(part.getName());																//파트로 찢긴값들 파일이 아닐경우 처리하는 파트
-                    System.out.printf("name : %s, value : %s  \n", part.getName(), formValue);
                 }
-            }
-            System.out.println("<h1>업로드 완료</h1>");
-        } else {
-            System.out.println("<h1>enctype이 multipart/form-data가  아님</h1>");
+            }																																//업로드 완료시
+        } else {																															//전송데이터방식이 multipart formdata
         }
         
         

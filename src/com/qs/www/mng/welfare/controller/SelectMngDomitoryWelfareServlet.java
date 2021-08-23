@@ -16,7 +16,6 @@ import com.qs.www.welfare.model.service.WelfareService;
 public class SelectMngDomitoryWelfareServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("기숙사 입주 관리");
 		
 		WelfareService welfareService = new WelfareService();
 
@@ -28,9 +27,5 @@ public class SelectMngDomitoryWelfareServlet extends HttpServlet {
 		
 		request.getRequestDispatcher(path).forward(request, response);
 
-	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 	}
 }
