@@ -49,8 +49,8 @@
 	                                    <tr bgcolor = "FFBC35">
 	                                    	<th>프로필 사진</th>
 	                                        <th>사원번호</th>
-	                                        <th>이름</th>
-	                                        <th>핸드폰번호</th>
+	                                        <th>부서</th>
+	                                        <th>사내전화</th>
 
 	                                    </tr>
 	                                </thead>
