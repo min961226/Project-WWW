@@ -69,6 +69,7 @@
                                                 <c:if test="${board.reportStatus eq '대기'}">"fa fa-dot-circle-o text-success"</c:if>
                                                 <c:if test="${board.reportStatus eq '승인'}">"fa fa-dot-circle-o text-info"</c:if>
                                                 <c:if test="${board.reportStatus eq '반려'}">"fa fa-dot-circle-o text-danger"</c:if>
+                                                <c:if test="${board.reportStatus eq '회수'}">"fa fa-dot-circle-o text-warning"</c:if>
                                                 <c:if test="${board.reportStatus eq '취소'}">"fa fa-dot-circle-o text-purple"</c:if>
 												></i> ${ board.reportStatus }</td>
 										</tr>
