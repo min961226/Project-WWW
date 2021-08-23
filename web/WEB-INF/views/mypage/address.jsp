@@ -29,9 +29,9 @@
 			    		<input type="hidden" name="currentPage" value="1">
 						<select id="searchCondition" name="searchCondition">
 							
-							<option value="code" ${ requestScope.selectCriteria.searchCondition eq "code"? "selected": "" }>사원번호</option>
-							<option value="name" ${ requestScope.selectCriteria.searchCondition eq "name"? "selected": "" }>부서</option>
-							<option value="number" ${ requestScope.selectCriteria.searchCondition eq "number"? "selected": "" }>핸드폰번호</option>
+							<option value="name" ${ requestScope.selectCriteria.searchCondition eq "name"? "selected": "" }>이름</option>
+							<option value="deptname" ${ requestScope.selectCriteria.searchCondition eq "deptname"? "selected": "" }>부서</option>
+							<option value="phone" ${ requestScope.selectCriteria.searchCondition eq "phone"? "selected": "" }>핸드폰번호</option>
 						</select>
 						<input type="search" id="searchValue" name="searchValue" value="<c:out value="${ requestScope.selectCriteria.searchValue }"/>">
 					<button type="submit" class="btn btn-success btn-sm" >검색하기</button>
@@ -48,9 +48,9 @@
 	                                <thead>
 	                                    <tr bgcolor = "FFBC35">
 	                                    	<th>프로필 사진</th>
-	                                        <th>사원번호</th>
+	                                        <th>사원이름</th>
 	                                        <th>부서</th>
-	                                        <th>사내전화</th>
+	                                        <th>휴대폰번호</th>
 
 	                                    </tr>
 	                                </thead>
@@ -62,9 +62,9 @@
                                             <a href="profile.html" class="avatar">A</a>
                                             <h2><a href="profile.html"> <span></span></a></h2>
                                         	</td> -->
-											<td><c:out value="${ board.code }"/></td>
 											<td><c:out value="${ board.name }"/></td>
-											<td><c:out value="${ board.number }"/></td>
+											<td><c:out value="${ board.deptname }"/></td>
+											<td><c:out value="${ board.phone }"/></td>
 										</tr>
 									</c:forEach>	
 	                            </table>

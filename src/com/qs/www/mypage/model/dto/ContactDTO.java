@@ -6,15 +6,17 @@ public class ContactDTO {
 	private String name;
 	private String deptname;
 	private String phone;
+	private String yn; 
 	
 	public ContactDTO() {}
 
-	public ContactDTO(String code, String name, String deptname, String phone) {
+	public ContactDTO(String code, String name, String deptname, String phone, String yn) {
 		super();
 		this.code = code;
 		this.name = name;
 		this.deptname = deptname;
 		this.phone = phone;
+		this.yn = yn;
 	}
 
 	public String getCode() {
@@ -49,9 +51,18 @@ public class ContactDTO {
 		this.phone = phone;
 	}
 
+	public String getYn() {
+		return yn;
+	}
+
+	public void setYn(String yn) {
+		this.yn = yn;
+	}
+
 	@Override
 	public String toString() {
-		return "ContactDTO [code=" + code + ", name=" + name + ", deptname=" + deptname + ", phone=" + phone + "]";
+		return "ContactDTO [code=" + code + ", name=" + name + ", deptname=" + deptname + ", phone=" + phone + ", yn="
+				+ yn + "]";
 	}
 
 	

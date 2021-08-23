@@ -8,7 +8,7 @@
 		<result property="name" column="NAME"/>
 		<result property="deptname" column="DEPT_NAME"/>
 		<result property="phone" column="PHONE"/>
-		
+		<result property="yn" column="ENT_YN"/>
 	</resultMap>
 	
 	<select id="selectAllContactList" resultMap="contactResultMap">
@@ -19,22 +19,27 @@
              , D.PHONE
          	FROM TBL_DEPARTMENT A
          	LEFT JOIN TBL_MEMBER D ON(A.DEPT_CODE = D.DEPT_CODE)
+         	WHERE D.ENT_YN = 'N'
 	</select>
 	
 	<select id="selectBoardList" resultMap="contactResultMap">
          SELECT 
                 C.RNUM
-        	  , C.DEPT_NAME
-              , C.DEPT_CALL_NUMBER
-              , C.DEPT_CODE
+        	  , C.DEPT_CODE
+              , C.DEPT_NAME
+              , C.NAME
+              , C.PHONE
           FROM (SELECT ROWNUM RNUM
-          			 , B.DEPT_NAME
-                     , B.DEPT_CALL_NUMBER
-		             , B.DEPT_CODE
-                  FROM (SELECT A.DEPT_NAME
-             				 , A.DEPT_CALL_NUMBER
-				             , A.DEPT_CODE
+          			 , B.DEPT_CODE
+                     , B.DEPT_NAME
+		             , B.NAME
+		             , B.PHONE		             
+                  FROM (SELECT A.DEPT_CODE
+             				 , A.DEPT_NAME
+             				 , D.NAME
+				             , D.PHONE
                            FROM TBL_DEPARTMENT A
+                           LEFT JOIN TBL_MEMBER D ON(A.DEPT_CODE = D.DEPT_CODE)
     					<where>
 							<if test="searchCondition == 'name'">
 	           				    D.NAME LIKE '%' || #{ searchValue } || '%'	
@@ -45,6 +50,7 @@
 							<if test="searchCondition == 'phone'">
 	           				   D.PHONE LIKE '%' || #{ searchValue } || '%' 	
 							</if>
+							AND D.ENT_YN = 'N'
     					</where>
                          ORDER BY A.DEPT_CODE DESC
                         ) B
@@ -72,6 +78,7 @@
 			<if test="searchCondition == 'phone'">
 	           D.PHONE LIKE '%' || #{ searchValue } || '%' 	
 			</if>
+			AND D.ENT_YN = 'N'
 
             
     	</where>
