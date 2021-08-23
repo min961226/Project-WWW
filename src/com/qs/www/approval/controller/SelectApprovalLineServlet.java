@@ -76,20 +76,14 @@ public class SelectApprovalLineServlet extends HttpServlet {
 		} else {
 			selectCriteria = Pagenation.getSelectCriteria(pageNo, totalCount, limit, buttonAmount);
 		}
-		System.out.println(selectCriteria);
-		
 		
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		
 		
 		
 		HashMap<String, Object> selectedInfoMap = new HashMap<>();
-		selectedInfoMap.put("memberNo", memberNo);
-		selectedInfoMap.put("selectCriteria", selectCriteria);
 
 		List<ApprovalLineDTO> lineList = new ApprovalService().selectApprovalLineByMap(selectedInfoMap);
-//		Collections.reverse(lineList);
-		System.out.println(lineList);
 		request.setAttribute("lineList", lineList);
 		request.setAttribute("selectCriteria", selectCriteria);
 		request.getRequestDispatcher("/WEB-INF/views/approval/approvalLine.jsp").forward(request, response);

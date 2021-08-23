@@ -91,8 +91,6 @@ public class SelectWaitingApprovalServlet extends HttpServlet {
 		} else {
 			selectCriteria = Pagenation.getSelectCriteria(pageNo, totalCount, limit, buttonAmount);
 		}
-		System.out.println(selectCriteria);
-		
 		
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		

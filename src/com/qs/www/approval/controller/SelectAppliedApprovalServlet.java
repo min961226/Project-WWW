@@ -75,21 +75,16 @@ public class SelectAppliedApprovalServlet extends HttpServlet {
 		} else {
 			selectCriteria = Pagenation.getSelectCriteria(pageNo, totalCount, limit, buttonAmount);
 		}
-		System.out.println(selectCriteria);
 		
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 		HashMap<String, Object> selectedInfoMap = new HashMap<>();
 		selectedInfoMap.put("memberNo", memberNo);
 		selectedInfoMap.put("selectCriteria", selectCriteria);
-		System.out.println("memberNo : " + memberNo);
-		System.out.println("selectCriteria : " + selectCriteria);
 		
 		
 		
 		List<ReportDTO> reportList = new ApprovalService().selectMyReport(selectedInfoMap);
-
-		System.out.println(reportList);
 
 		request.setAttribute("reportList", reportList);
 		request.setAttribute("selectCriteria", selectCriteria);

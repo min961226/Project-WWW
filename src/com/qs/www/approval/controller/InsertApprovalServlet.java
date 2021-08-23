@@ -188,13 +188,11 @@ public class InsertApprovalServlet extends HttpServlet {
 					String fileName =  extractFileName(part.getHeader("Content-Disposition"));
 
 					if(fileName.length()>0) {																								//첨부한 파일이 존재하지 않을때(파일을 미첨부시, 파일 첨부한 값이 없을때)
-						System.out.println("fileName : "+fileName);
-						System.out.println(part.getHeader("Content-Disposition"));
 
 						int dot = fileName.lastIndexOf(".");
 						String ext = fileName.substring(dot);
 						String randomFileName = UUID.randomUUID().toString().replace("-", "") + ext;											//파일 이름 랜덤 부여
-						System.out.println(randomFileName);			
+						
 						if (part.getSize() > 0) {																								// 업로드 할때 파일 크기가 0 보다 작을 수 없다.
 							System.out.println(part.getHeaderNames());
 
@@ -203,16 +201,10 @@ public class InsertApprovalServlet extends HttpServlet {
 							fileMap.put("originFileName", fileName);
 							fileMap.put("savedFileName", randomFileName);
 							fileMap.put("savePath", ATTACHES_REPORT);
-
-							System.out.printf("업로드 파일 명 : %s  \n", randomFileName);
-							System.out.println(ATTACHES_REPORT + File.separator  + fileName);
-
+							
 							part.write(ATTACHES_REPORT + File.separator  + randomFileName);													//파일 경로에 따른 파일 추가
 							part.delete();																										//임시 파일 삭제
-
-
-							System.out.println("map:" + fileMap);
-							System.out.println(resultFileUpload);
+							
 							resultFileUpload = attachmentService.insertFileUpload(fileMap);
 						}
 					}else {
@@ -220,13 +212,9 @@ public class InsertApprovalServlet extends HttpServlet {
 					}
 				} else {
 					String formValue =  request.getParameter(part.getName());																//파트로 찢긴값들 파일이 아닐경우 처리하는 파트
-					System.out.printf("name : %s, value : %s  \n", part.getName(), formValue);
 				}
 			}
-			System.out.println("<h1>업로드 완료</h1>");
-		} else {
-			System.out.println("<h1>enctype이 multipart/form-data가  아님</h1>");
-		}
+		} 
 
 
 
