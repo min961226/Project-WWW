@@ -62,7 +62,9 @@
 		                                    <div class="col-md-8">
 		                                        <select class="form-control" name="department" onchange="changeSelection(this.value)" required>
 													<c:forEach var="deptList" items="${ deptList }">
-														<option <c:if test="${ deptList.deptCode eq memberInfo.department.deptCode }">selected</c:if>><c:out value="${ deptList.deptCode } ${ deptList.deptName }" /></option>
+														<option <c:if test="${ deptList.deptCode eq memberInfo.department.deptCode }">selected</c:if>>
+															<c:out value="${ deptList.deptCode } ${ deptList.deptName }" />
+														</option>
 													</c:forEach>
 												</select>
 		                                    </div>
@@ -72,7 +74,9 @@
 		                                    <div class="col-md-8">
 		                                        <select class="form-control" name="job" required>
 													<c:forEach var="jobList" items="${ jobList }">
-														<option <c:if test="${ jobList.jobCode eq memberInfo.job.jobCode }">selected</c:if>><c:out value="${ jobList.jobCode } ${ jobList.jobName }" /></option>
+														<option <c:if test="${ jobList.jobCode eq memberInfo.job.jobCode }">selected</c:if>>
+															<c:out value="${ jobList.jobCode } ${ jobList.jobName }" />
+														</option>
 													</c:forEach>
 												</select>
 		                                    </div>
@@ -112,7 +116,9 @@
 		                                        <select class="form-control" name="role">
 													<option><c:out value="" /></option>
 													<c:forEach var="roleList" items="${ roleList }">
-														<option <c:if test="${ roleList.roleCode eq memberInfo.role.roleCode }">selected</c:if>><c:out value="${ roleList.roleCode } ${ roleList.roleName }" /></option>
+														<option <c:if test="${ roleList.roleCode eq memberInfo.role.roleCode }">selected</c:if>>
+															<c:out value="${ roleList.roleCode } ${ roleList.roleName }" />
+														</option>
 													</c:forEach>
 												</select>
 		                                    </div>
@@ -211,6 +217,7 @@
     </div>
     
     <script>
+    	/* 이전 페이지로 돌아가기 */
 	    function goBack() {
 			location.href = "${ pageContext.servletContext.contextPath }/mng/employee/list/select"
 		}

@@ -33,9 +33,9 @@
 	                            <label class="alert alert-info">${ requestScope.checkId }</label>
 	                        </div>
                         </div>
-	                        <div class="text-center">
-                                <a href="${ pageContext.servletContext.contextPath }">로그인 화면으로 돌아가기</a>
-                            </div>
+                        <div class="text-center">
+                               <a href="${ pageContext.servletContext.contextPath }">로그인 화면으로 돌아가기</a>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -56,4 +56,8 @@ public class MngEmployeeDAO {
 	public List<AuthorityDTO> selectRoleAuthorityList(SqlSession sqlSession, String roleCode) {
 		return sqlSession.selectList("MngEmployeeDAO.selectRoleAuthorityList", roleCode);
 	}
+
+	public int insertWorkingLog(SqlSession sqlSession, MemberInfoDTO memberInfo) {
+		return sqlSession.insert("MngEmployeeDAO.insertWorkingLog", memberInfo);
+	}
 }

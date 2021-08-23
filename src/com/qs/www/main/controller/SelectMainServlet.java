@@ -47,12 +47,6 @@ public class SelectMainServlet extends HttpServlet {
 		// 요일별 날짜를 담을 변수(월요일 ~ 일요일)
 		LocalDate selectedLocalDate = currentDate
 								.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
-//		String monthlyStartDate = currentDate
-//				.with(TemporalAdjusters.firstDayOfMonth())
-//				.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-//		String monthlyEndDate = currentDate
-//				.with(TemporalAdjusters.lastDayOfMonth())
-//				.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 		
 		WorkInfoDTO todayWorkInfo = new WorkInfoDTO();
 		todayWorkInfo.setMemberNo(memberNo);
@@ -61,28 +55,11 @@ public class SelectMainServlet extends HttpServlet {
 		todayWorkInfo.setWeekEndDate(weekEndDate);
 		todayWorkInfo.setSelectedLocalDate(selectedLocalDate);
 		
-		WorkInfoDTO weeklyWorkInfo = new WorkInfoDTO();
-		weeklyWorkInfo.setMemberNo(memberNo);
-		weeklyWorkInfo.setWeekStartDate(weekStartDate);
-		weeklyWorkInfo.setWeekEndDate(weekEndDate);
-		
-//		WorkInfoDTO monthlyWorkInfo = new WorkInfoDTO();
-//		monthlyWorkInfo.setMemberNo(memberNo);
-//		monthlyWorkInfo.setStartDate(monthlyStartDate);
-//		monthlyWorkInfo.setEndDate(monthlyEndDate);
-		
-		
+		// 근무 유형과 출퇴근 기록 조회
 		List<WorkingLogDTO> workingLogList = mainService.selectWorkingLogList(todayWorkInfo);
-//		List<WorkingLogDTO> weeklyWorkingLogList = mainService.selectWorkingLogList(weeklyWorkInfo);
-//		List<WorkingLogDTO> monthlyWorkingLogList = mainService.selectWorkingLogList(monthlyWorkInfo);
 		List<CommutingLogDTO> commutingLogList = mainService.selectCommutingLog(todayWorkInfo);
-//		List<CommutingLogDTO> weeklyCommutingLogList = mainService.selectCommutingLog(weeklyWorkInfo);
-//		List<CommutingLogDTO> monthlyCommutingLogList = mainService.selectCommutingLog(monthlyWorkInfo);
 
-		
-		
 		String path = "/WEB-INF/views/main/main.jsp";
-//		request.setAttribute("accessMenu", accessMenuJsonString);
 		request.setAttribute("workInfo", todayWorkInfo);
 		request.setAttribute("commutingLogList", commutingLogList);
 		request.setAttribute("workingLogList", workingLogList);

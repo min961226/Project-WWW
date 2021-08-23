@@ -50,6 +50,7 @@ public class InsertMngEmployeeListServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		int memberNo = Integer.parseInt(request.getParameter("memberNo"));
 		String memberId = request.getParameter("memberId");
 		String password = request.getParameter("pwd1");
 		String name = request.getParameter("name");
@@ -60,8 +61,8 @@ public class InsertMngEmployeeListServlet extends HttpServlet {
 		Date enrollDate = Date.valueOf(request.getParameter("enrollDate"));
 		String roleCode = request.getParameter("role").split(" ")[0];
 		
-		
 		MemberInfoDTO memberInfo = new MemberInfoDTO();
+		memberInfo.setMemberNo(memberNo);
 		memberInfo.setMemberId(memberId);
 		memberInfo.setPassword(password);
 		memberInfo.setName(name);
@@ -76,10 +77,11 @@ public class InsertMngEmployeeListServlet extends HttpServlet {
 		memberInfo.getRole().setRoleCode(roleCode);
 		
 		MngEmployeeService mngEmployeeService = new MngEmployeeService();
-		int result = mngEmployeeService.insertMngEmployee(memberInfo);
+		int result1 = mngEmployeeService.insertMngEmployee(memberInfo);
+		int result2 = mngEmployeeService.insertWorkingLog(memberInfo);
 		
 		String path = "";
-		if(result > 0) {
+		if(result1 > 0 && result2 > 0) {
 			path = "/WEB-INF/views/common/success.jsp";
 			
 			request.setAttribute("successCode", "insertMngEmployee");

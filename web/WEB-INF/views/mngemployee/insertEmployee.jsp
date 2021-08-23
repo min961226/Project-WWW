@@ -240,6 +240,7 @@
     
     <script type="text/javascript" src="${ pageContext.servletContext.contextPath }/assets/js/jquery-3.2.1.min.js"></script>
     <script>
+    	/* ID 중복 확인 */
     	$(function() {
     		$("#checkId").click(function() {
     			const memberId = $("#memberId").val();
@@ -270,7 +271,8 @@
     			});
     		});
     	});
-    
+    	
+    	/* 비밀번호 일치 확인 */
     	$(function() {
     		$("#pwd1, #pwd2").keyup(function() {
 	    		const pwd1 = $("#pwd1").val();
@@ -288,6 +290,7 @@
     		});
     	});
     	
+    	/* 선택 부서에 따라 부서 전화번호 변경 */
     	function changeSelection(selectedDept) {
     		
     		const deptList = ${ deptListJson };

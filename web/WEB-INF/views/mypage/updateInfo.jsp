@@ -188,7 +188,9 @@
 		                                    <div class="col-md-8">
 				                               	<select class="form-control" name="question" required>
 													<c:forEach var="question" items="${ questionList }">
-														<option><c:out value="${ question.questionCode } ${ question.questionBody }" /></option>
+														<option <c:if test="${ question.questionCode eq memberInfo.checkQuestion.questionCode }">selected</c:if>>
+															<c:out value="${ question.questionCode } ${ question.questionBody }" />
+														</option>
 													</c:forEach>
 												</select>
 		                                    </div>
@@ -216,6 +218,7 @@
     
     <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script>
+    	/* 주소 검색 API */
     	const $searchZipCode = document.getElementById("searchZipCode");
     	const $goBack = document.getElementById("goBack");
     	
@@ -231,6 +234,7 @@
     		}).open();
     	}
     	
+    	/* 이전 페이지로 돌아가기 */
     	$goBack.onclick = function() {
     		location.href = "${ pageContext.servletContext.contextPath }/mypage/info/select"
     	}

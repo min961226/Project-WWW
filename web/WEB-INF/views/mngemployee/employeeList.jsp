@@ -13,7 +13,7 @@
 
 <body>
     <div class="main-wrapper">
-		<%-- <jsp:include page="../common/navbar.jsp"/> --%>
+		<jsp:include page="../common/navbar.jsp"/>
         
         <div class="page-wrapper">
             <div class="content container-fluid">
@@ -22,19 +22,6 @@
                         <h4 class="page-title">전체 직원 조회</h4>
                     </div>
                 </div>
-                
-                <div class="search-area" align="right">
-             		<form id="loginForm" action="${ pageContext.servletContext.contextPath }/board/free/select" method="get" style="display:inline-block">		
-			    		<input type="hidden" name="currentPage" value="1">
-						<select id="searchCondition" name="searchCondition">
-							<option value="name" ${ requestScope.selectCriteria.searchCondition eq "name"? "selected": "" }>작성자</option>
-							<option value="title" ${ requestScope.selectCriteria.searchCondition eq "title"? "selected": "" }>제목</option>
-							<option value="body" ${ requestScope.selectCriteria.searchCondition eq "body"? "selected": "" }>내용</option>
-						</select>
-						<input type="search" id="searchValue" name="searchValue" value="<c:out value="${ requestScope.selectCriteria.searchValue }"/>">
-						<button type="submit" class="btn btn-success btn-sm" >검색하기</button>
-					</form>
-				</div>
                 
                 <div class="row">
 	                <div class="col-lg-12">
@@ -76,9 +63,6 @@
 										</tr>
 									</c:forEach>	
 	                            </table>
-	                            
-	                            <%-- 페이지 처리 --%>
-								<jsp:include page="../common/navbar.jsp"/>
                             </div>
                         </div>
                     </div>

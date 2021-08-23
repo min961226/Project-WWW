@@ -154,4 +154,19 @@ public class MngEmployeeService {
 		
 		return roleAuthorityList;
 	}
+
+	public int insertWorkingLog(MemberInfoDTO memberInfo) {
+		
+		SqlSession sqlSession = getSqlSession();
+		
+		int result = mngEmployeeDAO.insertWorkingLog(sqlSession, memberInfo);
+		
+		if(result > 0) {
+			sqlSession.commit();
+		} else {
+			sqlSession.rollback();
+		}
+		
+		return result;
+	}
 }

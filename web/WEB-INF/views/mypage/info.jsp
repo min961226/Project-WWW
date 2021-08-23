@@ -199,6 +199,7 @@
     </div>
     
     <script>
+    	/* 프로필 수정 페이지로 이동 */
     	const $updateInfo = document.getElementById("updateInfo");
     	
     	$updateInfo.onclick = function() {
