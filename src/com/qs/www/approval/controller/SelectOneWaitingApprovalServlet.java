@@ -135,7 +135,7 @@ public class SelectOneWaitingApprovalServlet extends HttpServlet {
 				List<WorkingDocumentItemDTO> itemList = approvalService.selectReportItemList(reportNo);
 				
  				/* 5. 근무제쪽 테이블에도 insert 해주기 */
-				if(selectedReport.getDocumentNo() == 4 || selectedReport.getDocumentNo() == 5) {
+				if(selectedReport.getDocumentNo() == 4) {
 					ScheduleService scheduleService = new ScheduleService();
 				
 					/* 5-1. 정규근무신청이라면 */
@@ -149,6 +149,12 @@ public class SelectOneWaitingApprovalServlet extends HttpServlet {
 						String[] arrayEndDate = startDay.split("-");   
 						int dayPlusOne = Integer.parseInt(arrayEndDate[2]) + 1;
 						String endDate = arrayEndDate[0]  + "-" + arrayEndDate[1] + "-" + dayPlusOne;
+						
+						String dayPlusOneStr = "";
+						if(dayPlusOne < 10) {
+							dayPlusOneStr = "0" + dayPlusOne;
+							endDate = arrayEndDate[0]  + "-" + arrayEndDate[1] + "-" + dayPlusOneStr;
+						}
 						
 		 				/* 5-1-b. 첫번째 변경이력. startDay 사용 */
 		 					//memberWorkLogDTO.setStartDay에 맞춰 sql.Date형식으로 바꿔준다
@@ -214,25 +220,26 @@ public class SelectOneWaitingApprovalServlet extends HttpServlet {
 					}
 	 				
 	 				
-	 				/* 5-2. 초과근무신청이라면 */
-					if(selectedReport.getDocumentNo() == 5) {
-						System.out.println("------초과근무신청서");
-						
-						//초과근무제내역 (TBL_MEMBER_OVERTIME_LOG)에  insert 
-						OvertimeLogDTO overtimeLogDTO = new OvertimeLogDTO();
-						overtimeLogDTO.setOvertimeReportNo(reportNo);
-						overtimeLogDTO.setMemberNo(memberNo);
-						overtimeLogDTO.setOvertimeStartDay(java.sql.Date.valueOf(itemList.get(1).getItemContent()));
-						overtimeLogDTO.setOvertimeEndDay(java.sql.Date.valueOf(itemList.get(2).getItemContent()));
-						overtimeLogDTO.setOvertimeDuring(Integer.parseInt(itemList.get(3).getItemContent()));
-						overtimeLogDTO.setOvertimeStartTime(itemList.get(5).getItemContent());
-						overtimeLogDTO.setOvertimeEndTime(itemList.get(6).getItemContent());
-						int result = scheduleService.insertOvertimeLog(overtimeLogDTO);
-						
-					}
 				
 				}
 				
+				/* 5-2. 초과근무신청이라면 */
+				if(selectedReport.getDocumentNo() == 5) {
+					System.out.println("------초과근무신청서");
+					ScheduleService scheduleService = new ScheduleService();
+					
+					//초과근무제내역 (TBL_MEMBER_OVERTIME_LOG)에  insert 
+					OvertimeLogDTO overtimeLogDTO = new OvertimeLogDTO();
+					overtimeLogDTO.setOvertimeReportNo(reportNo);
+					overtimeLogDTO.setMemberNo(memberNo);
+					overtimeLogDTO.setOvertimeStartDay(java.sql.Date.valueOf(itemList.get(1).getItemContent()));
+					overtimeLogDTO.setOvertimeEndDay(java.sql.Date.valueOf(itemList.get(2).getItemContent()));
+					overtimeLogDTO.setOvertimeDuring(Integer.parseInt(itemList.get(3).getItemContent()));
+					overtimeLogDTO.setOvertimeStartTime(itemList.get(5).getItemContent());
+					overtimeLogDTO.setOvertimeEndTime(itemList.get(6).getItemContent());
+					int result = scheduleService.insertOvertimeLog(overtimeLogDTO);
+					System.out.println("overtimelogresult : " + result);
+				}
 				
 				/* 6. 휴가신청이라면 */
 				if(selectedReport.getDocumentNo() == 6) {

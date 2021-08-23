@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
+import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
@@ -138,11 +140,36 @@ public class SelectWorkingHoursScheduleServlet extends HttpServlet {
 		System.out.println("workingLogList : " + workingLogList);
 
 		//정규근무시간 구하기
-		int standardWorkSum = 0;
-		/////////////////////////////////구하기
-		request.setAttribute("standardWorkSum", standardWorkSum);
-		
-		int standardWorkPercent = (standardWorkSum * 100) / 12;
+		// 일간 및 주간 근무시간 계산
+		long workTimeSum = 0;
+		if(workingLogList != null) {
+			for(WorkingLogDTO workingLog : workingLogList) {
+				Date selectedSqlDate = Date.valueOf(workingLog.getSelectedDate());
+				workingLog.setSelectedSqlDate(selectedSqlDate);
+				
+				if(workingLog.getSelectedDayOfWeek() != "토" && workingLog.getSelectedDayOfWeek() != "일") {
+					LocalTime checkInTime = LocalTime.parse(workingLog.getWorkingType().getCheckInTime());
+					LocalTime checkOutTime = LocalTime.parse(workingLog.getWorkingType().getCheckOutTime());
+					LocalTime breakStartTime = LocalTime.parse(workingLog.getWorkingType().getBreakStartTime());
+					LocalTime breakEndTime = LocalTime.parse(workingLog.getWorkingType().getBreakEndTime());
+					
+					long beforeBreakTime = Duration.between(checkInTime, breakStartTime).toHours();
+					long afterBreakTime = Duration.between(breakEndTime, checkOutTime).toHours();
+					
+					long dailyWorkTime = beforeBreakTime + afterBreakTime;
+					workingLog.setDailyWorkTime(dailyWorkTime);
+					
+					LocalDate selectedDate = LocalDate.parse(workingLog.getSelectedDate());
+					if(selectedDate.isBefore(currentDate.plusDays(1))) {
+						workTimeSum += workingLog.getDailyWorkTime();
+					}
+				} else {
+					workingLog.setDailyWorkTime(0);
+				}
+			}
+		}
+		request.setAttribute("standardWorkSum", workTimeSum);
+		long standardWorkPercent = (workTimeSum * 100) / 40;
 		request.setAttribute("standardWorkPercent", standardWorkPercent);
 		
 		/* 2-3. 이번주 초과근무 시간과 잔여시간 */

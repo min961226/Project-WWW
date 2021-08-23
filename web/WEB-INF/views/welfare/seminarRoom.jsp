@@ -21,7 +21,7 @@
 			<div class="content container-fluid">
 				<div class="row">
 					<div class="col-xs-12">
-						<h4 class="page-title">기숙사 입주 현황</h4>
+						<h4 class="page-title">회의실 목록</h4>
 					</div>
 				</div>
 			</div>
