@@ -46,15 +46,22 @@ public class SelectTeamWorkingHoursScheduleServlet extends HttpServlet {
 		deptAndDay.put("myDeptCode", myDept.getDeptCode());
 		deptAndDay.put("searchDate", currentDateSql);
 		
+		//같은부서 사람들의 명단을 뽑는다. 줄 수를 정하기위해 필요함
+		List<MemberInfoDTO> teamMemberInfoList = scheduleService.selectAllTeamMember(deptAndDay);
+		request.setAttribute("teamMemberInfoList", teamMemberInfoList);
+		
 		//같은부서 사람들의 근무 정보를 DTO로 담는다.
 		List<TeamWorkingHourDTO> teamWorkingHourList = scheduleService.selectteamWorkingHourList(deptAndDay);
+		for(TeamWorkingHourDTO teamWorkingHourDTO: teamWorkingHourList) {
+			System.out.println("teamWorkingHourDTO : " + teamWorkingHourDTO);
+		}
 		request.setAttribute("teamWorkingHourList", teamWorkingHourList);
-		
-		//같은부서 사람들의 명단을 뽑는다. ... 필요없나?? 
-		//List<MemberInfoDTO> teamMemberInfoList = scheduleService.selectAllTeamMember(deptAndDay);
 		
 		//같은부서 사람들 중 휴가가 있는 사람의 정보를 DTO로 담는다. 
 		List<HolidayLogDTO> teamHolidayLogList = scheduleService.selectteamHolidayLogList(deptAndDay);
+		for(HolidayLogDTO holidayLogDTO : teamHolidayLogList) {
+			System.out.println("holidayLogDTO : " + holidayLogDTO);
+		}
 		request.setAttribute("teamHolidayLogList", teamHolidayLogList);
 		
 		String path = "/WEB-INF/views/schedule/checkWoringHoursOfTeam.jsp";
