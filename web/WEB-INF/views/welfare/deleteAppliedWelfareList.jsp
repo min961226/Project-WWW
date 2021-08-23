@@ -23,12 +23,7 @@
 				</div>
 				<div class="row">
 					<div class="col-lg-12">
-						
-
 							<form class="form-horizontal" action="${ pageContext.servletContext.contextPath }/approval/applied/selectOne?no=${ requestScope.selectedReport.reportNo }" method="post">
-							
-							
-							
 								<div class="form-group">
 									<div class="col-sm-6">
 										<label>결재 분류</label>
@@ -46,8 +41,6 @@
 										</div>
 									</div>
 								</div>
-
-
 								<div class="form-group">
 									<div class="col-sm-6">
 										<label>기안자</label>
@@ -55,7 +48,6 @@
 											<input class="form-control" value="${ sessionScope.memberInfo.name }"  disabled/>
 										</div>
 									</div>
-
 									<div class="col-sm-6">
 										<label>결재라인</label>
 										<div class="col-md-12">
@@ -63,7 +55,6 @@
 										</div>
 									</div>
 								</div>
-								
 								<div class="form-group">
 									<div class="col-sm-6">
 										<label>첨부서류</label>
@@ -71,7 +62,6 @@
 											<input class="form-control" type="file">
 										</div>
 									</div>
-								
 									<div class="col-sm-6">
 										<label>보존기간</label>
 										<div class="col-md-12">
@@ -79,11 +69,9 @@
 										</div>
 									</div>
 								</div>
-								
 								<c:set var = "no" value ="${ requestScope.selectedReport.documentNo }" />
 								<c:if test="${ no eq 4 }">
 								<div class="form-group">
-								
 									<!-- 유형코드도 c:if로 해서 한글로 표시되도록 하고싶다 -->
 									<div class="col-sm-6">
 										<label>근무제 유형코드</label>
@@ -91,7 +79,6 @@
 											<input class="form-control" value="${ requestScope.workCode }"  disabled/>
 										</div>
 									</div>
-
 									<div class="col-sm-6">
 										<label>근무제 유형</label>
 										<div class="col-md-12">
@@ -99,7 +86,6 @@
 										</div>
 									</div>									
 								</div>
-								
 								<div class="form-group">
 									<div class="col-sm-6">
 										<label>시작일</label>
@@ -107,7 +93,6 @@
 											<input class="form-control" value="${ requestScope.startDate }"  disabled/>
 										</div>
 									</div>
-									
 									<div class="col-sm-6">
 										<label>종료일</label>
 										<div class="col-md-12">
@@ -115,23 +100,18 @@
 										</div>
 									</div>							
 								</div>
-								
 								<!-- 흠 이건 id가 달린 div인데, 뭐가 다른지 궁금하네 -->
 								<div id="area3" class="form-group" >					
 								</div>
 								</c:if>
-								
-								
 								<c:if test="${ no eq 5 }">
 								<div id="area3" class="form-group" >
-								
 									<div class="col-sm-6">
 										<label>시작일</label>
 										<div class="col-md-12">
 											<input class="form-control" value="${ requestScope.startDate }"  disabled/>
 										</div>
 									</div>
-									
 									<div class="col-sm-6">
 										<label>시작시간</label>
 										<div class="col-md-12">

@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class NoticeDTO {
 	
+	private int rowNum;
 	private int no;
 	private String title;
 	private int member;
@@ -12,6 +13,7 @@ public class NoticeDTO {
 	private String body;
 	private String delete;
 	private String created;
+	private java.sql.Date createdDate;
 	private String modified;
 	private String name;
 	
@@ -21,9 +23,10 @@ public class NoticeDTO {
 
 
 
-	public NoticeDTO(int no, String title, int member, String type, int count, String body, String delete,
-			String created, String modified, String name) {
+	public NoticeDTO(int rowNum, int no, String title, int member, String type, int count, String body, String delete,
+			String created, java.sql.Date createdDate, String modified, String name) {
 		super();
+		this.rowNum = rowNum;
 		this.no = no;
 		this.title = title;
 		this.member = member;
@@ -32,8 +35,21 @@ public class NoticeDTO {
 		this.body = body;
 		this.delete = delete;
 		this.created = created;
+		this.createdDate = createdDate;
 		this.modified = modified;
 		this.name = name;
+	}
+
+
+
+	public int getRowNum() {
+		return rowNum;
+	}
+
+
+
+	public void setRowNum(int rowNum) {
+		this.rowNum = rowNum;
 	}
 
 
@@ -134,6 +150,18 @@ public class NoticeDTO {
 
 
 
+	public java.sql.Date getCreatedDate() {
+		return createdDate;
+	}
+
+
+
+	public void setCreatedDate(java.sql.Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
+
+
 	public String getModified() {
 		return modified;
 	}
@@ -160,10 +188,14 @@ public class NoticeDTO {
 
 	@Override
 	public String toString() {
-		return "NoticeDTO [no=" + no + ", title=" + title + ", member=" + member + ", type=" + type + ", count=" + count
-				+ ", body=" + body + ", delete=" + delete + ", created=" + created + ", modified=" + modified
-				+ ", name=" + name + "]";
+		return "NoticeDTO [rowNum=" + rowNum + ", no=" + no + ", title=" + title + ", member=" + member + ", type="
+				+ type + ", count=" + count + ", body=" + body + ", delete=" + delete + ", created=" + created
+				+ ", createdDate=" + createdDate + ", modified=" + modified + ", name=" + name + "]";
 	}
+
+
+
+
 
 	
 }

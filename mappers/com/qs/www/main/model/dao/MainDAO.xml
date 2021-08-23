@@ -32,6 +32,20 @@
 		<result property="menuUri" column="MENU_URI"/>
 		<result property="menuName" column="MENU_NAME"/>
 	</resultMap>
+	
+	<resultMap type="com.qs.www.board.model.dto.NoticeDTO" id="noticeListResultMap">
+		<result property="rowNum" column="RNUM"/>
+		<result property="title" column="BOARD_TITLE"/>
+		<result property="count" column="BOARD_COUNT"/>
+		<result property="createdDate" column="CREATED_DATE"/>
+	</resultMap>
+	
+	<resultMap type="com.qs.www.welfare.model.dto.WelfareListDTO" id="welfareListResultMap">
+		<result property="rowNum" column="RNUM"/>
+		<result property="welfareTitle" column="REPORT_TITLE"/>
+		<result property="reportNote" column="REPORT_STATUS"/>
+		<result property="selfDevDate" column="REPORT_DATE"/>
+	</resultMap>
 
 	<select id="selectCommutingLog" parameterType="com.qs.www.main.model.dto.WorkInfoDTO" resultMap="commutingLogResultMap">
         SELECT /* com.qs.www.main.model.dao.MainDAO#selectCommutingLog() */
@@ -126,4 +140,39 @@
         , #{ workCode }
         )
 	</insert>
+	
+	<select id="selectNoticeList" resultMap="noticeListResultMap">
+		SELECT ROWNUM RNUM
+		 	 , B.*
+          FROM (SELECT 
+                	   A.BOARD_TITLE
+                     , A.BOARD_COUNT
+                     , A.CREATED_DATE
+                  FROM TBL_BOARD A
+				 WHERE BOARD_TYPE = '공지'
+                   AND DELETE_YN = 'N'
+                 ORDER BY BOARD_NO DESC
+                ) B
+          <![CDATA[
+          WHERE ROWNUM <= 7
+          ]]>
+	</select>
+	
+	<select id="selectWelfareList" resultMap="welfareListResultMap">
+		SELECT ROWNUM RNUM
+		     , B.*
+          FROM (SELECT 
+					   A.REPORT_TITLE
+                     , A.REPORT_STATUS
+                     , A.REPORT_DATE
+                  FROM TBL_REPORT A
+			     WHERE DOCUMENT_NO IN (7,8,9,10,11,12)
+                   AND MEMBER_NO = #{memberNo}
+                   AND REPORT_STATUS != '회수'
+                 ORDER BY REPORT_NO DESC
+                ) B
+          <![CDATA[
+          WHERE ROWNUM <= 5
+          ]]>
+	</select>
 </mapper>

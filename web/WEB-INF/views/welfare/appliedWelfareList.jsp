@@ -49,7 +49,6 @@
                </form>
             </div>
 				<!-- 검색조건 end -->
-
 				<!-- 근무신청내용 -->
 				<div class="row">
 					<div class="col-lg-12">
@@ -82,8 +81,6 @@
 												<th>신청사유</th>
 											</tr>
 										</thead>
-
-
 										<c:forEach var="welfareList"
 											items="${ requestScope.appliedWelfareList }">
 
@@ -91,7 +88,6 @@
 											<!-- 
                                 	<c:set var="isApproved" value="${ fn:contains(report.reportStatus, \"승인\") }"/>
                                 	-->
-
 											<tr>
 												<td align="center"><c:out
 														value="${ welfareList.reportNo }" /></td>
@@ -111,7 +107,6 @@
 												<td><c:out value="${ welfareList.reportTitle }" /></td>
 												<td><c:out value="${ welfareList.lineName }" /></td>
 												<td><c:out value="${ welfareList.reportDate }" /></td>
-
 												<td><c:choose>
 														<c:when test="${ welfareList.reportStatus eq '승인' }">
 															<i class="fa fa-dot-circle-o text-success"></i>
@@ -140,7 +135,6 @@
 		</div>
 	</div>
 	<!-- main-wrapper end -->
-
 	<script>
 		if (document.getElementsByTagName("td")) {
 			const $tds = document.getElementsByTagName("td");

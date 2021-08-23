@@ -5,6 +5,7 @@ import java.sql.Date;
 
 public class WelfareListDTO implements Serializable{
 
+	private int rowNum;
 	private int reportNo;
 	private String memberNo;
 	private int documentNo;
@@ -17,9 +18,10 @@ public class WelfareListDTO implements Serializable{
 	
 	public WelfareListDTO() {}
 
-	public WelfareListDTO(int reportNo, String memberNo, int documentNo, String reportNote, String lineName,
-			String selfDevName, String welfareTitle, Date date, int priority) {
+	public WelfareListDTO(int rowNum, int reportNo, String memberNo, int documentNo, String reportNote, String lineName,
+			String selfDevName, String welfareTitle, Date selfDevDate, int priority) {
 		super();
+		this.rowNum = rowNum;
 		this.reportNo = reportNo;
 		this.memberNo = memberNo;
 		this.documentNo = documentNo;
@@ -27,8 +29,16 @@ public class WelfareListDTO implements Serializable{
 		this.lineName = lineName;
 		this.selfDevName = selfDevName;
 		this.welfareTitle = welfareTitle;
-		this.selfDevDate = date;
+		this.selfDevDate = selfDevDate;
 		this.priority = priority;
+	}
+
+	public int getRowNum() {
+		return rowNum;
+	}
+
+	public void setRowNum(int rowNum) {
+		this.rowNum = rowNum;
 	}
 
 	public int getReportNo() {
@@ -87,11 +97,11 @@ public class WelfareListDTO implements Serializable{
 		this.welfareTitle = welfareTitle;
 	}
 
-	public Date getDate() {
+	public Date getSelfDevDate() {
 		return selfDevDate;
 	}
 
-	public void setDate(Date selfDevDate) {
+	public void setSelfDevDate(Date selfDevDate) {
 		this.selfDevDate = selfDevDate;
 	}
 
@@ -105,17 +115,12 @@ public class WelfareListDTO implements Serializable{
 
 	@Override
 	public String toString() {
-		return "WelfareListDTO [reportNo=" + reportNo + ", memberNo=" + memberNo + ", documentNo=" + documentNo
-				+ ", reportNote=" + reportNote + ", lineName=" + lineName + ", selfDevName=" + selfDevName
-				+ ", welfareTitle=" + welfareTitle + ", date=" + selfDevDate + ", priority=" + priority + "]";
+		return "WelfareListDTO [rowNum=" + rowNum + ", reportNo=" + reportNo + ", memberNo=" + memberNo
+				+ ", documentNo=" + documentNo + ", reportNote=" + reportNote + ", lineName=" + lineName
+				+ ", selfDevName=" + selfDevName + ", welfareTitle=" + welfareTitle + ", selfDevDate=" + selfDevDate
+				+ ", priority=" + priority + "]";
 	}
-	
 
-	
-	
-	
-
-	
 	
 	
 }
