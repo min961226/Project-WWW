@@ -53,6 +53,7 @@ public class InsertMngWorkingSystemServlet extends HttpServlet {
 		workingDTO.setCheckInTime(checkInTime);
 		workingDTO.setCheckOutTime(checkOutTime);
 		workingDTO.setMemberNo(memberNo);
+		System.out.println("workingDTO : " + workingDTO);
 		
 		/* TBL_STANDARD_WORK에 insert*/
 		MngWorkingSystemService mngWorkingSystemService = new MngWorkingSystemService();
