@@ -231,7 +231,7 @@ public class SelectOneWaitingApprovalServlet extends HttpServlet {
 					//초과근무제내역 (TBL_MEMBER_OVERTIME_LOG)에  insert 
 					OvertimeLogDTO overtimeLogDTO = new OvertimeLogDTO();
 					overtimeLogDTO.setOvertimeReportNo(reportNo);
-					overtimeLogDTO.setMemberNo(memberNo);
+					overtimeLogDTO.setMemberNo(selectedReport.getMemberNo());
 					overtimeLogDTO.setOvertimeStartDay(java.sql.Date.valueOf(itemList.get(1).getItemContent()));
 					overtimeLogDTO.setOvertimeEndDay(java.sql.Date.valueOf(itemList.get(2).getItemContent()));
 					overtimeLogDTO.setOvertimeDuring(Integer.parseInt(itemList.get(3).getItemContent()));

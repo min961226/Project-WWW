@@ -4,15 +4,17 @@ public class ContactDTO {
 	
 	private String code;
 	private String name;
-	private String number;
+	private String deptname;
+	private String phone;
 	
 	public ContactDTO() {}
 
-	public ContactDTO(String code, String name, String number) {
+	public ContactDTO(String code, String name, String deptname, String phone) {
 		super();
 		this.code = code;
 		this.name = name;
-		this.number = number;
+		this.deptname = deptname;
+		this.phone = phone;
 	}
 
 	public String getCode() {
@@ -31,18 +33,28 @@ public class ContactDTO {
 		this.name = name;
 	}
 
-	public String getNumber() {
-		return number;
+	public String getDeptname() {
+		return deptname;
 	}
 
-	public void setNumber(String number) {
-		this.number = number;
+	public void setDeptname(String deptname) {
+		this.deptname = deptname;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
 	@Override
 	public String toString() {
-		return "ContactDTO [code=" + code + ", name=" + name + ", number=" + number + "]";
+		return "ContactDTO [code=" + code + ", name=" + name + ", deptname=" + deptname + ", phone=" + phone + "]";
 	}
+
+	
 	
 	
 

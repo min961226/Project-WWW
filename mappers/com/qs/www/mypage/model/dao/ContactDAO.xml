@@ -5,17 +5,20 @@
 <mapper namespace="ContactDAO">
 	<resultMap type="com.qs.www.mypage.model.dto.ContactDTO" id="contactResultMap">
 		<id property="code" column="DEPT_CODE"/>
-		<result property="name" column="DEPT_NAME"/>
-		<result property="number" column="DEPT_CALL_NUMBER"/>
+		<result property="name" column="NAME"/>
+		<result property="deptname" column="DEPT_NAME"/>
+		<result property="phone" column="PHONE"/>
 		
 	</resultMap>
 	
 	<select id="selectAllContactList" resultMap="contactResultMap">
         SELECT /* com.qs.www.mypage.model.dao.ContactDAO#selectAllContactList() */
                A.DEPT_CODE
-             , A.DEPT_NAME
-             , A.DEPT_CALL_NUMBER
+             , A.DEPT_NAME  
+             , D.NAME
+             , D.PHONE
          	FROM TBL_DEPARTMENT A
+         	LEFT JOIN TBL_MEMBER D ON(A.DEPT_CODE = D.DEPT_CODE)
 	</select>
 	
 	<select id="selectBoardList" resultMap="contactResultMap">
@@ -33,14 +36,14 @@
 				             , A.DEPT_CODE
                            FROM TBL_DEPARTMENT A
     					<where>
-							<if test="searchCondition == 'code'">
-	           				    A.DEPT_CODE LIKE '%' || #{ searchValue } || '%'	
-							</if>
 							<if test="searchCondition == 'name'">
-	           				   A.DEPT_NAME LIKE '%' || #{ searchValue } || '%' 	
+	           				    D.NAME LIKE '%' || #{ searchValue } || '%'	
 							</if>
-							<if test="searchCondition == 'number'">
-	           				   A.DEPT_CALL_NUMBER LIKE '%' || #{ searchValue } || '%' 	
+							<if test="searchCondition == 'deptname'">
+	           				   A.DEPT_NAME '%' || #{ searchValue } || '%' 	
+							</if>
+							<if test="searchCondition == 'phone'">
+	           				   D.PHONE LIKE '%' || #{ searchValue } || '%' 	
 							</if>
     					</where>
                          ORDER BY A.DEPT_CODE DESC
@@ -58,15 +61,16 @@
         SELECT /* com.qs.www.mypage.model.dao.ContactDAO#selectAllCount() */
                COUNT(*)
           FROM TBL_DEPARTMENT A
+          LEFT JOIN TBL_MEMBER D ON(A.DEPT_CODE = D.DEPT_CODE)
     	<where>
-			<if test="searchCondition == 'code'">
-	           A.DEPT_CODE LIKE '%' || #{ searchValue } || '%'	
-			</if>
 			<if test="searchCondition == 'name'">
+	           D.NAME LIKE '%' || #{ searchValue } || '%'	
+			</if>
+			<if test="searchCondition == 'deptname'">
 	           A.DEPT_NAME LIKE '%' || #{ searchValue } || '%' 	
 			</if>
-			<if test="searchCondition == 'number'">
-	           A.A.DEPT_CALL_NUMBER LIKE '%' || #{ searchValue } || '%' 	
+			<if test="searchCondition == 'phone'">
+	           D.PHONE LIKE '%' || #{ searchValue } || '%' 	
 			</if>
 
             
