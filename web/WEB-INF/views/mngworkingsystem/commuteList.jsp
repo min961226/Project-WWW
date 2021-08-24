@@ -94,24 +94,32 @@
 												
 												<!-- 출근시간 출력부분 -->
 												<tr style="font-size: 5px">
+												
 													<th><c:out value="부서"></c:out></th>
 													<th><c:out value="${ memberList.deptName }"></c:out></th>
+													
 													<c:forEach var="days" items="${ memberList.dailyCommuteList }">
+													
 														<c:set var="isSaterDay"	value="${ fn:contains(days.dayOfWeek, \"토\") }" />
 														<c:set var="isSundayDay" value="${ fn:contains(days.dayOfWeek, \"일\") }" />
 														<c:set var="isLate"	value="${ fn:contains(days.lateYn, \"Y\")}" />
+														
 														<c:choose>
 															<c:when test="${ isSaterDay || isSundayDay }">
 																<td><div style="color: #E94B3B">휴</div></td>
 															</c:when>
+															
 															<c:when test="${ !empty days.checkInTime && isLate}">
 																<th><i class="fa fa-dot-circle-o text-danger"></i><br>
 																<c:out value="${ days.checkInTime }" /></th>
 															</c:when>
+															
 															<c:otherwise>
 																<th><c:out value="${ days.checkInTime }" /></th>
 															</c:otherwise>
+															
 														</c:choose>
+														
 													</c:forEach>
 												</tr>
 												

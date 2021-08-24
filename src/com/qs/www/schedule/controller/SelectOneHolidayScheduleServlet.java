@@ -22,33 +22,29 @@ public class SelectOneHolidayScheduleServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		System.out.println("휴가신청 상세보기"); 
-		
 		int no = Integer.parseInt(request.getParameter("no"));
-		//요청함에서 선택한 게시물의 살세정보 가져오기
-		//상신번호, 상신일자, 상신자 사번, 문서번호, 비고, 결재상태, 라인명, 상신명
+		
+		/* 요청함에서 선택한 게시물의 상세정보 가져오기 */
 		ReportDTO selectedReport  = new ApprovalService().selectOneReportDetail(no);
 
 		/* 파일 첨부 DTO 서비스 실행 reportNo로 갖고옴 */
 		AttachmentDTO attachmentDTO = new AttachmentService().selectAttachmentByReportNo(selectedReport.getReportNo());		//reportNo로 값을 갖고옴
-		System.out.println(attachmentDTO);
 		
-		//상신번호, 문서번호, 순번, 내용
+		/* 상신번호, 문서번호, 순번, 내용 을 담아온다 */
 		List<WorkingDocumentItemDTO> itemList = new ApprovalService().selectReportItemList(no);
-		System.out.println("itemList : " + itemList);
 		
 		//휴가신청인경우
 		if(selectedReport.getDocumentNo() == 6) {
-			request.setAttribute("holidayType", itemList.get(1).getItemContent());			//휴가코드
-			request.setAttribute("startDate", itemList.get(2).getItemContent());			//시작일
-			request.setAttribute("startDateAllDay", itemList.get(3).getItemContent());		//시작일 종일여부
-			request.setAttribute("endDate", itemList.get(4).getItemContent());				//종료일
-			request.setAttribute("endDateAllDay", itemList.get(5).getItemContent());		//종료일 종일여부
-			request.setAttribute("reason", itemList.get(6).getItemContent());				//사유
-			request.setAttribute("holidayDuring", itemList.get(7).getItemContent());		//기간일수
+			request.setAttribute("holidayType", itemList.get(1).getItemContent());					//휴가코드
+			request.setAttribute("startDate", itemList.get(2).getItemContent());					//시작일
+			request.setAttribute("startDateAllDay", itemList.get(3).getItemContent());				//시작일 종일여부
+			request.setAttribute("endDate", itemList.get(4).getItemContent());						//종료일
+			request.setAttribute("endDateAllDay", itemList.get(5).getItemContent());				//종료일 종일여부
+			request.setAttribute("reason", itemList.get(6).getItemContent());						//사유
+			request.setAttribute("holidayDuring", itemList.get(7).getItemContent());				//기간일수
 		}
 		
-		//등록날짜를 보존기간으로 바꾸기
+		/* 등록날짜를 보존기간으로 바꾸기 */
 		Date reportDate = selectedReport.getReportDate();
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		String str = format.format(reportDate);
@@ -66,7 +62,4 @@ public class SelectOneHolidayScheduleServlet extends HttpServlet {
 		
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-	}
 }

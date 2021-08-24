@@ -33,10 +33,8 @@
 							<form class="form-horizontal" id="frm"
 								action="${ pageContext.servletContext.contextPath }/schedule/holiday/insert"
 								method="post" onsubmit="return askAgain();" enctype="multipart/form-data">
-
 								<div class="row">
 									<div class="col-md-9">
-										
 
 										<div class="form-group">
 											<label class="col-md-3 control-label">신청자</label>
@@ -99,14 +97,6 @@
 												</select>
 											</div>
 										</div>
-
-										<!-- InsertHolidayScheduleServlet 에서 기간일수 계산하는거 확인해야 함 -->
-										<!-- <div class="form-group">
-											<label class="col-md-3 control-label">기간</label>
-											<div class="col-md-9">
-												<input type="text" class="form-control" id="during" disabled>
-											</div>
-										</div> -->
 
 										<div class="form-group">
 											<label class="col-md-3 control-label">사유</label>
@@ -217,11 +207,6 @@
 					return false;
 				}
 			}
-			
-			/* function doSubmit()
-			 { frm.action = "insertHoliday.jsp";
-			 frm.encoding = "application/x-www-form-urlencoded";
-			 frm.submit(); } */
 			
 		</script>
 	

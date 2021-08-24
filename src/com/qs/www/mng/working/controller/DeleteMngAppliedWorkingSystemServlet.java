@@ -19,9 +19,6 @@ import com.qs.www.mng.working.model.service.MngAppliedWorkingService;
 @WebServlet("/mng/workingSystem/applied/delete")
 public class DeleteMngAppliedWorkingSystemServlet extends HttpServlet {
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	}
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		int reportNo = Integer.parseInt(request.getParameter("no"));
@@ -33,36 +30,37 @@ public class DeleteMngAppliedWorkingSystemServlet extends HttpServlet {
 		MngAppliedWorkingService mngAppliedWorkingService = new MngAppliedWorkingService();
 		MngHolidayService mngHolidayService = new MngHolidayService();
 		
-		//해당결재 상태를 취소로 변경
+		/* 해당결재 상태를 취소로 변경 */
 		int result1 =  mngHolidayService.cancleSelectedReport(reportNo);
 		
-		// 상신별 결재자들의 상태를 미처리로 변경
+		/* 상신별 결재자들의 상태를 미처리로 변경 */
 		int result2 =  new ApprovalService().callbackApproverPerReport(reportNo);
 		
 		int result3 = 1;
 		int result4 = 1;
 		int result5 = 1;
-		//결재상태가 '승인'이었을 경우, 적었던 Log내역 삭제
+		
+		/* 결재상태가 '승인'이었을 경우, 적었던 Log내역 삭제 */
 		if(status.equals("승인")) {
 			
-			//reportNo를 활용하여, TBL_MEMBER_WORK_LOG상 log의 로그를 delete
+			/* reportNo를 활용하여, TBL_MEMBER_WORK_LOG상 log의 로그를 delete */
 			result3 = mngAppliedWorkingService.deleteWorkLog(reportNo);
 			
-			//커스텀근무라면, TBL_CUSTOM_WORK의 기록을 delete
+			/* 커스텀근무라면, TBL_CUSTOM_WORK의 기록을 delete */
 			if(workType.equals("커스텀")) {
-				//TBL_CUSTOM_WORK에서 커스텀근무제번호를 select
+				
+				/* TBL_CUSTOM_WORK에서 커스텀근무제번호를 select*/
 				int customWorkNo = mngAppliedWorkingService.selectCustomWorkNo(reportNo);
 				
-				//TBL_CUSTOM_WORKTIME에 가서 로그를 삭제(근무제가 FK이기 때문에 이쪽을 먼저 지워야 한다)
+				/* TBL_CUSTOM_WORKTIME에 가서 로그를 삭제(근무제가 FK이기 때문에 이쪽을 먼저 지워야 한다)*/
 				result4 = mngAppliedWorkingService.deleteCustomWorktime(customWorkNo);
 				
-				//TBL_CUSTOM_WORK로 가서 로그를 삭제
+				/* TBL_CUSTOM_WORK로 가서 로그를 삭제*/
 				result5 = mngAppliedWorkingService.deleteCustomWork(reportNo);
 			}
 			
-			//초과근무라면, TBL_MEMBER_OVERTIME_LOG의 기록을 delete해야 하는데.. 야간교통비에서도 쓰는데..?
 			if(documentNo == 5) {
-				
+				/* 초과근무의 경우, 초과근무 로그 엔터티를 삭제하지는 않는다 */
 			} 
 			
 		}

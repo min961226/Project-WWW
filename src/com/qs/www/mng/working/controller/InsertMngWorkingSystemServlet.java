@@ -16,10 +16,6 @@ import com.qs.www.mng.working.model.service.MngWorkingSystemService;
 @WebServlet("/mng/workingSystem/insert")
 public class InsertMngWorkingSystemServlet extends HttpServlet {
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		 
-	}
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		HttpSession session = request.getSession();		
@@ -36,6 +32,7 @@ public class InsertMngWorkingSystemServlet extends HttpServlet {
 			breakEndTime = request.getParameter("breakEndHour") 
 					+ ":" + request.getParameter("breakEndMin");
 		}
+		
 		int minimal = Integer.parseInt(request.getParameter("minimal"));
 		
 		String checkInTime = request.getParameter("checkInHour") 
@@ -53,9 +50,8 @@ public class InsertMngWorkingSystemServlet extends HttpServlet {
 		workingDTO.setCheckInTime(checkInTime);
 		workingDTO.setCheckOutTime(checkOutTime);
 		workingDTO.setMemberNo(memberNo);
-		System.out.println("workingDTO : " + workingDTO);
 		
-		/* TBL_STANDARD_WORK에 insert*/
+		/* TBL_STANDARD_WORK에 insert */
 		MngWorkingSystemService mngWorkingSystemService = new MngWorkingSystemService();
 		int result = mngWorkingSystemService.InsertStandardMngWorkingSystem(workingDTO);
 		
@@ -73,8 +69,6 @@ public class InsertMngWorkingSystemServlet extends HttpServlet {
 		}
 
 		request.getRequestDispatcher(path).forward(request, response);
-		
-		
 		
 	}
 }

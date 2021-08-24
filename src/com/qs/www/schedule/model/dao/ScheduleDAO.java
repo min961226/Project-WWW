@@ -64,20 +64,16 @@ public class ScheduleDAO {
 		return session.selectList("ScheduleDAO.selectMyWorkReport", selectedInfoMap);
 	}
 	
-	/* 초과근무시간 검색 */
 	public List<OvertimeLogDTO> selectOverTimeLog(SqlSession session, OvertimeLogDTO overtimeLogDTO) {
 		
 		return session.selectList("ScheduleDAO.selectOverTimeLog", overtimeLogDTO);
 	}
 	
-	/* 같은 팀 사람들의 오늘 근무정보를 List로 검색 */
-	//'커스텀근무제'일 시, CHANGE_DATE에 조건을 줘야 하는 거 아닌지...(MainDAO.xml의 selectWorkingLog참고)
 	public List<TeamWorkingHourDTO> selectteamWorkingHourList(SqlSession session, HashMap<String, Object> deptAndDay) {
 		
 		return session.selectList("ScheduleDAO.selectteamWorkingHourList", deptAndDay);
 	}
 	
-	/* 같은 팀 사람들의 오늘 근무정보를 List로 검색 */
 	public List<HolidayLogDTO> selectteamHolidayLogList(SqlSession session, HashMap<String, Object> deptAndDay) {
 		
 		return session.selectList("ScheduleDAO.selectteamHolidayLogList", deptAndDay);
@@ -112,11 +108,6 @@ public class ScheduleDAO {
 		
 		return session.selectList("ScheduleDAO.selectAllTeamMember", deptAndDay);
 	}
-
-	
-
-	
-
 	
 
 }

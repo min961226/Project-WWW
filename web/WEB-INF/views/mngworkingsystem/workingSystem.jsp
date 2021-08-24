@@ -53,7 +53,8 @@
 	                            </div>
 	                            <div class="pro-deadline m-b-15">
 	                                <div class="sub-title"> 출근 ~ 퇴근 </div>
-	                                <div class="text-muted"><c:out value="${ workTypeContent.checkInTime } ~ ${ workTypeContent.checkOutTime }"/></div>
+	                                <div class="text-muted"><c:out value="${ workTypeContent.checkInTime } ~ ${ workTypeContent.checkOutTime }"/>
+	                                	</div>
 	                            </div>
 	                            <form action="${ pageContext.servletContext.contextPath }/mng/workingSystem/delete" method="post">
 	                            	<input type="text" name="workCode" value="${ workTypeContent.workCode }" hidden="">
@@ -72,12 +73,10 @@
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 				<div class="modal-content modal-md">
 					<div class="modal-header">
-						<h4 class="modal-title">Add Leave Request</h4>
+						<h4 class="modal-title">Add Standard WorkType</h4>
 					</div>
 					<div class="modal-body">
-						<form
-							action="${ pageContext.servletContext.contextPath }/mng/workingSystem/insert"
-							method="post">
+						<form action="${ pageContext.servletContext.contextPath }/mng/workingSystem/insert"	method="post">
 
 							<div class="form-group">
 								<label>근무제 명<span class="text-red">*</span></label> <input
@@ -85,16 +84,13 @@
 							</div>
 
 							<div class="form-group">
-								<label>최소근무시간
-								<span class="text-red">*</span><span>(시간 단위. 숫자만 입력하세요)</span>
-								</label> 
+								<label>최소근무시간	<span class="text-red">*</span><span>(시간 단위. 숫자만 입력하세요)</span></label> 
 								<input type="text" class="form-control" name="minimal" required>
 							</div>
 
 							<div>
 								<div class="form-group col-sm-6">
-									<label>휴게시작시간</label> <select class="select"
-										name="breakStartHour" required>
+									<label>휴게시작시간</label> <select class="select"	name="breakStartHour" required>
 										<option value="11">11</option>
 										<option value="12">12</option>
 										<option value="13">13</option>

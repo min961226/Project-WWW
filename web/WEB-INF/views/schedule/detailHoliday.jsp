@@ -78,66 +78,65 @@
 								</div>
 							</div>
 
-							<c:set var="no"
-								value="${ requestScope.selectedReport.documentNo }" />
-							<c:if test="${  no eq 6 }">
-								<div id="area3" class="form-group">
-
-									<div class="form-group">
-										<div class="col-sm-6">
-											<label>휴가코드</label>
-											<div class="col-md-12">
-												<input class="form-control"
-													value="${ requestScope.holidayType }" disabled />
+							<c:set var="no"	value="${ requestScope.selectedReport.documentNo }" />
+								<c:if test="${ no eq 6 }">
+									<div id="area3" class="form-group">
+	
+										<div class="form-group">
+											<div class="col-sm-6">
+												<label>휴가코드</label>
+												<div class="col-md-12">
+													<input class="form-control"
+														value="${ requestScope.holidayType }" disabled />
+												</div>
+											</div>
+	
+											<div class="col-sm-6">
+												<label>기간일수</label>
+												<div class="col-md-12">
+													<input class="form-control"
+														value="${ requestScope.holidayDuring }" disabled />
+												</div>
 											</div>
 										</div>
-
-										<div class="col-sm-6">
-											<label>기간일수</label>
-											<div class="col-md-12">
-												<input class="form-control"
-													value="${ requestScope.holidayDuring }" disabled />
+	
+										<div class="form-group">
+											<div class="col-sm-6">
+												<label>시작일</label>
+												<div class="col-md-12">
+													<input class="form-control"
+														value="${ requestScope.startDate }" disabled />
+												</div>
+											</div>
+	
+											<div class="col-sm-6">
+												<label>시작일 종일여부</label>
+												<div class="col-md-12">
+													<input class="form-control"
+														value="${ requestScope.startDateAllDay }" disabled />
+												</div>
+											</div>
+										</div>
+	
+										<div class="form-group">
+											<div class="col-sm-6">
+												<label>종료일</label>
+												<div class="col-md-12">
+													<input class="form-control"
+														value="${ requestScope.endDate }" disabled />
+												</div>
+											</div>
+	
+											<div class="col-sm-6">
+												<label>종료일 종일여부</label>
+												<div class="col-md-12">
+													<input class="form-control"
+														value="${ requestScope.endDateAllDay }" disabled />
+												</div>
 											</div>
 										</div>
 									</div>
-
-									<div class="form-group">
-										<div class="col-sm-6">
-											<label>시작일</label>
-											<div class="col-md-12">
-												<input class="form-control"
-													value="${ requestScope.startDate }" disabled />
-											</div>
-										</div>
-
-										<div class="col-sm-6">
-											<label>시작일 종일여부</label>
-											<div class="col-md-12">
-												<input class="form-control"
-													value="${ requestScope.startDateAllDay }" disabled />
-											</div>
-										</div>
-									</div>
-
-									<div class="form-group">
-										<div class="col-sm-6">
-											<label>종료일</label>
-											<div class="col-md-12">
-												<input class="form-control"
-													value="${ requestScope.endDate }" disabled />
-											</div>
-										</div>
-
-										<div class="col-sm-6">
-											<label>종료일 종일여부</label>
-											<div class="col-md-12">
-												<input class="form-control"
-													value="${ requestScope.endDateAllDay }" disabled />
-											</div>
-										</div>
-									</div>
-								</div>
-							</c:if>
+								</c:if>
 
 							<div class="form-group">
 								<div class="col-sm-12">

@@ -91,6 +91,16 @@ public class SelectMngCommuteWorkingSystemServlet extends HttpServlet {
 
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		
+		//우선 페이징으로 보여줄 member들 부터 뽑아와야 한다
+		HashMap<String, Object> selectedInfoMap = new HashMap<>();
+		selectedInfoMap.put("selectCriteria", selectCriteria);
+		
+		//조건 selectedInfoMap을 통해 검색한 member
+		//사번, 이름, 부서명, 직급을 가져온다. 
+		//List<DailyCommuteDTO> dailyCommuteList 필드는 NULL인 DTO를 받아오게 된다.
+		List<MemberCommuteLogDTO> memberList 
+			= mngCommuteService.selectCriteriaMemberList(selectedInfoMap);
+		
 		
 		/* 1. 이번 달 근태 통계 */
 		//오늘이 속한 해, 달, 오늘날짜
@@ -137,19 +147,8 @@ public class SelectMngCommuteWorkingSystemServlet extends HttpServlet {
 			
 		}
 		
-		//우선 페이징으로 보여줄 member들 부터 뽑아와야 한다
-		List<Integer> memberNo = new ArrayList<>();
-		HashMap<String, Object> selectedInfoMap = new HashMap<>();
-		selectedInfoMap.put("selectCriteria", selectCriteria);
-		
-		//조건 selectedInfoMap을 통해 검색한 member
-		//사번, 이름, 부서명, 직급을 가져온다. 
-		//List<DailyCommuteDTO> dailyCommuteList 필드는 NULL인 DTO를 받아오게 된다.
-		List<MemberCommuteLogDTO> memberList = mngCommuteService.selectCriteriaMemberList(selectedInfoMap);
-		
 		
 		//조건과 달을 입력하여 출근시간, 퇴근시간들을 가져와야 함
-		
 		for(int j = 0; j < memberList.size(); j++) {
 			
 			//한 사람의 1달치 출퇴근기록을 가져온다
@@ -159,9 +158,7 @@ public class SelectMngCommuteWorkingSystemServlet extends HttpServlet {
 			workInfo.setWeekEndDate(thisMonthLastString);
 			//출퇴근 번호, 연도-월(yyyyMM), 일(dd), 출근시간, 퇴근시간, 지각여부, 퇴근여부 (사번은 없음)
 			List<CommutingLogDTO> commutingLogMontlyList = new MainService().selectCommutingLog(workInfo); 
-			for(CommutingLogDTO dto : commutingLogMontlyList) {
-				System.out.println(dto);
-			}
+					
 			
 			//view에 넘길 용도로 만든 한 사람의 List(재구축용)
 			List<DailyCommuteDTO> dailyCommuteList = new ArrayList<>(); 
@@ -169,7 +166,7 @@ public class SelectMngCommuteWorkingSystemServlet extends HttpServlet {
 			int forStartDate = 1;			//1일부터 시작
 			for(int i = 0; i < thisMonthLastDate; i++) {
 				
-				String forStartDatestr = forStartDate + "";					//일단위를 String으로 바꾼다. 만약 10 이하라면 0을 붙여준다.
+				String forStartDatestr = forStartDate + "";			//일단위를 String으로 바꾼다. 만약 10 이하라면 0을 붙여준다.
 				if(forStartDate < 10) {
 					forStartDatestr = "0" + forStartDatestr;					
 				}			
@@ -233,12 +230,6 @@ public class SelectMngCommuteWorkingSystemServlet extends HttpServlet {
 				forStartDate++;		//for문에서 다음 날짜를 돌리기위해, 1 증가시킨다
 				
 				dailyCommuteList.add(dailyCommuteDTO);				//만들어진 한줄의 DTO를 List에 add
-			}
-			
-			//확인용 1인 출퇴근기록
-			for(DailyCommuteDTO commute : dailyCommuteList) {
-				System.out.println("한 사람의 commute 기록들");
-				System.out.println(commute);
 			}
 			
 			memberList.get(j).setDailyCommuteList(dailyCommuteList);

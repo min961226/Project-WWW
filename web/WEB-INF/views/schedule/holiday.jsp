@@ -22,7 +22,6 @@
 					<div class="col-xs-8">
 						<h4 class="page-title">휴가 신청 현황</h4>
 					</div>
-					<!-- 휴가신청으로 이동하는 버튼 -->
 					<div class="col-xs-4 text-right m-b-30">
 						<a href="${ pageContext.servletContext.contextPath }/schedule/holiday/insert" class="btn btn-primary rounded pull-right">
 							<i class="fa fa-plus"></i> 휴가신청하기</a>
@@ -31,8 +30,7 @@
 
 				<!-- 검색조건 -->
 				<div class="search-area" align="right">
-					<form id="loginForm"
-						action="${ pageContext.servletContext.contextPath }/schedule/holiday/select"
+					<form id="loginForm" action="${ pageContext.servletContext.contextPath }/schedule/holiday/select"
 						method="get" style="display: inline-block">
 						<input type="hidden" name="currentPage" value="1"> 
 						<select id="searchCondition" name="searchCondition">
@@ -65,7 +63,9 @@
 								</thead>
 
 								<c:forEach var="holiday" items="${ requestScope.holidayReportList }">
-									<c:set var="isApproved" value="${ fn:contains(holiday.reportStatus, \"승인\") }" /><!-- 승인인지 여부만 확인. 승인 이외에는 빨간색으로 -->
+									<c:set var="isApproved"	value="${ fn:contains(holiday.reportStatus, \"승인\") }" />
+									<c:set var="isRejected"	value="${ fn:contains(holiday.reportStatus, \"반려\") }" />
+									<c:set var="isAwaiting"	value="${ fn:contains(holiday.reportStatus, \"대기\") }" />
 									<tr>
 										<td><c:out value="${ holiday.reportNo }" /></td>
 										<td><c:if test="${ holiday.documentNo eq 6 }">
@@ -76,6 +76,14 @@
 										<td><c:out value="${ holiday.reportDate }" /></td>
 										<td><c:choose>
 												<c:when test="${ isApproved }">
+													<i class="fa fa-dot-circle-o text-info"></i>
+													<c:out value=" ${ holiday.reportStatus }" />
+												</c:when>
+												<c:when test="${ isRejected }">
+													<i class="fa fa-dot-circle-o text-purple"></i>
+													<c:out value=" ${ holiday.reportStatus }" />
+												</c:when>
+												<c:when test="${ isAwaiting }">
 													<i class="fa fa-dot-circle-o text-success"></i>
 													<c:out value=" ${ holiday.reportStatus }" />
 												</c:when>
@@ -116,7 +124,7 @@
 				}
 
 				$tds[i].onclick = function() {
-					const no = this.parentNode.children[0].innerText; //결재번호가 0번째 td이므로, [0]의 innerText를 가져오기
+					const no = this.parentNode.children[0].innerText; 
 					location.href = "${ pageContext.servletContext.contextPath }/schedule/holiday/selectOne?no="
 							+ no;
 				}

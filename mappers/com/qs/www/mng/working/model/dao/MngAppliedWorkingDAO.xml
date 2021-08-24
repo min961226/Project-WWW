@@ -89,7 +89,7 @@
 	</select>
 	
 	<delete id="deleteCustomWorktime">
-	DELETE /* com.qs.www.schedule.mng.working.dao.MngAppliedWorkingDAO#deleteCustomWork() */
+	DELETE /* com.qs.www.schedule.mng.working.dao.MngAppliedWorkingDAO#deleteCustomWorktime() */
 	  FROM TBL_CUSTOM_WORKTIME A
 	 WHERE A.WORK_NO = #{ customWorkNo }
 	</delete>

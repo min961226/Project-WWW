@@ -80,90 +80,89 @@
 								</div>
 							</div>
 
-							<c:set var="no"
-								value="${ requestScope.selectedReport.documentNo }" />
-							<c:if test="${ no eq 4 }">
-								<div class="form-group">
-									<div class="col-sm-6">
-										<label>근무제 유형코드</label>
-										<div class="col-md-12">
-											<input class="form-control"
-												value="${ requestScope.workCode }" disabled />
+							<c:set var="no"	value="${ requestScope.selectedReport.documentNo }" />
+								<c:if test="${ no eq 4 }">
+									<div class="form-group">
+										<div class="col-sm-6">
+											<label>근무제 유형코드</label>
+											<div class="col-md-12">
+												<input class="form-control"
+													value="${ requestScope.workCode }" disabled />
+											</div>
+										</div>
+	
+										<div class="col-sm-6">
+											<label>근무제 유형</label>
+											<div class="col-md-12">
+												<input class="form-control"
+													value="${ requestScope.worktype }" disabled />
+											</div>
 										</div>
 									</div>
-
-									<div class="col-sm-6">
-										<label>근무제 유형</label>
-										<div class="col-md-12">
-											<input class="form-control"
-												value="${ requestScope.worktype }" disabled />
+	
+									<div class="form-group">
+										<div class="col-sm-6">
+											<label>시작일</label>
+											<div class="col-md-12">
+												<input class="form-control"
+													value="${ requestScope.startDate }" disabled />
+											</div>
+										</div>
+	
+										<div class="col-sm-6">
+											<label>종료일</label>
+											<div class="col-md-12">
+												<input class="form-control" value="${ requestScope.endDate }"
+													disabled />
+											</div>
 										</div>
 									</div>
-								</div>
+								</c:if>
 
-								<div class="form-group">
-									<div class="col-sm-6">
-										<label>시작일</label>
-										<div class="col-md-12">
-											<input class="form-control"
-												value="${ requestScope.startDate }" disabled />
+								<c:if test="${ no eq 5 }">
+									<div id="area3" class="form-group">
+	
+										<div class="col-sm-6">
+											<label>시작일</label>
+											<div class="col-md-12">
+												<input class="form-control"
+													value="${ requestScope.startDate }" disabled />
+											</div>
+										</div>
+	
+										<div class="col-sm-6">
+											<label>시작시간</label>
+											<div class="col-md-12">
+												<input class="form-control"
+													value="${ requestScope.startDateTime }" disabled />
+											</div>
+										</div>
+	
+										<div class="col-sm-6">
+											<label>종료일</label>
+											<div class="col-md-12">
+												<input class="form-control" value="${ requestScope.endDate }"
+													disabled />
+											</div>
+										</div>
+	
+										<div class="col-sm-6">
+											<label>종료시간</label>
+											<div class="col-md-12">
+												<input class="form-control"
+													value="${ requestScope.endDateTime }" disabled />
+											</div>
+										</div>
+	
+										<div class="col-sm-6">
+											<label>초과근무 기간시수</label>
+											<div class="col-md-12">
+												<input class="form-control"
+													value="${ requestScope.overtimeDuring }" disabled />
+											</div>
 										</div>
 									</div>
-
-									<div class="col-sm-6">
-										<label>종료일</label>
-										<div class="col-md-12">
-											<input class="form-control" value="${ requestScope.endDate }"
-												disabled />
-										</div>
-									</div>
-								</div>
-							</c:if>
-
-							<c:if test="${ no eq 5 }">
-								<div id="area3" class="form-group">
-
-									<div class="col-sm-6">
-										<label>시작일</label>
-										<div class="col-md-12">
-											<input class="form-control"
-												value="${ requestScope.startDate }" disabled />
-										</div>
-									</div>
-
-									<div class="col-sm-6">
-										<label>시작시간</label>
-										<div class="col-md-12">
-											<input class="form-control"
-												value="${ requestScope.startDateTime }" disabled />
-										</div>
-									</div>
-
-									<div class="col-sm-6">
-										<label>종료일</label>
-										<div class="col-md-12">
-											<input class="form-control" value="${ requestScope.endDate }"
-												disabled />
-										</div>
-									</div>
-
-									<div class="col-sm-6">
-										<label>종료시간</label>
-										<div class="col-md-12">
-											<input class="form-control"
-												value="${ requestScope.endDateTime }" disabled />
-										</div>
-									</div>
-
-									<div class="col-sm-6">
-										<label>초과근무 기간시수</label>
-										<div class="col-md-12">
-											<input class="form-control"
-												value="${ requestScope.overtimeDuring }" disabled />
-										</div>
-									</div>
-								</div>
-							</c:if>
+								</c:if>
 
 							<div class="form-group">
 								<div class="col-sm-12">
@@ -189,11 +188,9 @@
 
 							<div class="row">
 								<div class="col-sm-12 text-center m-t-20">
-									<c:set var="reportStatus"
-										value="${ requestScope.selectedReport.reportStatus }" />
-									<c:if test="${  reportStatus eq '대기' }">
-										<button type="submit" class="btn btn-primary btn-lg">
-											회수하기</button>
+									<c:set var="reportStatus" value="${ requestScope.selectedReport.reportStatus }" />
+									<c:if test="${ reportStatus eq '대기' }">
+										<button type="submit" class="btn btn-primary btn-lg">회수하기</button>
 									</c:if>
 									<button type="reset" class="btn btn-primary btn-lg" id="goBack">돌아가기</button>
 								</div>

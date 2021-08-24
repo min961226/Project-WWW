@@ -73,8 +73,9 @@
 
 								<c:forEach var="report" items="${ requestScope.workReportList }">
 
-									<!-- 승인인지 여부만 확인. 승인 이외에는 빨간색으로 -->
 									<c:set var="isApproved"	value="${ fn:contains(report.reportStatus, \"승인\") }" />
+									<c:set var="isRejected"	value="${ fn:contains(report.reportStatus, \"반려\") }" />
+									<c:set var="isAwaiting"	value="${ fn:contains(report.reportStatus, \"대기\") }" />
 
 									<tr>
 										<td><c:out value="${ report.reportNo }" /></td>
@@ -88,6 +89,14 @@
 										<td><c:out value="${ report.reportDate }" /></td>
 										<td><c:choose>
 												<c:when test="${ isApproved }">
+													<i class="fa fa-dot-circle-o text-info"></i>
+													<c:out value=" ${ report.reportStatus }" />
+												</c:when>
+												<c:when test="${ isRejected }">
+													<i class="fa fa-dot-circle-o text-purple"></i>
+													<c:out value=" ${ report.reportStatus }" />
+												</c:when>
+												<c:when test="${ isAwaiting }">
 													<i class="fa fa-dot-circle-o text-success"></i>
 													<c:out value=" ${ report.reportStatus }" />
 												</c:when>
@@ -101,10 +110,8 @@
 								</c:forEach>
 
 								</tbody>
-							</table>
-							<!-- 근무신청내용 end -->
+							</table><!-- 근무신청내용 end -->
 
-							<!-- 페이징 부분 -->
 							<jsp:include page="../common/navbar.jsp" />
 
 						</div>
@@ -129,7 +136,7 @@
 				}
 	
 				$tds[i].onclick = function() {
-					const no = this.parentNode.children[0].innerText; //결재번호가 0번째 td이므로, [0]의 innerText를 가져오기
+					const no = this.parentNode.children[0].innerText; 
 					location.href = "${ pageContext.servletContext.contextPath }/schedule/workingSystem/selectOne?no=" + no;
 				}
 					

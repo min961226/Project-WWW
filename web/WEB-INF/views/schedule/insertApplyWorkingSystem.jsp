@@ -39,10 +39,9 @@
 												<select id="work" class="select" name="workNo"
 													onchange="testChange(this)" required>
 													<option value="">--근무제목록-</option>
-													<c:forEach items="${ requestScope.workTypeList }"
-														var="workTypeList">
-														<option value="${ workTypeList.workCode }"><c:out
-																value="${ workTypeList.workName }" /></option>
+													<c:forEach items="${ requestScope.workTypeList }" var="workTypeList">
+														<option value="${ workTypeList.workCode }">
+														<c:out value="${ workTypeList.workName }" /></option>
 													</c:forEach>
 												</select>
 
@@ -109,10 +108,8 @@
 											</div>
 
 										</div>
-									</div>
-
-
-									<!-- 첫번째 컬럼 끝 -->
+									</div><!-- 첫번째 컬럼 END -->
+									
 									<div class="col-md-6" id="div1" hidden>
 										<h4>선택근무 추가작성내용</h4>
 										<div><small>* 선택근무 시, 일일 최소근무시간은 4시간 입니다.</small></div>
@@ -386,7 +383,7 @@
 
 
 	<script>
-			// onchange에서 호출하는 함수. 
+			/* onchange에서 호출하는 함수 */ 
 			function testChange(obj) {
 				var result = $('#work option:selected').val();
 				

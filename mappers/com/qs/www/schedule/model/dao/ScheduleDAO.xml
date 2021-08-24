@@ -194,7 +194,7 @@
 	</insert>
 	
 	<insert id="applyWorkingSystemReferer" parameterType="com.qs.www.schedule.model.dto.ApproverPerReportDTO">
-	INSERT /* com.qs.www.schedule.model.dao.ScheduleDAO#applyWorkingSystemApprover() */
+	INSERT /* com.qs.www.schedule.model.dao.ScheduleDAO#applyWorkingSystemReferer() */
 	  INTO TBL_APPROVER_PER_REPORT A
 	(
 	  A.REPORT_NO
@@ -232,15 +232,15 @@
 	</insert>
   
 	<update id="setFirstWorkingSystemApprover">
-		UPDATE /* com.qs.www.approval.model.dao.ApprovalDAO#selectOneReportDetail()*/
-		       TBL_APPROVER_PER_REPORT A
-		   SET A.APPROVER_TYPE = '대기'
-		 WHERE A.REPORT_NO = #{ reportNo }
-		   AND A.PRIORITY = 1
+	UPDATE /* com.qs.www.approval.model.dao.ApprovalDAO#selectOneReportDetail()*/
+	       TBL_APPROVER_PER_REPORT A
+	   SET A.APPROVER_TYPE = '대기'
+	 WHERE A.REPORT_NO = #{ reportNo }
+	   AND A.PRIORITY = 1
 	</update>
 	
 	<select id="selectMyWorkReport" parameterType="hashmap" resultMap="reportResultMap">
-	SELECT
+	SELECT /* com.qs.www.schedule.model.dao.ScheduleDAO#selectMyWorkReport() */
 	       C.RNUM
 	     , C.REPORT_NO
 	     , C.REPORT_DATE
@@ -290,7 +290,7 @@
 	
 	
 	<select id="selectOverTimeLog" parameterType="com.qs.www.schedule.model.dto.OvertimeLogDTO" resultMap="overtimeResultMap">
-	SELECT
+	SELECT /* com.qs.www.schedule.model.dao.ScheduleDAO#selectOverTimeLog() */
 	       A.MEMBER_OVERTIME_LOG_NO
 	     , A.OVERTIME_REPORT_NO
 	     , A.MEMBER_NO
@@ -306,16 +306,15 @@
 	</select>
 	
 	<select id="selectAllTeamMember" parameterType="hashmap" resultMap="memberInfoResultMap">
-	SELECT /* com.qs.www.schedule.model.dao.ScheduleDAO#selectAllWorkType() */
+	SELECT /* com.qs.www.schedule.model.dao.ScheduleDAO#selectAllTeamMember() */
           A.*
      FROM TBL_MEMBER A
     WHERE A.ENT_YN = 'N'
       AND A.DEPT_CODE = #{ myDeptCode }
 	</select>
 	
-	
 	<select id="selectteamWorkingHourList" parameterType="hashmap" resultMap="TeamWorkingHourResultMap">
-	SELECT
+	SELECT /* com.qs.www.schedule.model.dao.ScheduleDAO#selectteamWorkingHourList() */
            A.MEMBER_NO
          , A.MEMBER_ID
          , A.NAME
@@ -350,7 +349,7 @@
    </select>
    
    <select id="selectteamHolidayLogList" parameterType="hashmap" resultMap="teamHolidayLogResultMap">
-   SELECT
+   SELECT /* com.qs.www.schedule.model.dao.ScheduleDAO#selectteamHolidayLogList() */
           B.HOLIDAY_LOG_NO
         , B.MEMBER_NO
         , B.LOG_NOTE
@@ -411,7 +410,7 @@
    </insert>
    
    <insert id="insertOvertimeLog" parameterType="com.qs.www.schedule.model.dto.OvertimeLogDTO">
-	INSERT /* com.qs.www.schedule.model.dao.ScheduleDAO#overtimeLogDTO() */
+	INSERT /* com.qs.www.schedule.model.dao.ScheduleDAO#insertOvertimeLog() */
 	  INTO TBL_MEMBER_OVERTIME_LOG A
 	(
 	  A.MEMBER_OVERTIME_LOG_NO
@@ -454,4 +453,5 @@
 	   AND A.REPORT_STATUS != '회수'
     </where>
    </select>
+   
 </mapper>

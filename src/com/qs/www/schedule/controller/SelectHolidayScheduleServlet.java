@@ -23,16 +23,13 @@ import com.qs.www.schedule.model.service.HolidayService;
 public class SelectHolidayScheduleServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("휴가 신청 현황"); 
 		
 		HolidayService holidayService = new HolidayService();
 		
-		//로그인 중인 사용자가 올린 결재(상신, 상신 별 항목> 가져오기
+		/* 로그인 중인 사용자가 올린 결재(상신, 상신 별 항목> 가져오기 */
 		HttpSession session = request.getSession();
 		int memberNo = ((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo();
 				
-		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		
 		/* 목록보기를 눌렀을 시 가장 처음에 보여지는 페이지는 1페이지이다.
 		 * 파라미터로 전달되는 페이지가 있는 경우 currentPage는 파라미터로 전달받은 페이지 수 이다.
 		 * */
@@ -52,7 +49,7 @@ public class SelectHolidayScheduleServlet extends HttpServlet {
 		String searchCondition = request.getParameter("searchCondition");
 		String searchValue = request.getParameter("searchValue");
 		
-		//로그인 중인 사용자가 올린 결재중, documentNo가  6인 문서(휴가신청서)
+		/* 로그인 중인 사용자가 올린 결재중, documentNo가  6인 문서(휴가신청서) */
 		Map<String, String> searchMap = new HashMap<>();
 		searchMap.put("searchCondition", searchCondition);
 		searchMap.put("searchValue", searchValue);
@@ -65,16 +62,14 @@ public class SelectHolidayScheduleServlet extends HttpServlet {
 		
 		Pagenation pagenation = new Pagenation();
 		
-		//totalCount 는 DB에 가서 조건에 해당하는 총 게시물 수를 세어와야 함. count(*) 중, where 삭제안된거.
+		/* totalCount 는 DB에 가서 조건에 해당하는 총 게시물 수를 세어와야 함. count(*) 중, where 삭제안된 것 */
 		int totalCount = holidayService.selectAllHolidayReportCount(countMap);
 
-		//limit는 한 페이지에서 보여지는 게시물 수
-		int limit = 10;
-				
-		//buttonAmount는 한번에 보여줄 버튼 수
+		int limit = 10;											//한 페이지에서 보여지는 게시물 수
+		
 		int buttonAmount = 5;
 		
-		//검색하고싶으면 매개변수로 selectCriteria 써줄것
+		/* 검색하고싶으면 매개변수로 selectCriteria 써줄것 */
 		SelectCriteria selectCriteria = null;
 		
 		if(searchCondition != null && !"".equals(searchCondition)) {
@@ -83,16 +78,13 @@ public class SelectHolidayScheduleServlet extends HttpServlet {
 			selectCriteria = Pagenation.getSelectCriteria(pageNo, totalCount, limit, buttonAmount);
 		}
 
-		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		
-		
-		//로그인한 사람의 사번과 문서번호를 넘겨준다.
+		/* 로그인한 사람의 사번과 문서번호를 넘겨준다 */
 		HashMap<String, Object> selectedInfoMap = new HashMap<>();
 		selectedInfoMap.put("memberNo", memberNo);
 		selectedInfoMap.put("documentNo", documentNo);
 		selectedInfoMap.put("selectCriteria", selectCriteria);
 		
-		//조건 selectedInfoMap을 통해 검색한 reportList
+		/* 조건 selectedInfoMap을 통해 검색한 reportList */
 		List<ReportDTO> holidayReportList = holidayService.selectMyholidayReport(selectedInfoMap);
 
 		request.setAttribute("holidayReportList", holidayReportList);
@@ -103,7 +95,4 @@ public class SelectHolidayScheduleServlet extends HttpServlet {
 		
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-	}
 }

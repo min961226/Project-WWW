@@ -69,6 +69,7 @@ public class ScheduleService {
 		
 		int result = scheduleDAO.applyWorkingSystemApprover(session, approverPerReportDTO);
 		int result2 = scheduleDAO.setFirstWorkingSystemApprover(session, approverPerReportDTO);
+		
 		if(result > 0 && result2 > 0) {
 			session.commit();
 		} else {
@@ -124,56 +125,7 @@ public class ScheduleService {
 		
 		return workReportList;
 	}
-	
-	/* 해당월의 지각횟수 count */
-//	public int countLateTimeNum(MonthlyWorkLogDTO monthlyWorkLogDTO) {
-//		
-//		SqlSession session = getSqlSession();
-//		
-//		int lateNum = scheduleDAO.countLateTimeNum(session, monthlyWorkLogDTO);
-//		
-//		session.close();
-//		
-//		return lateNum;
-//	}
-//	
-//	/* 해당월 출근 미체크 횟수 COUNT */
-//	public int countNoCheckInTimeNum(MonthlyWorkLogDTO monthlyWorkLogDTO) {
-//		
-//		SqlSession session = getSqlSession();
-//		
-//		int noCheckInTimeNum = scheduleDAO.countNoCheckInTimeNum(session, monthlyWorkLogDTO);
-//		
-//		session.close();
-//		
-//		return noCheckInTimeNum;
-//	}
-//	
-//	/* 해당월 퇴근 미체크 횟수 COUNT */
-//	public int countNoCheckOutTimeNum(MonthlyWorkLogDTO monthlyWorkLogDTO) {
-//		
-//		SqlSession session = getSqlSession();
-//		
-//		int noCheckOutTimeNum = scheduleDAO.countNoCheckOutTimeNum(session, monthlyWorkLogDTO);
-//		
-//		session.close();
-//		
-//		return noCheckOutTimeNum;
-//	}
-//	
-//	/* 오늘 퇴근체크 여부 확인 (count 사용) */
-//	public int checkedOutToday(MonthlyWorkLogDTO monthlyWorkLogDTO) {
-//		
-//		SqlSession session = getSqlSession();
-//		
-//		int isCheckedOut = scheduleDAO.checkedOutToday(session, monthlyWorkLogDTO);
-//		
-//		session.close();
-//		
-//		return isCheckedOut;
-//	}
 
-	/* 해당 기간동안 overtime 기록을 가져오기 */
 	public List<OvertimeLogDTO> selectOverTimeLog(OvertimeLogDTO overtimeLogDTO) {
 		
 		SqlSession session = getSqlSession();
@@ -185,7 +137,6 @@ public class ScheduleService {
 		return overTimeLogList;
 	}
 	
-	/* 팀근무조회를 위해, 같은부서 사람들의 정보를 DTO로 담는다.*/
 	public List<TeamWorkingHourDTO> selectteamWorkingHourList(HashMap<String, Object> deptAndDay) {
 		
 		SqlSession session = getSqlSession();
@@ -208,7 +159,6 @@ public class ScheduleService {
 		return teamHolidayLogList;
 	}
 	
-	/* 근무결재 승인을 한 뒤, 휴가부여사용내역에 insert 하기 전 미리 lastNumber를 가지고 옴 */
 	public int selectCustomWorkNum() {
 		
 		SqlSession session = getSqlSession();
@@ -255,6 +205,7 @@ public class ScheduleService {
 	}
 
 	public int insertOvertimeLog(OvertimeLogDTO overtimeLogDTO) {
+		
 		SqlSession session = getSqlSession();
 		
 		int result = scheduleDAO.insertOvertimeLog(session, overtimeLogDTO);
@@ -271,6 +222,7 @@ public class ScheduleService {
 	}
 
 	public List<MemberInfoDTO> selectAllTeamMember(HashMap<String, Object> deptAndDay) {
+		
 		SqlSession session = getSqlSession();
 		
 		List<MemberInfoDTO> teamMemberInfoList = scheduleDAO.selectAllTeamMember(session, deptAndDay);
@@ -291,8 +243,8 @@ public class ScheduleService {
 		return workTypeList;
 	}
 	
-	/* 페이징에서 사용할 totalCount를 세오는 메소드 */
 	public int selectAllScheduleReportCount(Map<String, Object> countMap) {
+		
 		SqlSession session = getSqlSession();
 		
 		int totalCount = scheduleDAO.selectAllScheduleReportCount(session, countMap);
