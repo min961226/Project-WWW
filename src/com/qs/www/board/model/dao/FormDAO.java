@@ -20,13 +20,12 @@ public class FormDAO {
 		return session.update("FormDAO.incrementFormCount", no);
 	}
 
-	public FormDTO selectFormDetail(SqlSession session, int no) {
-		
-		return session.selectOne("FormDAO.selectFormDetail", no);
-	}
-
 	public int selectAllCount(SqlSession session, Map<String, String> searchMap) {
 		return session.selectOne("FormDAO.selectAllCount", searchMap);
 	}
 
+	public FormDTO selectFormDetail(SqlSession session, int no) {
+		
+		return session.selectOne("FormDAO.selectFormDetail", no);
+	}
 }

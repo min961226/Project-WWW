@@ -16,12 +16,12 @@ public class DeleteMngFormBoardServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		// 삭제하고자 하는 게시글 번호를 불러옴
+		/* 삭제하고자 하는 게시글 번호를 불러옴 */
 		int No = Integer.parseInt(request.getParameter("no"));
 
 		int result = new MngFormService().deleteMngForm(No);
 		
-		//화면 연결
+		/* 화면연결 */
 		String path = "";
 		if (result > 0) {
 			path = "/WEB-INF/views/common/success.jsp";

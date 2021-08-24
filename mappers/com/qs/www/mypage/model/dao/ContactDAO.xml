@@ -78,11 +78,9 @@
 			<if test="searchCondition == 'phone'">
 	           D.PHONE LIKE '%' || #{ searchValue } || '%' 	
 			</if>
-			AND D.ENT_YN = 'N'
-
-            
+			AND D.ENT_YN = 'N'        
     	</where>
-	</select>
+		</select>
 	
 
 	

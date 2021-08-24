@@ -20,6 +20,7 @@ public class FormService {
 		formDAO = new FormDAO();
 		
 	}
+	
 	//문서서식 게시판 조회
 	public List<FormDTO> selectAllFormList(SelectCriteria selectCriteria) {
 		
@@ -32,6 +33,7 @@ public class FormService {
 		return formList;
 		
 	}
+	
 	//문서서식 게시판 상세조회
 	public FormDTO selectFormDetail(int no) {
 		SqlSession session = getSqlSession();
@@ -55,6 +57,7 @@ public class FormService {
 		
 		return formDetail;
 	}
+	
 	//문서서식게시글 수 조회
 	public int selectAllCount(Map<String, String> searchMap) {
 		SqlSession session = getSqlSession();

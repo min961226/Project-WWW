@@ -18,7 +18,7 @@ import com.qs.www.common.paging.SelectCriteria;
 
 @WebServlet("/board/free/select")
 public class SelectFreeBoardServlet extends HttpServlet {
-
+	/* 자유게시판 목록 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -48,13 +48,13 @@ public class SelectFreeBoardServlet extends HttpServlet {
 
 		Pagenation pagenation = new Pagenation();
 
-		// totalCount 는 DB에 가서 총 게시물 수를 세어와야 함 count(*) 중, where 삭제안된거.
+		/* totalCount 는 DB에 가서 총 게시물 수를 세어와야 함 count(*) 중, where 삭제안된거. */
 		int totalCount = new FreeService().selectAllCount(searchMap);
 
-		// limit는 한 페이지에서 보여지는 게시물 수
+		/* limit는 한 페이지에서 보여지는 게시물 수 */
 		int limit = 10;
 
-		// buttonAmount는 한번에 보여줄 버튼 수
+		/* buttonAmount는 한번에 보여줄 버튼 수 */
 		int buttonAmount = 5;
 
 		SelectCriteria selectCriteria = null;
@@ -66,13 +66,13 @@ public class SelectFreeBoardServlet extends HttpServlet {
 			selectCriteria = Pagenation.getSelectCriteria(pageNo, totalCount, limit, buttonAmount);
 		}
 
-		// 자유게시판 목록
-		// 검색하고싶으면 매개변수로 selectCriteria 써줄것
+		
+		
 		List<FreeDTO> freeList = new FreeService().selectAllFreeList(selectCriteria);
 
 		for (FreeDTO free : freeList) {
 		}
-		// 화면 연결
+		/* 화면 연결 */
 		String path = "";
 		if (freeList != null) {
 			path = "/WEB-INF/views/board/freeBoard.jsp";

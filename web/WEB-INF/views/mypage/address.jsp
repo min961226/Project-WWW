@@ -34,8 +34,7 @@
 							<option value="phone" ${ requestScope.selectCriteria.searchCondition eq "phone"? "selected": "" }>핸드폰번호</option>
 						</select>
 						<input type="search" id="searchValue" name="searchValue" value="<c:out value="${ requestScope.selectCriteria.searchValue }"/>">
-					<button type="submit" class="btn btn-success btn-sm" >검색하기</button>
-					<!-- <button type="button" id="writeFree">작성하기</button> -->
+					<button type="submit" class="btn btn-success btn-sm" >검색하기</button>			
 					</form>
 				</div>
 			
@@ -58,10 +57,6 @@
 										<tr>
 										
 											<td ><img class="img-responsive img-circle" src="${ pageContext.servletContext.contextPath }/assets/img/user.jpg" alt="" style="width: 80px"></td>
-                                        	<!-- <td>
-                                            <a href="profile.html" class="avatar">A</a>
-                                            <h2><a href="profile.html"> <span></span></a></h2>
-                                        	</td> -->
 											<td><c:out value="${ board.name }"/></td>
 											<td><c:out value="${ board.deptname }"/></td>
 											<td><c:out value="${ board.phone }"/></td>

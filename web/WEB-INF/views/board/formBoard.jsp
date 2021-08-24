@@ -44,6 +44,7 @@
 	                    <div class="card-box">
 	                    	<div class="card-block">
 	                            <table class="display datatable table table-stripped">
+	                            
 	                                <thead>
 	                                    <tr bgcolor = "FFBC35">
 	                                        <th>번호</th>
@@ -62,7 +63,7 @@
 											<td><c:out value="${ board.created }"/></td>
 										</tr>
 									</c:forEach>	
-	                            </table>
+	                              </table>
 	                            
 	                            		<%-- 페이지 처리 --%>
 								<jsp:include page="../common/navbar.jsp"/>

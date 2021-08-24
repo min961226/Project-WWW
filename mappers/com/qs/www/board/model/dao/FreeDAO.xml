@@ -154,7 +154,7 @@
 		WHERE A.BOARD_NO = #{ no }
 		AND A.MEMBER_NO = #{ member }
 	
-	</update>
+		</update>
 	
 		<delete id="deleteFree" parameterType="com.qs.www.board.model.dto.FreeDTO">
 		UPDATE /* com.qs.www..board.model.dao.FreeDAO#deleteFree()
@@ -164,7 +164,7 @@
 		SET A.DELETE_YN = 'Y'
 		WHERE A.BOARD_NO = #{ no }
 	
-	</delete>
+		</delete>
 	
 		<select id="selectAllCount" resultType="_int" parameterType="hashmap">
         SELECT /* com.qs.www.board.model.dao.FreeDAO#selectAllCount() */
