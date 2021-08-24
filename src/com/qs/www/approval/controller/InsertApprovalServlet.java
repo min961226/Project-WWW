@@ -32,22 +32,20 @@ import com.qs.www.schedule.model.dto.WorkingDocumentItemDTO;
 import com.qs.www.schedule.model.service.ScheduleService;
 /*--------------------서블릿 3.0 파트 api 사용을 위한 multipartconfig 참조 선언 --------------*/
 @MultipartConfig(
-		location = "C:\\WWW\\Project-WWW\\web\\upload",								//임시저장 경로
-		maxFileSize = 1024*1024*10,													//파일 허용 최대 크기
-		maxRequestSize = 1024*1024*10*5,											//파일 허용 최대 갯수
-		fileSizeThreshold = 1024)													//임시저장메모리 할당 크기
+		location = "C:\\WWW\\Project-WWW\\web\\upload",								                                      //임시저장 경로
+		maxFileSize = 1024*1024*10,													                                      //파일 허용 최대 크기
+		maxRequestSize = 1024*1024*10*5,											                                      //파일 허용 최대 갯수
+		fileSizeThreshold = 1024)													                                      //임시저장메모리 할당 크기
 @WebServlet("/approval/insert")
 public class InsertApprovalServlet extends HttpServlet {
 
-	/* ---------------------------------파일 업로드 서비스-----------------------------------------*/
-	private static final String ATTACHES_REPORT = "C:\\WWW\\Project-WWW\\web\\upload\\report";							//경로지정				
-	/* ---------------------------------파일 업로드 서비스-----------------------------------------*/
+	private static final String ATTACHES_REPORT = "C:\\WWW\\Project-WWW\\web\\upload\\report";							  //파일 업로드경로지정				
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		HttpSession session = request.getSession();
-		//로그인중인 유저가 생성자인 결재라인 가져오기
-		int no = ((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo();
+		
+		int no = ((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo();                                      //로그인중인 유저가 생성자인 결재라인 가져오기
 
 		List<ApprovalLineDTO> lineList = new ApprovalService().selectApprovalLine(no);
 		
@@ -69,10 +67,7 @@ public class InsertApprovalServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		/* ---------------------------------파일 업로드 서비스-----------------------------------------*/
-		AttachmentService attachmentService = new AttachmentService();													//서비스 인스턴스 생성
-		/* ---------------------------------파일 업로드 서비스-----------------------------------------*/
-
+		AttachmentService attachmentService = new AttachmentService();													   //파일업로드 서비스 인스턴스 생성
 
 		HttpSession session = request.getSession();
 
@@ -82,7 +77,7 @@ public class InsertApprovalServlet extends HttpServlet {
 		int memberNo = ((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo();
 		String note = request.getParameter("note");
 		
-		//신청창에서 선택한 라인 번호를 통해 라인목록에서 해당하는 라인면 가져오기
+		/* 신청창에서 선택한 라인 번호를 통해 라인목록에서 해당하는 라인면 가져오기 */
 		List<ApprovalLineDTO> lineList = (List<ApprovalLineDTO>) session.getAttribute("lineList");
 
 		String lineName = "";
@@ -91,11 +86,9 @@ public class InsertApprovalServlet extends HttpServlet {
 				lineName = line.getLineName();
 			}
 		}
-		System.out.println("lineName : " + lineName);
-
+		
 		String title = request.getParameter("title");
-		//현재 등록할 차례의 결재번호 받아오기
-		int reportNo = new ApprovalService().selectReportNum();
+		int reportNo = new ApprovalService().selectReportNum();                                                             //현재 등록할 차례의 결재번호 받아오기
 
 		ReportDTO report = new ReportDTO();
 		report.setDocumentNo(documentNo);
@@ -105,7 +98,7 @@ public class InsertApprovalServlet extends HttpServlet {
 		report.setReportTitle(title);
 
 
-		//REPORT(상신) 추가
+		/* REPORT(상신) 추가 */
 		ScheduleService scheduleService = new ScheduleService();	
 		int result1 = scheduleService.applyWorkingSystem(report);
 
@@ -128,7 +121,7 @@ public class InsertApprovalServlet extends HttpServlet {
 
 		int priority = 1;
 		int result2 = 0;
-		//상신별 항목작성내용 등록
+		/* 상신별 항목작성내용 등록 */
 		for(String item : documentItem) {
 			WorkingDocumentItemDTO documentItemDTO = new WorkingDocumentItemDTO();
 			documentItemDTO.setReportNo(reportNo);
@@ -144,10 +137,10 @@ public class InsertApprovalServlet extends HttpServlet {
 
 
 
-		//선택한 결재 라인에 등록되있는 결재자들 가져오기
+		/* 선택한 결재 라인에 등록되있는 결재자들 가져오기 */
 		List<ApproverDTO> approverList = new ApprovalService().selectApprover(lineNo);
 
-		//상신별 결재자 등록
+		/* 상신별 결재자 등록 */
 		int result3 = 0;
 		for(ApproverDTO approver : approverList) {
 			ApproverPerReportDTO approverPerReportDTO = new ApproverPerReportDTO();
@@ -167,7 +160,7 @@ public class InsertApprovalServlet extends HttpServlet {
 			}
 
 		}
-		/*---------------------------------------------------------------------------파일 업로드---------------------------------------------------------------------*/
+
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		String contentType = request.getContentType();
@@ -175,19 +168,19 @@ public class InsertApprovalServlet extends HttpServlet {
 		int resultFileUpload = 0;
 
 
-		if (contentType != null &&  contentType.toLowerCase().startsWith("multipart/")) {													//formdata를 받아오고 타입이 콘텐트 ㅇ타입인경우에만 진입
+		if (contentType != null &&  contentType.toLowerCase().startsWith("multipart/")) {													     //formdata를 받아오고 타입이 콘텐트 ㅇ타입인경우에만 진입
 			// getParts()를 통해 Body에 넘어온 데이터들을 각각의  Part로 쪼개어 리턴
 			Collection<Part> parts = request.getParts();
 
 			for (Part part : parts) {
-				System.out.printf("파라미터 명 : %s, contentType :  %s,  size : %d bytes \n", part.getName(),									//파트로 넘어온 값들 전부 출력
+				System.out.printf("파라미터 명 : %s, contentType :  %s,  size : %d bytes \n", part.getName(),									     //파트로 넘어온 값들 전부 출력
 						part.getContentType(), part.getSize());
 
 
 				if  (part.getHeader("Content-Disposition").contains("filename=")) {							
 					String fileName =  extractFileName(part.getHeader("Content-Disposition"));
 
-					if(fileName.length()>0) {																								//첨부한 파일이 존재하지 않을때(파일을 미첨부시, 파일 첨부한 값이 없을때)
+					if(fileName.length()>0) {																								     //첨부한 파일이 존재하지 않을때(파일을 미첨부시, 파일 첨부한 값이 없을때)
 
 						int dot = fileName.lastIndexOf(".");
 						String ext = fileName.substring(dot);
@@ -202,8 +195,8 @@ public class InsertApprovalServlet extends HttpServlet {
 							fileMap.put("savedFileName", randomFileName);
 							fileMap.put("savePath", ATTACHES_REPORT);
 							
-							part.write(ATTACHES_REPORT + File.separator  + randomFileName);													//파일 경로에 따른 파일 추가
-							part.delete();																										//임시 파일 삭제
+							part.write(ATTACHES_REPORT + File.separator  + randomFileName);													     //파일 경로에 따른 파일 추가
+							part.delete();																										 //임시 파일 삭제
 							
 							resultFileUpload = attachmentService.insertFileUpload(fileMap);
 						}
@@ -211,14 +204,11 @@ public class InsertApprovalServlet extends HttpServlet {
 						resultFileUpload = -1;
 					}
 				} else {
-					String formValue =  request.getParameter(part.getName());																//파트로 찢긴값들 파일이 아닐경우 처리하는 파트
+					String formValue =  request.getParameter(part.getName());																     //파트로 찢긴값들 파일이 아닐경우 처리하는 파트
 				}
 			}
 		} 
 
-
-
-		/*---------------------------------------------------------------------------파일 업로드---------------------------------------------------------------------*/
 
 		String path = "";
 		if(resultFileUpload == -1) {
@@ -244,7 +234,6 @@ public class InsertApprovalServlet extends HttpServlet {
 
 		request.getRequestDispatcher(path).forward(request, response);
 	}
-	/*---------------------------------------------------------------------------파일 업로드---------------------------------------------------------------------*/
 
 	private String extractFileName(String partHeader) {
 		for (String cd : partHeader.split(";")) {
@@ -256,7 +245,5 @@ public class InsertApprovalServlet extends HttpServlet {
 		}
 		return null;
 	}
-
-	/*---------------------------------------------------------------------------파일 업로드---------------------------------------------------------------------*/
 
 }

@@ -22,18 +22,19 @@ public class DeleteMngAppliedHolidayServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int reportNo = Integer.parseInt(request.getParameter("no"));
-		int memberNo = Integer.parseInt(request.getParameter("memberNo"));  //기안자의 회원번호
+		int reportNo = Integer.parseInt(request.getParameter("no"));                                 //휴가 신청 상신번호
+		int memberNo = Integer.parseInt(request.getParameter("memberNo"));                           //기안자의 회원번호
 		String status = request.getParameter("status");
 
 		MngHolidayService mngHolidayService = new MngHolidayService();
-		//해당결재 상태를 취소로 변경
+		
+		/* 해당결재 상태를 취소로 변경 */
 		int result1 =  mngHolidayService.cancleSelectedReport(reportNo);
 		
-		// 상신별 결재자들의 상태를 미처리로 변경
+		/* 상신별 결재자들의 상태를 미처리로 변경 */
 		int result2 =  new ApprovalService().callbackApproverPerReport(reportNo);
 		
-		//결재상태가 '승인'일 시 휴가사용내역삭제
+		/* 결재상태가 '승인'일 시 휴가사용내역삭제 */
 		int result3 = 1;
 		if(status.equals("승인")) {
 			int logNo = new MngHolidayService().selectHolidayLogNum(reportNo);
@@ -44,10 +45,10 @@ public class DeleteMngAppliedHolidayServlet extends HttpServlet {
 			
 			HolidayService holidayService = new HolidayService();
 			
-			int useHoliday = Integer.parseInt(duringDate);    //사용휴가일수
-			int havingHoliday = holidayService.selectHavingHoliday(memberNo);    //기존보유휴가일수
+			int useHoliday = Integer.parseInt(duringDate);                                           //사용휴가일수
+			int havingHoliday = holidayService.selectHavingHoliday(memberNo);                        //기존보유휴가일수
 			
-			int modifiedHoliday = havingHoliday + useHoliday;    //새 보유휴가일수
+			int modifiedHoliday = havingHoliday + useHoliday;                                        //새 보유휴가일수
 			
 			MemberInfoDTO memberInfoDTO = new MemberInfoDTO();
 			memberInfoDTO.setMemberNo(memberNo);

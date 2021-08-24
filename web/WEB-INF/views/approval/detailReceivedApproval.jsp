@@ -20,7 +20,7 @@
 			<div class="content container-fluid">
 				<div class="row">
 					<div class="col-xs-6">
-						<h4 class="page-title">결재대기함 상세보기</h4>
+						<h4 class="page-title">수신참조함 상세보기</h4>
 					</div>
 					<div class="col-xs-3">
 						<label>첨부서류</label>

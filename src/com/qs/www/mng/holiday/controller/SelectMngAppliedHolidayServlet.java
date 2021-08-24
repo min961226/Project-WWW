@@ -20,10 +20,7 @@ import com.qs.www.schedule.model.dto.ReportDTO;
 public class SelectMngAppliedHolidayServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("휴가 신청 목록");
-		
-		
-		//////////////////////////////////////////////////////////////////////////////////////
+
 		/* 목록보기를 눌렀을 시 가장 처음에 보여지는 페이지는 1페이지이다.
 		 * 파라미터로 전달되는 페이지가 있는 경우 currentPage는 파라미터로 전달받은 페이지 수 이다.
 		 * */
@@ -39,7 +36,7 @@ public class SelectMngAppliedHolidayServlet extends HttpServlet {
 			pageNo = 1;
 		}
 		
-		/* 검색에 사용할것*/
+		/* 검색에 사용할것 */
 		String searchCondition = request.getParameter("searchCondition");
 		String searchValue = request.getParameter("searchValue");
 		
@@ -49,14 +46,8 @@ public class SelectMngAppliedHolidayServlet extends HttpServlet {
 		
 		Pagenation pagenation = new Pagenation();
 		
-		
-		//totalCount 는 DB에 가서 총 게시물 수를 세어와야 함 count(*) 중, where 삭제안된거.
 		int totalCount = new MngHolidayService().selectHolidayAPPCount(searchMap);
-
-		//limit는 한 페이지에서 보여지는 게시물 수
 		int limit = 10;
-		
-		//buttonAmount는 한번에 보여줄 버튼 수
 		int buttonAmount = 5;
 		
 		SelectCriteria selectCriteria = null;
@@ -67,9 +58,7 @@ public class SelectMngAppliedHolidayServlet extends HttpServlet {
 			selectCriteria = Pagenation.getSelectCriteria(pageNo, totalCount, limit, buttonAmount);
 		}
 		
-		
-		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		List<ReportDTO> reportList = new MngHolidayService().selectHolidayAPP(selectCriteria);    //휴가신청목록 가죠오기
+		List<ReportDTO> reportList = new MngHolidayService().selectHolidayAPP(selectCriteria);                                          //휴가신청목록 가죠오기
 		
 		request.setAttribute("reportList", reportList);
 		request.setAttribute("selectCriteria", selectCriteria);

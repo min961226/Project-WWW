@@ -38,7 +38,7 @@ public class SelectOneReceivedApprovalServlet extends HttpServlet {
 		List<WorkingDocumentItemDTO> itemList = new ApprovalService().selectReportItemList(no);
 		List<ApproverLogPerReportDTO>ALPRList = new ApprovalService().selectALPRList(no);
 
-		//등록날짜를 보존기간으로 바꾸기
+		/* 등록날짜를 보존기간으로 바꾸기 */
 		Date reportDate = selectedReport.getReportDate();
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		String str = format.format(reportDate);
@@ -52,7 +52,7 @@ public class SelectOneReceivedApprovalServlet extends HttpServlet {
 		request.setAttribute("itemList", itemList);
 		request.setAttribute("ALPRList", ALPRList);
 		request.setAttribute("attachmentDTO", attachmentDTO);
-		//결재의 문서종류에 따라 항목명들을 키값으로 지정해서 request에 넣기
+		/* 결재의 문서종류에 따라 항목명들을 키값으로 지정해서 request에 넣기 */
 		if(selectedReport.getDocumentNo() < 4) {
 			request.setAttribute("body", itemList.get(1).getItemContent());
 			if(selectedReport.getDocumentNo() == 3) {

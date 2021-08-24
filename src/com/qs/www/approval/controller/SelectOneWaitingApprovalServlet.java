@@ -45,7 +45,7 @@ public class SelectOneWaitingApprovalServlet extends HttpServlet {
 		int memberNo = ((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo();
 
 		int no = Integer.parseInt(request.getParameter("no"));
-		// 대기함에서 선택한 게시물의 살세정보 가져오기
+		/* 대기함에서 선택한 게시물의 살세정보 가져오기 */
 		ReportDTO selectedReport = new ApprovalService().selectOneReportDetail(no);
 
 		/* 파일 첨부 DTO 서비스 실행 reportNo로 갖고옴 */
@@ -57,7 +57,7 @@ public class SelectOneWaitingApprovalServlet extends HttpServlet {
 		List<WorkingDocumentItemDTO> itemList = new ApprovalService().selectReportItemList(no);
 		List<ApproverLogPerReportDTO> ALPRList = new ApprovalService().selectALPRList(no);
 
-		// 등록날짜를 보존기간으로 바꾸기
+		/* 등록날짜를 보존기간으로 바꾸기 */
 		Date reportDate = selectedReport.getReportDate();
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		String str = format.format(reportDate);
@@ -71,7 +71,7 @@ public class SelectOneWaitingApprovalServlet extends HttpServlet {
 		request.setAttribute("itemList", itemList);
 		request.setAttribute("ALPRList", ALPRList);
 		request.setAttribute("attachmentDTO", attachmentDTO);
-		// 결재의 문서종류에 따라 항목명들을 키값으로 지정해서 request에 넣기
+		/* 결재의 문서종류에 따라 항목명들을 키값으로 지정해서 request에 넣기 */
 		if (selectedReport.getDocumentNo() < 4) {
 			request.setAttribute("body", itemList.get(1).getItemContent());
 			if (selectedReport.getDocumentNo() == 3) {
@@ -92,7 +92,7 @@ public class SelectOneWaitingApprovalServlet extends HttpServlet {
 		
 		int memberNo = ((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo();
 		int reportNo = Integer.parseInt(request.getParameter("no"));
-		String ApproverStatus = (String)request.getParameter("radio"); //'승인'인지 '반려'
+		String ApproverStatus = (String)request.getParameter("radio");
 		String opinion = (String)request.getParameter("opinion");
 		
 		ApproverPerReportDTO thisAPR = new ApproverPerReportDTO();
@@ -100,7 +100,7 @@ public class SelectOneWaitingApprovalServlet extends HttpServlet {
 		thisAPR.setReportNo(reportNo);
 		thisAPR.setApproverType(ApproverStatus);
 		
-		// 1.상신에대란 결재내역 추가
+		/* 1. 상신에대란 결재내역 추가*/
 		ApproverLogPerReportDTO aLPR = new ApproverLogPerReportDTO();
 		aLPR.setReportNo(reportNo);
 		aLPR.setMemberNo(memberNo);
@@ -110,27 +110,27 @@ public class SelectOneWaitingApprovalServlet extends HttpServlet {
 		ApprovalService approvalService = new ApprovalService();
 		int result1 = approvalService.insertALPR(aLPR);
 		
-		// 2. 결재한 상신번호에 대한 내 결재자사번의 상신별결재자가져오기
+		/* 2. 결재한 상신번호에 대한 내 결재자사번의 상신별결재자가져오기 */
 		ApproverPerReportDTO thisTurnAPR = approvalService.selectThisTurnAPR(thisAPR);
 		System.out.println(thisTurnAPR);
 		
 		int nextPriority = thisTurnAPR.getPriority() + 1; //다음 우선 순위 만들기
 		System.out.println(nextPriority);
 		
-		// 3.  내 결재자사번의 상신별결재자 결재상태 '승인'혹은 '반려'로 바꾸기
+		/*/ 3. 내 결재자사번의 상신별결재자 결재상태 '승인'혹은 '반려'로 바꾸기 */
 		int result2 =  approvalService.updateThisTurnAPR(thisAPR);
 		
 		int result3 = 0;
 		if(ApproverStatus.equals("승인")) {
-			// 4.a.1 '승인'했으면  내 결재자사번의 상신별결재에서 결재한 상신번호에 대한 다음 우선순위인 사람의 결재상태를 '대기'로 변경
+			/* 4.a.1 '승인'했으면  내 결재자사번의 상신별결재에서 결재한 상신번호에 대한 다음 우선순위인 사람의 결재상태를 '대기'로 변경 */
 			thisAPR.setPriority(nextPriority);
 			result3 =  approvalService.updateNextTurnAPR(thisAPR);
-			// 4.a.2 변경하고 리턴값이 0(다음결재자가 존재하지 않음)일 시 결재한 상신번호에 대한 상신테이블의 상태를 '승인'으로 변경
+			/* 4.a.2 변경하고 리턴값이 0(다음결재자가 존재하지 않음)일 시 결재한 상신번호에 대한 상신테이블의 상태를 '승인'으로 변경 */
 			if(result3 == 0) {
 				result3 = approvalService.finishAppReport(thisAPR);
 				
 				
-				//판단에 필요한 정보 가져오기
+				/* 판단에 필요한 정보 가져오기 */
 				ReportDTO selectedReport  = approvalService.selectOneReportDetail(reportNo);
 				List<WorkingDocumentItemDTO> itemList = approvalService.selectReportItemList(reportNo);
 				
@@ -156,55 +156,55 @@ public class SelectOneWaitingApprovalServlet extends HttpServlet {
 							endDate = arrayEndDate[0]  + "-" + arrayEndDate[1] + "-" + dayPlusOneStr;
 						}
 						
-		 				/* 5-1-b. 첫번째 변경이력. startDay 사용 */
-		 					//memberWorkLogDTO.setStartDay에 맞춰 sql.Date형식으로 바꿔준다
+		 				/* 5-1-b. 첫번째 변경이력. startDay 사용 
+		 					memberWorkLogDTO.setStartDay에 맞춰 sql.Date형식으로 바꿔준다*/
 		 				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); 
 		 				LocalDate startDayLoc = LocalDate.parse(startDay, formatter);
 		 				java.sql.Date startDaySql = java.sql.Date.valueOf(startDayLoc);
 		 				
 		 				MemberWorkLogDTO memberWorkLogDTO = new MemberWorkLogDTO();
-		 				memberWorkLogDTO.setMemberNo(selectedReport.getMemberNo());								//상신자사번
-		 				memberWorkLogDTO.setWorkType(itemList.get(5).getItemContent()); 						//변경후 근무제유형
-		 				memberWorkLogDTO.setWorkNo(Integer.parseInt(itemList.get(1).getItemContent()));			//변경후 근무제번호
-		 				memberWorkLogDTO.setStartDay(startDaySql);												//변경일자
-		 				memberWorkLogDTO.setChangeReason(itemList.get(4).getItemContent());						//변경사유
-		 				memberWorkLogDTO.setWorkReportNo(reportNo);												//변경의 근거가 된 상신번호
+		 				memberWorkLogDTO.setMemberNo(selectedReport.getMemberNo());								         //상신자사번
+		 				memberWorkLogDTO.setWorkType(itemList.get(5).getItemContent()); 						         //변경후 근무제유형
+		 				memberWorkLogDTO.setWorkNo(Integer.parseInt(itemList.get(1).getItemContent()));			         //변경후 근무제번호
+		 				memberWorkLogDTO.setStartDay(startDaySql);												         //변경일자
+		 				memberWorkLogDTO.setChangeReason(itemList.get(4).getItemContent());						         //변경사유
+		 				memberWorkLogDTO.setWorkReportNo(reportNo);												         //변경의 근거가 된 상신번호
 		 				
 		 				System.out.println("memberWorkLogDTO : " + memberWorkLogDTO);	 				
 		 				int result5 = scheduleService.applyWorkingSystemMemberWorkLog(memberWorkLogDTO);
 		 				
 		 				
-		 				/* 5-2-c. 두번째 변경이력. endNextDate 사용. 다시 기본근태로 돌림 */
-		 					//memberWorkLogDTO.setStartDay에 맞춰 sql.Date형식으로 바꿔준다
+		 				/* 5-2-c. 두번째 변경이력. endNextDate 사용. 다시 기본근태로 돌림 
+		 					memberWorkLogDTO.setStartDay에 맞춰 sql.Date형식으로 바꿔준다*/
 		 				LocalDate endDateLoc = LocalDate.parse(endDate, formatter);
 		 				java.sql.Date endDateSql = java.sql.Date.valueOf(endDateLoc);
 		 				
 		 				MemberWorkLogDTO memberWorkLogDTO2 = new MemberWorkLogDTO();
-		 				memberWorkLogDTO2.setMemberNo(selectedReport.getMemberNo());							//상신자사번
-		 				memberWorkLogDTO2.setWorkType("표준"); 													//변경후 근무제유형
-		 				memberWorkLogDTO2.setWorkNo(1);															//변경후 근무제번호
-		 				memberWorkLogDTO2.setStartDay(endDateSql);												//변경일자
-		 				memberWorkLogDTO2.setChangeReason("이전 근태신청의 기간만료");									//변경사유
-		 				memberWorkLogDTO2.setWorkReportNo(reportNo);											//변경의 근거가 된 상신번호
+		 				memberWorkLogDTO2.setMemberNo(selectedReport.getMemberNo());							         //상신자사번
+		 				memberWorkLogDTO2.setWorkType("표준"); 													         //변경후 근무제유형
+		 				memberWorkLogDTO2.setWorkNo(1);															         //변경후 근무제번호
+		 				memberWorkLogDTO2.setStartDay(endDateSql);												         //변경일자
+		 				memberWorkLogDTO2.setChangeReason("이전 근태신청의 기간만료");									         //변경사유
+		 				memberWorkLogDTO2.setWorkReportNo(reportNo);											         //변경의 근거가 된 상신번호
 		 				
 		 				System.out.println("memberWorkLogDTO2 : " + memberWorkLogDTO2);
 		 				int result6 = scheduleService.applyWorkingSystemMemberWorkLog(memberWorkLogDTO2);
 		 				
 		 				
 						/* 5-1-d. 커스텀근무제라면 커스텀근무제에도 추가 */
-		 				String workType = itemList.get(5).getItemContent(); //근무제가 뭔지 알아온다
+		 				String workType = itemList.get(5).getItemContent();                                              //근무제가 뭔지 알아온다
 		 				if(workType.equals("커스텀")) {
 		 					System.out.println("------커스텀근무신청서");
 		 					
-		 					//생성할 workNo의 LastNum 가져오기
+		 					/* 생성할 workNo의 LastNum 가져오기 */
 		 					int customWorkNum = scheduleService.selectCustomWorkNum();
 		 					
-		 					//사원별커스텀근무제(TBL_CUSTOM_WORK) 에 insert
-		 					CustomWorkDTO customWorkDTO = new CustomWorkDTO(); //휴식시간을 넣을지말지 몰라서.. 일단 DTO로 만들었다.
+		 					/* 사원별커스텀근무제(TBL_CUSTOM_WORK) 에 insert */
+		 					CustomWorkDTO customWorkDTO = new CustomWorkDTO();                                          //휴식시간을 넣을지말지 몰라서.. 일단 DTO로 만들었다.
 		 					customWorkDTO.setMemberNo(selectedReport.getMemberNo());
 		 					int result7 = scheduleService.insertCustomWork(customWorkDTO);
 		 					
-		 					//커스텀근무제요일별출퇴근시간(TBL_CUSTOM_WORKTIME)에도 insert
+		 					/* 커스텀근무제요일별출퇴근시간(TBL_CUSTOM_WORKTIME)에도 insert */
 		 					CustomWorkTimeDTO customWorkTimeDTO = new CustomWorkTimeDTO();
 		 					customWorkTimeDTO.setWorkNo(customWorkNum);
 		 					String[] dayOfWeekArr = new String[]{"월", "화", "수", "목", "금"};
@@ -228,7 +228,7 @@ public class SelectOneWaitingApprovalServlet extends HttpServlet {
 					System.out.println("------초과근무신청서");
 					ScheduleService scheduleService = new ScheduleService();
 					
-					//초과근무제내역 (TBL_MEMBER_OVERTIME_LOG)에  insert 
+					/* 초과근무제내역 (TBL_MEMBER_OVERTIME_LOG)에  insert  */
 					OvertimeLogDTO overtimeLogDTO = new OvertimeLogDTO();
 					overtimeLogDTO.setOvertimeReportNo(reportNo);
 					overtimeLogDTO.setMemberNo(selectedReport.getMemberNo());
@@ -252,12 +252,12 @@ public class SelectOneWaitingApprovalServlet extends HttpServlet {
 					
 					/* 6-2. 휴가부여사용내역 (TBL_MEMBER_HOLIDAY_LOG)에 추가 */					
 					HolidayLogDTO holidayLogDTO = new HolidayLogDTO();
-					holidayLogDTO.setMemberNo(selectedReport.getMemberNo()); 				//사번
-					holidayLogDTO.setLogOccurDate(selectedReport.getReportDate()); 			//휴가내역발생일자=상신일
-					holidayLogDTO.setLogNote(itemList.get(6).getItemContent()); 			//비고
-					holidayLogDTO.setLogType("사용"); 										//내역구분
-					holidayLogDTO.setHolidayCode(Integer.parseInt(itemList.get(1).getItemContent())); //휴가코드
-					holidayLogDTO.setHolidayDuringDate(itemList.get(7).getItemContent()); 	//기간일수
+					holidayLogDTO.setMemberNo(selectedReport.getMemberNo()); 				                                  //사번
+					holidayLogDTO.setLogOccurDate(selectedReport.getReportDate()); 			                                  //휴가내역발생일자=상신일
+					holidayLogDTO.setLogNote(itemList.get(6).getItemContent()); 			                                  //비고
+					holidayLogDTO.setLogType("사용"); 										                                  //내역구분
+					holidayLogDTO.setHolidayCode(Integer.parseInt(itemList.get(1).getItemContent()));                         //휴가코드
+					holidayLogDTO.setHolidayDuringDate(itemList.get(7).getItemContent()); 	                                  //기간일수
 					System.out.println("holidayLogDTO : " + holidayLogDTO);
 					
 					int result4 = holidayService.insertHolidayLog(holidayLogDTO);
@@ -265,7 +265,7 @@ public class SelectOneWaitingApprovalServlet extends HttpServlet {
 					
 					/* 6-3. 휴가부여사용내역 (TBL_HOLIDAY_USE_INFO)에 추가 */
 					HolidayUseInfoDTO holidayUseInfoDTO = new HolidayUseInfoDTO();
-					holidayUseInfoDTO.setHolidayLogNo(holidayLogNo);						//휴가내역번호(6-1에서 가져옴)
+					holidayUseInfoDTO.setHolidayLogNo(holidayLogNo);						                                  //휴가내역번호(6-1에서 가져옴)
 					holidayUseInfoDTO.setHolidayStartDay(java.sql.Date.valueOf(itemList.get(2).getItemContent()));
 					holidayUseInfoDTO.setHolidayStartDayAllday(itemList.get(3).getItemContent());
 					holidayUseInfoDTO.setHolidayEndDay(java.sql.Date.valueOf(itemList.get(4).getItemContent()));
@@ -293,53 +293,53 @@ public class SelectOneWaitingApprovalServlet extends HttpServlet {
 					System.out.println("휴가 차감 성공 여부 : "+ result6);
 				}
 				
-				if(selectedReport.getDocumentNo() == 7) {																	//야간교통비 신청서
+				if(selectedReport.getDocumentNo() == 7) {																	  //야간교통비 신청서
 					
 					
 					
 				}
 				
-				if(selectedReport.getDocumentNo() == 8) {																	//경조사 신청서
+				if(selectedReport.getDocumentNo() == 8) {																	  //경조사 신청서
 					
 					SelfDevelopmetLogDTO selfDevelopmetLogDTO = new SelfDevelopmetLogDTO();
 					
-					int eventNo = Integer.parseInt(itemList.get(1).getItemContent());										//경조사 번호
-					memberNo = selectedReport.getMemberNo();																//신청자 사번
-					java.sql.Date depositDate = java.sql.Date.valueOf(itemList.get(4).getItemContent());					//지급일자
-					reportNo = selectedReport.getReportNo();																//근거결재 문서번호
-						
-					selfDevelopmetLogDTO.setDevelopmentNo(eventNo);														//경조사 번호
-					selfDevelopmetLogDTO.setMemberNo(memberNo);																//사번
-					selfDevelopmetLogDTO.setDepositDate(depositDate);														//청구일
-					selfDevelopmetLogDTO.setReportNo(reportNo);																//결재 문서 번호
+					int eventNo = Integer.parseInt(itemList.get(1).getItemContent());										  //경조사 번호
+					memberNo = selectedReport.getMemberNo();																  //신청자 사번
+					java.sql.Date depositDate = java.sql.Date.valueOf(itemList.get(4).getItemContent());					  //지급일자
+					reportNo = selectedReport.getReportNo();																  //근거결재 문서번호
+						 
+					selfDevelopmetLogDTO.setDevelopmentNo(eventNo);														      //경조사 번호
+					selfDevelopmetLogDTO.setMemberNo(memberNo);																  //사번
+					selfDevelopmetLogDTO.setDepositDate(depositDate);														  //청구일
+					selfDevelopmetLogDTO.setReportNo(reportNo);																  //결재 문서 번호
 					
 					int familyEventLog = welfareService.insertFamilyEventLog(selfDevelopmetLogDTO);	
 					
 				}
 				
-				if(selectedReport.getDocumentNo() == 9) {																	//자기개발 신청서
+				if(selectedReport.getDocumentNo() == 9) {																	  //자기개발 신청서
 					
 					SelfDevelopmetLogDTO selfDevelopmetLogDTO = new SelfDevelopmetLogDTO();
 					
-					int selfDevNo = Integer.parseInt(itemList.get(1).getItemContent());										//자기개발비 번호
-					memberNo = selectedReport.getMemberNo();																//신청자 사번
-					java.sql.Date depositDate = java.sql.Date.valueOf(itemList.get(2).getItemContent());					//지급일자
-					reportNo = selectedReport.getReportNo();																//근거결재 문서번호
+					int selfDevNo = Integer.parseInt(itemList.get(1).getItemContent());										  //자기개발비 번호
+					memberNo = selectedReport.getMemberNo();																  //신청자 사번
+					java.sql.Date depositDate = java.sql.Date.valueOf(itemList.get(2).getItemContent());					  //지급일자
+					reportNo = selectedReport.getReportNo();																  //근거결재 문서번호
 					
-					selfDevelopmetLogDTO.setDevelopmentNo(selfDevNo);														//자기개발비 번호
-					selfDevelopmetLogDTO.setMemberNo(memberNo);																//사번
-					selfDevelopmetLogDTO.setDepositDate(depositDate);														//청구일
-					selfDevelopmetLogDTO.setReportNo(reportNo);																//결재 문서 번호
+					selfDevelopmetLogDTO.setDevelopmentNo(selfDevNo);														  //자기개발비 번호
+					selfDevelopmetLogDTO.setMemberNo(memberNo);																  //사번
+					selfDevelopmetLogDTO.setDepositDate(depositDate);														  //청구일
+					selfDevelopmetLogDTO.setReportNo(reportNo);																  //결재 문서 번호
 					
 					int selfDevLog = welfareService.insertSelfDevLog(selfDevelopmetLogDTO);					
 				}
-				if(selectedReport.getDocumentNo() == 10) {																	//DOMITORY_WAITLIST로 간다.
+				if(selectedReport.getDocumentNo() == 10) {																	  //DOMITORY_WAITLIST로 간다.
 					
-					DomitoryWaitListDTO domitoryWaitListDTO = new DomitoryWaitListDTO();									//정보값을 담아줄 DTO선언
+					DomitoryWaitListDTO domitoryWaitListDTO = new DomitoryWaitListDTO();									  //정보값을 담아줄 DTO선언
 					
-					memberNo = selectedReport.getMemberNo();																//입주신청자 번호
-					String memberName = selectedReport.getMemberName();														//입주신청자
-					java.sql.Date hopeDate = java.sql.Date.valueOf(itemList.get(2).getItemContent());						//입주희망일을 받아온다.
+					memberNo = selectedReport.getMemberNo();																  //입주신청자 번호
+					String memberName = selectedReport.getMemberName();														  //입주신청자
+					java.sql.Date hopeDate = java.sql.Date.valueOf(itemList.get(2).getItemContent());						  //입주희망일을 받아온다.
 					
 					domitoryWaitListDTO.setMemberNo(memberNo);
 					domitoryWaitListDTO.setMemberName(memberName);
@@ -348,21 +348,21 @@ public class SelectOneWaitingApprovalServlet extends HttpServlet {
 					int result = welfareService.insertDomitoryWaitList(domitoryWaitListDTO);
 				}
 				
-				if(selectedReport.getDocumentNo() == 11) {}																	//회의실은 결재가 없다.
+				if(selectedReport.getDocumentNo() == 11) {}																	  //회의실은 결재가 없다.
 				
-				if(selectedReport.getDocumentNo() == 12) {																	//복지물품 대여신청
+				if(selectedReport.getDocumentNo() == 12) {																	  //복지물품 대여신청
 					
-					ItemDTO itemDTO = new ItemDTO();																		//복지물품DTO 선언
+					ItemDTO itemDTO = new ItemDTO();																		  //복지물품DTO 선언
 					
-					memberNo = selectedReport.getMemberNo();																//memberNo						신청자번호
-					java.sql.Date returnDueDate = java.sql.Date.valueOf(itemList.get(1).getItemContent());					//returndueDate(returnDueDate)	반납일
-					int itemNo = Integer.parseInt(itemList.get(2).getItemContent());										//itemNO						아이템번호
+					memberNo = selectedReport.getMemberNo();																  //memberNo						신청자번호
+					java.sql.Date returnDueDate = java.sql.Date.valueOf(itemList.get(1).getItemContent());					  //returndueDate(returnDueDate)	반납일
+					int itemNo = Integer.parseInt(itemList.get(2).getItemContent());										  //itemNO						아이템번호
 					
-					itemDTO.setMemberNo(memberNo);																			//DTO에 신청자 사번 삽입
-					itemDTO.setReturnDueDate(returnDueDate);																//DTO에 반납예정일 삽입
-					itemDTO.setItemNo(itemNo);																				//DTO에 신청 아이템 번호삽입
+					itemDTO.setMemberNo(memberNo);																			  //DTO에 신청자 사번 삽입
+					itemDTO.setReturnDueDate(returnDueDate);																  //DTO에 반납예정일 삽입
+					itemDTO.setItemNo(itemNo);																				  //DTO에 신청 아이템 번호삽입
 					
-					int insertItemLog = welfareService.insertItemLog(itemDTO);												//서비스 실행
+					int insertItemLog = welfareService.insertItemLog(itemDTO);												  //서비스 실행
 					int updateItemStatus = welfareService.updateItemStatus(itemNo);
 					
 				}
@@ -381,7 +381,7 @@ public class SelectOneWaitingApprovalServlet extends HttpServlet {
 			System.out.println("성공당함 :"+ApproverStatus);
 			
 		}else {
-			// 4.b 반려했으면 상신번호에 대한상신테이블의 상태를 '반려'로 변경
+			/* 4.b 반려했으면 상신번호에 대한상신테이블의 상태를 '반려'로 변경 */
 			result3 = approvalService.finishAppReport(thisAPR);
 			System.out.println("반려당함 :"+ApproverStatus);
 		}
