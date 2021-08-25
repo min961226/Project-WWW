@@ -29,8 +29,7 @@ public class SelectAppliedWelfareListServlet extends HttpServlet {
 
 		HttpSession session = request.getSession();
 
-		int memberNo = ((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo(); // 세션에 저장된 멤버 번호를 가져온다
-		/*-----------------------------------------------------------------------------------------------------------------------*/
+		int memberNo = ((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo(); 							// 세션에 저장된 멤버 번호를 가져온다
 		/*
 		 * 목록보기를 눌렀을 시 가장 처음에 보여지는 페이지는 1페이지이다. 파라미터로 전달되는 페이지가 있는 경우 currentPage는 파라미터로
 		 * 전달받은 페이지 수 이다.
@@ -43,8 +42,8 @@ public class SelectAppliedWelfareListServlet extends HttpServlet {
 		}
 
 		
-		if (pageNo <= 0) {																		//0보다 작은 숫자값을 입력해도 1페이지를 보여준다
-			pageNo = 1;
+		if (pageNo <= 0) {																							//0보다 작은 숫자값을 입력해도 1페이지를 보여준다
+			pageNo = 1;	
 		}
 
 		/* 검색에 사용할것 */
@@ -54,18 +53,18 @@ public class SelectAppliedWelfareListServlet extends HttpServlet {
 		Map<String, String> searchMap = new HashMap<>();
 		searchMap.put("searchCondition", searchCondition);
 		searchMap.put("searchValue", searchValue);
-
-		HashMap<String, Object> countMap = new HashMap<>();										//검색값들에 해당하는 사번을 넣어준다
+		/* 	검색값들에 해당하는 사번을 넣어준다 */
+		HashMap<String, Object> countMap = new HashMap<>();									
 		countMap.put("memberNo", memberNo);
 		countMap.put("searchMap", searchMap);
 
 		Pagenation pagenation = new Pagenation();
 
-		int totalCount = new WelfareService().selectMyWelfareListCount(countMap); 				//totalCount 는 DB에 가서 총 게시물 수를 세어와야 함 count(*) 중, where 삭제안된거.
-
-		int limit = 10;																			//limit는 한 페이지에서 보여지는 게시물 수
-
-		int buttonAmount = 5;																	//buttonAmount는 한번에 보여줄 버튼 수
+		int totalCount = new WelfareService().selectMyWelfareListCount(countMap); 				
+		/* limit는 한 페이지에서 보여지는 게시물 수 */
+		int limit = 10;																			
+		/* buttonAmount는 한번에 보여줄 버튼 수 */
+		int buttonAmount = 5;																	
 
 		SelectCriteria selectCriteria = null;
 
@@ -75,13 +74,12 @@ public class SelectAppliedWelfareListServlet extends HttpServlet {
 			selectCriteria = Pagenation.getSelectCriteria(pageNo, totalCount, limit, buttonAmount);
 		}
 
-		/*-----------------------------------------------------------------------------------------------------------------------*/
 		HashMap<String, Object> selectedInfoMap = new HashMap<>();
 		selectedInfoMap.put("memberNo", memberNo);
 		selectedInfoMap.put("selectCriteria", selectCriteria);
 		
-		List<ReportDTO> appliedWelfareList = new WelfareService().selectAppliedWelfareList(selectedInfoMap); // 멤버 번호에 해당하는 신청
-																											// 복지 목록을 가져온다.
+		List<ReportDTO> appliedWelfareList = new WelfareService().selectAppliedWelfareList(selectedInfoMap); 		// 멤버 번호에 해당하는 신청
+																													// 복지 목록을 가져온다.
 		request.setAttribute("appliedWelfareList", appliedWelfareList);
 		request.setAttribute("selectCriteria", selectCriteria);
 		request.getRequestDispatcher("/WEB-INF/views/welfare/appliedWelfareList.jsp").forward(request, response);

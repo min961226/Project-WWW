@@ -21,8 +21,8 @@ public class UpdateMngWelfareListServlet extends HttpServlet {
 		MngWelfareService mngWelfareService = new MngWelfareService();
 	
 		
-		int nightTransNo = Integer.parseInt(request.getParameter("nightTransNo"));		//시행복지 문서번호
-		String nightTransYn = request.getParameter("nightTransYn");						//시행복지 여부
+		int nightTransNo = Integer.parseInt(request.getParameter("nightTransNo"));								//문서번호
+		String nightTransYn = request.getParameter("nightTransYn");												//체크박스 선택 여부
 		int eventNo = Integer.parseInt(request.getParameter("eventNo"));
 		String eventYn = request.getParameter("eventYn");
 		int selfDevNo = Integer.parseInt(request.getParameter("selfDevNo"));
@@ -34,7 +34,8 @@ public class UpdateMngWelfareListServlet extends HttpServlet {
 		int laptopNo = Integer.parseInt(request.getParameter("laptopNo"));
 		String laptopYn = request.getParameter("laptopYn");
 		
-		if (nightTransYn == null) {														// 시행복지를 off 할경우 null값으로 뜬다.
+		/* 시행복지를 off 할경우 null값으로 뜬다. */
+		if (nightTransYn == null) {														
 			nightTransYn ="N";
 		}else {
 			nightTransYn ="Y";
@@ -65,7 +66,7 @@ public class UpdateMngWelfareListServlet extends HttpServlet {
 			laptopYn ="Y";
 		}
 		
-		WelfareYnDTO nightTransYnDTO = new WelfareYnDTO();								// 각각의 데이터 값을 담기위한 인스턴스 생성
+		WelfareYnDTO nightTransYnDTO = new WelfareYnDTO();
 		WelfareYnDTO eventYnDTO = new WelfareYnDTO();
 		WelfareYnDTO selfDevYnDTO = new WelfareYnDTO();
 		WelfareYnDTO domitoryYnDTO = new WelfareYnDTO();
@@ -92,11 +93,12 @@ public class UpdateMngWelfareListServlet extends HttpServlet {
 		int result5 = mngWelfareService.updateWelfare(seminarYnDTO);
 		int result6 = mngWelfareService.updateWelfare(laptopYnDTO);
 		
-		int result = result1 + result2 + result3 + result4 + result5 + result6;				//모든 데이터 값들이 업데이트 될경우 6이라는 값이나온다.
-
+		/* 모든 데이터들이 성공한 값 */
+		int result = result1 + result2 + result3 + result4 + result5 + result6;
+		
 		String path = "";
-
-		if(result > 5 ) {																	//모든 업데이트가 성공하였을경우
+		/* 모든 업데이트가 성공하였을경우 */
+		if(result > 5 ) {																					
 			path = "/WEB-INF/views/common/success.jsp";
 			request.setAttribute("successCode", "updateWelfare");
 		} else {

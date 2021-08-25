@@ -20,8 +20,8 @@ public class SelectMngDomitoryWelfareServlet extends HttpServlet {
 		WelfareService welfareService = new WelfareService();
 
 		String path = "";
-
-		List<DomitoryListDTO> domitoryList = welfareService.selectDomitory();													//domitory에 해당하는 리스트를 전부 가져옴
+		/* 	기숙사 리스트를 전부 가져옴 */
+		List<DomitoryListDTO> domitoryList = welfareService.selectDomitory();												
 		request.setAttribute("domitoryList", domitoryList);
 		path = "/WEB-INF/views/mngwelfare/domitory.jsp";
 		

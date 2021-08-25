@@ -52,8 +52,6 @@ public class SelectOneWaitingApprovalServlet extends HttpServlet {
 		AttachmentDTO attachmentDTO = new AttachmentService().selectAttachmentByReportNo(selectedReport.getReportNo()); // reportNo로
 																														// 값을
 																														// 갖고옴
-		System.out.println(attachmentDTO);
-
 		List<WorkingDocumentItemDTO> itemList = new ApprovalService().selectReportItemList(no);
 		List<ApproverLogPerReportDTO> ALPRList = new ApprovalService().selectALPRList(no);
 

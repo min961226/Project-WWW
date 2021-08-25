@@ -263,12 +263,12 @@
                    AND A.DOCUMENT_NO IN(7,8,9,10,11,12)
                </where>
        			 ORDER BY A.REPORT_NO DESC
-                ) B
-          <![CDATA[
-          WHERE ROWNUM <= #{ endRow }
-          ]]>
-        ) C
-   WHERE C.RNUM >= #{ startRow } 
+                	   ) B
+          		<![CDATA[
+          		 WHERE ROWNUM <= #{ endRow }
+          		]]>
+        	   ) C
+   		 WHERE C.RNUM >= #{ startRow }
 	</select>
 	
 	<select id="selectSeminarRoom" resultMap="seminarRoomListResultMap">
@@ -363,24 +363,24 @@
 	     	 		   , A.ITEM_NAME
 	     	 		   , A.RESERVATION_STATUS
                     FROM TBL_LAPTOP A
-              <where>
-				<if test="searchCondition == 'category'">
-                       A.ITEM_CATEGORY LIKE '%' || #{ searchValue } || '%'    
+              	<where>
+					<if test="searchCondition == 'category'">
+                         A.ITEM_CATEGORY LIKE '%' || #{ searchValue } || '%'    
                		</if>
                		<if test="searchCondition == 'name'">
-                       A.ITEM_NAME LIKE '%' || #{ searchValue } || '%'    
+                         A.ITEM_NAME LIKE '%' || #{ searchValue } || '%'    
                		</if>
                		<if test="searchCondition == 'status'">
-                       A.RESERVATION_STATUS LIKE '%' || #{ searchValue } || '%'    
+                         A.RESERVATION_STATUS LIKE '%' || #{ searchValue } || '%'    
                		</if>
-				   AND A.DELETE_YN = 'N'
-               </where>
-                ) B
-          <![CDATA[
-          WHERE ROWNUM <= #{ endRow }
-          ]]>
-        ) C
-   WHERE C.RNUM >= #{ startRow } 
+				   	 AND A.DELETE_YN = 'N'
+               	</where>
+               		   ) B
+          		<![CDATA[
+          		 WHERE ROWNUM <= #{ endRow }
+          		]]>
+        	   ) C
+   		 WHERE C.RNUM >= #{ startRow } 
 	</select>
 	
 	<select id= "selectOneLaptop" resultType="String">

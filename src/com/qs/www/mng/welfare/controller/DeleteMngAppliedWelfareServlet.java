@@ -1,4 +1,4 @@
-package com.qs.www.mng.welfare.controller;
+ package com.qs.www.mng.welfare.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -34,3 +34,4 @@ public class DeleteMngAppliedWelfareServlet extends HttpServlet {
 		request.getRequestDispatcher(path).forward(request, response);
 	}
 }
+ 

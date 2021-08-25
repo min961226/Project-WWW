@@ -19,7 +19,8 @@ public class SelectWelfareListServlet extends HttpServlet {
 			throws ServletException, IOException {
 		
 		WelfareService welfareService = new WelfareService();			
-		List<String> welfareList = welfareService.checkWelfareList();							//현재 시행중인 복지 목록
+		/* 시행중인 복지 목록 */
+		List<String> welfareList = welfareService.checkWelfareList();							
 		
 		String path = "";
 			if(welfareList != null) {

@@ -19,17 +19,19 @@ public class DeleteLeaveMngDomitoryWelfareServlet extends HttpServlet {
 		
 		MngWelfareService mngWelfareService = new MngWelfareService();
 		
-		int logNo = Integer.parseInt(request.getParameter("logNo"));																				//로그 명단에 퇴거기록을 남기기 위한 로그 번호
-		int domitoryManageNo = Integer.parseInt(request.getParameter("domitoryNo"));																//선택한 입주자를 퇴거시키기 위한 기숙사 번호
-		String outReason = request.getParameter("reason");
+		int logNo = Integer.parseInt(request.getParameter("logNo"));																				//기숙사 로그번호
+		int domitoryManageNo = Integer.parseInt(request.getParameter("domitoryNo"));																//기숙사 번호
+		String outReason = request.getParameter("reason");																							//퇴거사유
 		DomitoryLogDTO domitoryLogDTO = new DomitoryLogDTO();
 		
 		domitoryLogDTO.setLogNo(logNo);
 		domitoryLogDTO.setOutReason(outReason);
 		
-		int updateOutReason = new MngWelfareService().updateOutReason(domitoryLogDTO);																//퇴거사유 기입
+		/* 기입한 퇴거사유를 삽입한다.*/
+		int updateOutReason = new MngWelfareService().updateOutReason(domitoryLogDTO);																
 		
-		int minusDomitoryCapacity = mngWelfareService.minusDomitoryCapacity(domitoryManageNo);														//기숙사 현재 거주 명단에서 1명을 빼준다.	
+		/* 기숙사 현재 거주 인원수에서 1명을 빼준다*/
+		int minusDomitoryCapacity = mngWelfareService.minusDomitoryCapacity(domitoryManageNo);	
 		
 		String path = "";
 		if(updateOutReason > 0 && minusDomitoryCapacity > 0 ) {

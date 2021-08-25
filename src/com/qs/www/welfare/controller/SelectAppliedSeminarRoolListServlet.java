@@ -28,10 +28,8 @@ public class SelectAppliedSeminarRoolListServlet extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 
-		int memberNo = ((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo();			//사번
+		int memberNo = ((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo();						//사번
 		
-		
-		/*-----------------------------------------------------------------------------------------------------------------------*/
 		/*
 		 * 목록보기를 눌렀을 시 가장 처음에 보여지는 페이지는 1페이지이다. 파라미터로 전달되는 페이지가 있는 경우 currentPage는 파라미터로
 		 * 전달받은 페이지 수 이다.
@@ -43,8 +41,8 @@ public class SelectAppliedSeminarRoolListServlet extends HttpServlet {
 			pageNo = Integer.parseInt(currentPage);
 		}
 
-		
-		if (pageNo <= 0) {																			//0보다 작은 숫자값을 입력해도 1페이지를 보여준다 
+		/* 페이지는 1보다 작을 수 없음*/
+		if (pageNo <= 0) {																			
 			pageNo = 1;	
 		}
 
@@ -62,12 +60,13 @@ public class SelectAppliedSeminarRoolListServlet extends HttpServlet {
 
 		Pagenation pagenation = new Pagenation();
 
-		int totalCount = new WelfareService().selectMySeminarRoomListCount(countMap);				//totalCount 는 DB에 가서 총 게시물 수를 세어와야 함 count(*) 중, where 삭제안된거.
-
-		int limit = 5;																				//limit는 한 페이지에서 보여지는 게시물 수
-
-
-		int buttonAmount = 5;																		//buttonAmount는 한번에 보여줄 버튼 수
+		/* 회의실이 몇개 있는지 갯수를 리턴한다*/
+		int totalCount = new WelfareService().selectMySeminarRoomListCount(countMap);				
+		
+		/* 한페이지에서 최대 게시물수*/
+		int limit = 5;																				
+		/* 최대 버튼수 */
+		int buttonAmount = 5;																		
 
 		SelectCriteria selectCriteria = null;
 
@@ -80,9 +79,9 @@ public class SelectAppliedSeminarRoolListServlet extends HttpServlet {
 		HashMap<String, Object> selectedInfoMap = new HashMap<>();
 		selectedInfoMap.put("memberNo", memberNo);
 		selectedInfoMap.put("selectCriteria", selectCriteria);
-		/*-----------------------------------------------------------------------------------------------------------------------*/
 		
-		List<SeminarRoomReservDTO> seminarRoomList = new WelfareService().selectSeminarRoomByMemberNo(selectedInfoMap);		//회의실 리스트
+		/* 회의실 예약내역 */
+		List<SeminarRoomReservDTO> seminarRoomList = new WelfareService().selectSeminarRoomByMemberNo(selectedInfoMap);		
 		
 		request.setAttribute("seminarRoomList", seminarRoomList);
 		request.setAttribute("selectCriteria", selectCriteria);

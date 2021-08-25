@@ -20,10 +20,11 @@ public class InsertCompleteMngLaptopRentalWelfareServlet extends HttpServlet {
 		String itemCategory = request.getParameter("itemCategory");
 		String itemName = request.getParameter("itemName");
 		
-		itemDTO.setItemCategory(itemCategory);
-		itemDTO.setItemName(itemName);
+		itemDTO.setItemCategory(itemCategory);												//물품 카테고리
+		itemDTO.setItemName(itemName);														//물품명
 		
-		int result = new MngWelfareService().insertItem(itemDTO);															//아이템 삽입 성공여부를 숫자로 리턴받는다.
+		/* 입력된 물품 카테고리와 물품 명을 삽입한다 */
+		int result = new MngWelfareService().insertItem(itemDTO);															
 		
 		String path = "";
 		if(result > 0 ) {																				

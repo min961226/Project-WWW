@@ -15,10 +15,12 @@ public class DeleteAppliedWelfareServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int no = Integer.parseInt(request.getParameter("no"));									//선택된 리포트 번호
+		int no = Integer.parseInt(request.getParameter("no"));									//결재 문서 번호
 		
-		int result1 =  new ApprovalService().callbackSelectedReport(no);						// 상신별 결재자들의 상태를 미처리로 변경
-		int result2 =  new ApprovalService().callbackApproverPerReport(no);						//상신 테이블에서 결재상태를 회수로 변경
+		/* 상신별 결재자들의 상태를 미처리로 변경 */
+		int result1 =  new ApprovalService().callbackSelectedReport(no);
+		/* 상신 테이블에서 결재 번호로 결재상태를 회수로 변경 */
+		int result2 =  new ApprovalService().callbackApproverPerReport(no);						
 
 		String path = "";
 		

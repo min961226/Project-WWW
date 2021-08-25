@@ -18,7 +18,8 @@ public class InsertMngLaptopRentalWelfareServlet extends HttpServlet {
 
 		MngWelfareService mngWelfareService = new MngWelfareService();
 		
-		int nextItemNo = mngWelfareService.selectNextItemNo();													//물품값을 추가해주기 위한 다음 번호값 가져오기
+		/* 물품값을 추가해주기 위한 다음 번호값 가져오기 */
+		int nextItemNo = mngWelfareService.selectNextItemNo();													
 		
 		String path = "/WEB-INF/views/mngwelfare/insertLaptopRental.jsp";
 		request.setAttribute("nextItemNo", nextItemNo);

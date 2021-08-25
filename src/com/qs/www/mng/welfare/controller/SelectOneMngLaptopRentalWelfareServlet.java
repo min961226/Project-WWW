@@ -20,8 +20,10 @@ public class SelectOneMngLaptopRentalWelfareServlet extends HttpServlet {
 		MngWelfareService mngWelfareService = new MngWelfareService();
 		int itemNo =Integer.parseInt(request.getParameter("no"));
 		
-		List<ItemDTO> itemLog = mngWelfareService.selectAllItemLog(itemNo);				//예전 대여한기록, 반납된 값 가져오기
-		ItemDTO item = mngWelfareService.selectOneItemLog(itemNo);						//현재 대여자 값 갖고오기
+		/* 품목 번호로 대여기록 반납기록 가져오기 */
+		List<ItemDTO> itemLog = mngWelfareService.selectAllItemLog(itemNo);				
+		/* 현재 대여자 값 갖고오기 */
+		ItemDTO item = mngWelfareService.selectOneItemLog(itemNo);						
 		
 		request.setAttribute("itemLog",itemLog);
 		request.setAttribute("item", item);

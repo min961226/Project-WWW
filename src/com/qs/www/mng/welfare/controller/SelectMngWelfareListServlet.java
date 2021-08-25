@@ -17,8 +17,9 @@ public class SelectMngWelfareListServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		MngWelfareService mngWelfareService = new MngWelfareService();							
-		List<WelfareYnDTO> welfareYn = mngWelfareService.selectWelfareYn();						//전체 복지 목록
+		MngWelfareService mngWelfareService = new MngWelfareService();
+		/* 전체 복지 목록의 시행 상태를 가져옴*/
+		List<WelfareYnDTO> welfareYn = mngWelfareService.selectWelfareYn();						
 		
 		request.setAttribute("welfareYn", welfareYn);
 

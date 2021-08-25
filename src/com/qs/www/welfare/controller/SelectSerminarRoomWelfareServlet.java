@@ -30,8 +30,10 @@ public class SelectSerminarRoomWelfareServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		
 		int roomNo = Integer.parseInt(request.getParameter("no"));												//선택한 세미나실 번호
-		List<SeminarRoomReservDTO> seminarRoomReserv = welfareService.selectSeminarRoomReserv(roomNo); 			//번호로 예약 내역 가져옴
-		List<SeminarReservTimeDTO> seminarReservTime = welfareService.selectSeminarReservTime();				//사용할 시간 가져옴
+		/* 예약 내역 가져옴*/
+		List<SeminarRoomReservDTO> seminarRoomReserv = welfareService.selectSeminarRoomReserv(roomNo); 			
+		/* 사용 가능한 시간 목록 가져옴*/
+		List<SeminarReservTimeDTO> seminarReservTime = welfareService.selectSeminarReservTime();				
 		
 		int memberNo = ((MemberInfoDTO) session.getAttribute("memberInfo")).getMemberNo();
 		String name = ((MemberInfoDTO) session.getAttribute("memberInfo")).getName();

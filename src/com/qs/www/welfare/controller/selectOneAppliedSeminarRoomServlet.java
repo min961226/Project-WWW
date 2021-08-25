@@ -28,19 +28,21 @@ public class selectOneAppliedSeminarRoomServlet extends HttpServlet {
 			throws ServletException, IOException {
 		
 		int no = Integer.parseInt(request.getParameter("no"));
-		String useDate = request.getParameter("useDate");										//세미나실 사용일자
-		int reservNo =Integer.parseInt(request.getParameter("reservNo"));						//세미나실 사용 시간 번호
+		String useDate = request.getParameter("useDate");										//사용일자
+		int reservNo =Integer.parseInt(request.getParameter("reservNo"));						//사용 시간 번호
 
 		SeminarRoomReservDTO seminarRoomReservDTO = new SeminarRoomReservDTO();
 		seminarRoomReservDTO.setMeetingRoomNo(no);												//세미나실 번호
 		seminarRoomReservDTO.setUseDate(Date.valueOf(useDate));									//사용일자
 		seminarRoomReservDTO.setReservNo(reservNo);												//예약시간
 		
+		/* 본인이 예약한 회의실 리스트를 가져옴*/
 		SeminarRoomReservDTO selectSeminarRoom = new WelfareService().selectAppliedSeminarRoom(seminarRoomReservDTO);
 
 		LocalDate sysDate = LocalDate.now();
 		LocalDate seminarDate = LocalDate.parse(useDate);
-		Boolean isDatePassed = sysDate.isBefore(seminarDate);									//세미나실 예약일자가 지났는가?
+		/* 세미나실 예약일자가 지났는가? */ 
+		Boolean isDatePassed = sysDate.isBefore(seminarDate);									
 		
 		request.setAttribute("roomNo", selectSeminarRoom.getMeetingRoomNo());
 		request.setAttribute("memberNo", selectSeminarRoom.getMemberNo());

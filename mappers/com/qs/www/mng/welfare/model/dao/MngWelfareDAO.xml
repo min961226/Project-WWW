@@ -56,21 +56,21 @@
 
 		INSERT /* com.qs.www.mngwelfare.model.dao.MngWelfareDAO#insertItem() */
 	  	  INTO TBL_LAPTOP A
-			  (
-	  		    A.ITEM_NO
-			  , A.ITEM_CATEGORY
-			  , A.ITEM_NAME
-			  , A.RESERVATION_STATUS
-			  , A.DELETE_YN
-			  )
-			  VALUES
-			  (
-	  		    SEQ_LAPTOP_ITEM_NO.NEXTVAL
-			  , #{ itemCategory }
-			  , #{ itemName }
-			  , DEFAULT
-			  , DEFAULT
-			  )
+		(
+	  	  A.ITEM_NO
+		, A.ITEM_CATEGORY
+		, A.ITEM_NAME
+		, A.RESERVATION_STATUS
+		, A.DELETE_YN
+		)
+		VALUES
+		(
+	  	  SEQ_LAPTOP_ITEM_NO.NEXTVAL
+		, #{ itemCategory }
+		, #{ itemName }
+		, DEFAULT
+		, DEFAULT
+		)
 	</insert>
 	
 	<update id="deleteItem" parameterType="java.util.List">
@@ -141,23 +141,23 @@
 
 		INSERT /* com.qs.www.mngwelfare.model.dao.MngWelfareDAO#insertDomitoryLog() */
 		  INTO TBL_DOMITORY_LOG A
-		 	 (
-	  	   	   A.LOG_NO
-		 	 , A.IN_DATE
-		 	 , A.OUT_DATE
-		 	 , A.OUT_REASON
-		 	 , A.DOMITORY_MANAGE_NO
-		 	 , A.MEMBER_NO
-		 	 )
-		 	 VALUES
-		 	 (
-	  	   	   SEQ_DOMITORY_LOG_NO.NEXTVAL
-		 	 , SYSDATE
-		 	 , DEFAULT
-		 	 , DEFAULT
-		 	 , #{ domitoryManageNo }
-		 	 , #{ memberNo }
-		 	 )
+		(
+	  	  A.LOG_NO
+		, A.IN_DATE
+		, A.OUT_DATE
+		, A.OUT_REASON
+		, A.DOMITORY_MANAGE_NO
+		, A.MEMBER_NO
+		)
+		VALUES
+		(
+	  	  SEQ_DOMITORY_LOG_NO.NEXTVAL
+		, SYSDATE
+		, DEFAULT
+		, DEFAULT
+		, #{ domitoryManageNo }
+		, #{ memberNo }
+		)
 	</insert>  
 	
 	<delete id="deleteDomitoryWaitList" >

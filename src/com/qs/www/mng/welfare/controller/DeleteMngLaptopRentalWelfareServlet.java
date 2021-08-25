@@ -22,7 +22,6 @@ public class DeleteMngLaptopRentalWelfareServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		WelfareService welfareService = new WelfareService();
-		/*-----------------------------------------------------------------------------------------------------------------------*/
 		/*
 		 * 목록보기를 눌렀을 시 가장 처음에 보여지는 페이지는 1페이지이다. 파라미터로 전달되는 페이지가 있는 경우 currentPage는 파라미터로
 		 * 전달받은 페이지 수 이다.
@@ -44,17 +43,20 @@ public class DeleteMngLaptopRentalWelfareServlet extends HttpServlet {
 		String searchValue = request.getParameter("searchValue");
 
 		Map<String, String> searchMap = new HashMap<>();
-		searchMap.put("searchCondition", searchCondition);
-		searchMap.put("searchValue", searchValue);
+		searchMap.put("searchCondition", searchCondition);														//검색명
+		searchMap.put("searchValue", searchValue);																//검색값
 
 
 		Pagenation pagenation = new Pagenation();
 
-		int totalCount = new WelfareService().selectItemsListCount(searchMap);										//totalCount 는 DB에 가서 총 게시물 수를 세어와야 함 count(*) 중, where 삭제안된거.
+		/* totalCount 는 DB에 가서 총 게시물 수를 세어와야 함 count(*) 중, where 삭제안된거. */
+		int totalCount = new WelfareService().selectItemsListCount(searchMap);										
+		
+		/* limit는 한 페이지에서 보여지는 게시물 수 */
+		int limit = 10;																								
 
-		int limit = 10;																								//limit는 한 페이지에서 보여지는 게시물 수
-
-		int buttonAmount = 5;																						//buttonAmount는 한번에 보여줄 버튼 수
+		/* buttonAmount는 한번에 보여줄 버튼 수 */
+		int buttonAmount = 5;																						
 
 		SelectCriteria selectCriteria = null;
 
@@ -64,11 +66,10 @@ public class DeleteMngLaptopRentalWelfareServlet extends HttpServlet {
 			selectCriteria = Pagenation.getSelectCriteria(pageNo, totalCount, limit, buttonAmount);
 		}
 
-		/*-----------------------------------------------------------------------------------------------------------------------*/
 		List<LaptopDTO> laptopList = welfareService.selectLaptopList(selectCriteria);
 		
-		request.setAttribute("laptopList", laptopList);																//노트북목록
-		request.setAttribute("selectCriteria", selectCriteria);
+		request.setAttribute("laptopList", laptopList);															//노트북목록
+		request.setAttribute("selectCriteria", selectCriteria);													//검색정보
 		String path = "/WEB-INF/views/mngwelfare/deleteLaptop.jsp";
 		request.getRequestDispatcher(path).forward(request, response);
 	}

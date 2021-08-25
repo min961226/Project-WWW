@@ -29,7 +29,7 @@ import com.qs.www.welfare.model.dto.FamilyEventDTO;
 import com.qs.www.welfare.model.dto.WelfareListDTO;
 import com.qs.www.welfare.model.service.WelfareService;
 
-/*--------------------서블릿 3.0 파트 api 사용을 위한 multipartconfig 참조 선언 --------------*/
+/* 서블릿 3.0 파트 api 사용을 위한 multipartconfig 참조 선언 */
 @MultipartConfig(
         location = "C:\\WWW\\Project-WWW\\web\\upload",								//임시저장 경로
         maxFileSize = 1024*1024*10,													//파일 허용 최대 크기
@@ -38,19 +38,14 @@ import com.qs.www.welfare.model.service.WelfareService;
 @WebServlet("/welfare/nightTransportation/insert")
 public class InsertNightTransportationWelfareServlet extends HttpServlet {
 
-	/* ---------------------------------파일 업로드 서비스-----------------------------------------*/
 	private static final String ATTACHES_REPORT = "C:\\WWW\\Project-WWW\\web\\upload\\report";							//경로지정				
-	/* ---------------------------------파일 업로드 서비스-----------------------------------------*/
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
 		WelfareService welfareService = new WelfareService();
 		ApprovalService approvalService = new ApprovalService();
-		/* ---------------------------------파일 업로드 서비스-----------------------------------------*/
-		AttachmentService attachmentService = new AttachmentService();													//서비스 인스턴스 생성
-		/* ---------------------------------파일 업로드 서비스-----------------------------------------*/
-
+		AttachmentService attachmentService = new AttachmentService();													
 		String welfareTitle = "야간 교통비 신청"; 																			// 결재 제목
 		int documentNo = 7; 																							// 야간 교통비 신청 문서 번호
 		
@@ -122,7 +117,6 @@ public class InsertNightTransportationWelfareServlet extends HttpServlet {
 			}
 		}
 		
-/*---------------------------------------------------------------------------파일 업로드---------------------------------------------------------------------*/
 		response.setContentType("text/html; charset=UTF-8");																				//UTF-8로 한번 더 인코딩 해주어야함
 		PrintWriter out = response.getWriter();
         String contentType = request.getContentType();
@@ -165,12 +159,12 @@ public class InsertNightTransportationWelfareServlet extends HttpServlet {
                 } else {
                 }
             }
-        } else {																															//enctype이 multipart/form-data가  아님
+        /* enctype이 multipart/form-data가 아닐경우*/
+        } else {																															
         }
         
         
 
-        /*---------------------------------------------------------------------------파일 업로드---------------------------------------------------------------------*/
 	
 
 		String path = "";

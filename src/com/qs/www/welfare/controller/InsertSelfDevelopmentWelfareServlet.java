@@ -39,24 +39,21 @@ import com.qs.www.welfare.model.service.WelfareService;
 @WebServlet("/welfare/selfDevelopment/insert")
 public class InsertSelfDevelopmentWelfareServlet extends HttpServlet {
 
-	/* ---------------------------------파일 업로드 서비스-----------------------------------------*/
 	private static final String ATTACHES_REPORT = "C:\\WWW\\Project-WWW\\web\\upload\\report";							//경로지정				
-	/* ---------------------------------파일 업로드 서비스-----------------------------------------*/
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 		WelfareService welfareService = new WelfareService();
-		/* ---------------------------------파일 업로드 서비스-----------------------------------------*/
-		AttachmentService attachmentService = new AttachmentService();													//서비스 인스턴스 생성
-		/* ---------------------------------파일 업로드 서비스-----------------------------------------*/
+		AttachmentService attachmentService = new AttachmentService();													
 		
-		int documentNo = 9; 													// 자기개발비 신청 문서 번호
-		int developmentNo = 0;													// 신청목적 번호
-		String welfareTitle = "자기개발비 신청"; 									// 결재 제목
+		int documentNo = 9; 																							// 자기개발비 신청 문서 번호
+		int developmentNo = 0;																							// 신청목적 번호
+		String welfareTitle = "자기개발비 신청"; 																			// 결재 제목
 		int lineNo = Integer.parseInt(request.getParameter("lineList"));
 
-		switch (request.getParameter("selfDevList")) {							//신청목적=> 번호 도출
+		/* 신청목적을 가져와서 개발번호를 부여해줌 */
+		switch (request.getParameter("selfDevList")) {							
 		case "시험":
 			developmentNo=1;
 			break;
@@ -144,7 +141,6 @@ public class InsertSelfDevelopmentWelfareServlet extends HttpServlet {
 
         }
 		
-		/*---------------------------------------------------------------------------파일 업로드---------------------------------------------------------------------*/
 		response.setContentType("text/html; charset=UTF-8");																				//값이 넘어올때 다른 방식으로 인코딩되기때문에 한번더 인코딩해주어야함
 		PrintWriter out = response.getWriter();
         String contentType = request.getContentType();
@@ -181,19 +177,20 @@ public class InsertSelfDevelopmentWelfareServlet extends HttpServlet {
                         
                         resultFileUpload = attachmentService.insertFileUpload(fileMap);
                     }
+                    /* 파일을 첨부하지 않았을경우*/
                     }else {
                     	resultFileUpload = -1;
                     }
                 } else {
-                    String formValue =  request.getParameter(part.getName());																//파트로 찢긴값들 파일이 아닐경우 처리하는 파트
+                    String formValue =  request.getParameter(part.getName());																
                 }
             }
-        } else {																															//인코딩타입이 multipart for이아님
+        /* 인코딩타입이 multipart for이아님 */
+        } else {																															
         }
         
         
 
-        /*---------------------------------------------------------------------------파일 업로드---------------------------------------------------------------------*/
 		
 		String path = "";
 

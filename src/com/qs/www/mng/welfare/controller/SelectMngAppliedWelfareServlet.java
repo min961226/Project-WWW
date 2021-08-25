@@ -28,7 +28,6 @@ public class SelectMngAppliedWelfareServlet extends HttpServlet {
 
 		MngWelfareService mngWelfareService = new MngWelfareService();
 
-		/*-----------------------------------------------------------------------------------------------------------------------*/
 		/*
 		 * 목록보기를 눌렀을 시 가장 처음에 보여지는 페이지는 1페이지이다. 파라미터로 전달되는 페이지가 있는 경우 currentPage는 파라미터로
 		 * 전달받은 페이지 수 이다.
@@ -55,11 +54,14 @@ public class SelectMngAppliedWelfareServlet extends HttpServlet {
 
 		Pagenation pagenation = new Pagenation();
 
-		int totalCount = mngWelfareService.selectWaitingAPPCount(searchMap);					//totalCount 는 DB에 가서 총 게시물 수를 세어와야 함 count(*) 중, where 삭제안된거.
+		/* totalCount 는 DB에 가서 총 게시물 수를 세어와야 함 count(*) 중, where 삭제안된거. */
+		int totalCount = mngWelfareService.selectWaitingAPPCount(searchMap);					
 
-		int limit = 10;																			//limit는 한 페이지에서 보여지는 게시물 수
-
-		int buttonAmount = 5;																	//buttonAmount는 한번에 보여줄 버튼 수
+		/* limit는 한 페이지에서 보여지는 게시물 수 */
+		int limit = 10;
+		
+		/* buttonAmount는 한번에 보여줄 버튼 수 */
+		int buttonAmount = 5;																	
 
 		SelectCriteria selectCriteria = null;
 
@@ -70,8 +72,7 @@ public class SelectMngAppliedWelfareServlet extends HttpServlet {
 			selectCriteria = Pagenation.getSelectCriteria(pageNo, totalCount, limit, buttonAmount);
 		}
 
-		/*-----------------------------------------------------------------------------------------------------------------------*/
-
+		/* 전체 신청 복지 목록 */
 		List<ReportDTO> allAppliedWelfareList = mngWelfareService.selectAllAppliedWelfareList(selectCriteria);
 
 		request.setAttribute("selectCriteria", selectCriteria);

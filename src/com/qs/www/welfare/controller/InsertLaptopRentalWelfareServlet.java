@@ -26,16 +26,17 @@ import com.qs.www.welfare.model.service.WelfareService;
 public class InsertLaptopRentalWelfareServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String welfareTitle = "노트북 대여 신청서"; 																			// 결재 제목
+		String welfareTitle = "노트북 대여 신청서"; 																				// 결재 제목
 		int documentNo = 12; 																								// 노트북 대여 신청 문서 번호
 		
 		WelfareService welfareService = new WelfareService();
 		int lineNo = Integer.parseInt(request.getParameter("lineList"));													//결재 라인 번호
-		LocalDate sysDateAfterWeek = LocalDate.now().plusWeeks(2);															//시스템시간의 2주후
-		LocalDate pickDate = LocalDate.parse(request.getParameter("date"));													//데이터값에서 입력받아온 날짜
+		LocalDate sysDateAfterWeek = LocalDate.now().plusWeeks(2);															//2주후
+		LocalDate pickDate = LocalDate.parse(request.getParameter("date"));													//대여 날짜
 
 		String path = "";
-		if(sysDateAfterWeek.isAfter(pickDate)) {																			//대여기간이 2주보다 길경우 안됌.
+		/* 대여기간이 2주보다 길경우 안됌. */
+		if(sysDateAfterWeek.isAfter(pickDate)) {																			
 			
 			List<ApprovalLineDTO> lineList = new ApprovalService().selectApprovalLine(Integer.parseInt(request.getParameter("memberNo")));
 			
@@ -59,7 +60,7 @@ public class InsertLaptopRentalWelfareServlet extends HttpServlet {
 			int reportNo = welfareService.selectReportNum();													
 			int result1 = welfareService.insertWelfareReport(welfareListDTO);
 			
-			List<String> documentItem = new ArrayList<>();																	//document_item에 들어가는 값 설정
+			List<String> documentItem = new ArrayList<>();																	
 			documentItem.add(welfareTitle);
 			documentItem.add(request.getParameter("date"));
 			documentItem.add(request.getParameter("itemNo"));
@@ -68,7 +69,7 @@ public class InsertLaptopRentalWelfareServlet extends HttpServlet {
 			int priority = 1;
 			int result2 = 0;
 			
-			for(String item : documentItem) {																				//for문 지정후 itemcontent에 값 넣기
+			for(String item : documentItem) {																				
 				WorkingDocumentItemDTO documentItemDTO = new WorkingDocumentItemDTO();
 				documentItemDTO.setReportNo(reportNo);
 				documentItemDTO.setDocumentNo(documentNo);
@@ -80,7 +81,8 @@ public class InsertLaptopRentalWelfareServlet extends HttpServlet {
 				priority++;
 			}
 			
-			List<ApproverDTO> approverList = new ApprovalService().selectApprover(lineNo);									//라인번호로 결재 참조자 목록 가져오기
+			/* 결재자 가져오기 */
+			List<ApproverDTO> approverList = new ApprovalService().selectApprover(lineNo);
 			
 			int result3 = 0;
 			for(ApproverDTO approver : approverList) {																		//결재자 역활구분
@@ -110,7 +112,8 @@ public class InsertLaptopRentalWelfareServlet extends HttpServlet {
 				path = "/WEB-INF/views/common/failed.jsp";
 				request.setAttribute("failedCode", "insertLaptop");
 			}
-		}else {																												//빌린 기간이 2주보다 길경우
+		/*빌린 기간이 2주보다 길경우*/
+		}else {																												
 			path = "/WEB-INF/views/common/failed.jsp";
 			request.setAttribute("failedCode", "insertLaptopDateError");
 		}

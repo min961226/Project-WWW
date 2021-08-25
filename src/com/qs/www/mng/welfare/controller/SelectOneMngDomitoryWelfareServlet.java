@@ -19,22 +19,26 @@ public class SelectOneMngDomitoryWelfareServlet extends HttpServlet {
 		int waitingNo = Integer.parseInt(request.getParameter("waitingNo"));													//대기자 명단 번호
 		
 		MngWelfareService mngWelfareService = new MngWelfareService();
-
-		int memberNo = mngWelfareService.selectMemberNoByWaitingNo(waitingNo);													//선택된 no값으로 해당 인원의 멤버 번호 값을 갖고온다.
-		DomitoryLogDTO domitoryLogDTO = new  DomitoryLogDTO();																	//데이터 값을 옮겨 닮기위한 DTO 선언 결합성 낮춤
 		
-		domitoryLogDTO.setDomitoryManageNo(domitoryNo);
-		domitoryLogDTO.setMemberNo(memberNo);
+		/* 선택된 no값으로 해당 인원의 멤버 번호 값을 갖고온다. */
+		int memberNo = mngWelfareService.selectMemberNoByWaitingNo(waitingNo);													
+		DomitoryLogDTO domitoryLogDTO = new  DomitoryLogDTO();																	
 		
-		int insertDomitoryLog = mngWelfareService.insertDomitoryLog(domitoryLogDTO);											//LOG 값에 입주처리를 한다.
-		int deleteWaitList = mngWelfareService.deleteDomitoryWaitList(waitingNo);												//대기인원에서 해당인원을 삭제한다.
-		int updateDomitory = mngWelfareService.updateDomitoryCapacity(domitoryNo);												//입주현황에 입주자를 한명추가한다.
+		domitoryLogDTO.setDomitoryManageNo(domitoryNo);																			//기숙사번호
+		domitoryLogDTO.setMemberNo(memberNo);																					//사번
+		
+		/* 삽입된 값들을 로그에 기록한다 */
+		int insertDomitoryLog = mngWelfareService.insertDomitoryLog(domitoryLogDTO);		
+		/* 대기인원에서 해당인원을 삭제한다. */
+		int deleteWaitList = mngWelfareService.deleteDomitoryWaitList(waitingNo);		
+		/* 입주현황에 입주자를 한명추가한다. */
+		int updateDomitory = mngWelfareService.updateDomitoryCapacity(domitoryNo);												
 		
 		String path = "";
-		if(insertDomitoryLog > 0 && deleteWaitList > 0 && updateDomitory>0) {													//모든 서비스 성공시										
+		if(insertDomitoryLog > 0 && deleteWaitList > 0 && updateDomitory>0) {																					
 			path = "/WEB-INF/views/common/success.jsp";
 			request.setAttribute("successCode", "insertDomitoryLog");
-		} else {																												//한개의서비스라도 실패시
+		} else {																												
 			path = "/WEB-INF/views/common/failed.jsp";
 			request.setAttribute("failedCode", "insertDomitoryLog");
 		}

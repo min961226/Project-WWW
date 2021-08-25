@@ -39,9 +39,10 @@ public class InsertDomitoryWelfareServlet extends HttpServlet {
 
 		String lineName = "";
 
-		for (ApprovalLineDTO line : lineList) {														//라인리스트로부터 라인이름을가져온다.
+		/* 라인리스트로부터 라인이름을가져온다. */
+		for (ApprovalLineDTO line : lineList) {														
 			if (line.getLineNo() == lineNo) {
-				lineName = line.getLineName();
+				lineName = line.getLineName();														//결재 라인명
 			}
 		}
 
@@ -53,47 +54,56 @@ public class InsertDomitoryWelfareServlet extends HttpServlet {
 		welfareListDTO.setLineName(lineName);														//라인명
 		welfareListDTO.setWelfareTitle(welfareTitle);												//신청제목
 		
-		int reportNo = welfareService.selectReportNum();											//결재 문서 번호
-		int result1 = welfareService.insertWelfareReport(welfareListDTO);							//결재 상신
+		/* 마지막 결재 문서 번호 */
+		int reportNo = welfareService.selectReportNum();	
+		/* 결재 상신 */
+		int result1 = welfareService.insertWelfareReport(welfareListDTO);							
 
-		List<String> documentItem = new ArrayList<>();												//결재 세부 내용 넣기 위한 리스트 생성
+		/* 결재 세부 내용 넣기 위한 리스트 생성 */
+		List<String> documentItem = new ArrayList<>();												
 		documentItem.add(welfareTitle);																//제목
 		documentItem.add(address);																	//주소
 		documentItem.add(hopeDate);																	//입주희망일
 		documentItem.add(domitoryInfo);																//신청 사유
 
-		int priority = 1;																			//결재 세부 내용 순번
+		int priority = 1;																			//결재 내용 순번
 		int result2 = 0;
 
-		for (String item : documentItem) {															//결재 세부 내용 itemcontent에 넣기 위에 dto에 담기
+		/* 결재 세부 내용 itemcontent에 넣기 위에 dto에 담기 */
+		for (String item : documentItem) {															
 			WorkingDocumentItemDTO documentItemDTO = new WorkingDocumentItemDTO();
-			documentItemDTO.setReportNo(reportNo);
-			documentItemDTO.setDocumentNo(documentNo);
-			documentItemDTO.setPriority(priority);
-			documentItemDTO.setItemContent(item);
+			documentItemDTO.setReportNo(reportNo);													//결재 번호
+			documentItemDTO.setDocumentNo(documentNo);												//문서 번호
+			documentItemDTO.setPriority(priority);													//순번
+			documentItemDTO.setItemContent(item);													//문서 내용
 
 			result2 = welfareService.insertWelfareItemContent(documentItemDTO);
 
-			priority++;																				//아이템을 한번 넣고나면 priority 증가로 다른 값을 넣는다
+			/* 아이템을 한번 넣고나면 순번이 바뀌어야 하기 때문에 priority 증가로 다른 값을 넣는다 */
+			priority++;																				
 		}
 
-		List<ApproverDTO> approverList = new ApprovalService().selectApprover(lineNo);				//라인번호로 결재자명단을 갖고온다.
+		/* 라인번호로 결재자명단을 갖고온다. */
+		List<ApproverDTO> approverList = new ApprovalService().selectApprover(lineNo);				
 
 		int result3 = 0;
 		for(ApproverDTO approver : approverList) {													
             ApproverPerReportDTO approverPerReportDTO = new ApproverPerReportDTO();
             ScheduleService scheduleService = new ScheduleService();
-            if(approver.getApproverType().equals("결재")) {											//결재 상태가 최종결재일경우 상태를 결재 처리로 바꿔준다.
-                approverPerReportDTO.setReportNo(reportNo);
-                approverPerReportDTO.setMemberNo(approver.getMemberNo());
-                approverPerReportDTO.setPriority(approver.getPriority());
+            
+            /*결재 상태가 최종결재일경우 상태를 결재 처리로 바꿔준다. */
+            if(approver.getApproverType().equals("결재")) {											
+                approverPerReportDTO.setReportNo(reportNo);											//결재 번호
+                approverPerReportDTO.setMemberNo(approver.getMemberNo());							//결재자 번호
+                approverPerReportDTO.setPriority(approver.getPriority());							//순번
 
                 result3 = scheduleService.applyWorkingSystemApprover(approverPerReportDTO);
             } else {
-                approverPerReportDTO.setReportNo(reportNo);
-                approverPerReportDTO.setMemberNo(approver.getMemberNo());
-                approverPerReportDTO.setApproverType(approver.getApproverType());
+                approverPerReportDTO.setReportNo(reportNo);											//결재번호
+                approverPerReportDTO.setMemberNo(approver.getMemberNo());							//결재자 번호
+                approverPerReportDTO.setApproverType(approver.getApproverType());					//결재 상태
 
+                /* 다음 결재자를 위해서 결재 상태를 결재로 바꾸어준다 */
                 result3 = scheduleService.applyWorkingSystemReferer(approverPerReportDTO);
             }
 
